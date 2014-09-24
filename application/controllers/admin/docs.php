@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Docs extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,9 +19,41 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-#		$this->load->view('welcome_message');
-		$this->load->view('/admin/main');
+		$this->load->view('/admin/docs/main');
 	}
+
+	function test()
+	{
+	
+		$arr = array(array('a'=>1),array('b'=>2),array('c'=>3));
+		//$arr = array('a','b','c');
+		var_dump($arr);
+		echo "<BR><BR>";
+		$d = shuffle($arr);
+		var_dump($arr);
+	
+	}
+	
+	public function body()
+	{
+		$this->load->view('/admin/docs/body');
+	}
+	
+	public function tab01()
+	{
+		$this->load->view('/admin/docs/tab01');
+	}
+	
+	public function tab02()
+	{
+		$this->load->view('/admin/docs/tab02');
+	}
+	
+	public function tab03()
+	{
+		$this->load->view('/admin/docs/tab03');
+	}
+	
 }
 
 /* End of file welcome.php */
