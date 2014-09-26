@@ -32,6 +32,11 @@ class User extends CI_Controller {
 		$this->load->view('/common/user/viewDealer');
 	}
 
+	public function listCntry()
+	{
+		$this->load->view('/common/user/listCntry');
+	}
+
 	public function listDealerCntry()
 	{
 		$this->load->view('/common/user/listDealerCntry');

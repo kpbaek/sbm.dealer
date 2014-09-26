@@ -79,6 +79,11 @@ class Order extends CI_Controller {
 		$this->load->view('/admin/order/crtPartOrder');
 	}
 
+	public function viewEqpOrder()
+	{
+		$this->load->view('/admin/order/viewEqpOrder');
+	}
+
 }
 
 /* End of file welcome.php */

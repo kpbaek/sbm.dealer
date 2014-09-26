@@ -1,3 +1,6 @@
+<?php 
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
@@ -57,7 +60,7 @@
 		  </tr>
 		  <tr height="5px">
 			<td width="15%" class="style01" colspan=2>Date</td>
-			<td width="10%"><?php echo date("Y-m-d")?></td>
+			<td width="10%"><input type="text" id="order_dt" name="order_dt" value="<?php echo date("Y-m-d")?>" size=18 style="border: 1" disabled></td>
 			<td width="10%"></td>
 			<td width="5%"></td>
 			<td width="15%" class="style01">Dest Country</td>
@@ -111,7 +114,7 @@
 			</td>
 			<td colspan=3>
 			    <div class="form-group">
-			        <select id="serial_currency_atch" id="serial_currency_atch[]" multiple="multiple" class="form-control" style="width: 180px">
+			        <select id="serial_currency_atch" name="serial_currency_atch[]" multiple="multiple" class="form-control" style="width: 180px">
 			        </select>
 			    </div>
 			</td>
@@ -226,10 +229,12 @@ General leadtime is 3 weeks from 10 to 100 units</td>
 	</table>
 </form>
 
-
 <script type="text/javascript">
 
 $(document).ready(function(e) {	
+<?php
+if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
+?> 
 	$.ajax({
         type: "POST",
         url: "/index.php/common/user/viewDealer",
@@ -250,8 +255,46 @@ $(document).ready(function(e) {
 	        }
         },
 	});
-
-	initForm();
+<?php 
+}
+?>
+<?php
+	if(isset($_REQUEST["edit_mode"])){
+?> 
+		var params = {
+		        "pi_no": "<?php echo $_REQUEST["pi_no"];?>",
+		        "po_no": "<?php echo $_REQUEST["po_no"];?>"
+		};  
+	
+		$.ajax({
+		        type: "POST",
+		        url: "/index.php/admin/order/viewEqpOrder",
+		        async: false,
+		        dataType: "json",
+		        data: params,
+		        cache: false,
+		        success: function(result, status, xhr){
+//		            alert(xhr.status);
+		        	var eqpOrdInfo = result.eqpOrdInfo; 
+		        	var eqpOrdDtlList = result.eqpOrdDtlList; 
+					if(eqpOrdInfo.cnfm_yn!="Y")
+			        {
+						editForm(eqpOrdInfo, eqpOrdDtlList);
+					}else{
+						$('#btnSubmit').attr('disabled',true);
+						$('#error').shake();
+						$("#error").html("<span style='color:#cc0000'>Notice:</span> this order is already confirmed!. ");
+			        }
+		        },
+		});
+<?php 
+	}else{
+?>
+		initForm();
+<?php 
+	}
+?>
+			
 });
 
 $.datepicker.setDefaults($.datepicker.regional['ko']);
@@ -369,6 +412,75 @@ function initForm() {
 
 }
 
+function editForm(eqpOrdInfo, eqpOrdDtlList) {
+		var f = document.addForm;
+
+        $('#order_dt').val(eqpOrdInfo.order_dt);
+        
+        $('#dealer_seq').val(eqpOrdInfo.dealer_seq);
+		$('#cmpy_nm').val(eqpOrdInfo.cmpy_nm);
+		$('#pi_no').val(eqpOrdInfo.pi_no);
+		$('#po_no').val(eqpOrdInfo.po_no);
+		$('#qty').val(eqpOrdInfo.qty);
+		$('#acct_no').val(eqpOrdInfo.acct_no);
+		$('#delivery_dt').val(eqpOrdInfo.delivery_dt);
+		$('#remark').val(eqpOrdInfo.remark);
+//		getCodeCombo("0022", f.cntry_atcd);
+
+		getDealerCntryCombo(eqpOrdInfo.dealer_seq, f.cntry_atcd, eqpOrdInfo.cntry_atcd);
+		getModelCombo("", f.mdl_cd, eqpOrdInfo.mdl_cd);
+		getCodeCombo("00B0", f.srl_atcd, eqpOrdInfo.srl_atcd);
+
+		
+    	var selAr =  [];
+        if(eqpOrdDtlList!=null){
+            for(var i=0; i < eqpOrdDtlList.length; i++){
+                if(eqpOrdDtlList[i]["currency_atch"]!=""){
+	            	selAr[selAr.length] = eqpOrdDtlList[i]["currency_atch"];
+                }
+			}
+		}
+		getCodeMultiCombo("0091", $('#currency_atch'), selAr);
+		
+    	selAr =  [];
+        if(eqpOrdDtlList!=null){
+            for(var i=0; i < eqpOrdDtlList.length; i++){
+                if(eqpOrdDtlList[i]["serial_currency_atch"]!=""){
+	            	selAr[selAr.length] = eqpOrdDtlList[i]["serial_currency_atch"];
+                }
+			}
+		}
+		getCodeMultiCombo("0092", $('#serial_currency_atch'), selAr);
+
+        
+    	selAr =  [];
+        if(eqpOrdDtlList!=null){
+            for(var i=0; i < eqpOrdDtlList.length; i++){
+                if(eqpOrdDtlList[i]["opt_hw_atcd"]!=""){
+	            	selAr[selAr.length] = eqpOrdDtlList[i]["opt_hw_atcd"];
+                }
+			}
+		}
+        getCodeMultiCombo("00A0", $('#opt_hw_atcd'), selAr);
+		
+		getCodeCombo("00L0", f.lcd_color_atcd, "00L00001", eqpOrdInfo.lcd_color_atcd);
+		getCodeCombo("00M0", f.lcd_lang_atcd, "00M00001", eqpOrdInfo.lcd_lang_atcd);
+		getCodeCombo("00D0", f.rjt_pkt_tp_atcd, "00D00001", eqpOrdInfo.rjt_pkt_tp_atcd);
+
+		getOXCombo(f.srl_prn_cab_ox, eqpOrdInfo.srl_prn_cab_ox);
+		getOXCombo(f.calibr_sheet_ox, eqpOrdInfo.calibr_sheet_ox);
+		getOXCombo(f.pc_cab_ox, eqpOrdInfo.pc_cab_ox);
+
+		getCodeCombo("00F0", f.shipped_by_atcd, eqpOrdInfo.shipped_by_atcd);
+		getCodeCombo("00F1", f.courier_atcd, eqpOrdInfo.courier_atcd);
+		getCodeCombo("00G0", f.payment_atcd, eqpOrdInfo.payment_atcd);
+		getCodeCombo("00H0", f.incoterms_atcd, eqpOrdInfo.incoterms_atcd);
+
+		getCodeImgCombo("00E0", f.pwr_cab_atcd, "00E00005", eqpOrdInfo.pwr_cab_atcd);
+//		$("#pwr_cab_atcd").msDropdown({roundedBorder:false});
+
+}
+
 function setMdlCtrl(value){
 	var f = document.addForm;
 
@@ -444,6 +556,8 @@ function createData() {
 	if(!fn_isValid()){
 		return;
 	}
+	$('#pi_no').attr('disabled',false);
+	$('#po_no').attr('disabled',false);
 	
 	f.action = "/index.php/admin/order/crtEqpOrder";
 //	f.submit();

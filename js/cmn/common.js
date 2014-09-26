@@ -50,6 +50,16 @@
 		} 
 	}
 	
+	function getYNCombo(selObj, sVal) {
+		addOptionElement(selObj, "Y", "Y");
+		addOptionElement(selObj, "N", "N");
+		for(i=0;i<selObj.length;i++){ 
+			if(selObj.options[i].value == sVal){
+				selObj.selectedIndex = i;
+			}
+		} 
+	}
+	
 	function getCodeImgCombo(cd, selObj, sVal) {
 		var opt = "";
 		if (cd == "") {
@@ -103,7 +113,24 @@
 	
 	function getCntryCombo(selObj, sVal) {
 		deleteOptionElements(selObj);
-		var targetUrl = '/index.php/common/user/listDealerCntry';
+		var targetUrl = '/index.php/common/user/listCntry';
+		$.getJSON(targetUrl, function(result){
+//	    	$('#postdata').append(result['cd']['name'] + ":" + cd);
+			deleteOptionElements(selObj);
+			addOptionElement(selObj, "", "select");
+			for(var i=0; i<result['cdAttr'].length; i++){
+				var value = result['cdAttr'][i]['value'];
+				addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+				if(value == sVal){
+					selObj.selectedIndex = (i+1);
+				}
+			}
+		});
+	}
+	
+	function getDealerCntryCombo(dealer_seq, selObj, sVal) {
+		deleteOptionElements(selObj);
+		var targetUrl = '/index.php/common/user/listDealerCntry?dealer_seq=' + dealer_seq;
 		$.getJSON(targetUrl, function(result){
 //	    	$('#postdata').append(result['cd']['name'] + ":" + cd);
 			deleteOptionElements(selObj);

@@ -41,17 +41,17 @@
 	</style>	
 </head>
 
-<body  onload="javascript:">
+<body >
 
 <div id="searchDiv" style="display:;text-align:right">
 <form name="searchForm">
 <input type="text" name="page" style="display: none">
 주문확정여부
-<select id="searchState" name="searchState">
-<option value="">X</option>
+<select id="sch_cnfm_yn" name="sch_cnfm_yn">
+<option value="">select</option>
 </select>
 영업담당자
-<select id="searchSaleWorkerId" name="searchSaleWorkerId">
+<select id="sch_worker_seq" name="sch_worker_seq">
 </select>
 <input type="button" id="btnSearch" value="Search" onclick="javascript:gridReload();"/>
 </form>
@@ -72,8 +72,12 @@
 <div id="formDiv" style="display:none">
 <form id="addForm" name="addForm" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 </form>
-
 </div>
+<form name="editOrderForm">
+<input type=hidden id="edit_mode" name="edit_mode">
+<input type=hidden id="pi_no" name="pi_no">
+<input type=hidden id="po_no" name="po_no">
+</form>
 
 </body>
 
@@ -82,32 +86,28 @@
 	jQuery().ready(function () {
 		var targetUrl = "/index.php/admin/order/listOrder";
 		var mygrid = jQuery("#list").jqGrid({
-		   	//url:'/test/main/server',
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	//colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'],
-		   	colNames:['','id', '확정일자', '', '대상국가', '바이어', 'Delivery', 'Amount', '할증요율(%)', '담당자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
-	   	              //, '(1CIS)', '(2CIS)', 'Q(Per 1Unit)', 'Order Price', 'Amount'
+		   	colNames:['','id', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
 		   	colModel:[
 		   		{name:'chk', index:'chk', width:55,hidden:true,search:true,formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:true}}, 
 		   		{name:'id', index:'id', width:55,hidden:false,search:true,hidden:true}, 
-		        {name:'conf_date',index:'id', width:70, align:"center",search:true},
-		        {name:'order_date',index:'id', width:70, align:"center",search:true,hidden:true},
-		   		{name:'cntry',index:'cntry', width:60,search:true},
-		        {name:'name',index:'id', width:70, align:"left",search:true},
-		   		{name:'delivery',index:'id', width:70,search:true},
-		   		{name:'price',index:'tax', width:70, sortable:false,search:true,align:"right",formatter:'currency', formatoptions:{prefix:"$"}},		
-		   		{name:'rate',index:'tax', width:80, align:"right",search:true,hidden:false},		
-		   		{name:'worker',index:'worker', width:50, sortable:false,search:true},		
-		   		{name:'qty',index:'qty', width:80, sortable:false,search:true,hidden:false},		
-		   		{name:'c_qty',index:'qty', width:70, sortable:false,search:true,hidden:true},		
-		   		{name:'recomYN',index:'recomYN', width:140, sortable:false,search:true},		
-		   		{name:'pi_no',index:'remark', width:80, sortable:false,search:true},		
-		   		{name:'spareYN',index:'spareYN', width:70, sortable:false,search:true},		
-		   		{name:'rptout',index:'wearpartYN', width:70,align:"right",search:true},		
-		   		{name:'packing',index:'withoutWRT', width:70, sortable:false,search:true}		
+		        {name:'order_date',index:'id', width:80, align:"center",search:true},
+		   		{name:'cntry',index:'cntry', width:100,search:true},
+		        {name:'dealer_nm',index:'dealer_nm', width:70, align:"left",search:true},
+		   		{name:'tot_amt',index:'tot_amt', width:70, sortable:false,search:true,align:"right",formatter:'currency', formatoptions:{prefix:"$"}},		
+		   		{name:'premium_rate',index:'id', width:80, align:"right",search:true,hidden:false},		
+		   		{name:'worker',index:'worker', width:50, align:"center", sortable:false,search:true},		
+		        {name:'txt_cnfm_dt',index:'txt_cnfm_dt', width:70, align:"center",search:true},
+		   		{name:'cnfm',index:'pi_no', width:80, sortable:false,search:true,hidden:false},		
+		   		{name:'c_cnfm',index:'pi_no', width:70, sortable:false,search:true,hidden:true},		
+		   		{name:'pi',index:'pi_no', width:140, sortable:false,search:true},		
+		   		{name:'pi_no',index:'pi_no', width:70, sortable:false,search:true},		
+		   		{name:'ci',index:'pi_no', width:70, sortable:false,search:true},		
+		   		{name:'rptout',index:'pi_no', width:70,align:"right",search:true},		
+		   		{name:'packing',index:'pi_no', width:70, sortable:false,search:true}		
 			],
-	        onSelectRow: function(rowid) {
+			onSelectRow: function(rowid) {
 	        	alert("123");
 	        	var params = $("#list").jqGrid('getRowData',rowid);
 //		        var params = {id:rowid};
@@ -116,22 +116,23 @@
 //	            listFwd(rowid);
 	        },
 			mtype: "POST",
-//			postData:{searchSaleWorkerId:''},
+//			postData:{sch_worker_seq:''},
             gridComplete: function(){
                 var ids = jQuery("#list").jqGrid('getDataIDs');
                 for(var i=0;i < ids.length;i++){
-                    var rowData = jQuery("#list").jqGrid('getRowData',ids[i]);
+                    var rowId = ids[i];
+                    var rowData = jQuery("#list").jqGrid('getRowData',rowId);
                     c_image = "<img src='/images/ci_logo.jpg' height='20'>";
-                    c_qty = "<input style='height:22px;width:70px;' type=button name='c_qty' value='주문확정' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
+                    c_cnfm = "<input style='height:22px;width:70px;' type=button name='c_qty' value='주문확정' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     //                    jQuery("#list").jqGrid('setRowData',ids[i],{c_image:c_image});
-                    jQuery("#list").jqGrid('setRowData',ids[i],{qty:c_qty});
-                    jQuery("#list").jqGrid('setRowData',ids[i],{recomYN:c_pi});
-                    jQuery("#list").jqGrid('setRowData',ids[i],{spareYN:c_ci});
+                    jQuery("#list").jqGrid('setRowData',ids[i],{cnfm:c_cnfm});
+                    jQuery("#list").jqGrid('setRowData',ids[i],{pi:c_pi});
+                    jQuery("#list").jqGrid('setRowData',ids[i],{ci:c_ci});
                     jQuery("#list").jqGrid('setRowData',ids[i],{rptout:c_rptout});
                     jQuery("#list").jqGrid('setRowData',ids[i],{packing:c_packing});
                     if(rowData.qty > 0){
@@ -143,7 +144,6 @@
 //                    jQuery("#list").jqGrid('setSelection',(i+1));
 //                    jQuery('#list').editRow('qty');
                 }
-                jQuery("#list").jqGrid('editRow','qty',false);
 			},	            
             
 			rowNum:20,
@@ -156,7 +156,7 @@
 		    autowidth: false,
 		    width:950,
 		    height:410,
-		    sortname: 'id',
+		    sortname: 'pi_no',
 		    sortorder: "desc",
 			toolbar: [true,"top"],
 		    hiddengrid: false,
@@ -170,9 +170,11 @@
 				}
 			},
 			subGrid : true,
-			subGridUrl: "/admin/order/listDtlOrder",
-		    subGridModel: [{ name  : ['주문구분','P/O NO','qty','amount','등록인','수정인','주문서','의뢰서'],
-		                    width : [50,60,60,70,70,70], params:['id'] } 
+			subGridUrl: "/index.php/admin/order/listDtlOrder",
+		    subGridModel: [{ name  : ['주문구분','No','Qty','Amount','등록인','수정인','주문서','의뢰서'],
+		                     width : [50,60,60,70,70,70], params:['pi_no'],
+		                     align : ["center","right","right","right","center","center"] 
+            			   } 
 		    ],			
 			/**
 			multiselect: true,
@@ -214,15 +216,18 @@
 	
 	function initForm() {
 		var f = document.searchForm;
-		getCodeCombo("02", f.searchSaleWorkerId);
+		getYNCombo(f.sch_cnfm_yn, "");
+    	getWorkerCombo("00600SL0", f.sch_worker_seq);
+		
 //		newForm();
     }
 	
     function gridReload() {
-		var targetUrl = "/admin/order/listOrder";
+		var targetUrl = "/index.php/admin/order/listOrder";
     	var page = document.searchForm.page.value;
-    	var searchSaleWorkerId = document.searchForm.searchSaleWorkerId.value;
-        $("#list").jqGrid('setPostData', {test:'aa',searchSaleWorkerId:searchSaleWorkerId});
+    	var sch_worker_seq = document.searchForm.sch_worker_seq.value;
+    	var sch_cnfm_yn = document.searchForm.sch_cnfm_yn.value;
+        $("#list").jqGrid('setPostData', {test:'aa', sch_cnfm_yn:sch_cnfm_yn, sch_worker_seq:sch_worker_seq});
     	jQuery("#list").jqGrid('setGridParam', {url:targetUrl,page:'1'}).trigger("reloadGrid");
 		printPostData();
 	}
@@ -444,7 +449,7 @@
 		],
 		
 		mtype: "POST",
-//		postData:{searchSaleWorkerId:''},
+//		postData:{sch_worker_seq:''},
         gridComplete: function(){
             var ids = jQuery("#list").jqGrid('getDataIDs');
             for(var i=0;i < ids.length;i++){
@@ -480,6 +485,23 @@
 		caption:"주문별 발송내역"
 	})//.navGrid('#pager_d',{add:false,edit:false,del:false,search:false});   
 */	 
+
+	function editOrder(order_tp, pi_no, po_no){
+		var f = document.editOrderForm;
+		f.method = "post";
+		f.edit_mode.value = "1";
+		f.pi_no.value = pi_no;
+		f.po_no.value = po_no;
+		if(order_tp=="E"){
+			f.action = "/index.php/admin/order/tab01";
+			f.submit();
+//			location.replace("/index.php/admin/order/tab01");
+		}else if(order_tp=="P"){
+			f.action = "/index.php/admin/order/tab02";
+			f.submit();
+//			location.replace("/index.php/admin/order/tab02");
+		}
+	}
 </script>
 
 </html>

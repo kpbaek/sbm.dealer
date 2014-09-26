@@ -1,3 +1,6 @@
+<?php 
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
@@ -89,6 +92,9 @@ part name<input type="text" name="sch_part_nm">
 <script type="text/javascript">
 
 $(document).ready(function(e) {	
+<?php
+if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
+?> 
 	$.ajax({
         type: "POST",
         url: "/index.php/common/user/viewDealer",
@@ -101,15 +107,17 @@ $(document).ready(function(e) {
 			if(dealerInfo.aprv_yn=="Y")
 	        {
 				$('#dealer_seq').val(dealerInfo.dealer_seq);
-				$('#cmpy_nm').val(dealerInfo.cmpy_nm);
 			}else{
-				$('#btnSubmit').attr('disabled',true);
+				$('#btnOrder').attr('disabled',true);
 				$('#error').shake();
 				$("#error").html("<span style='color:#cc0000'>Notice:</span> unreceived dealer ID. ");
 	        }
         },
 	});
-
+<?php 
+}
+?>
+	
 });
 
 
