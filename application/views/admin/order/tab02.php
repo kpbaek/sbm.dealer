@@ -250,7 +250,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 	        gridComplete: function(){
 //	        	setFooterList_d();
 	            var ids = jQuery("#list_d").jqGrid('getDataIDs');
-	            jQuery("#list_d").jqGrid('editRow','qty',false);
+	            jQuery("#list_d").jqGrid('editRow','qty',true);
 			},	            
 	        
 			rowNum:1000,
@@ -472,10 +472,12 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
     		var data = jQuery("#list_d").jqGrid('getRowData',ids_d[i]);
     		if(listData.id == data.id){
         		isDup = true;
-    	    	jQuery("#list_d").jqGrid('setRowData',ids_d[i],{qty:listData.qty});
-    	    	if(listData.qty == 0){
+    	    	var qty_d = 0;
+        		if(listData.qty != ""){
+        			qty_d = listData.qty;
 //        			jQuery("#list_d").jqGrid('delRowData',i);	
 				}
+        		jQuery("#list_d").jqGrid('setRowData',ids_d[i],{qty:qty_d});
     		}
         }
         if(isDup==false && listData.qty > 0){
@@ -499,7 +501,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		var qty_ft = 0;
     	var amount_ft = 0;
        	var weight_ft = 0;
-		ids_d = jQuery("#list_d").jqGrid('getDataIDs');
+		var ids_d = jQuery("#list_d").jqGrid('getDataIDs');
     	for(var i=0;i < ids_d.length;i++){
             var data = jQuery("#list_d").jqGrid('getRowData',ids_d[i]);
             if(parseInt(data.qty) > 0){
