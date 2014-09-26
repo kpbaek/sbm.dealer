@@ -248,7 +248,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 			mtype: "POST",
 //			postData:{sch_mdl_cd:''},
 	        gridComplete: function(){
-	        	setFooterList_d();
+//	        	setFooterList_d();
 	            var ids = jQuery("#list_d").jqGrid('getDataIDs');
 	            jQuery("#list_d").jqGrid('editRow','qty',false);
 			},	            
@@ -467,15 +467,27 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 	
 	function orderConfirm(listData) {
 		var ids_d = jQuery("#list_d").jqGrid('getDataIDs');
+		var isDup = false;
     	for(var i=0;i < ids_d.length;i++){
     		var data = jQuery("#list_d").jqGrid('getRowData',ids_d[i]);
     		if(listData.id == data.id){
-    			jQuery("#list_d").jqGrid('delRowData',i);	
+        		isDup = true;
+    	    	jQuery("#list_d").jqGrid('setRowData',ids_d[i],{qty:listData.qty});
+    	    	if(listData.qty == 0){
+//        			jQuery("#list_d").jqGrid('delRowData',i);	
+				}
     		}
         }
-        if(listData.qty > 0){
+        if(isDup==false && listData.qty > 0){
 	        jQuery("#list_d").jqGrid('addRowData', jQuery("#list_d").jqGrid('getDataIDs').length, listData);
 		}
+		//alert("orderConfirm:" +jQuery("#list_d").jqGrid('getRowData',jQuery("#list_d").jqGrid('getDataIDs')[0]).part_cd);;
+		var ids_d2 = jQuery("#list_d").jqGrid('getDataIDs');
+		for(var i=0;i < ids_d2.length;i++){
+            var data = jQuery("#list_d").jqGrid('getRowData',ids_d2[i]);
+//    		alert(data.qty);
+		}
+		setFooterList_d();
 /**		
     	var udata = $("#list").jqGrid('getUserData');
         $("#list_d").jqGrid("footerData","set",udata,true);
