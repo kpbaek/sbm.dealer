@@ -59,10 +59,19 @@ try {
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
 	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
 //		$mail->SMTPSecure = "ssl"; // SSL을 사용함
-		$mail->Username   = "administrator@sbmkorea.esy.es "; 
+		$mail->Username   = "admin@sbmkorea.esy.es"; 
 		$mail->Password   = "sbmadmin123"; 
-	    $mail->SetFrom('administrator@sbmkorea.esy.es '); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-	    $mail->AddAddress('administrator@sbmkorea.esy.es '); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->SetFrom('admin@sbmkorea.esy.es'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress('admin@sbmkorea.esy.es'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+    }else if($atcd=="test"){
+		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
+	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
+	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
+//		$mail->SMTPSecure = "ssl"; // SSL을 사용함
+		$mail->Username   = "sbmkorea@safeleader.esy.es"; 
+		$mail->Password   = "sbmkoreacom"; 
+	    $mail->SetFrom('administrator@sbmkorea.esy.es'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress($_REQUEST["to_addr"]); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
     }else if($atcd=="naver"){
 		$mail->Host = "smtp.naver.com"; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
