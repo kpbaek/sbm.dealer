@@ -19,7 +19,7 @@ try {
     $mail->CharSet = "utf-8";
     $mail->Encoding = "base64";
 
-//    $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+    $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
 //    $mail->AddReplyTo('name@yourdomain.com', 'First Last');
 //    $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
 //    $mail->AddAttachment('images/phpmailer.gif');      // attachment
@@ -33,7 +33,7 @@ try {
 		$mail->Password   = "1111"; // 
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
 	    $mail->Port = "25"; // email 보낼때 사용할 서버를 지정
-	    $mail->SetFrom('kpbaek@sbmkorea.com', '에스비엠'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->SetFrom('kpbaek@sbmkorea.com'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    $mail->AddAddress('kpbaek@localhost', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    $mail->addCC('kpbaek@sbmkorea.com', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
     }else if($atcd=="daum"){
@@ -43,17 +43,26 @@ try {
 		$mail->SMTPSecure = "ssl"; // SSL을 사용함
 		$mail->Username   = "airshot16"; // daum 계정
 		$mail->Password   = "sabina16"; // 패스워드
-	    $mail->SetFrom('airshot16@hanmail.net', '백경파'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->SetFrom('airshot16@hanmail.net'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    $mail->AddAddress('kpbaek@sbmkorea.com', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-    }else if($atcd=="hostinger"){
+    }else if($atcd=="safeleader"){
 		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
 	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
-		$mail->SMTPSecure = "ssl"; // SSL을 사용함
-		$mail->Username   = "kpbaek@sbmkorea.esy.es"; 
-		$mail->Password   = "sbmdealer123"; 
-	    $mail->SetFrom('kpbaek@sbmkorea.esy.es', '백경파'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-	    $mail->AddAddress('kpbaek@sbmkorea.com', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+//		$mail->SMTPSecure = "ssl"; // SSL을 사용함
+		$mail->Username   = "sbmkorea@safeleader.esy.es"; 
+		$mail->Password   = "sbmkoreacom"; 
+	    $mail->SetFrom('sbmkorea@safeleader.esy.es'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress('sbmkorea@safeleader.esy.es'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+    }else if($atcd=="sbmkorea"){
+		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
+	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
+	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
+//		$mail->SMTPSecure = "ssl"; // SSL을 사용함
+		$mail->Username   = "administrator@sbmkorea.esy.es "; 
+		$mail->Password   = "sbmadmin123"; 
+	    $mail->SetFrom('administrator@sbmkorea.esy.es '); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress('administrator@sbmkorea.esy.es '); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
     }else if($atcd=="naver"){
 		$mail->Host = "smtp.naver.com"; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
@@ -61,8 +70,8 @@ try {
 		$mail->SMTPSecure = "ssl"; // SSL을 사용함
 		$mail->Username   = "thisguy@naver.com"; // naver 계정
 		$mail->Password   = "kpbaek123"; // 패스워드
-	    $mail->SetFrom('thisguy@naver.com', '백경파'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-	    $mail->AddAddress('thisguy@naver.com', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->SetFrom('thisguy@naver.com'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress('kpbaek@sbmkorea.com', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
     }else{
 		$mail->Host = "smtp.googlemail.com"; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
@@ -70,7 +79,7 @@ try {
 		$mail->SMTPSecure = "ssl"; // SSL을 사용함
 		$mail->Username   = "kpbaek@sbmkorea.com"; // sbm 계정
 		$mail->Password   = "kpbaek123"; // 패스워드
-	    $mail->SetFrom('kpbaek@sbmkorea.com', '에스비엠'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->SetFrom('kpbaek@sbmkorea.com'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    $mail->AddAddress('kpbaek@sbmkorea.com', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	}
 echo $mail->Host;
