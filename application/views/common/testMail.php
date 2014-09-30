@@ -1,6 +1,5 @@
 <?
 require_once APPPATH."/third_party/PHPMailer/class.phpmailer.php";
-require_once APPPATH."/third_party/PHPMailer/test/mailerTest.php";
 //header("Content-Type: text/html; charset=utf-8"); 
 #echo phpInfo();
 
@@ -68,10 +67,10 @@ try {
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
 	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
 //		$mail->SMTPSecure = "ssl"; // SSL을 사용함
-		$mail->Username   = "sbmkorea@safeleader.esy.es"; 
+		$mail->Username   = "sbmkorea@sbmkorea.url.ph"; 
 		$mail->Password   = "sbmkoreacom"; 
-	    $mail->SetFrom('administrator@sbmkorea.esy.es'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-	    $mail->AddAddress($_REQUEST["to_addr"]); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->SetFrom('sbmkorea@sbmkorea.url.ph'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress('sbmkorea@sbmkorea.url.ph'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
     }else if($atcd=="naver"){
 		$mail->Host = "smtp.naver.com"; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
