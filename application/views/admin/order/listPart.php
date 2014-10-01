@@ -59,7 +59,6 @@ $start = $limit*$page - $limit; // do not put $limit*($page - 1)
 $sql = "SELECT concat(mdl_cd, part_ver, part_cd) id, mdl_cd, part_ver, part_cd, part_nm, unit_price";
 $sql = $sql . ", (case when unit_wgt is null then 0 else unit_wgt end) unit_wgt, remark, srl_no, recom_yn, use_yn, disp_yn, ord_num";
 $sql = $sql . "     ,(select mdl_nm from om_mdl where mdl_cd = a.mdl_cd) mdl_nm";
-$sql = $sql . "     ,(select part_nm from om_mdl where mdl_cd = a.mdl_cd and part_ver = a.part_ver and part_cd = a.part_cd) part_nm";
 $sql = $sql . "  , crt_dt";
 $sql = $sql . " FROM om_part a";
 $sql = $sql . $sql_where;

@@ -72,7 +72,15 @@ part name<input type="text" name="sch_part_nm">
 	<div id="formDiv" style="display:">
 <form id="addForm" name="addForm" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 <input type=hidden id="dealer_seq" name="dealer_seq">
-				Dest Country
+<?php 
+ if(isset($_REQUEST["edit_mode"])){
+?> 
+pi_no<input type=text id="pi_no" name="pi_no" size=8 maxlength=8 disabled>
+swp_no<input type=text id="swp_no" name="swp_no" size=8 disabled>
+<?php 
+}
+?> 
+Dest Country
 				<select id="cntry_atcd" name="cntry_atcd" style="width: 240px;">
 				</select>
 				
@@ -91,7 +99,11 @@ part name<input type="text" name="sch_part_nm">
 
 <script type="text/javascript">
 
+
 $(document).ready(function(e) {	
+
+	$('#btnOrder').attr('disabled',true);
+
 <?php
 if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 ?> 
@@ -115,10 +127,39 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
         },
 	});
 <?php 
+}else if(isset($_REQUEST["edit_mode"])){
+?> 
+		var params = {
+				"pi_no": "<?php echo $_REQUEST["pi_no"];?>",
+				"swp_no": "<?php echo $_REQUEST["po_no"];?>"
+		};  
+		$.ajax({
+			type: "POST",
+			url: "/index.php/admin/order/viewPartOrder",
+			async: false,
+			dataType: "json",
+			data: params,
+			cache: false,
+			success: function(result, status, xhr){
+//				    alert(xhr.status);
+				var partOrdInfo = result.partOrdInfo; 
+				var f_add = document.addForm;
+				$('#dealer_seq').val(partOrdInfo.dealer_seq);
+				$('#pi_no').val(partOrdInfo.pi_no);
+				$('#swp_no').val(partOrdInfo.swp_no);
+				getDealerCntryCombo(partOrdInfo.dealer_seq, f_add.cntry_atcd, partOrdInfo.cntry_atcd);
+				
+				if(partOrdInfo.cnfm_yn=="Y")
+				{
+					$('#btnOrder').attr('disabled',true);
+					$('#error').shake();
+					$("#error").html("<span style='color:#cc0000'>Notice:</span> this order is already confirmed!. ");
+				}
+			},
+		});
+<?php 
 }
 ?>
-
-
 	
 	
 });
@@ -173,39 +214,9 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 //                    jQuery("#list").jqGrid('setSelection',(i+1));
 //                    jQuery('#list').editRow('qty');
                 }
-                jQuery("#list").jqGrid('editRow','qty',true);
-
-                <?php
-                		if(isset($_REQUEST["edit_mode"])){
-                	?> 
-                			var params = {
-                		        "pi_no": "<?php echo $_REQUEST["pi_no"];?>",
-                		        "swp_no": "<?php echo $_REQUEST["po_no"];?>"
-                			};  
-                			
-                			$.ajax({
-                			        type: "POST",
-                			        url: "/index.php/admin/order/viewPartOrder",
-                			        async: false,
-                			        dataType: "json",
-                			        data: params,
-                			        cache: false,
-                			        success: function(result, status, xhr){
-//                				            alert(xhr.status);
-                			        	var partOrdInfo = result.partOrdInfo; 
-                						if(partOrdInfo.cnfm_yn!="Y")
-                				        {
-                    				        fn_subgridReload(params);
-										}else{
-                							$('#btnOrder').attr('disabled',true);
-                							$('#error').shake();
-                							$("#error").html("<span style='color:#cc0000'>Notice:</span> this order is already confirmed!. ");
-                				        }
-                			        },
-                			});
-                	<?php 
-                		}
-                	?>
+//                jQuery("#list").jqGrid('editRow','qty',true);
+                
+                initPartList();
 			},	            
             
 			rowNum:200,
@@ -280,9 +291,10 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		   		{name:'remark',index:'remark', width:80, sortable:false,search:true}		
 			],
 			
-//			mtype: "POST",
-//			postData:{pi_no:'140002as',swp_no:'16'},
+			mtype: "POST",
+			postData:{pi_no:$('#pi_no').val(),swp_no:$('#swp_no').val()},
 	        gridComplete: function(){
+//	        	$("#postdata").append(".....sub");
 	        	setFooterList_d();
 	            var ids = jQuery("#list_d").jqGrid('getDataIDs');
 //		        alert(ids.length);
@@ -332,10 +344,32 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 	function initForm() {
 		var f = document.searchForm;
 		getModelCombo("", f.sch_mdl_cd);
-		
+
+		<?php
+		if(isset($_REQUEST["edit_mode"])==false){
+		?> 
 		var f_add = document.addForm;
 		getCntryCombo(f_add.cntry_atcd);
-		//		newForm();
+		<?php 
+		}
+		?>
+    }
+	
+	function initPartList() {
+
+		var params = {
+			"pi_no": $("#pi_no").val(),
+			"swp_no": $("#swp_no").val()
+		};  
+<?php
+if(isset($_REQUEST["edit_mode"])){
+?> 
+		$('#cntry_atcd').attr('disabled',true);
+<?php 
+}
+?>
+		$('#btnOrder').attr('disabled',false);
+
     }
 	
     function gridReload() {
@@ -619,6 +653,10 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
     	if(!fn_isValid()){
     		return;
     	}
+
+    	$('#pi_no').attr('disabled',false);
+    	$('#swp_no').attr('disabled',false);
+    	
     	var arData = [];
         var arMdlCd = [];
         var arPartCd = [];
@@ -636,6 +674,8 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		}
 		
         var params = {
+                "pi_no": $("#pi_no").val(),
+                "swp_no": $("#swp_no").val(),
                 "dealer_seq": $("#dealer_seq").val(),
                 "cntry_atcd": $("#cntry_atcd").val(),
         		"mdl_cd":arMdlCd,
@@ -700,9 +740,53 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		    				}
 			     		}); 
 					}
-	            }
+    	            fn_gridReload();
+				}else if(todo == "U"){
+		            var cnfm_yn = result.qryInfo.cnfm_yn;
+		            if(cnfm_yn == "Y"){
+			            alert("This order is already confirmed!");
+			            return;
+		            }	  
+	            	var qryInfo = result.qryInfo;	            	
+					if(qryInfo.result==false)
+			        {
+	        			alert("sql error:" + qryInfo.sql);
+	        			return;
+					}else{
+//			        	alert(qryInfo.result + ":" + qryInfo.sql);
+					}
+    				if(qryInfo.insPartDtl){
+	    				var qryList = qryInfo.insPartDtl;	            	
+	    				$.each(qryList, function(key){ 
+		        			var targetInfo = qryList[key];
+		    				if(targetInfo.result2==false)
+		    		        {
+		            			alert("sql error:" + targetInfo.sql2);
+		            			return;
+							}else{
+//		    		        	alert(targetInfo.result2 + ":" + targetInfo.sql2);
+		    				}
+			     		}); 
+					}
+    				if(qryInfo.result3==false)
+    		        {
+            			alert("sql error:" + qryInfo.sql3);
+            			return;
+    				}else{
+//    		        	alert(qryInfo.result3 + ":" + qryInfo.sql3);
+    				}
+					if(qryInfo.result4==false)
+    		        {
+            			alert("sql error:" + qryInfo.sql4);
+            			return;
+    				}else{
+//    		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
+    				}
+    	            fn_subgridReload(params);
+    	        	$('#pi_no').attr('disabled',true);
+    	        	$('#swp_no').attr('disabled',true);
+				}          	
 	        	alert("저장되었습니다");
-	            fn_gridReload();
 		        $("#btnOrder").val('submit');
 			}
 		});

@@ -428,6 +428,7 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 //		getCodeCombo("0022", f.cntry_atcd);
 
 		getDealerCntryCombo(eqpOrdInfo.dealer_seq, f.cntry_atcd, eqpOrdInfo.cntry_atcd);
+		$('#cntry_atcd').attr('disabled',true);
 		getModelCombo("", f.mdl_cd, eqpOrdInfo.mdl_cd);
 		getCodeCombo("00B0", f.srl_atcd, eqpOrdInfo.srl_atcd);
 
@@ -558,6 +559,7 @@ function createData() {
 	}
 	$('#pi_no').attr('disabled',false);
 	$('#po_no').attr('disabled',false);
+	$('#cntry_atcd').attr('disabled',false);
 	
 	f.action = "/index.php/admin/order/crtEqpOrder";
 //	f.submit();

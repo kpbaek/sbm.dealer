@@ -242,9 +242,18 @@ if($po_no==""){
 
 			
 		if($cnfm_yn != "Y"){
-		
+			
+			$sql_tot_amt = "select sum(a.amt) tot_amt from ";
+			$sql_tot_amt = $sql_tot_amt . "(";
+			$sql_tot_amt = $sql_tot_amt . "  select amt from om_ord_eqp";
+			$sql_tot_amt = $sql_tot_amt . "  where pi_no = '" .$pi_no. "'";
+			$sql_tot_amt = $sql_tot_amt . "  union all";
+			$sql_tot_amt = $sql_tot_amt . "  select amt from om_ord_part";
+			$sql_tot_amt = $sql_tot_amt . "  where pi_no = '" .$pi_no. "'";
+			$sql_tot_amt = $sql_tot_amt . ") a";
+				
 			$sql_ord = "UPDATE om_ord_inf";
-			$sql_ord = $sql_ord . " SET cntry_atcd='" .$cntry_atcd. "'";
+			$sql_ord = $sql_ord . " SET tot_amt=(" .$sql_tot_amt. ")";
 //			$sql_ord = $sql_ord . ",tot_amt = " .$tot_amt;
 			$sql_ord = $sql_ord . ",udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
 			$sql_ord = $sql_ord . " WHERE pi_no ='" .$pi_no. "'";
