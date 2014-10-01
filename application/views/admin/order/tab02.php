@@ -117,6 +117,9 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 <?php 
 }
 ?>
+
+
+	
 	
 });
 
@@ -171,6 +174,38 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 //                    jQuery('#list').editRow('qty');
                 }
                 jQuery("#list").jqGrid('editRow','qty',true);
+
+                <?php
+                		if(isset($_REQUEST["edit_mode"])){
+                	?> 
+                			var params = {
+                		        "pi_no": "<?php echo $_REQUEST["pi_no"];?>",
+                		        "swp_no": "<?php echo $_REQUEST["po_no"];?>"
+                			};  
+                			
+                			$.ajax({
+                			        type: "POST",
+                			        url: "/index.php/admin/order/viewPartOrder",
+                			        async: false,
+                			        dataType: "json",
+                			        data: params,
+                			        cache: false,
+                			        success: function(result, status, xhr){
+//                				            alert(xhr.status);
+                			        	var partOrdInfo = result.partOrdInfo; 
+                						if(partOrdInfo.cnfm_yn!="Y")
+                				        {
+                    				        fn_subgridReload(params);
+										}else{
+                							$('#btnOrder').attr('disabled',true);
+                							$('#error').shake();
+                							$("#error").html("<span style='color:#cc0000'>Notice:</span> this order is already confirmed!. ");
+                				        }
+                			        },
+                			});
+                	<?php 
+                		}
+                	?>
 			},	            
             
 			rowNum:200,
@@ -226,7 +261,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 
 		jQuery("#list_d").jqGrid({
 			height: 100,
-//		   	url:"/admin/order/listPart",
+		   	url:"/index.php/admin/order/listPartOrder",
 		   	datatype: "json",
 		   	colNames:['', '', '', 'model', 'CODE', 'Part Name', 'IMAGE', '공급단가', 'qty', 'Qty', 'Amount', 'Weight(kg)','Remark'],
 		   	colModel:[
@@ -245,11 +280,20 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		   		{name:'remark',index:'remark', width:80, sortable:false,search:true}		
 			],
 			
-			mtype: "POST",
-//			postData:{sch_mdl_cd:''},
+//			mtype: "POST",
+//			postData:{pi_no:'140002as',swp_no:'16'},
 	        gridComplete: function(){
-//	        	setFooterList_d();
+	        	setFooterList_d();
 	            var ids = jQuery("#list_d").jqGrid('getDataIDs');
+//		        alert(ids.length);
+	            for(var i=0;i < ids.length;i++){
+                    var rowId = ids[i];
+                    var rowData = jQuery("#list").jqGrid('getRowData',rowId);
+                    //be = "<img src='/images/ci_logo.jpg' height='20'>";
+                    c_qty = "<input type=text size=6 height='20' name='c_qty' value='" + rowData.qty + "' onChange='javascript:calcAmt(" + rowId + ", this.value);'>";
+                    be = "<img src='/images/part/image"  + rowData.srl_no +  ".png' height='20'>";
+                    jQuery("#list_d").jqGrid('setRowData',rowId,{c_qty:c_qty, pt_img:be});
+                }
 	            jQuery("#list_d").jqGrid('editRow','qty',true);
 			},	            
 	        
@@ -543,6 +587,12 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		var targetUrl = "/index.php/admin/order/listPart";
 		jQuery("#list").jqGrid('setGridParam', {url:targetUrl}).trigger("reloadGrid");
     }
+    
+    function fn_subgridReload(params) {
+		var targetUrl = "/index.php/admin/order/listPartOrder";
+		$("#list_d").jqGrid('setPostData', {pi_no:params.pi_no,swp_no:params.swp_no});
+		$("#list_d").jqGrid('setGridParam', {url:targetUrl}).trigger("reloadGrid");
+	}
     
     function fn_choice(ids){
         if(ids.length==0){
