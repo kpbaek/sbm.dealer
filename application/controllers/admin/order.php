@@ -84,6 +84,16 @@ class Order extends CI_Controller {
 		$this->load->view('/admin/order/viewEqpOrder');
 	}
 
+	public function viewPartOrder()
+	{
+		$this->load->view('/admin/order/viewPartOrder');
+	}
+
+	public function listPartOrder()
+	{
+		$this->load->view('/admin/order/listPartOrder');
+	}
+
 }
 
 /* End of file welcome.php */
