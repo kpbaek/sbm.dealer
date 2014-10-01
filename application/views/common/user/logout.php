@@ -5,5 +5,5 @@ session_destroy();
 ?>
 <script type="text/javascript">
 //	alert("로그아웃되었습니다.");
-	location.replace("/index.php/admin/main");
+	location.replace("/index.php");
 </script>
