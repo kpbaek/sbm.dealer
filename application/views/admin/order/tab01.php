@@ -477,7 +477,7 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		getCodeCombo("00G0", f.payment_atcd, eqpOrdInfo.payment_atcd);
 		getCodeCombo("00H0", f.incoterms_atcd, eqpOrdInfo.incoterms_atcd);
 
-		getCodeImgCombo("00E0", f.pwr_cab_atcd, "00E00005", eqpOrdInfo.pwr_cab_atcd);
+		getCodeImgCombo("00E0", f.pwr_cab_atcd, eqpOrdInfo.pwr_cab_atcd);
 //		$("#pwr_cab_atcd").msDropdown({roundedBorder:false});
 
 }
