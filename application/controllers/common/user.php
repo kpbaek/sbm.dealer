@@ -42,4 +42,19 @@ class User extends CI_Controller {
 		$this->load->view('/common/user/listDealerCntry');
 	}
 
+	public function listOrderCntry()
+	{
+		$this->load->view('/common/user/listOrderCntry');
+	}
+
+	public function listUserPiNo()
+	{
+		$this->load->view('/common/user/listUserPiNo');
+	}
+	
+	public function listOrderPiNo()
+	{
+		$this->load->view('/common/user/listOrderPiNo');
+	}
+	
 }
