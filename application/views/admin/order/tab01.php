@@ -82,7 +82,14 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 		  </tr>
 		  <tr>
 			<td class="style01" colspan=2>P/I NO. </td>
+<!-- 			
 			<td><input type="text" id="pi_no" name="pi_no" value="" size=11 maxlength=8 style="border: 1;ime-mode:disabled" disabled></td>
+			<td colspan=2></td>
+ -->			
+			<td>
+				<select id="pi_no" name="pi_no" style="width: 100px;" onchange="javascript:setDealerCntryCombo(this.value);">
+				</select>
+			</td>
 			<td colspan=2></td>
 			<td class="style01">P/O NO.</td>
 			<td><input type="text" id="po_no" name="po_no" value="" size=12 maxlength=11 style="border: 1;ime-mode:disabled" onKeyup="fncOnlyDecimal(this);" disabled></td>
@@ -374,7 +381,7 @@ function checkDate(dateText, inst){
 
 function initForm() {
 		var f = document.addForm;
-//		getCodeCombo("0022", f.cntry_atcd);
+		getUserPiCombo(f.pi_no, "");
 		getCntryCombo(f.cntry_atcd);
 		getModelCombo("", f.mdl_cd);
 		getCodeCombo("00B0", f.srl_atcd);
@@ -414,12 +421,15 @@ function initForm() {
 
 function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		var f = document.addForm;
-
+		
         $('#order_dt').val(eqpOrdInfo.order_dt);
         
         $('#dealer_seq').val(eqpOrdInfo.dealer_seq);
 		$('#cmpy_nm').val(eqpOrdInfo.cmpy_nm);
-		$('#pi_no').val(eqpOrdInfo.pi_no);
+//		$('#pi_no').val(eqpOrdInfo.pi_no);
+		getOrderPiCombo(eqpOrdInfo.dealer_seq, f.pi_no, eqpOrdInfo.pi_no);
+		$('#pi_no').attr('disabled',true);
+
 		$('#po_no').val(eqpOrdInfo.po_no);
 		$('#qty').val(eqpOrdInfo.qty);
 		$('#acct_no').val(eqpOrdInfo.acct_no);
@@ -427,7 +437,8 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		$('#remark').val(eqpOrdInfo.remark);
 //		getCodeCombo("0022", f.cntry_atcd);
 
-		getDealerCntryCombo(eqpOrdInfo.dealer_seq, f.cntry_atcd, eqpOrdInfo.cntry_atcd);
+		getOrderCntryCombo(eqpOrdInfo.pi_no, f.cntry_atcd, eqpOrdInfo.cntry_atcd);
+//		getDealerCntryCombo(eqpOrdInfo.dealer_seq, f.cntry_atcd, eqpOrdInfo.cntry_atcd);
 		$('#cntry_atcd').attr('disabled',true);
 		getModelCombo("", f.mdl_cd, eqpOrdInfo.mdl_cd);
 		getCodeCombo("00B0", f.srl_atcd, eqpOrdInfo.srl_atcd);
@@ -513,6 +524,17 @@ function setCourrierCombo(value){
 		$('#courier_atcd').attr('disabled',true);
 		$('#acct_no').val("");
 		$('#acct_no').attr('disabled',true);
+	}
+}
+
+function setDealerCntryCombo(value){
+	var f = document.addForm;
+	if(value == ""){
+		getCntryCombo(f.cntry_atcd);
+		$('#cntry_atcd').attr('disabled',false);
+	}else{
+		getOrderCntryCombo(value, f.cntry_atcd, value.substr(6));
+		$('#cntry_atcd').attr('disabled',true);
 	}
 }
 

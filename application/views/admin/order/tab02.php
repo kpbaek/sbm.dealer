@@ -147,7 +147,8 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 				$('#dealer_seq').val(partOrdInfo.dealer_seq);
 				$('#pi_no').val(partOrdInfo.pi_no);
 				$('#swp_no').val(partOrdInfo.swp_no);
-				getDealerCntryCombo(partOrdInfo.dealer_seq, f_add.cntry_atcd, partOrdInfo.cntry_atcd);
+				getOrderCntryCombo(partOrdInfo.pi_no, f_add.cntry_atcd, partOrdInfo.cntry_atcd);
+//				getDealerCntryCombo(partOrdInfo.dealer_seq, f_add.cntry_atcd, partOrdInfo.cntry_atcd);
 				
 				if(partOrdInfo.cnfm_yn=="Y")
 				{
