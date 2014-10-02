@@ -19,6 +19,9 @@
 	<script src="/js/cmn/common.js" type="text/javascript"></script>
 </head>
 <form id="sendForm" name="sendForm" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	pi_no
+	<select name="pi_no" style="width: 120px;">
+	</select>
 	작업유형
 	<select name="wrk_tp_atcd" style="width: 120px;">
 	</select>
@@ -36,6 +39,7 @@
 
 $(document).ready(function() {
 	var f = document.sendForm;
+	getUserPiCombo(f.pi_no, "");
 	getCodeCombo("0070", f.wrk_tp_atcd);
 	getCodeCombo("0071", f.sndmail_atcd);
 	
