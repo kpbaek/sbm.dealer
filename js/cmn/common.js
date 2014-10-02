@@ -145,6 +145,23 @@
 		});
 	}
 	
+	function getOrderCntryCombo(pi_no, selObj, sVal) {
+		deleteOptionElements(selObj);
+		var targetUrl = '/index.php/common/user/listOrderCntry?pi_no=' + pi_no;
+		$.getJSON(targetUrl, function(result){
+//	    	$('#postdata').append(result['cd']['name'] + ":" + cd);
+			deleteOptionElements(selObj);
+			addOptionElement(selObj, "", "select");
+			for(var i=0; i<result['cdAttr'].length; i++){
+				var value = result['cdAttr'][i]['value'];
+				addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+				if(value == sVal){
+					selObj.selectedIndex = (i+1);
+				}
+			}
+		});
+	}
+	
 	function getModelCombo(atcd, selObj, sVal) {
 		var opt = "";
 		var targetUrl = '/index.php/common/main/listModel?atcd=' + atcd;
@@ -160,6 +177,40 @@
 	    		}
 			}
 	    });
+	}
+	
+	function getUserPiCombo(selObj, sVal) {
+		var opt = "";
+		var targetUrl = '/index.php/common/user/listUserPiNo';
+		$.getJSON(targetUrl, function(result){
+//	    	$('#postdata').append(result['cd']['name'] + ":" + cd);
+			deleteOptionElements(selObj);
+			addOptionElement(selObj, "", "New");
+			for(var i=0; i<result['cdAttr'].length; i++){
+				var value = result['cdAttr'][i]['value'];
+				addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+				if(value == sVal){
+					selObj.selectedIndex = (i+1);
+				}
+			}
+		});
+	}
+	
+	function getOrderPiCombo(dealer_seq, selObj, sVal) {
+		var opt = "";
+		var targetUrl = '/index.php/common/user/listOrderPiNo?dealer_seq=' + dealer_seq;
+		$.getJSON(targetUrl, function(result){
+//	    	$('#postdata').append(result['cd']['name'] + ":" + cd);
+			deleteOptionElements(selObj);
+			addOptionElement(selObj, "", "New");
+			for(var i=0; i<result['cdAttr'].length; i++){
+				var value = result['cdAttr'][i]['value'];
+				addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+				if(value == sVal){
+					selObj.selectedIndex = (i+1);
+				}
+			}
+		});
 	}
 	
 	function getCodeMultiCombo(cd, selObj, selAr) {
