@@ -9,6 +9,12 @@ $pi_no = $_REQUEST["pi_no"];
 // include db config
 include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
 
+
+// set up DB
+$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
+mysql_select_db(PHPGRID_DBNAME);
+
+
 $ctnt = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/include/email/".$sndmail_atcd.".php");
 if($sndmail_atcd=="00700111"){
 	$po_no = "";
@@ -192,8 +198,8 @@ if($sndmail_atcd=="00700111"){
 	
 }
 #$ctnt = str_replace("@base_url", base_url(), $ctnt);
-#echo $ctnt;
-
+echo $ctnt;
+#echo BASEPATH;
 $qryInfo['qryInfo']['ctnt'] = $ctnt;
 echo json_encode($qryInfo);
 ?>
