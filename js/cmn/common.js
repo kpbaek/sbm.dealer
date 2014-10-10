@@ -264,4 +264,145 @@
       	   targetDiv.style.display="none";    
         }
  	}
+    
+    function fncCrtSndMail(params){
+    	var params;
+    	if(params.sndmail_atcd=="00700111"){
+    		params = {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "po_no":params.po_no};
+    	}else if(params.sndmail_atcd=="00700112"){
+    		params = {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "swp_no":params.swp_no};
+    	}
+    	$.ajax({
+            type: "POST",
+            url: "/index.php/common/main/readMail",
+            async: false,
+            dataType: "json",
+            data: params,
+            cache: false,
+            success: function(result, status, xhr){
+            	var qryInfo = result.qryInfo;
+	    		params.ctnt = qryInfo.ctnt;
+//	            $("#resultDiv").html(params.ctnt); // test
+//	    		return;
+		    	if(params.sndmail_atcd=="00700111"){
+					fncCrtEqpSndMail(params);
+		    	}else if(params.sndmail_atcd=="00700112"){
+		    		fncCrtPartSndMail(params);
+		    	}
+            },
+	        error:function(){
+                return false;
+			}
+    	});
+    }
+    
+    function fncCrtEqpSndMail(params){
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/crtSndMail",
+    		async: false,
+    		dataType: "json",
+    		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "po_no":params.po_no
+    			  	,"ctnt":params.ctnt
+    		},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			var qryInfo = result.qryInfo;
+    			if(qryInfo.result==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql);
+        			return false;
+    			}else{
+//    				$("#resultDiv").html(qryInfo.result + ":" + qryInfo.sql);
+    			}
+    			if(qryInfo.result2==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql2);
+        			return false;
+    			}else{
+//    				$("#resultDiv").append(qryInfo.result2 + ":" + qryInfo.sql2);
+    			}
+    			if(qryInfo.result3==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql3);
+        			return false;
+    			}else{
+//		        	$("#resultDiv").append(qryInfo.result3 + ":" + qryInfo.sql3);
+    				fncSndMail(qryInfo.sndmail_seq);
+					alert("success!");
+    			}
+    		},
+    		error:function(){
+    			alert("err");
+    			return false;
+    		}
+    	});
+    }
+    
+    function fncCrtPartSndMail(params){
+    	
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/crtSndMail",
+    		async: false,
+    		dataType: "json",
+    		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "swp_no":params.swp_no
+			  	,"ctnt":params.ctnt
+    		},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			var qryInfo = result.qryInfo;
+    			if(qryInfo.result==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql);
+        			return false;
+    			}else{
+//		        	alert(qryInfo.result + ":" + qryInfo.sql);
+    			}
+    			if(qryInfo.result2==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql2);
+        			return false;
+    			}else{
+//		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
+    			}
+    			if(qryInfo.result3==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql3);
+        			return false;
+    			}else{
+//		        	alert(qryInfo.result3 + ":" + qryInfo.sql3);
+    				fncSndMail(qryInfo.sndmail_seq);
+					alert("success!");
+    			}
+    		},
+    		error:function(){
+    			return false;
+    		}
+    	});
+    }
+    
+    function fncSndMail(sndmail_seq){
+    	
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/sndMailResult",
+    		async: false,
+    		dataType: "text",
+//    		data: {"sndmail_seq":sndmail_seq, "atcd":"local"}, // test
+    		data: {"sndmail_seq":sndmail_seq},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			if(xhr.status=="200"){
+    	            $("#resultDiv").html("<b>The order is completed! We sent you order information mail.</b>"); 
+//    				alert(result);
+    				return true;
+    			}
+    		},
+    		error:function(){
+    			return false;
+    		}
+    	});
+    }
+    
 	
