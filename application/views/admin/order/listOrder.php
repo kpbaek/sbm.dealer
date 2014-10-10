@@ -89,7 +89,6 @@ $responce['records'] = $count;
 
 $i=0;
 while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-	$responce['rows'][$i]['id'] = $row['pi_no'];
 	$responce['rows'][$i]['order_date'] = $row['order_date'];
 	$responce['rows'][$i]['txt_cnfm_dt'] = $row['txt_cnfm_dt'];
 	$responce['rows'][$i]['cntry'] = $row['cntry'];
@@ -100,6 +99,7 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	$responce['rows'][$i]['tot_amt'] = $row['tot_amt'];;
 	$responce['rows'][$i]['premium_rate'] = $row['premium_rate'];
 	$responce['rows'][$i]['pi_no'] = $row['pi_no'];
+	$responce['rows'][$i]['cnfm_yn'] = $row['cnfm_yn'];
 	
     $i++;
 }  

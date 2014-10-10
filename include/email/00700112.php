@@ -354,12 +354,16 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 		<col class="col9">
 		<tbody>
 		  <tr class="row0">
-			<td class="column1 style1 s" colspan="8">SB1100 Spare Parts Order Confirmation (Ver.2014.03.14)</td>
+			<td class="column1 style1 s" colspan="8">Spare Parts Order Information</td>
 		  </tr>
 		  <tr class="row1">
-			<td class="column1 " colspan=8>P/I NO. : PI-14AG0001, &nbsp;&nbsp;&nbsp;&nbsp;Dest Country : Angola</td>
+			<td class="column1 " colspan=5 align=left>P/I NO. : @pi_no, &nbsp;&nbsp;&nbsp;&nbsp;Dest Country : @txt_cntry_atcd</td>
+			<td class="column1 " colspan=3 align=right>Order Date:@order_dt, Email No:@sendmail_seq</td>
 		  </tr>
-		
+		  <tr class="row1">
+			<td class="column1 " colspan=8 align=left>The Orderer : @cmpy_nm</td>
+		  </tr>
+		  
 				  
 		  <tr class="row2">
 			<td class="column0 style9 s">Model</td>
@@ -372,48 +376,9 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="column8 style10 s">Remark</td>
 			
 		  </tr>
-		  <tr class="row3">
-			<td class="column0 style15 s">SB-1100</td>
-			<td class="column2 style15 s">1A01X3061A</td>
-			<td class="column3 style16 s">ASS`Y_BRAKE_2</td>
-			<td class="column4 style17 n">$ 46.00</td>
-			<td class="column5 style17 n">&nbsp;1</td>
-			<td class="column6 style17 n">$ 46</td>
-			<td class="column7 style17 n">&nbsp;22.0 Kg</td>
-			<td class="column8 style10 s">&nbsp;</td>
-		  </tr>
 
-
-		  <tr class="row260">
-			<td class="column0 style15 s">SB-1100</td>
-			<td class="column2 style15 s">7000B045XA</td>
-			<td class="column3 style16 s">POWER_CORD_220V</td>
-			<td class="column4 style17 n">$ 5.00</td>
-			<td class="column5 style17 n">&nbsp;2</td>
-			<td class="column6 style17 n">$ 10</td>
-			<td class="column7 style19 null">&nbsp;</td>
-			<td class="column8 style10 s">&nbsp;</td>
-		  </tr>
-		  <tr class="row261">
-			<td class="column0 style15 s">SB-1100</td>
-			<td class="column2 style15 s">7000C046XA</td>
-			<td class="column3 style16 s">SERIAL_CABLE</td>
-			<td class="column4 style17 n">$ 3.50</td>
-			<td class="column5 style17 n">&nbsp;2</td>
-			<td class="column6 style17 n">$ 7</td>
-			<td class="column7 style17 n">&nbsp;</td>
-			<td class="column8 style10 s">&nbsp;</td>
-		  </tr>
-		  <tr class="row262">
-			<td class="column0 style15 s">SB-1100</td>
-			<td class="column2 style15 s">1A00X2038A</td>
-			<td class="column3 style16 s">ASS'Y_SEPARATOR</td>
-			<td class="column4 style17 n">$ 65.00</td>
-			<td class="column5 style17 n">&nbsp;1</td>
-			<td class="column6 style17 n">$ 65.00</td>
-			<td class="column7 style19 null">&nbsp;</td>
-			<td class="column8 style10 s">Included SHAFT_HINGE_TOP</td>
-		  </tr>
+		  @00700112_sub
+		  
 		  <tr class="row269">
 			<td class="column0">&nbsp;</td>
 			<td class="column2 style49 null"></td>
@@ -427,10 +392,10 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 		  <tr class="row280">
 			<td class="column0">&nbsp;</td>
 			<td class="column2 style11 s" colspan=2>GRAND TOTAL</td>
-			<td class="column4 style17 n">$ 129.50</td>
-			<td class="column5 style68 f">6</td>
-			<td class="column6 style63 f">$ 138.00</td>
-			<td class="column7 style63 f">22.0 Kg</td>
+			<td class="column4 style17 n">$ @tot_price</td>
+			<td class="column5 style68 f">@tot_qty</td>
+			<td class="column6 style63 f">$ @tot_amt</td>
+			<td class="column7 style63 f">@tot_wgt Kg</td>
 			<td class="column8">&nbsp;</td>
 		  </tr>
 		  <tr class="row270">
@@ -452,7 +417,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="column3 style10 s">Part name</td>
 			<td class="column5 style12 s">Q'ty</td>
 			<td class="column6 style13 s" colspan=3>P/I NO or Destination</td>
-			<td class="column8 style10 s" colspan=2>Remark</td>
+			<td class="column8 style10 s">Remark</td>
 		  </tr>
 		  <tr class="row273">
 			<td class="column0 style10 s">&nbsp;</td>
@@ -499,16 +464,6 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="column6">&nbsp;</td>
 			<td class="column7 style58 null"></td>
 			<td class="column8">&nbsp;</td>
-		  </tr>
-		  
-		  <tr class="row51">
-			<td class="column0 style152 s" colspan=10>SBM Co., Ltd.</td>
-		  </tr>
-		  <tr class="row52">
-			<td class="column0 style154 s" colspan=20>6F, Hyunwoo Bld, 206, Anyang7-Dong, Manan-Gu, Anyang-City, Gyeonggi-Do, KOREA . 430-817</td>
-		  </tr>
-		  <tr class="row53">
-			<td class="column0 style154 s" colspan=10>Tel: +82-31-429-0789    Fax: +82-31-429-3607</td>
 		  </tr>
 		  
 		</tbody>

@@ -55,15 +55,17 @@ $linkDoc = "";
 $type = "";
 while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	$isEditible = "";
+	$disableReq = "disabled";
 	if($cnfm_yn=="Y"){
 		$isEditible = "disabled";
+		$disableReq = "";
 	}
 	$link = "<input type=button value='edit' " .$isEditible. " onclick=\"editOrder('" .$row['order_tp']. "','" .$row['pi_no']. "'," .$row['po_no']. ");\">";
 	if($row['order_tp']=="E"){
-		$linkDoc = "<input type=button value='생산의뢰서'>";
+		$linkDoc = "<input type=button value='생산의뢰서'" .$disableReq. ">";
 		$type = "장비";
 	}else if($row['order_tp']=="P"){
-		$linkDoc = "<input type=button value='부품출고의뢰서'>";
+		$linkDoc = "<input type=button value='부품출고의뢰서'" .$disableReq. ">";
 		$type = "부품";
 	}
 	$responce['rows'][$i]['no'] = $row['po_no'];

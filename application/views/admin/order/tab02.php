@@ -46,52 +46,55 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 
 <body>
 <div id="error">
-<div id="searchDiv" style="display:;text-align:right">
-<form name="searchForm">
-<input type="text" name="page" style="display: none">
-model<select name="sch_mdl_cd"></select>
-code<input type="text" name="sch_part_cd">
-part name<input type="text" name="sch_part_nm">
-<input type="button" id="btnSearch" value="Search" onclick="javascript:gridReload();"/>
-</form>
-</div>
-<div id="gridDiv">
-<table id="list"></table>
-<div id="pager"></div>
-</div>
 
-<table id="list_d">
-<br>
-</table>
-<div id="pager_d"></div>
-
-<table border="0" cellpadding="0" cellspacing="0" style="width:950px;align:center; vertical-align:middle">
-<tr>
-    <td align=right>
-    
-	<div id="formDiv" style="display:">
-<form id="addForm" name="addForm" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-<input type=hidden id="dealer_seq" name="dealer_seq">
-<?php 
- if(isset($_REQUEST["edit_mode"])){
-?> 
-pi_no<input type=text id="pi_no" name="pi_no" size=8 maxlength=8 disabled>
-swp_no<input type=text id="swp_no" name="swp_no" size=8 disabled>
-<?php 
-}
-?> 
-Dest Country
-				<select id="cntry_atcd" name="cntry_atcd" style="width: 240px;">
-				</select>
-				
-<input type="button" id="btnOrder" value="submit" onclick="javascript:fn_order();"/>
-</form>
+<div id="orderDiv">
+	<div id="searchDiv" style="display:;text-align:right">
+	<form name="searchForm">
+	<input type="text" name="page" style="display: none">
+	model<select name="sch_mdl_cd"></select>
+	code<input type="text" name="sch_part_cd">
+	part name<input type="text" name="sch_part_nm">
+	<input type="button" id="btnSearch" value="Search" onclick="javascript:gridReload();"/>
+	</form>
 	</div>
-    </td>
-</tr>
-</table>
-
-
+	<div id="gridDiv">
+	<table id="list"></table>
+	<div id="pager"></div>
+	</div>
+	
+	<table id="list_d">
+	<br>
+	</table>
+	<div id="pager_d"></div>
+	
+	<table border="0" cellpadding="0" cellspacing="0" style="width:950px;align:center; vertical-align:middle">
+	<tr>
+	    <td align=right>
+	    
+		<div id="formDiv" style="display:">
+	<form id="addForm" name="addForm" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<input type=hidden id="dealer_seq" name="dealer_seq">
+	<?php 
+	 if(isset($_REQUEST["edit_mode"])){
+	?> 
+	pi_no<input type=text id="pi_no" name="pi_no" size=8 maxlength=8 disabled>
+	swp_no<input type=text id="swp_no" name="swp_no" size=8 disabled>
+	<?php 
+	}
+	?> 
+	Dest Country
+					<select id="cntry_atcd" name="cntry_atcd" style="width: 240px;">
+					</select>
+					
+	<input type="button" id="btnSubmit" value="submit" onclick="javascript:fn_order();"/>
+	</form>
+		</div>
+	    </td>
+	</tr>
+	</table>
+</div>
+<p>
+<div id="resultDiv" style="display:;text-align:center">&nbsp;</div>
 <div id="postdata"></div>
 <p>
 
@@ -102,7 +105,7 @@ Dest Country
 
 $(document).ready(function(e) {	
 
-	$('#btnOrder').attr('disabled',true);
+	$('#btnSubmit').attr('disabled',true);
 
 <?php
 if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
@@ -120,7 +123,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 	        {
 				$('#dealer_seq').val(dealerInfo.dealer_seq);
 			}else{
-				$('#btnOrder').attr('disabled',true);
+				$('#btnSubmit').attr('disabled',true);
 				$('#error').shake();
 				$("#error").html("<span style='color:#cc0000'>Notice:</span> unreceived dealer ID. ");
 	        }
@@ -152,7 +155,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 				
 				if(partOrdInfo.cnfm_yn=="Y")
 				{
-					$('#btnOrder').attr('disabled',true);
+					$('#btnSubmit').attr('disabled',true);
 					$('#error').shake();
 					$("#error").html("<span style='color:#cc0000'>Notice:</span> this order is already confirmed!. ");
 				}
@@ -369,7 +372,7 @@ if(isset($_REQUEST["edit_mode"])){
 <?php 
 }
 ?>
-		$('#btnOrder').attr('disabled',false);
+		$('#btnSubmit').attr('disabled',false);
 
     }
 	
@@ -653,7 +656,10 @@ if(isset($_REQUEST["edit_mode"])){
     	}
     	if(!fn_isValid()){
     		return;
-    	}
+    	}else{
+//    		$("#resultDiv").html('<b>this order is sending...</b>');   	
+        	$('#btnSubmit').attr('disabled',true);
+		}
 
     	$('#pi_no').attr('disabled',false);
     	$('#swp_no').attr('disabled',false);
@@ -675,6 +681,8 @@ if(isset($_REQUEST["edit_mode"])){
 		}
 		
         var params = {
+        		"wrk_tp_atcd": "00700110",
+        		"sndmail_atcd": "00700112",
                 "pi_no": $("#pi_no").val(),
                 "swp_no": $("#swp_no").val(),
                 "dealer_seq": $("#dealer_seq").val(),
@@ -690,14 +698,15 @@ if(isset($_REQUEST["edit_mode"])){
 		}
 //        $.ajaxSettings.traditional = true;
         
-        $("#btnOrder").val('Connecting...');
+        fn_crtPartOrder(params);
+    }
+
+    function fn_crtPartOrder(params){
         $.ajax({
 	        type: "POST",
 	        url: "/index.php/admin/order/crtPartOrder",
 	        async: false,
 	        dataType: "json",
-//	        data: {"worker_seq":ids},
-//	        data: {"worker_seq":arWorkerSeq, "w_email":arWEmail, "extns_num":arExtnsNum},
 	        data: params,
 	        cache: false,
 	        success: function(result, status, xhr){
@@ -741,7 +750,7 @@ if(isset($_REQUEST["edit_mode"])){
 		    				}
 			     		}); 
 					}
-    	            fn_gridReload();
+					fn_gridReload();
 				}else if(todo == "U"){
 		            var cnfm_yn = result.qryInfo.cnfm_yn;
 		            if(cnfm_yn == "Y"){
@@ -787,11 +796,18 @@ if(isset($_REQUEST["edit_mode"])){
     	        	$('#pi_no').attr('disabled',true);
     	        	$('#swp_no').attr('disabled',true);
 				}          	
-	        	alert("저장되었습니다");
-		        $("#btnOrder").val('submit');
+		        params = {
+		        		"wrk_tp_atcd": "00700110",
+		        		"sndmail_atcd": "00700112",
+		                "pi_no": qryInfo.pi_no,
+		                "swp_no": qryInfo.swp_no,
+		                "dealer_seq": $("#dealer_seq").val()
+		        };  
+		        fncCrtPartSndMail(params);
+		    	$('#btnSubmit').attr('disabled',false);
 			}
 		});
-    }
+	}
     
 </script>
 

@@ -174,18 +174,6 @@ if($po_no==""){
 	}
 		
 		
-#		include("login.php");
-		
-	$sql_snd = "INSERT INTO om_sndmail (wrk_tp_atcd, sndmail_atcd, auth_grp_cd, sender_email, sender_eng_nm, title, ctnt, crt_dt, crt_uid)";
-	$sql_snd = $sql_snd . " VALUES ('" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "', '" .$_SESSION['ss_user']['usr_email']. "', '" .$_SESSION['ss_user']['usr_email']. "'";
-	$sql_snd = $sql_snd . ", (select dealer_nm from om_dealer where dealer_seq = " .$dealer_seq. "), (select atcd_nm from cm_cd_attr where cd ='0071' and atcd = " .$sndmail_atcd. ")";
-	$sql_snd = $sql_snd . ", 'ctnt', now(), '" .$_SESSION['ss_user']['uid']. "')";
-		#		echo $sql_snd;
-#		$result2 = mysql_query($sql_snd);
-#		$qryInfo['qryInfo']['sql2'] = $sql_snd;
-#		$qryInfo['qryInfo']['result2'] = $result2;
-		
-		
 	$sql_eqp = "INSERT INTO om_ord_eqp";
 	$sql_eqp = $sql_eqp . "(pi_no, mdl_cd, srl_atcd, lcd_color_atcd, lcd_lang_atcd, rjt_pkt_tp_atcd, pwr_cab_atcd, shipped_by_atcd, courier_atcd, delivery_dt";
 	$sql_eqp = $sql_eqp . ", payment_atcd, incoterms_atcd, acct_no, srl_prn_cab_ox, calibr_sheet_ox, pc_cab_ox, remark, qty, amt, crt_dt, crt_uid)"; 
@@ -229,7 +217,11 @@ if($po_no==""){
 		$qryInfo['qryInfo']['insEqpDtl3'][$i_cur]['sql6'] = $sql_dtl;
 		$qryInfo['qryInfo']['insEqpDtl3'][$i_cur]['result6'] = $result6;
 	}
+
+	$sql_po = "SELECT LAST_INSERT_ID() po_no";
 	
+	$qryInfo['qryInfo']['pi_no'] = $new_pi_no;
+	$qryInfo['qryInfo']['po_no'] = mysql_result(mysql_query($sql_po),0,"po_no");
 	echo json_encode($qryInfo);
 		
 	
@@ -334,13 +326,9 @@ if($po_no==""){
 		}
 		
 	
+	$qryInfo['qryInfo']['pi_no'] = $pi_no;
+	$qryInfo['qryInfo']['po_no'] = $po_no;
 	echo json_encode($qryInfo);
-	
-	
-#	$result=mysql_query($sql);
-#	$count=mysql_num_rows($result);
-	
-#	$row=mysql_fetch_array($result,MYSQL_ASSOC);
 	
 }
 ?>

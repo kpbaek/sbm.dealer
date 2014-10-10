@@ -42,8 +42,8 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 	  table.sheet0 col.col8 { width:82pt }
 	  table.sheet0 tr { height:15pt }
 	</style>	
-		
-		
+
+<div id="addFormDiv">	
 <form id="addForm" name="addForm" method="post">
 <input type=hidden id="dealer_seq" name="dealer_seq">
 <table border="0" cellpadding="1" cellspacing="1" id="sheet0" width="950">
@@ -87,7 +87,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			<td colspan=2></td>
  -->			
 			<td>
-				<select id="pi_no" name="pi_no" style="width: 100px;" onchange="javascript:setDealerCntryCombo(this.value);">
+				<select id="pi_no" name="pi_no" style="width: 100px;" onchange="javascript:setOrderInfo(this.value);">
 				</select>
 			</td>
 			<td colspan=2></td>
@@ -235,6 +235,9 @@ General leadtime is 3 weeks from 10 to 100 units</td>
 		</tbody>
 	</table>
 </form>
+</div>
+
+<div id="resultDiv"></div>
 
 <script type="text/javascript">
 
@@ -538,6 +541,10 @@ function setDealerCntryCombo(value){
 	}
 }
 
+function setOrderInfo(pi_no){
+	setDealerCntryCombo(pi_no);
+}
+
 function setSerialCurrencyCombo(value){
 	var f = document.addForm;
 	if(value == ""){
@@ -584,12 +591,16 @@ function createData() {
 	$('#cntry_atcd').attr('disabled',false);
 	
 	f.action = "/index.php/admin/order/crtEqpOrder";
+
+	$('#btnSubmit').attr('disabled',true);
+
 //	f.submit();
 //	return;
 	var options = {
 				type:"POST",
 				dataType:"json",
 		        beforeSubmit: function(formData, jqForm, options) {
+//		        	$("#resultDiv").html('<b>this order is sending...</b>');
 				},
 		        success: function(result, statusText, xhr, $form) {
 		            if(statusText == 'success'){
@@ -725,11 +736,17 @@ function createData() {
 				    				}
 					     		}); 
 							}
-		    				newForm();
 						}          	
-//			        	$("#postdata").html(responseText);
-			        	alert("저장되었습니다");
-			        	newForm();
+				        var params = {
+				        		"wrk_tp_atcd": "00700110",
+				        		"sndmail_atcd": "00700111",
+				                "pi_no": qryInfo.pi_no,
+				                "po_no": qryInfo.po_no,
+				                "dealer_seq": $("#dealer_seq").val()
+				        };  
+				        fncCrtEqpSndMail(params);
+				    	$('#btnSubmit').attr('disabled',false);
+//			        	newForm();
 		            }
 				},
 		        /* ajax options omitted */

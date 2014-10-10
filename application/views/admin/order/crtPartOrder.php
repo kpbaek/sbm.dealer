@@ -109,6 +109,10 @@ if($swp_no==""){
 		
 	}
 	
+	$sql_po = "SELECT LAST_INSERT_ID() swp_no";
+	
+	$qryInfo['qryInfo']['pi_no'] = $new_pi_no;
+	$qryInfo['qryInfo']['swp_no'] = mysql_result(mysql_query($sql_po),0,"swp_no");
 	echo json_encode($qryInfo);
 	
 }else{
@@ -186,6 +190,8 @@ if($swp_no==""){
 	}
 	
 	
+	$qryInfo['qryInfo']['pi_no'] = $pi_no;
+	$qryInfo['qryInfo']['swp_no'] = $swp_no;
 	echo json_encode($qryInfo);
 	
 }

@@ -42,7 +42,7 @@
 </head>
 
 <body >
-
+<div id="error">
 <div id="searchDiv" style="display:;text-align:right">
 <form name="searchForm">
 <input type="text" name="page" style="display: none">
@@ -88,17 +88,17 @@
 		var mygrid = jQuery("#list").jqGrid({
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	colNames:['','id', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
+		   	colNames:['', '', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
 		   	colModel:[
 		   		{name:'chk', index:'chk', width:55,hidden:true,search:true,formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:true}}, 
-		   		{name:'id', index:'id', width:55,hidden:false,search:true,hidden:true}, 
-		        {name:'order_date',index:'id', width:80, align:"center",search:true},
+		   		{name:'cnfm_yn',index:'cnfm_yn', width:80, align:"right",search:true,hidden:true},		
+		   		{name:'order_date',index:'order_date', width:80, align:"center",search:true},
 		   		{name:'cntry',index:'cntry', width:100,search:true},
 		        {name:'dealer_nm',index:'dealer_nm', width:70, align:"left",search:true},
 		   		{name:'tot_amt',index:'tot_amt', width:70, sortable:false,search:true,align:"right",formatter:'currency', formatoptions:{prefix:"$"}},		
 		   		{name:'premium_rate',index:'id', width:80, align:"right",search:true,hidden:false},		
 		   		{name:'worker',index:'worker', width:50, align:"center", sortable:false,search:true},		
-		        {name:'txt_cnfm_dt',index:'txt_cnfm_dt', width:70, align:"center",search:true},
+		        {name:'txt_cnfm_dt',index:'txt_cnfm_dt', width:80, align:"center",search:true},
 		   		{name:'cnfm',index:'pi_no', width:80, sortable:false,search:true,hidden:false},		
 		   		{name:'c_cnfm',index:'pi_no', width:70, sortable:false,search:true,hidden:true},		
 		   		{name:'pi',index:'pi_no', width:140, sortable:false,search:true},		
@@ -113,7 +113,6 @@
 //		        var params = {id:rowid};
 //	            view_detail("#list",params);
 	            printData(params);
-//	            listFwd(rowid);
 	        },
 			mtype: "POST",
 //			postData:{sch_worker_seq:''},
@@ -122,8 +121,13 @@
                 for(var i=0;i < ids.length;i++){
                     var rowId = ids[i];
                     var rowData = jQuery("#list").jqGrid('getRowData',rowId);
+                    var disableCnfm = "";
+                    var cnfm_yn = rowData.cnfm_yn;
+                    if(cnfm_yn == "Y"){
+                    	disableCnfm = "disabled";
+                    }
                     c_image = "<img src='/images/ci_logo.jpg' height='20'>";
-                    c_cnfm = "<input style='height:22px;width:70px;' type=button name='c_qty' value='주문확정' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
+                    c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" " + disableCnfm + ">";
                     c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
@@ -363,15 +367,6 @@
 		orderConfirm();
 	}
 	
-    function listFwd(rowid){
-        alert("111");
-        var ids = jQuery("#list").jqGrid('getDataIDs');
-        for(var i=0;i < ids.length;i++){
-            var rowData = jQuery("#list").jqGrid('getRowData',ids[i]);
-	        jQuery("#list_d").jqGrid('addRowData',i,rowData);
-        }
-	}
-	
     function chkQty(rowId, qty){
         var ids = jQuery("#list").jqGrid('getDataIDs');
         var rowData = jQuery("#list").jqGrid('getRowData',ids[rowId]);
@@ -407,26 +402,6 @@
 		$("#list_d").jqGrid("footerData","set",udata,true);
 	}
 	
-	function order() {
-		
-        var f = document.searchForm;
-        var chk = jQuery("#list").jqGrid('getGridParam','selarrrow');
-        if( chk.length==0 ){
-            alert("we are ready to order!");
-            return;
-        }
-        var chk_ids = "";
-        for(i=0; i<chk.length; i++){
-            ret = jQuery("#list").jqGrid('getRowData',chk[i]);
-            chk_ids += ret.id + ",";
-        }
-        alert(chk_ids);
-        
-        if(confirm("test")){
-            $("#list").jqGrid('setPostData', {method:'confirm',chk_addr_seq:chk_addr_seq,deptName:deptName, name:name});
-            $("#list").jqGrid('setGridParam', {url:"/admin/order/tab02"}).trigger("reloadGrid");
-        }
-    }
 /**
 	jQuery("#list_d").jqGrid({
 		height: 100,
@@ -502,6 +477,46 @@
 //			location.replace("/index.php/admin/order/tab02");
 		}
 	}
+
+	function fn_cnfmOrder(pi_no){
+        if(!confirm("주문확정하시겠습니까?")){
+            return;
+        }
+	
+		$.ajax({
+	        type: "POST",
+	        url: "/index.php/admin/order/cnfmOrder",
+	        async: false,
+	        dataType: "json",
+	        data: {"pi_no":pi_no},
+	        cache: false,
+	        success: function(result, status, xhr){
+//	            alert(xhr.status);
+	            var qryInfo = result.qryInfo;	            	
+				if(qryInfo.result==false)
+		        {
+					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql);
+        			return;
+				}else{
+//		        	alert(qryInfo.result + ":" + qryInfo.sql);
+				}
+				if(qryInfo.result2==false)
+		        {
+					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql2);
+        			return;
+				}else{
+//		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
+				}
+	        	alert("주문확정 되었습니다");
+//	        	var params = {"wrk_tp_atcd":"00700110","sndmail_atcd":"00700111"};
+//	        	var params = {"wrk_tp_atcd":"00700110","sndmail_atcd":"00700112"};
+//	        	fnc_crtSendMail(params);
+	        	gridReload();
+	        }
+		});
+		
+	}
+		
 </script>
 
 </html>
