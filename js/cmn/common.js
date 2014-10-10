@@ -302,9 +302,7 @@
     		url: "/index.php/common/main/crtSndMail",
     		async: false,
     		dataType: "json",
-    		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "po_no":params.po_no
-    			  	,"ctnt":params.ctnt
-    		},
+    		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "po_no":params.po_no},
     		cache: false,
     		success: function(result, status, xhr){
     			var qryInfo = result.qryInfo;
@@ -329,6 +327,9 @@
     			}else{
 //		        	$("#resultDiv").append(qryInfo.result3 + ":" + qryInfo.sql3);
     				fncSndMail(qryInfo.sndmail_seq);
+			    	fncDisplayDiv(addFormDiv, false);
+    	            $("#resultDiv").html("<b>The order is completed! We sent you order information mail.</b><p>"); 
+    				$("#resultDiv").append(qryInfo.ctnt);
 					alert("success!");
     			}
     		},
@@ -340,14 +341,13 @@
     }
     
     function fncCrtPartSndMail(params){
-    	
     	$.ajax({
     		type: "POST",
     		url: "/index.php/common/main/crtSndMail",
     		async: false,
     		dataType: "json",
     		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "swp_no":params.swp_no
-			  	,"ctnt":params.ctnt
+//			  	,"ctnt":params.ctnt
     		},
     		cache: false,
     		success: function(result, status, xhr){
@@ -372,7 +372,17 @@
         			return false;
     			}else{
 //		        	alert(qryInfo.result3 + ":" + qryInfo.sql3);
+    			}
+    			if(qryInfo.result4==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql4);
+        			return false;
+    			}else{
+//		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
     				fncSndMail(qryInfo.sndmail_seq);
+			    	fncDisplayDiv(orderDiv, false);
+    	            $("#resultDiv").html("<b>The order is completed! We sent you order information mail.</b><p>"); 
+    				$("#resultDiv").append(qryInfo.ctnt);
 					alert("success!");
     			}
     		},
@@ -394,7 +404,6 @@
     		cache: false,
     		success: function(result, status, xhr){
     			if(xhr.status=="200"){
-    	            $("#resultDiv").html("<b>The order is completed! We sent you order information mail.</b>"); 
 //    				alert(result);
     				return true;
     			}
