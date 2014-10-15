@@ -213,6 +213,23 @@
 		});
 	}
 	
+	function getOrderPaymentCombo(pi_no, selObj, sVal) {
+		var opt = "";
+		var targetUrl = '/index.php/common/user/listOrderPayment?pi_no=' + pi_no;
+		$.getJSON(targetUrl, function(result){
+//	    	$('#postdata').append(result['cd']['name'] + ":" + cd);
+			deleteOptionElements(selObj);
+			addOptionElement(selObj, "", "select");
+			for(var i=0; i<result['cdAttr'].length; i++){
+				var value = result['cdAttr'][i]['value'];
+				addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+				if(value == sVal){
+					selObj.selectedIndex = (i+1);
+				}
+			}
+		});
+	}
+	
 	function getCodeMultiCombo(cd, selObj, selAr) {
 		var targetUrl = '/index.php/common/main/listCode?cd=' + cd;
 	    $.getJSON(targetUrl, function(result){
