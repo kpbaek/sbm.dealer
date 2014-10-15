@@ -100,6 +100,7 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	$responce['rows'][$i]['premium_rate'] = $row['premium_rate'];
 	$responce['rows'][$i]['pi_no'] = $row['pi_no'];
 	$responce['rows'][$i]['cnfm_yn'] = $row['cnfm_yn'];
+	$responce['rows'][$i]['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
 	
     $i++;
 }  

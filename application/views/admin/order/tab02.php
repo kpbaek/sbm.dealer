@@ -721,35 +721,33 @@ if(isset($_REQUEST["edit_mode"])){
     				}else{
 //    		        	alert(qryInfo.result + ":" + qryInfo.sql);
     				}
-/**		    				
     				if(qryInfo.result2==false)
     		        {
-            			alert("sql error:" + qryInfo.sql2);
+    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql2);
             			return;
     				}else{
-    		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
-    				}
-*/		    				
-    				if(qryInfo.result3==false)
-    		        {
-            			alert("sql error:" + qryInfo.sql3);
-            			return;
-    				}else{
-//    		        	alert(qryInfo.result3 + ":" + qryInfo.sql3);
+//    		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
     				}
     				if(qryInfo.insPartDtl){
 	    				var qryList = qryInfo.insPartDtl;	            	
 	    				$.each(qryList, function(key){ 
 		        			var targetInfo = qryList[key];
-		    				if(targetInfo.result4==false)
+		    				if(targetInfo.result3==false)
 		    		        {
-		            			alert("sql error:" + targetInfo.sql4);
+		            			alert("sql error:" + targetInfo.sql3);
 		            			return;
 							}else{
-//		    		        	alert(targetInfo.result4 + ":" + targetInfo.sql4);
+//		    		        	alert(targetInfo.result3 + ":" + targetInfo.sql3);
 		    				}
 			     		}); 
 					}
+    				if(qryInfo.result4==false)
+    		        {
+    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql4);
+            			return;
+    				}else{
+//    		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
+    				}
 					fn_gridReload();
 				}else if(todo == "U"){
 		            var cnfm_yn = result.qryInfo.cnfm_yn;

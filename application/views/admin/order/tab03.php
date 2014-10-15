@@ -88,10 +88,11 @@
 		var mygrid = jQuery("#list").jqGrid({
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	colNames:['', '', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
+		   	colNames:['', '', '', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
 		   	colModel:[
 		   		{name:'chk', index:'chk', width:55,hidden:true,search:true,formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:true}}, 
 		   		{name:'cnfm_yn',index:'cnfm_yn', width:80, align:"right",search:true,hidden:true},		
+		   		{name:'wrk_tp_atcd',index:'wrk_tp_atcd', width:80, align:"right",search:true,hidden:true},		
 		   		{name:'order_date',index:'order_date', width:80, align:"center",search:true},
 		   		{name:'cntry',index:'cntry', width:100,search:true},
 		        {name:'dealer_nm',index:'dealer_nm', width:70, align:"left",search:true},
@@ -108,7 +109,6 @@
 		   		{name:'packing',index:'pi_no', width:70, sortable:false,search:true}		
 			],
 			onSelectRow: function(rowid) {
-	        	alert("123");
 	        	var params = $("#list").jqGrid('getRowData',rowid);
 //		        var params = {id:rowid};
 //	            view_detail("#list",params);
@@ -122,14 +122,22 @@
                     var rowId = ids[i];
                     var rowData = jQuery("#list").jqGrid('getRowData',rowId);
                     var disableCnfm = "";
+                    var disablePiEdit = "";
+                    var disablePiSend = "disabled";
                     var cnfm_yn = rowData.cnfm_yn;
+                    var wrk_tp_atcd = rowData.wrk_tp_atcd;
                     if(cnfm_yn == "Y"){
                     	disableCnfm = "disabled";
+                    }else{
+                    	disablePiEdit = "disabled";
+                    }
+                    if(wrk_tp_atcd >= "00700210"){  // P/I 발송(00700210)
+                    	disablePiSend = "";
                     }
                     c_image = "<img src='/images/ci_logo.jpg' height='20'>";
                     c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" " + disableCnfm + ">";
-                    c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
-                    c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
+                    c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
+                    c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\" " + disablePiSend + ">";
                     c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
@@ -514,6 +522,17 @@
 	        	gridReload();
 	        }
 		});
+		
+	}
+		
+	function fn_editPi(pi_no){
+	
+		var f = document.editOrderForm;
+		f.method = "post";
+		f.edit_mode.value = "1";
+		f.pi_no.value = pi_no;
+		f.action = "/index.php/admin/outer/tab01";
+		f.submit();
 		
 	}
 		

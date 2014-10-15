@@ -94,6 +94,11 @@ class Order extends CI_Controller {
 		$this->load->view('/admin/order/listPartOrder');
 	}
 
+	public function cnfmOrder()
+	{
+		$this->load->view('/admin/order/cnfmOrder');
+	}
+
 }
 
 /* End of file welcome.php */
