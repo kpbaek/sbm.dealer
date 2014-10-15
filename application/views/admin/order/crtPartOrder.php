@@ -92,9 +92,9 @@ if($swp_no==""){
 		$sql_part = $sql_part . "(pi_no, amt, wgt, crt_dt, crt_uid)";
 		$sql_part = $sql_part . " VALUES ('" .$new_pi_no. "', " .$amt. ", " .$wgt. ", now(), '" .$_SESSION['ss_user']['uid']. "')";
 		#		echo $sql_part;
-		$result3 = mysql_query($sql_part);
-		$qryInfo['qryInfo']['sql3'] = $sql_part;
-		$qryInfo['qryInfo']['result3'] = $result3;
+		$result2 = mysql_query($sql_part);
+		$qryInfo['qryInfo']['sql2'] = $sql_part;
+		$qryInfo['qryInfo']['result2'] = $result2;
 		
 		for($i_item=0; $i_item < sizeof($part_cd); $i_item++)
 		{
@@ -102,12 +102,28 @@ if($swp_no==""){
 			$sql_dtl = $sql_dtl . " (pi_no, swp_no, mdl_cd, part_ver, part_cd, qty, unit_prd_cost, crt_dt, crt_uid) ";
 			$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '" .$mdl_cd[$i_item]. "', '" .$part_ver[$i_item]. "', '" .$part_cd[$i_item]. "', " .$qty[$i_item]. ", " .$unit_prd_cost[$i_item]. ", now(), '" .$_SESSION['ss_user']['uid']. "')";
 	#			echo $sql_dtl;
-			$result4 = mysql_query($sql_dtl);
-			$qryInfo['qryInfo']['insPartDtl'][$i_item]['sql4'] = $sql_dtl;
-			$qryInfo['qryInfo']['insPartDtl'][$i_item]['result4'] = $result4;
+			$result3 = mysql_query($sql_dtl);
+			$qryInfo['qryInfo']['insPartDtl'][$i_item]['sql3'] = $sql_dtl;
+			$qryInfo['qryInfo']['insPartDtl'][$i_item]['result3'] = $result3;
 		}
 		
 	}
+	
+	$sql_tot_amt = "select sum(a.amt) tot_amt from ";
+	$sql_tot_amt = $sql_tot_amt . "(";
+	$sql_tot_amt = $sql_tot_amt . "  select amt from om_ord_part";
+	$sql_tot_amt = $sql_tot_amt . "  where pi_no = '" .$new_pi_no. "'";
+	$sql_tot_amt = $sql_tot_amt . ") a";
+	
+	$sql_ord = "UPDATE om_ord_inf";
+	$sql_ord = $sql_ord . " SET tot_amt=(" .$sql_tot_amt. ")";
+	$sql_ord = $sql_ord . ",udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
+	$sql_ord = $sql_ord . " WHERE pi_no ='" .$new_pi_no. "'";
+	#		echo $sql_ord;
+	$result4=mysql_query($sql_ord);
+	$qryInfo['qryInfo']['sql4'] = $sql_ord;
+	$qryInfo['qryInfo']['result4'] = $result4;
+	
 	
 	$sql_po = "SELECT LAST_INSERT_ID() swp_no";
 	
