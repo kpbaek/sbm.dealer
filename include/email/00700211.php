@@ -174,18 +174,19 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column6">&nbsp;</td>
 		  </tr>
 		  <tr class="row6">
-			<td class="column0 style39 s" colspan="4">Date: 21 Mar., 2014</td>
+			<td class="column0 style62 n style62" colspan="4">Date: @txt_invoice_dt</td>
+			<td class="column3 style5 null"></td>
 			<td class="column4">&nbsp;</td>
-			<td class="column5 style63 n style63" colspan="2">Our Ref: PI-14LB0001</td>
+			<td class="column5 style63 n style63" colspan="2">Our Ref: PI-@txt_pi_no</td>
 		  </tr>
 		  <tr class="row7">
 			<td class="column0 style7 s">Messrs.</td>
-			<td class="column1 style7 s" colspan=4>: Ladkani Office Solutions</td>
+			<td class="column1 style7 s" colspan=4>: @csn_cmpy_nm</td>
 			<td class="column5 style64 null style64" colspan="2"></td>
 		  </tr>
 		  <tr class="row8">
 			<td class="column0 style8 s">Attn.</td>
-			<td class="column1 style9 s" colspan=5>: Mr. Imad Ladkani</td>
+			<td class="column1 style9 s" colspan=5>: @csn_attn</td>
 			<td class="column6 style10 null"></td>
 		  </tr>
 		  <tr class="row9">
@@ -208,72 +209,34 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column5 style13 s">Unit Price</td>
 			<td class="column6 style13 s">Amount</td>
 		  </tr>
-		  <tr class="row12">
-			<td class="column0 style14 s">SB-9</td>
-			<td class="column1 style15 s" colspan="3">Currency Discrimination Counter</td>
-			<td class="column4 style17 n">40</td>
-			<td class="column5 style18 n">0</td>
-			<td class="column6 style19 f">0</td>
-		  </tr>
-		  <tr class="row13">
-			<td class="column0 style21 null"></td>
-			<td class="column1 style15 s" colspan="3">Counterfeit Detection: MG, MR-Array, IR, UV </td>
-			<td class="column4 style17 null"></td>
-			<td class="column5 style22 null"></td>
-			<td class="column6 style23 null"></td>
-		  </tr>
-		  <tr class="row14">
-			<td class="column0 style21 null"></td>
-			<td class="column1 style15 s" colspan="3">For LBP/USD/EUR only  /  P-OCR for USD/EUR</td>
-			<td class="column4 style17 null"></td>
-			<td class="column5 style22 null"></td>
-			<td class="column6 style23 s">.</td>
-		  </tr>
-		  <tr class="row15">
-			<td class="column0 style21 null"></td>
-			<td class="column1 style15 null"></td>
-			<td class="column2 style16 null"></td>
-			<td class="column3 style16 null"></td>
-			<td class="column4 style17 null"></td>
-			<td class="column5 style22 null"></td>
-			<td class="column6 style23 null"></td>
-		  </tr>
-		  <tr class="row17">
+		  <tr class="row18">
 			<td class="column0 style25 null"></td>
-			<td class="column1 style26 null"></td>
-			<td class="column2 style27 null"></td>
-			<td class="column3 style27 null"></td>
+			<td class="column1 style26 s" colspan="3"><div id="eqpDiv" style="display:@eqpDiv;padding-left: 10px;">Currency Discrimination Counter</div></td>
 			<td class="column4 style28 null"></td>
 			<td class="column5 style18 null"></td>
 			<td class="column6 style18 null"></td>
+		  </tr>
+		  <tr class="row12" id="eqpListDiv" style="display:@eqpListDiv">
+			<td class="column0 style14 s"><div id="mdl_nm" style="line-height:55px;">@mdl_nm</div></td>
+			<td class="column1 style15 s" colspan="3"><div id="dscrt" style="padding-left: 10px;line-height:20px;">@dscrt</div>
+			</td>
+			<td class="column4 style17 n"><div id="eqp_qty" style="line-height:50px;">@eqp_qty</div></td>
+			<td class="column5 style18 n"></td>
+			<td class="column6 style19 f"><div id="eqp_qty" style="line-height:50px;">@eqp_amt</div></td>
 		  </tr>
 		  <tr class="row18">
 			<td class="column0 style25 null"></td>
-			<td class="column1 style26 s" colspan="3">Spare Parts</td>
+			<td class="column1 style26 s" colspan="3"><div id="partsDiv" style="padding-left: 10px;">@partsDiv</div></td>
 			<td class="column4 style28 null"></td>
 			<td class="column5 style18 null"></td>
 			<td class="column6 style18 null"></td>
 		  </tr>
-		  <tr class="row19">
+		  <tr class="row19" id="spareDiv" style="display:@spareDiv">
 			<td class="column0 style25 null"></td>
-			<td class="column1 style30 s" colspan="3">SB-1100  CIS</td>
-			<td class="column4 style28 n">5</td>
-			<td class="column5 style18 n">USD  130.00</td>
-			<td class="column6 style19 f">USD  650.00</td>
-		  </tr>
-		  <tr class="row20">
-			<td class="column0 style25 null"></td>
-			<td class="column1 style30 s" colspan="3">SB-9  P_POWER_IO V1.5</td>
-			<td class="column4 style28 n">5</td>
-			<td class="column5 style18 n">USD  85.00</td>
-			<td class="column6 style19 f">USD  425.00</td>
-		  </tr>
-		  <tr class="row21">
-			<td class="column0 style25 null"></td>
-			<td class="column1 style30 s" colspan="3">SB-9  MAIN V1.3</td>
-			<td class="column4 style28 n">5</td>
-			<td class="column5 style18 n">USD  220.00</td>
-			<td class="column6 style19 f">USD  1,100.00</td>
+			<td class="column1 style30 s" colspan="3"><div id="spare_parts" style="padding-left: 10px;">@spare_parts</div></td>
+			<td class="column4 style28 n">@qty</td>
+			<td class="column5 style18 n">@unit_price</td>
+			<td class="column6 style19 f">@amount</td>
 		  </tr>
 		  <tr class="row22">
 			<td class="column0 style25 null"></td>
@@ -284,38 +247,40 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column5 style18 null"></td>
 			<td class="column6 style18 null"></td>
 		  </tr>
-
-		  <tr class="row16">
-			<td class="column0 style14 s">Printer
+		  <tr class="row12" id="prnDiv" style="display:@prnDiv">
+			<td class="column0 style14 s">Printer</td>
+			<td class="column1 style15 s" colspan="3">
 			</td>
-			<td class="column1 style24 s" colspan="3">SP-58S</td>
-			<td class="column4 style17 n">0</td>
-			<td class="column5 style19 n">0</td>
-			<td class="column6 style19 f">0</td>
+			<td class="column4 style17 n">@prn_qty</td>
+			<td class="column5 style18 n"></td>
+			<td class="column6 style19 f">USD @prn_tot_amt</td>
 		  </tr>
-		  <tr class="row22">
+		  <tr class="row18">
 			<td class="column0 style25 null"></td>
-			<td class="column1 style30 null"></td>
-			<td class="column2 style27 null"></td>
-			<td class="column3 style27 null"></td>
+			<td class="column1 style26 s" colspan="3"></td>
 			<td class="column4 style28 null"></td>
 			<td class="column5 style18 null"></td>
 			<td class="column6 style18 null"></td>
 		  </tr>
-		  <tr class="row16">
-			<td class="column0 style14 s">Repair Parts
-			</td>
-			<td class="column1 style24 s" colspan="3">SP-58S</td>
-			<td class="column4 style17 n">0</td>
-			<td class="column5 style19 n"></td>
-			<td class="column6 style19 f">0</td>
+		  <tr class="row19" id="repairDiv" style="display:@repairDiv">
+			<td class="column0 style25 null">Repair Parts</td>
+			<td class="column1 style30 s" colspan="3"></td>
+			<td class="column4 style28 n">@repr_qty</div></td>
+			<td class="column5 style18 n"></td>
+			<td class="column6 style19 f">USD @repr_tot_amt</td>
 		  </tr>
-		  
+		  <tr class="row18">
+			<td class="column0 style25 null"></td>
+			<td class="column1 style26 s" colspan="3"></td>
+			<td class="column4 style28 null"></td>
+			<td class="column5 style18 null"></td>
+			<td class="column6 style18 null"></td>
+		  </tr>
 		  <tr class="row26">
-			<td class="column0 style67 s style69" colspan="4">Total Amount (FOB)</td>
-			<td class="column4 style35 null"></td>
+			<td class="column0 style67 s style27" colspan="4">Total Amount</td>
+			<td class="column4 style36 null"></td>
 			<td class="column5 style36 null"></td>
-			<td class="column6 style37 f">USD  2,175.00</td>
+			<td class="column6 style37 f">USD @tot_amt</td>
 		  </tr>
 
 		  <tr class="row27">
@@ -346,7 +311,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 		  <tr class="row31">
 			<td class="column0 style39 s" colspan=2>Shipping port</td>
 			<td class="column2 style40 s">:</td>
-			<td class="column3 style39 s" colspan=4>Incheon, Korea
+			<td class="column3 style39 s" colspan=4>@txt_ship_port_atcd
 			 (Shipped by AIR)
 			</td>
 		  </tr>
@@ -358,19 +323,19 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 		  <tr class="row33">
 			<td class="column0 style39 s" colspan=2>Destination</td>
 			<td class="column2 style40 s">:</td>
-			<td class="column3 style39 s" colspan=4>Beirut, Lebanon</td>
+			<td class="column3 style39 s" colspan=4>@destnt, @cntry</td>
 		  </tr>
 		  <tr class="row34">
 			<td class="column0 style39 s" colspan=2>Payment</td>
 			<td class="column2 style40 s">:</td>
-			<td class="column3 style39 s" colspan=4>T/T in advance
+			<td class="column3 style39 s" colspan=4>@inv_payment
 			 (All expenses outside of Korea shall be charged by remitter)
 			</td>
 		  </tr>
 		  <tr class="row35">
 			<td class="column0 style39 s" colspan=2>Validity</td>
 			<td class="column2 style40 s">:</td>
-			<td class="column3 style42 f">Until Apr. 18, 2014</td>
+			<td class="column3 style42 f">Until @txt_validity</td>
 			<td class="column4 style43 null"></td>
 			<td class="column5 style43 null"></td>
 			<td class="column6">&nbsp;</td>
@@ -378,11 +343,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 		  <tr class="row36">
 			<td class="column0 style44 s" colspan=2>Bank Information</td>
 			<td class="column2 style40 s">:</td>
-			<td class="column3 style60 s" colspan=4>CITI BANK INC.-Commercial Bank Center-Gyeonggi Nambu
-				2F, CITI Osan Bldg., 84 Seongho-daero
-				Osan-si, Gyeonggi-do, 447-804, KOREA
-				SWIFT Code: CITIKRSX
-				Account No.: 558-00113-436-01
+			<td class="column3 style60 s" colspan=4>@inv_bank.-@txt_bank_atcd_dscrt
 
 			</td>
 		  </tr>
@@ -390,7 +351,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column0 style1 s">Reference:</td>
 			<td class="column1 style45 null"></td>
 			<td class="column2 style40 s">:</td>
-			<td class="column3 style41 s" colspan=4>If you delay the Ex-works date already agreed with us </td>
+			<td class="column3 style41 s" colspan=4>If you delay the incoterms date already agreed with us </td>
 		  </tr>
 		  <tr class="row41">
 			<td class="column0 style1 null"></td>
@@ -426,12 +387,12 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column6">&nbsp;</td>
 		  </tr>
 		  <tr class="row49">
-			<td class="column0 style47 s" colspan=5>Arthur Kim</td>
+			<td class="column0 style47 s" colspan=5>@worker_eng_nm</td>
 			<td class="column5 style2 null"></td>
 			<td class="column6 style2 null"></td>
 		  </tr>
 		  <tr class="row50">
-			<td class="column0 style50 s" colspan=7>Sales and Marketing Dept. / Senior Manager</td>
+			<td class="column0 style50 s" colspan=7>@worker_team_duty</td>
 		  </tr>
 		  <tr class="row51">
 			<td class="column0 style52 s" colspan=7>SBM Co., Ltd.</td>

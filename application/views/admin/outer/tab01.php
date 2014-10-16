@@ -114,6 +114,17 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 @page { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-margin: 0.19685039370079in; bottom-margin: 0.039370078740157in; }
 body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-margin: 0.19685039370079in; bottom-margin: 0.039370078740157in; }
 </style>
+
+<div id="resultDiv" style="display:none">
+	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
+	<tr>
+		<td colspan=10 align=right>
+		<input type="button" id="btnEdit" name="btnEdit" value="edit" onclick="javascript:fn_edit();"/>
+		<input type="button" id="btnMail" name="btnMail" value="send mail" onclick="javascript:fn_sendMail();"/>
+		</td>
+	</tr>
+	</table>
+</div>
 <div id="saveFormDiv">	
 <form id="saveForm" name="saveForm" method="post">
 <input type=hidden id="pi_no" name="pi_no">
@@ -121,7 +132,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 	<tr>
 		<td colspan=10 align=right>
 		<input type="button" id="btnSave" name="btnSave" value="save" onclick="javascript:fn_save();"/>
-		<input type="button" id="btnSend" name="btnSend" value="send" onclick="javascript:fn_sendMail();" disabled/>
+		<input type="button" id="btnSend" name="btnSend" value="send" onclick="javascript:fn_readMail();" disabled/>
 		</td>
 	  </tr>
 	</table>
@@ -265,10 +276,10 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 		  </tr>
 		  <tr class="row19" id="repairDiv" style="display:none">
 			<td class="column0 style25 null"><div id="repair"></div></td>
-			<td class="column1 style30 s" colspan="3"><div id="repair_parts" name="repair_parts"></div></td>
-			<td class="column4 style28 n"><div id="repair_qty"></div></td>
+			<td class="column1 style30 s" colspan="3"></td>
+			<td class="column4 style28 n"><div id="repr_qty"></div></td>
 			<td class="column5 style18 n"></td>
-			<td class="column6 style19 f"><div id="repair_tot_amt"></div></td>
+			<td class="column6 style19 f"><div id="repr_tot_amt"></div></td>
 		  </tr>
 		  <tr class="row18">
 			<td class="column0 style25 null"></td>
@@ -401,7 +412,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column0 style1 s">Reference:</td>
 			<td class="column1 style45 null"></td>
 			<td class="column2 style40 s">:</td>
-			<td class="column3 style41 s" colspan=4>If you delay the Ex-works date already agreed with us </td>
+			<td class="column3 style41 s" colspan=4>If you delay the incoterms date already agreed with us </td>
 		  </tr>
 		  <tr class="row41">
 			<td class="column0 style1 null"></td>
@@ -502,8 +513,6 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 </form>
 </div>
 
-<div id="resultDiv"></div>
-	
 </body>
   
 <script type="text/javascript">
@@ -592,7 +601,6 @@ $(document).ready(function(e) {
 		var mdl_nm = "";
 		var eqp_qty = "";
 		var eqp_amt = "";
-		var currency = "";
 		var detection = "";
 		var incoterms = "";
 		var dscrt = "";
@@ -616,8 +624,9 @@ $(document).ready(function(e) {
 				incoterms = "";
 				shipped_by = "";
 				courier = "";
+				var serial = "";
 				if(targetInfo.txt_srl_atcd!=null){
-					currency += " only " + targetInfo.txt_srl_atcd + " for " + targetInfo.serial_currency;
+					serial = " only " + targetInfo.txt_srl_atcd + " for " + targetInfo.serial_currency;
 				}
 				if(targetInfo.txt_incoterms_atcd!=null){
 					incoterms += " , " + "Incoterms:" + targetInfo.txt_incoterms_atcd;
@@ -632,7 +641,7 @@ $(document).ready(function(e) {
 				dscrt += incoterms + "<BR>";
 				dscrt += shipped_by;
 				dscrt += courier + "<BR>";
-				dscrt += "For " + targetInfo.currency + "<p>";
+				dscrt += "For " + targetInfo.currency + serial + "<p>";
 			})
 	        $("#mdl_nm").html(mdl_nm);
 	        $("#dscrt").html(dscrt);
@@ -664,8 +673,8 @@ $(document).ready(function(e) {
 		if(invoiceInfo.repr_qty!=null){
 			repairDiv.style.display = "";
 	        $("#repair").html("Repair Parts");
-	        $("#repair_qty").html(invoiceInfo.repr_qty);
-	        $("#repair_tot_amt").html(invoiceInfo.repr_tot_amt);
+	        $("#repr_qty").html(invoiceInfo.repr_qty);
+	        $("#repr_tot_amt").html("USD " + invoiceInfo.repr_tot_amt);
 		}
 		
 		if(invoiceInfo.prn_qty!=null){
@@ -673,14 +682,14 @@ $(document).ready(function(e) {
 	        $("#prn").html("Printer");
 //	        $("#prn_nm").html("SP-58S");
 	        $("#prn_qty").html(invoiceInfo.prn_qty);
-	        $("#prn_tot_amt").html(invoiceInfo.prn_tot_amt);
+	        $("#prn_tot_amt").html("USD " + invoiceInfo.prn_tot_amt);
 		}
 		
         $("#tot_amt").html("USD " + invoiceInfo.inv_tot_amt);
 		if(orderEqpList!=null){
 			$("#tot_amt").append("<br>(Eqp.DC:-" + invoiceInfo.discount + ")");
 		}
-		if(invoiceInfo.wrk_tp_atcd<="00700210"){  // P/I 발송(00700210)
+		if(invoiceInfo.wrk_tp_atcd<"00700410"){  // INVOICE 발송(00700410)
 			$('#btnSave').attr('disabled',false);
 			$('#btnSend').attr('disabled',false);
 		}else{
@@ -723,6 +732,25 @@ $(document).ready(function(e) {
 		return true;
 	}
 
+	function fn_edit(){
+    	location.replace("/index.php/admin/outer/tab01?edit_mode=1&pi_no=" + $("#pi_no").val());
+	}
+
+	function fn_readMail(){
+		var params = {"sndmail_atcd":"00700211", "pi_no":$("#pi_no").val()};  
+	
+		saveFormDiv.style.display = "none";
+		fncReadMail(params);
+		resultDiv.style.display = "";
+		
+	}
+
+	function fn_sendMail(){
+		var params = {"sndmail_atcd":"00700211", "pi_no":$("#pi_no").val()};  
+	
+		alert("ing..");
+		
+	}
 	
 	function fn_save() {
 		var f = document.saveForm;
@@ -778,7 +806,7 @@ $(document).ready(function(e) {
 							}          	
 					    	$('#btnSave').attr('disabled',false);
 					    	alert("success!");
-					    	location.replace("/index.php/admin/outer/tab01?edit_mode=1&pi_no=" + $("#pi_no").val());
+					    	fn_edit();
 			            }
 					},
 			        /* ajax options omitted */

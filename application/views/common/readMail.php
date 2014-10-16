@@ -195,10 +195,117 @@ if($sndmail_atcd=="00700111"){
 	$ctnt = str_replace("@tot_qty", $tot_qty, $ctnt);
 	$ctnt = str_replace("@tot_amt", $tot_amt, $ctnt);
 	$ctnt = str_replace("@tot_wgt", $tot_wgt, $ctnt);
+
+}else if($sndmail_atcd=="00700211"){  // Proforma Invoice
+	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
 	
+	$ctnt = str_replace("@txt_invoice_dt", $invoice['invoiceInfo']['txt_invoice_dt'], $ctnt);
+	$ctnt = str_replace("@txt_pi_no", $invoice['invoiceInfo']['pi_no'], $ctnt);
+	$ctnt = str_replace("@csn_cmpy_nm", $invoice['invoiceInfo']['csn_cmpy_nm'], $ctnt);
+	$ctnt = str_replace("@csn_attn", $invoice['invoiceInfo']['csn_attn'], $ctnt);
+	$ctnt = str_replace("@repr_qty", $invoice['invoiceInfo']['repr_qty'], $ctnt);
+	$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
+	$ctnt = str_replace("@destnt", $invoice['invoiceInfo']['destnt'], $ctnt);
+	$ctnt = str_replace("@cntry", $invoice['invoiceInfo']['cntry'], $ctnt);
+	$ctnt = str_replace("@txt_ship_port_atcd", $invoice['invoiceInfo']['txt_ship_port_atcd'], $ctnt);
+	$ctnt = str_replace("@inv_payment", $invoice['invoiceInfo']['inv_payment'], $ctnt);
+	$ctnt = str_replace("@txt_validity", $invoice['invoiceInfo']['validity_dt'], $ctnt);
+	$ctnt = str_replace("@txt_bank_atcd_dscrt", $invoice['invoiceInfo']['txt_bank_atcd_dscrt'], $ctnt);
+	$ctnt = str_replace("@inv_bank", $invoice['invoiceInfo']['inv_bank'], $ctnt);
+	$ctnt = str_replace("@discount", $invoice['invoiceInfo']['discount'], $ctnt);
+	
+	$ctnt = str_replace("@worker_eng_nm", $invoice['invoiceInfo']['worker_eng_nm'], $ctnt);
+	$ctnt = str_replace("@worker_team_duty", $invoice['invoiceInfo']['worker_team_duty'], $ctnt);
+
+	if($invoice['invoiceInfo']["prn_qty"]==null){
+		$ctnt = str_replace("@prnDiv", "none", $ctnt);
+	}else{
+		$ctnt = str_replace("@prnDiv", "", $ctnt);
+		$ctnt = str_replace("@prn_qty", $invoice['invoiceInfo']['prn_qty'], $ctnt);
+		$ctnt = str_replace("@prn_tot_amt", $invoice['invoiceInfo']['prn_tot_amt'], $ctnt);
+	}
+	
+	if($invoice['invoiceInfo']["repr_qty"]==null){
+		$ctnt = str_replace("@repairDiv", "none", $ctnt);
+	}else{
+		$ctnt = str_replace("@repairDiv", "", $ctnt);
+		$ctnt = str_replace("@repr_qty", $invoice['invoiceInfo']['repr_qty'], $ctnt);
+		$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
+	}
+	
+	
+#	print_r($invoice['invoiceInfo']["wrk_tp_atcd"]);
+#	print_r($invoice['orderEqpList']);
+#	print_r($invoice['orderEqpList'][0]['mdl_nm']);
+
+	$tot_amt = $invoice['invoiceInfo']['inv_tot_amt'];
+	if($invoice['orderEqpList']==null){
+		$ctnt = str_replace("@eqpDiv", "none", $ctnt);
+		$ctnt = str_replace("@eqpListDiv", "none", $ctnt);
+	}else{
+		$ctnt = str_replace("@eqpListDiv", "", $ctnt);
+		
+		$mdl_nm = "";
+		$eqp_qty = "";
+		$eqp_amt = "";
+		$dscrt = "";
+		$courier = "";
+		$currency = "";
+		foreach($invoice['orderEqpList'] as $orderEqpList) {
+			$mdl_nm .= $orderEqpList['mdl_nm'] . "<br>";
+			$eqp_qty .= $orderEqpList['eqp_qty'] . "<br>";
+			$eqp_amt .= "USD " . $orderEqpList['amt'] . "<br>";
+			$dscrt .= "P/O NO:" . $orderEqpList['po_no'];
+			if($orderEqpList['txt_incoterms_atcd']!=null){
+				$dscrt .= " , " . "Incoterms:" . $orderEqpList['txt_incoterms_atcd'];
+			}
+			$dscrt .= "<BR>";
+			if($orderEqpList['txt_shipped_by_atcd']!=null){
+				$dscrt .= "shipped_by " . $orderEqpList['txt_shipped_by_atcd'];
+			}
+			if($orderEqpList['txt_courier_atcd']!=null){
+				$dscrt .= "(" . $orderEqpList['txt_courier_atcd'] . ")";
+			}
+			$dscrt .= "<BR>";
+			if($orderEqpList['txt_srl_atcd']!=null){
+				$currency .= " only " . $orderEqpList['txt_srl_atcd'] . " for " + $orderEqpList['serial_currency'];
+			}
+			$dscrt .= "For " . $orderEqpList['currency'] . "<p>";
+		}
+		$ctnt = str_replace("@mdl_nm", $mdl_nm, $ctnt);
+		$ctnt = str_replace("@eqp_qty", $eqp_qty, $ctnt);
+		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
+		$ctnt = str_replace("@dscrt", $dscrt, $ctnt);
+		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
+		
+		$tot_amt .= "<br>(Eqp.DC:-" . $invoice['invoiceInfo']['discount'] . ")";
+	}
+	$ctnt = str_replace("@tot_amt", $tot_amt, $ctnt);
+	
+	if($invoice['orderPartList']==null){
+		$ctnt = str_replace("@spareDiv", "none", $ctnt);
+		$ctnt = str_replace("@partsDiv", "", $ctnt);
+	}else{
+		$ctnt = str_replace("@partsDiv", "spare_parts", $ctnt);
+		$spare_parts = "";
+		$qty = "";
+		$unit_price = "";
+		$amount = "";
+		foreach($invoice['orderPartList'] as $orderPartList) {
+			$spare_parts .= $orderPartList['mdl_nm']. " " . $orderPartList['part_nm']. "<p>";
+			$qty .= $orderPartList['qty'] . "<p>";
+			$unit_price .= "USD " . $orderPartList['unit_price'] . "<p>";
+			$amount .= "USD " . $orderPartList['amount'] . "<p>";
+		}
+		$ctnt = str_replace("@spare_parts", $spare_parts, $ctnt);
+		$ctnt = str_replace("@qty", $qty, $ctnt);
+		$ctnt = str_replace("@unit_price", $unit_price, $ctnt);
+		$ctnt = str_replace("@amount", $amount, $ctnt);
+	}
+		
 }
 #$ctnt = str_replace("@base_url", base_url(), $ctnt);
-echo $ctnt;
+#echo $ctnt;
 #echo BASEPATH;
 $qryInfo['qryInfo']['ctnt'] = $ctnt;
 echo json_encode($qryInfo);
