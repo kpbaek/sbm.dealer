@@ -284,7 +284,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column6 style37 f"><div id="tot_amt" name="tot_amt"></div></td>
 		  </tr>
 		  <tr class="row16">
-			<td class="column0 style14 s">
+			<td class="column0 style14 s">Addon
 			<select id="addon" name="addon" onchange="javascript:fn_verifyAddon(this.value);">
 				<option value="">select</option>
 				<option value="PRN">Printer</option>

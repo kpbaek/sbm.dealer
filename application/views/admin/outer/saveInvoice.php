@@ -125,11 +125,21 @@ if(isSet($_POST['pi_no'])){
 		$sql_inv = $sql_inv . ", bank_atcd='" .$bank_atcd. "'";
 		$sql_inv = $sql_inv . ", tot_amt=(select ifnull( ( sum(amt) - sum(amt) * (select ifnull(premium_rate,0) from om_ord_inf where pi_no = a.pi_no) / 100 ), 0) from om_ord_eqp where pi_no=a.pi_no)";
 		if($addon=="PRN"){
-			$sql_inv = $sql_inv . ", prn_qty=" .$addon_qty;
-			$sql_inv = $sql_inv . ", prn_tot_amt=" .$addon_tot_amt;
+			if($addon_qty=="0"){
+				$sql_inv = $sql_inv . ", prn_qty=null";
+				$sql_inv = $sql_inv . ", prn_tot_amt=null";
+			}else{
+				$sql_inv = $sql_inv . ", prn_qty=" .$addon_qty;
+				$sql_inv = $sql_inv . ", prn_tot_amt=" .$addon_tot_amt;
+			}
 		}else if($addon=="RPR"){
-			$sql_inv = $sql_inv . ", repr_qty=" .$addon_qty;
-			$sql_inv = $sql_inv . ", repr_tot_amt=" .$addon_tot_amt;
+			if($addon_qty=="0"){
+				$sql_inv = $sql_inv . ", repr_qty=null";
+				$sql_inv = $sql_inv . ", repr_tot_amt=null";
+			}else{
+				$sql_inv = $sql_inv . ", repr_qty=" .$addon_qty;
+				$sql_inv = $sql_inv . ", repr_tot_amt=" .$addon_tot_amt;
+			}
 		}
 		$sql_inv = $sql_inv . " WHERE pi_no = '" .$pi_no. "'";
 		#echo $sql_inv;
