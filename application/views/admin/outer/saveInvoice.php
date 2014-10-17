@@ -121,7 +121,9 @@ if(isSet($_POST['pi_no'])){
 		$sql_inv = $sql_inv . ", ship_port_atcd='" .$ship_port_atcd. "'";
 		$sql_inv = $sql_inv . ", destnt='" .$destnt. "'";
 		$sql_inv = $sql_inv . ", payment_atcd='" .$payment_atcd. "'";
-		$sql_inv = $sql_inv . ", validity='" .$validity. "'";
+		if(strlen($validity)==8){
+			$sql_inv = $sql_inv . ", validity='" .$validity. "'";
+		}
 		$sql_inv = $sql_inv . ", bank_atcd='" .$bank_atcd. "'";
 		$sql_inv = $sql_inv . ", tot_amt=(select ifnull( ( sum(amt) - sum(amt) * (select ifnull(premium_rate,0) from om_ord_inf where pi_no = a.pi_no) / 100 ), 0) from om_ord_eqp where pi_no=a.pi_no)";
 		if($addon=="PRN"){

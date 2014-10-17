@@ -431,4 +431,21 @@
     	});
     }
     
+    function fncReadMail(params){
+    	$.ajax({
+            type: "POST",
+            url: "/index.php/common/main/readMail",
+            async: false,
+            dataType: "json",
+            data: {"sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no},
+            cache: false,
+            success: function(result, status, xhr){
+            	var qryInfo = result.qryInfo;
+	            $("#resultDiv").append(qryInfo.ctnt); 
+            },
+	        error:function(){
+                return false;
+			}
+    	});
+    }
 	

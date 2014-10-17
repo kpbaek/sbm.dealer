@@ -5,16 +5,6 @@ $sndmail_atcd = $_REQUEST["sndmail_atcd"];
 $pi_no = $_REQUEST["pi_no"];
 
 
-
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
-
-
 $ctnt = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/include/email/".$sndmail_atcd.".php");
 if($sndmail_atcd=="00700111"){
 	$po_no = "";
@@ -199,6 +189,12 @@ if($sndmail_atcd=="00700111"){
 }else if($sndmail_atcd=="00700211"){  // Proforma Invoice
 	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
 	
+	$validity_dt = "";
+	if($invoice['invoiceInfo']['validity_dt']!=null){
+		$exp_validity_dt = explode("-", $invoice['invoiceInfo']['validity_dt']);
+		$validity_dt = date('M. d, Y', mktime(0,0,0,$exp_validity_dt[1],$exp_validity_dt[2],$exp_validity_dt[0]));
+	}
+	
 	$ctnt = str_replace("@txt_invoice_dt", $invoice['invoiceInfo']['txt_invoice_dt'], $ctnt);
 	$ctnt = str_replace("@txt_pi_no", $invoice['invoiceInfo']['pi_no'], $ctnt);
 	$ctnt = str_replace("@csn_cmpy_nm", $invoice['invoiceInfo']['csn_cmpy_nm'], $ctnt);
@@ -209,7 +205,7 @@ if($sndmail_atcd=="00700111"){
 	$ctnt = str_replace("@cntry", $invoice['invoiceInfo']['cntry'], $ctnt);
 	$ctnt = str_replace("@txt_ship_port_atcd", $invoice['invoiceInfo']['txt_ship_port_atcd'], $ctnt);
 	$ctnt = str_replace("@inv_payment", $invoice['invoiceInfo']['inv_payment'], $ctnt);
-	$ctnt = str_replace("@txt_validity", $invoice['invoiceInfo']['validity_dt'], $ctnt);
+	$ctnt = str_replace("@txt_validity", $validity_dt, $ctnt);
 	$ctnt = str_replace("@txt_bank_atcd_dscrt", $invoice['invoiceInfo']['txt_bank_atcd_dscrt'], $ctnt);
 	$ctnt = str_replace("@inv_bank", $invoice['invoiceInfo']['inv_bank'], $ctnt);
 	$ctnt = str_replace("@discount", $invoice['invoiceInfo']['discount'], $ctnt);

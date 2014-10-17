@@ -128,6 +128,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 <div id="saveFormDiv">	
 <form id="saveForm" name="saveForm" method="post">
 <input type=hidden id="pi_no" name="pi_no">
+<input type=hidden id="edit_mode" name="edit_mode">
 	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
 	<tr>
 		<td colspan=10 align=right>
@@ -518,28 +519,36 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 <script type="text/javascript">
 
 $(document).ready(function(e) {	
-	<?php
-			if(isset($_REQUEST["edit_mode"])){
-		?> 
-				var params = {
-				        "pi_no": "<?php echo $_REQUEST["pi_no"];?>"
-				};  
-				$.ajax({
-			        type: "POST",
-			        url: "/index.php/admin/outer/viewInvoice",
-			        async: false,
-			        dataType: "json",
-			        data: params,
-			        cache: false,
-			        success: function(result, status, xhr){
+<?php
+if(isset($_REQUEST["edit_mode"])){
+	$edit_mode = $_REQUEST["edit_mode"];
+?> 
+	$("#edit_mode").val("<?php echo $edit_mode;?>");
+
+	var params = {
+		"pi_no": "<?php echo $_REQUEST["pi_no"];?>"
+	};  
+	$.ajax({
+        type: "POST",
+        url: "/index.php/admin/outer/viewInvoice",
+        async: false,
+        dataType: "json",
+        data: params,
+        cache: false,
+        success: function(result, status, xhr){
 //			            alert(xhr.status);
-						editForm(result);
-					}
-			});
-				
-	<?php 
+			$("#pi_no").val(params.pi_no);
+			if($("#edit_mode").val()=="1"){
+				editForm(result);
+			}else if($("#edit_mode").val()=="2"){
+				fn_readMail();
 			}
-		?>
+		}
+	});
+				
+<?php 
+}
+?>
 
 	});
 
@@ -586,7 +595,6 @@ $(document).ready(function(e) {
 		}
 		getCodeCombo("0050", f.bank_atcd, invoiceInfo.bank_atcd);
 
-		$("#pi_no").val(invoiceInfo.pi_no);
 		$("#csn_cmpy_nm").val(invoiceInfo.csn_cmpy_nm);
 		$("#csn_attn").val(invoiceInfo.csn_attn);
 		$("#txt_invoice_dt").val(invoiceInfo.txt_invoice_dt);

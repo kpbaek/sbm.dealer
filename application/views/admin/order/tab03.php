@@ -103,7 +103,7 @@
 		   		{name:'cnfm',index:'pi_no', width:80, sortable:false,search:true,hidden:false},		
 		   		{name:'c_cnfm',index:'pi_no', width:70, sortable:false,search:true,hidden:true},		
 		   		{name:'pi',index:'pi_no', width:140, sortable:false,search:true},		
-		   		{name:'pi_no',index:'pi_no', width:70, sortable:false,search:true},		
+		   		{name:'pi_no',index:'pi_no', width:70, sortable:true,search:true},		
 		   		{name:'ci',index:'pi_no', width:70, sortable:false,search:true},		
 		   		{name:'rptout',index:'pi_no', width:70,align:"right",search:true},		
 		   		{name:'packing',index:'pi_no', width:70, sortable:false,search:true}		
@@ -131,13 +131,13 @@
                     }else{
                     	disablePiEdit = "disabled";
                     }
-                    if(wrk_tp_atcd >= "00700210"){  // P/I 발송(00700210)
+                    if(cnfm_yn == "Y" && wrk_tp_atcd < "00700410"){  // INVOICE 발송(00700410)
                     	disablePiSend = "";
                     }
                     c_image = "<img src='/images/ci_logo.jpg' height='20'>";
                     c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" " + disableCnfm + ">";
                     c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
-                    c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\" " + disablePiSend + ">";
+                    c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
                     c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
@@ -526,14 +526,11 @@
 	}
 		
 	function fn_editPi(pi_no){
-	
-		var f = document.editOrderForm;
-		f.method = "post";
-		f.edit_mode.value = "1";
-		f.pi_no.value = pi_no;
-		f.action = "/index.php/admin/outer/tab01";
-		f.submit();
+    	location.replace("/index.php/admin/outer/tab01?edit_mode=1&pi_no=" + pi_no);
+	}
 		
+	function fn_sendPi(pi_no){
+    	location.replace("/index.php/admin/outer/tab01?edit_mode=2&pi_no=" + pi_no);
 	}
 		
 </script>
