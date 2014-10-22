@@ -12,6 +12,7 @@
 	<script src="/lib/js/jquery.multiple.select.js"></script>
 	<script src="/lib/js/msdropdown/jquery.dd.js"></script>
 	<script src="/lib/js/jquery.ui.shake.js"></script>
+	
 	  <style type="text/css">
 	  html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
 	  table { border-collapse:collapse; page-break-after:always }
@@ -270,6 +271,7 @@
 body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-margin: 0.39370078740157in; bottom-margin: 0.2755905511811in; }
 </style>
 
+
 <div id="resultDiv" style="display:none">
 	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
 	<tr>
@@ -380,7 +382,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column23 style14 null">430-817, KOREA</td>
 			<td class="column23 style02 null"></td>
 			<td class="column24 style01 s">&nbsp;&nbsp;&nbsp;&nbsp;PI no.:</td>
-			<td class="column31 style01 s"><div id="txt_pi_no"></div></td>
+			<td class="column31 style01 s"><a href="javascript:fn_readPiMail();"><div id="txt_pi_no"></div></a></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
@@ -473,9 +475,9 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style66 s style05">No.</td>
 			<td class="column4 style66 s style05">Description of Goods</td>
-			<td class="column30 style205 s" width=10%>Quantity</td>
-			<td class="column30 style205 s">Unit price</td>
-			<td class="column36 style205 s">Amount</td>
+			<td class="column30 style66 s style05" width=10%>Quantity</td>
+			<td class="column30 style66 s style05">Unit price</td>
+			<td class="column36 style66 s style05">Amount</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
 			
@@ -483,8 +485,8 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
 			<td class="column4 style00"><div id="mdl_nm" style="padding-left: 10px;"></div></td>
-			<td class="column25 style54 s style207"><div id="eqp_qty"></div></td>
-			<td class="column30 style54 s style207"><div id="unit_price"></div>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column25 style54 s style05"><div id="eqp_qty"></div></td>
+			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s"><div id="eqp_amt"></div>
 			</td>
 			<td class="column47 style13 null"></td>
@@ -494,8 +496,8 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
 			<td class="column4 style54 s style00"><div id="spare_parts" style="padding-left: 10px;"></div></td>
-			<td class="column25 style54 s style207"><div id="qty" name="qty"></div></td>
-			<td class="column30 style54 s style207"><div id="unit_price" name="unit_price"></div></td>
+			<td class="column25 style54 s style05"><div id="qty" name="qty"></div></td>
+			<td class="column30 style54 s style05"></td>
 			<td class="column36 style001 s"><div id="amount" name="amount"></div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
@@ -505,8 +507,8 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
 			<td class="column4 style54 s style00"><div id="prn" style="padding-left: 10px;"></div></td>
-			<td class="column25 style54 s style207"><div id="prn_qty"></td>
-			<td class="column30 style54 s style207">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column25 style54 s style05"><div id="prn_qty"></td>
+			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s"><div id="prn_tot_amt">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
@@ -516,8 +518,8 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
 			<td class="column4 style54 s style00"><div id="repair" style="padding-left: 10px;"></div></td>
-			<td class="column25 style54 s style207"><div id="repr_qty"></div></td>
-			<td class="column30 style54 s style207">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column25 style54 s style05"><div id="repr_qty"></div></td>
+			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s"><div id="repr_tot_amt"></div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
@@ -627,13 +629,10 @@ if(isset($_REQUEST["edit_mode"])){
 		$("#inv_payment").html(invoiceInfo.inv_payment);
 
 		var txt_invoice_no = "SWI-" + invoiceInfo.pi_no;
-		if(invoiceInfo.ci_sndmail_seq!=null){
-			$("#btnSend").attr("disabled",false);
-			txt_invoice_no += invoiceInfo.ci_sndmail_seq;
-		}
 		$("#txt_invoice_no").html(txt_invoice_no);
 		$("#txt_ship_port_atcd").html(invoiceInfo.txt_ship_port_atcd);
 		if(invoiceInfo.ci_sndmail_seq!=null){
+			$("#btnSend").attr("disabled",false);
 			$("#txt_invoice_no").append("-" + invoiceInfo.ci_sndmail_seq);
 		}
 
@@ -658,20 +657,20 @@ if(isset($_REQUEST["edit_mode"])){
 		
 		var spare_parts = "Currency Discrimination Counter Spare Parts";
 		var qty = 0;
-		var unit_price = 0;
+//		var unit_price = 0;
 		var amount = 0;
 		if(orderPartList!=null){
 			spareDiv.style.display = "";
 			$.each(orderPartList, function(key) {
 				var targetInfo = orderPartList[key];
 				qty += eval(targetInfo.qty);
-				unit_price += eval(targetInfo.unit_price);
+//				unit_price += eval(targetInfo.unit_price);
 				amount += eval(targetInfo.amount);
 				tot_qty += eval(targetInfo.qty);
 			})
 	        $("#spare_parts").html(spare_parts);
 	        $("#qty").html(qty + " Units");
-	        $("#unit_price").html("$ " + unit_price);
+//	        $("#unit_price").html("$ " + unit_price);
 	        $("#amount").html("$ " + amount);
 	        
 		}
@@ -728,6 +727,10 @@ if(isset($_REQUEST["edit_mode"])){
     	location.replace("/index.php/admin/outer/tab02?edit_mode=2&pi_no=" + $("#pi_no").val());
 	}
 
+	function fn_readPiMail(){
+    	location.replace("/index.php/admin/outer/tab01?edit_mode=0&pi_no=" + $("#pi_no").val());
+	}
+
 	function fn_readMail(){
 		var params = {"sndmail_atcd":"00700411", "pi_no":$("#pi_no").val()};  
 	
@@ -737,8 +740,6 @@ if(isset($_REQUEST["edit_mode"])){
 	}
 
 	function fn_sendMail(){
-		alert("ing..");
-		return;
 		if(confirm("딜러에게 메일이 발송됩니다. 계속하시겠습니까?")){
 			var params = {"wrk_tp_atcd": "00700410","sndmail_atcd":"00700411", "pi_no":$("#pi_no").val()};  
 			fncCrtCiSndMail(params);

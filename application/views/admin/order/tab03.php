@@ -124,21 +124,30 @@
                     var disableCnfm = "";
                     var disablePiEdit = "";
                     var disablePiSend = "disabled";
+                    var disableCiSend = "disabled";
                     var cnfm_yn = rowData.cnfm_yn;
                     var wrk_tp_atcd = rowData.wrk_tp_atcd;
                     if(cnfm_yn == "Y"){
                     	disableCnfm = "disabled";
                     }else{
                     	disablePiEdit = "disabled";
+                    	disableCiEdit = "disabled";
                     }
-                    if(cnfm_yn == "Y" && wrk_tp_atcd < "00700410"){  // INVOICE 발송(00700410)
-                    	disablePiSend = "";
+                    if(cnfm_yn == "Y"){  
+                        if(wrk_tp_atcd < "00700410"){  // before INVOICE 발송(00700410)
+	                    	disablePiSend = "";
+                        }
+                        if(wrk_tp_atcd >= "00700210"){  // after P/I 발송(00700210)
+                        	disablePiEdit = "disabled";
+	                    	disablePiSend = "disabled";
+                        	disableCiSend = "";
+						}
                     }
                     c_image = "<img src='/images/ci_logo.jpg' height='20'>";
                     c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" " + disableCnfm + ">";
                     c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
                     c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
-                    c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"fn_sendCi('"+rowData.pi_no+"');\">";
+                    c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"fn_sendCi('"+rowData.pi_no+"');\" " + disableCiSend + ">";
                     c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     //                    jQuery("#list").jqGrid('setRowData',ids[i],{c_image:c_image});

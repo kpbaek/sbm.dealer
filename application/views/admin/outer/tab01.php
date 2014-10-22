@@ -116,7 +116,8 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 </style>
 
 <div id="resultDiv" style="display:none">
-	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
+	<div id="resultBtnDiv" style="display:">
+	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm; display:" align=center>
 	<tr>
 		<td colspan=10 align=right>
 		<input type="button" id="btnEdit" name="btnEdit" value="edit" onclick="javascript:fn_edit();"/>
@@ -124,6 +125,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 		</td>
 	</tr>
 	</table>
+	</div>
 </div>
 <div id="saveFormDiv">	
 <form id="saveForm" name="saveForm" method="post">
@@ -540,8 +542,11 @@ if(isset($_REQUEST["edit_mode"])){
 				$("#pi_no").val(params.pi_no);
 				if($("#edit_mode").val()=="1"){
 					editForm(result);
-				}else if($("#edit_mode").val()=="2"){
+				}else if($("#edit_mode").val()=="0" || $("#edit_mode").val()=="2"){
 					fn_readMail();
+					if($("#edit_mode").val()=="0"){
+						resultBtnDiv.style.display = "none";
+					}
 				}
 			}
 		});

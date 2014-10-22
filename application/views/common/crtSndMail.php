@@ -230,10 +230,17 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		}
 		$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0071' and atcd = '" .$sndmail_atcd. "'), '', now(), '".$_SESSION['ss_user']['uid']."')";
 	}else{	// worker
-		
-		include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
-		
-		$ctnt = getPiMailCtnt($ctnt, $invoice);
+		if($wrk_tp_atcd == "00700210" or $wrk_tp_atcd=="00700410"){ // PI, CI
+			
+			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
+				
+			if($sndmail_atcd=="00700211"){ // PI
+				$ctnt = getPiMailCtnt($ctnt, $invoice);
+			}else if($sndmail_atcd=="00700411"){  // CI
+				$ctnt = getCiMailCtnt($ctnt, $invoice);
+			}
+		}
+		$ctnt = str_replace("@base_url", base_url(), $ctnt);
 		
 		$sql = $sql . "VALUES ('" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "'";
 		$sql = $sql . ", (SELECT w_email FROM om_worker";
@@ -261,6 +268,8 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 
 	if($sndmail_atcd=="00700211"){ // PI
 		$ctnt = str_replace("@pi_sndmail_seq", "-" . $sendmail_seq, $ctnt);
+	}else if($sndmail_atcd=="00700411"){  // CI
+		$ctnt = str_replace("@ci_sndmail_seq", "-" . $sendmail_seq, $ctnt);
 	}else if($sndmail_atcd=="00700111" or $sndmail_atcd=="00700112"){  // order
 		$ctnt = str_replace("@order_dt", $order_dt, $ctnt);
 	}
@@ -341,7 +350,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$result4 = mysql_query($sql4);
 		$qryInfo['qryInfo']['sql4'] = $sql4;
 		$qryInfo['qryInfo']['result4'] = $result4;
-	}else if($wrk_tp_atcd == "00700210"){ // PI, CI
+	}else if($wrk_tp_atcd == "00700210" or $wrk_tp_atcd=="00700410"){ // PI, CI
 		$sql4 = "";
 		if($sndmail_atcd=="00700211"){ // PI
 			$sql4 = "UPDATE om_invoice";
@@ -355,6 +364,16 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$result4 = mysql_query($sql4);
 		$qryInfo['qryInfo']['sql4'] = $sql4;
 		$qryInfo['qryInfo']['result4'] = $result4;
+
+		
+		$sql5 = "UPDATE om_ord_inf";
+		$sql5 = $sql5 . " SET wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
+		$sql5 = $sql5 . " WHERE pi_no = '" .$pi_no. "'";
+		
+		$result5 = mysql_query($sql5);
+		$qryInfo['qryInfo']['sql5'] = $sql5;
+		$qryInfo['qryInfo']['result5'] = $result5;
+		
 	}
 	
 	echo json_encode($qryInfo);
