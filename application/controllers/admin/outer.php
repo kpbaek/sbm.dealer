@@ -64,6 +64,11 @@ class Outer extends CI_Controller {
 		$this->load->view('/admin/outer/saveInvoice');
 	}
 	
+	public function saveCI()
+	{
+		$this->load->view('/admin/outer/saveCI');
+	}
+	
 }
 
 /* End of file welcome.php */
