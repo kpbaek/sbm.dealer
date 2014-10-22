@@ -5,7 +5,14 @@
 	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	  <meta name="author" content="com" />
 	  <meta name="company" content="Microsoft Corporation" />
-	<style type="text/css">
+	<script src="/lib/jquery.jqGrid-4.6.0/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+	<script src="/lib/jquery-ui-1.11.0/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="/lib/js/jquery.form.js" type="text/javascript"></script>
+	<script src="/js/cmn/common.js" type="text/javascript"></script>
+	<script src="/lib/js/jquery.multiple.select.js"></script>
+	<script src="/lib/js/msdropdown/jquery.dd.js"></script>
+	<script src="/lib/js/jquery.ui.shake.js"></script>
+	  <style type="text/css">
 	  html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
 	  table { border-collapse:collapse; page-break-after:always }
 	  .gridlines td { border:1px dotted black }
@@ -254,195 +261,6 @@
 	  td.style223 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Arial'; font-size:10pt; background-color:#FFFFFF }
 	  td.style224 { vertical-align:middle; text-align:right; padding-right:0px; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Arial'; font-size:10pt; background-color:white }
 	  td.style225 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Arial'; font-size:14pt; background-color:white }
-	  table.sheet0 tr { height:14.25pt }
-	  table.sheet0 tr.row0 { height:18.75pt }
-	  table.sheet0 tr.row1 { height:14.25pt }
-	  table.sheet0 tr.row2 { height:14.25pt }
-	  table.sheet0 tr.row3 { height:14.25pt }
-	  table.sheet0 tr.row4 { height:14.25pt }
-	  table.sheet0 tr.row5 { height:14.25pt }
-	  table.sheet0 tr.row6 { height:14.25pt }
-	  table.sheet0 tr.row7 { height:14.25pt }
-	  table.sheet0 tr.row8 { height:14.25pt }
-	  table.sheet0 tr.row9 { height:14.25pt }
-	  table.sheet0 tr.row10 { height:14.25pt }
-	  table.sheet0 tr.row11 { height:14.25pt }
-	  table.sheet0 tr.row12 { height:14.25pt }
-	  table.sheet0 tr.row13 { height:14.25pt }
-	  table.sheet0 tr.row14 { height:14.25pt }
-	  table.sheet0 tr.row15 { height:14.25pt }
-	  table.sheet0 tr.row16 { height:14.25pt }
-	  table.sheet0 tr.row17 { height:14.25pt }
-	  table.sheet0 tr.row18 { height:14.25pt }
-	  table.sheet0 tr.row19 { height:14.25pt }
-	  table.sheet0 tr.row20 { height:14.25pt }
-	  table.sheet0 tr.row21 { height:14.25pt }
-	  table.sheet0 tr.row22 { height:13.5pt }
-	  table.sheet0 tr.row23 { height:13.5pt }
-	  table.sheet0 tr.row24 { height:13.5pt }
-	  table.sheet0 tr.row25 { height:13.5pt }
-	  table.sheet0 tr.row26 { height:13.5pt }
-	  table.sheet0 tr.row27 { height:13.5pt }
-	  table.sheet0 tr.row28 { height:13.5pt }
-	  table.sheet0 tr.row29 { height:13.5pt }
-	  table.sheet0 tr.row30 { height:13.5pt }
-	  table.sheet0 tr.row31 { height:13.5pt }
-	  table.sheet0 tr.row32 { height:13.5pt }
-	  table.sheet0 tr.row33 { height:13.5pt }
-	  table.sheet0 tr.row34 { height:13.5pt }
-	  table.sheet0 tr.row35 { height:13.5pt }
-	  table.sheet0 tr.row36 { height:13.5pt }
-	  table.sheet0 tr.row37 { height:13.5pt }
-	  table.sheet0 tr.row38 { height:13.5pt }
-	  table.sheet0 tr.row39 { height:13.5pt }
-	  table.sheet0 tr.row40 { height:13.5pt }
-	  table.sheet0 tr.row41 { height:13.5pt }
-	  table.sheet0 tr.row42 { height:13.5pt }
-	  table.sheet0 tr.row43 { height:13.5pt }
-	  table.sheet0 tr.row44 { height:13.5pt }
-	  table.sheet0 tr.row45 { height:14.25pt }
-	  table.sheet0 tr.row46 { height:14.25pt }
-	  table.sheet0 tr.row47 { height:14.25pt }
-	  table.sheet0 tr.row48 { height:14.25pt }
-	  table.sheet0 tr.row49 { height:14.25pt }
-	  table.sheet0 tr.row50 { height:14.25pt }
-	  table.sheet0 tr.row51 { height:14.25pt }
-	  table.sheet0 tr.row52 { height:14.25pt }
-	  table.sheet0 tr.row53 { height:18.75pt }
-	  table.sheet0 tr.row54 { height:12pt }
-	  table.sheet0 tr.row55 { height:12pt }
-	  table.sheet0 tr.row56 { height:12pt }
-	  table.sheet0 tr.row57 { height:12pt }
-	  table.sheet0 tr.row58 { height:12pt }
-	  table.sheet0 tr.row59 { height:12pt }
-	  table.sheet0 tr.row60 { height:12pt }
-	  table.sheet0 tr.row61 { height:12pt }
-	  table.sheet0 tr.row62 { height:12pt }
-	  table.sheet0 tr.row63 { height:12pt }
-	  table.sheet0 tr.row64 { height:12pt }
-	  table.sheet0 tr.row65 { height:12pt }
-	  table.sheet0 tr.row66 { height:12pt }
-	  table.sheet0 tr.row67 { height:12pt }
-	  table.sheet0 tr.row68 { height:12pt }
-	  table.sheet0 tr.row69 { height:12pt }
-	  table.sheet0 tr.row70 { height:12pt }
-	  table.sheet0 tr.row71 { height:12pt }
-	  table.sheet0 tr.row72 { height:12pt }
-	  table.sheet0 tr.row73 { height:12pt }
-	  table.sheet0 tr.row75 { height:12pt }
-	  table.sheet0 tr.row76 { height:12pt }
-	  table.sheet0 tr.row77 { height:12pt }
-	  table.sheet0 tr.row78 { height:12pt }
-	  table.sheet0 tr.row79 { height:12pt }
-	  table.sheet0 tr.row80 { height:12pt }
-	  table.sheet0 tr.row81 { height:12pt }
-	  table.sheet0 tr.row82 { height:12pt }
-	  table.sheet0 tr.row83 { height:12pt }
-	  table.sheet0 tr.row84 { height:12pt }
-	  table.sheet0 tr.row85 { height:12pt }
-	  table.sheet0 tr.row86 { height:12pt }
-	  table.sheet0 tr.row87 { height:12pt }
-	  table.sheet0 tr.row88 { height:12pt }
-	  table.sheet0 tr.row89 { height:12pt }
-	  table.sheet0 tr.row90 { height:12pt }
-	  table.sheet0 tr.row91 { height:12pt }
-	  table.sheet0 tr.row92 { height:12pt }
-	  table.sheet0 tr.row93 { height:12pt }
-	  table.sheet0 tr.row94 { height:12pt }
-	  table.sheet0 tr.row95 { height:12pt }
-	  table.sheet0 tr.row96 { height:12pt }
-	  table.sheet0 tr.row97 { height:12pt }
-	  table.sheet0 tr.row98 { height:12pt }
-	  table.sheet0 tr.row99 { height:12pt }
-	  table.sheet0 tr.row100 { height:12pt }
-	  table.sheet0 tr.row101 { height:12pt }
-	  table.sheet0 tr.row102 { height:12pt }
-	  table.sheet0 tr.row103 { height:12pt }
-	  table.sheet0 tr.row104 { height:14.25pt }
-	  table.sheet0 tr.row105 { height:12.75pt }
-	  table.sheet0 tr.row106 { height:12.75pt }
-	  table.sheet0 tr.row107 { height:12.75pt }
-	  table.sheet0 tr.row108 { height:12.75pt }
-	  table.sheet0 tr.row109 { height:12.75pt }
-	  table.sheet0 tr.row110 { height:12.75pt }
-	  table.sheet0 tr.row111 { height:12.75pt }
-	  table.sheet0 tr.row112 { height:14.25pt }
-	  table.sheet0 tr.row113 { height:14.25pt }
-	  table.sheet0 tr.row114 { height:14.25pt }
-	  table.sheet0 tr.row115 { height:14.25pt }
-	  table.sheet0 tr.row116 { height:14.25pt }
-	  table.sheet0 tr.row117 { height:14.25pt }
-	  table.sheet0 tr.row118 { height:14.25pt }
-	  table.sheet0 tr.row119 { height:14.25pt }
-	  table.sheet0 tr.row120 { height:14.25pt }
-	  table.sheet0 tr.row121 { height:14.25pt }
-	  table.sheet0 tr.row122 { height:14.25pt }
-	  table.sheet0 tr.row123 { height:14.25pt }
-	  table.sheet0 tr.row124 { height:14.25pt }
-	  table.sheet0 tr.row125 { height:14.25pt }
-	  table.sheet0 tr.row126 { height:14.25pt }
-	  table.sheet0 tr.row127 { height:14.25pt }
-	  table.sheet0 tr.row128 { height:14.25pt }
-	  table.sheet0 tr.row129 { height:14.25pt }
-	  table.sheet0 tr.row130 { height:14.25pt }
-	  table.sheet0 tr.row131 { height:14.25pt }
-	  table.sheet0 tr.row132 { height:14.25pt }
-	  table.sheet0 tr.row133 { height:14.25pt }
-	  table.sheet0 tr.row134 { height:14.25pt }
-	  table.sheet0 tr.row135 { height:14.25pt }
-	  table.sheet0 tr.row136 { height:14.25pt }
-	  table.sheet0 tr.row137 { height:14.25pt }
-	  table.sheet0 tr.row138 { height:14.25pt }
-	  table.sheet0 tr.row139 { height:14.25pt }
-	  table.sheet0 tr.row140 { height:14.25pt }
-	  table.sheet0 tr.row141 { height:14.25pt }
-	  table.sheet0 tr.row142 { height:14.25pt }
-	  table.sheet0 tr.row143 { height:14.25pt }
-	  table.sheet0 tr.row144 { height:14.25pt }
-	  table.sheet0 tr.row145 { height:14.25pt }
-	  table.sheet0 tr.row146 { height:14.25pt }
-	  table.sheet0 tr.row147 { height:14.25pt }
-	  table.sheet0 tr.row148 { height:14.25pt }
-	  table.sheet0 tr.row149 { height:14.25pt }
-	  table.sheet0 tr.row150 { height:14.25pt }
-	  table.sheet0 tr.row151 { height:14.25pt }
-	  table.sheet0 tr.row152 { height:14.25pt }
-	  table.sheet0 tr.row153 { height:14.25pt }
-	  table.sheet0 tr.row154 { height:14.25pt }
-	  table.sheet0 tr.row155 { height:14.25pt }
-	  table.sheet0 tr.row156 { height:14.25pt }
-	  table.sheet0 tr.row157 { height:14.25pt }
-	  table.sheet0 tr.row158 { height:14.25pt }
-	  table.sheet0 tr.row159 { height:14.25pt }
-	  table.sheet0 tr.row160 { height:14.25pt }
-	  table.sheet0 tr.row161 { height:14.25pt }
-	  table.sheet0 tr.row162 { height:14.25pt }
-	  table.sheet0 tr.row163 { height:14.25pt }
-	  table.sheet0 tr.row164 { height:14.25pt }
-	  table.sheet0 tr.row165 { height:14.25pt }
-	  table.sheet0 tr.row166 { height:14.25pt }
-	  table.sheet0 tr.row167 { height:14.25pt }
-	  table.sheet0 tr.row168 { height:14.25pt }
-	  table.sheet0 tr.row169 { height:14.25pt }
-	  table.sheet0 tr.row170 { height:14.25pt }
-	  table.sheet0 tr.row171 { height:14.25pt }
-	  table.sheet0 tr.row172 { height:14.25pt }
-	  table.sheet0 tr.row173 { height:14.25pt }
-	  table.sheet0 tr.row174 { height:14.25pt }
-	  table.sheet0 tr.row175 { height:14.25pt }
-	  table.sheet0 tr.row176 { height:14.25pt }
-	  table.sheet0 tr.row177 { height:14.25pt }
-	  table.sheet0 tr.row178 { height:14.25pt }
-	  table.sheet0 tr.row179 { height:14.25pt }
-	  table.sheet0 tr.row180 { height:14.25pt }
-	  table.sheet0 tr.row181 { height:14.25pt }
-	  table.sheet0 tr.row182 { height:14.25pt }
-	  table.sheet0 tr.row183 { height:14.25pt }
-	  table.sheet0 tr.row184 { height:14.25pt }
-	  table.sheet0 tr.row185 { height:14.25pt }
-	  table.sheet0 tr.row186 { height:14.25pt }
-	  table.sheet0 tr.row187 { height:14.25pt }
-	  table.sheet0 tr.row188 { height:14.25pt }
 	</style>
   </head>
 
@@ -452,11 +270,25 @@
 body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-margin: 0.39370078740157in; bottom-margin: 0.2755905511811in; }
 </style>
 
-	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
+<div id="resultDiv" style="display:none">
+	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
 	<tr>
 		<td colspan=10 align=right>
-		<input type="button" value="save" onclick="javascript:save();" disabled/>
-		<input type="button" value="send" onclick="javascript:sendMail();"/>
+		<input type="button" id="btnEdit" name="btnEdit" value="edit" onclick="javascript:fn_edit();"/>
+		<input type="button" id="btnMail" name="btnMail" value="send mail" onclick="javascript:fn_sendMail();"/>
+		</td>
+	</tr>
+	</table>
+</div>
+<div id="saveFormDiv">	
+<form id="saveForm" name="saveForm" method="post">
+<input type=hidden id="pi_no" name="pi_no">
+<input type=hidden id="edit_mode" name="edit_mode">
+	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
+	<tr>
+		<td colspan=10 align=right>
+		<input type="button" id="btnSave" name="btnSave" value="save" onclick="javascript:fn_save();"/>
+		<input type="button" id="btnSend" name="btnSend" value="send" onclick="javascript:fn_readMail();"/>
 		</td>
 	  </tr>
 	</table>
@@ -527,14 +359,14 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column5 style10 s" valign=top>SBM CO., LTD.</td>
 			<td class="column23 style11 null"></td>
 			<td class="column24 style1 s" width=100px>Invoice date :</td>
-			<td class="column31 style217 n">4 April, 2014</td>
+			<td class="column31 style217 n"><div id="txt_invoice_dt"></div></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
 			<td class="column23 style14 null">6F, Hyunwoo Bld, 206, Anyang-Dong</td>
 			<td class="column23 style11 null"></td>
 			<td class="column24 style1 s">Invoice No :</td>
-			<td class="column31 style217 n style217" width=90px>SWI-140321-7</td>
+			<td class="column31 style217 n style217" width=90px><div id="txt_invoice_no"></div></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
@@ -548,50 +380,43 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column23 style14 null">430-817, KOREA</td>
 			<td class="column23 style02 null"></td>
 			<td class="column24 style01 s">&nbsp;&nbsp;&nbsp;&nbsp;PI no.:</td>
-			<td class="column31 style01 s">PI-140321-7</td>
+			<td class="column31 style01 s"><div id="txt_pi_no"></div></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
-		  <tr class="row1">
-			<td class="column0 style3 s" colspan=2>Consignee :</td>
-			<td class="column23 style6 s" width=25%></td>
+		  <tr class="row2">
+			<td class="column0 style002 s" colspan=2>Consignee :</td>
+			<td class="column23 style003 s" width=25%></td>
 			<td colspan=3 class="column23 style5 s">Buyer(if other than consignee)</td>
 			<td class="column42 style7 null"></td>
 		  </tr>
 		  <tr class="row2">
-			<td class="column0 style9 null" colspan=2 rowspan=5></td>
-			<td class="column5 style28 s" valign=top>Ladkani Office Solutions SAL</td>
-			<td class="column23 style11 null"></td>
-			<td class="column24 style1 s" colspan=2 rowspan=5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAME AS CONSIGNEE</td>
-			<td class="column42 style13 null"></td>
-		  </tr>
-		  <tr class="row2">
-			<td class="column23 style14 null">
-			<textarea rows=3 cols=38>Sahmarani Bldg. – Ground floor, Michel Chiha Street Kantari, Beirut, 2022 5803</textarea>
+			<td class="column0 style9 null" colspan=2 rowspan=2></td>
+			<td class="column5 style28 s"><div id="csn_cmpy_nm"></div>
 			</td>
 			<td class="column23 style11 null"></td>
+			<td class="column24 style1 s" colspan=2 rowspan=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id="buyer"></div></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
-		  <tr class="row2">
-			<td class="column23 style14 null">, Lebanon</td>
-			<td class="column23 style11 null"></td>
-			<td class="column42 style13 null"></td>
-		  </tr>
-		  <tr class="row2">
-			<td class="column23 style14 null">Tel : &nbsp;<input type=text value="+961-1-738-483">         <br>Fax : <input type=text value="+961-1-737-260"></td>
-			<td class="column23 style11 null"></td>
-			<td class="column42 style13 null"></td>
-		  </tr>
-		  <tr class="row2">
-			<td class="column23 style14 null">Attn: <input type=text value="Mr. Imad Ladkani"></td>
+		  <tr class="row2" style="height:140px;">
+			<td class="column23 style14 null">
+			<div style="line-height:30px;">
+				
+				<div><textarea id="csn_addr" name="csn_addr" rows=5 cols=38 style="ime-mode:disabled" onkeyup="javascript:fnc_chk_byte(this,300);" onkeypress="javascript:if (event.keyCode == '13') blur();"></textarea></div>
+				<div id="cntry"></div>
+				<div>Tel : &nbsp;<input id="csn_tel" name="csn_tel" type=text value="" maxlength=50 style="ime-mode:disabled"></div>
+				<div>Fax : <input id="csn_fax" name="csn_fax" type=text value="" maxlength=50 style="ime-mode:disabled"></div>
+				<div>Attn: <input id="csn_attn" name="csn_attn" type=text value="" size=40 maxlength=100 style="ime-mode:disabled"></div>
+			</div>
+			</td>
 			<td class="column23 style11 null"></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  
 		  <tr class="row1">
-			<td class="column0 style3 s" colspan=2>Notify Party :</td>
+			<td class="column0 style002 s" colspan=2>Notify Party :</td>
 			<td class="column23 style6 s" width=25%></td>
-			<td colspan=2 class="column23 style5 s">Other references</td>
-			<td class="column42 style7 null" colspan=2></td>
+			<td colspan=3 class="column23 style5 s">Other references</td>
+			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
 			<td class="column0 style9 null" colspan=2 rowspan=4></td>
@@ -626,78 +451,74 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column23 style003 s" width=25%>Port of Loading :</td>
 			<td colspan=4 class="column23 style5 s style7">Terms of delivery and payment</td>
 		  </tr>
-		  <tr class="row2">
+		  <tr class="row1">
 			<td class="column0 style9 null" colspan=2></td>
-			<td class="column5 style1 s" valign=top>Incheon / KOREA</td>
-			<td class="column23 style15 null"></td>
-			<td class="column24 style1 s" colspan=2>FOB</td>
-			<td class="column42 style13 null"></td>
+			<td class="column23 style1 s" width=25%><div id="txt_ship_port_atcd"></div></td>
+			<td class="column23 style11 null"></td>
+		    <td colspan=3 class="column42 style13 null"><div id="inv_payment"></div></td>
 		  </tr>
 		  
 		  <tr class="row1">
 			<td class="column0 style002 s" colspan=2>Final Destination</td>
-			<td class="column23 style6 s" width=25%></td>
-			<td colspan=2 class="column23 style5 s">HS Code : </td>
-			<td class="column42 style7 null" colspan=2></td>
+			<td class="column23 style003 s" width=25%></td>
+			<td colspan=4 class="column23 style5 s style7">HS Code :</td>
 		  </tr>
-		  <tr class="row2">
+		  <tr class="row1">
 			<td class="column0 style9 null" colspan=2></td>
-			<td class="column5 style1 s">Beirut, LEBANON</td>
-			<td class="column23 style15 null"></td>
-			<td class="column24 style1 s" colspan=2>8472.90-1090&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8473.40-9000</td>
-			<td class="column42 style13 null"></td>
+			<td class="column23 style1 s" width=25%><div id="destnt"></div></td>
+			<td class="column23 style11 null"></td>
+		    <td colspan=3 class="column42 style13 null">8472.90-1090&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8473.40-9000</td>
 		  </tr>
-		  
 		  <tr>
 			<td class="column0 style3 s"></td>
 			<td class="column1 style66 s style05">No.</td>
 			<td class="column4 style66 s style05">Description of Goods</td>
-			<td class="column25 style205 s" width=10%>Quantity</td>
+			<td class="column30 style205 s" width=10%>Quantity</td>
 			<td class="column30 style205 s">Unit price</td>
 			<td class="column36 style205 s">Amount</td>
 			<td class="column47 style13 null"></td>
-			</tr>
-		  <tr class="row22">
+		  </tr>
+			
+		  <tr id="eqpDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05">1)</td>
-			<td class="column4 style00">SB-9  Currency Discrimination Counter</td>
-			<td class="column25 style54 s style207">40 Units</td>
-			<td class="column30 style54 s style207">$0.00&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td class="column36 style001 s">$0.00
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
+			<td class="column4 style00"><div id="mdl_nm" style="padding-left: 10px;"></div></td>
+			<td class="column25 style54 s style207"><div id="eqp_qty"></div></td>
+			<td class="column30 style54 s style207"><div id="unit_price"></div>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column36 style001 s"><div id="eqp_amt"></div>
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
 		  
-		  <tr class="row22">
+		  <tr id="spareDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05">2)</td>
-			<td class="column4 style54 s style00">Currency Discrimination Counter Spare Parts</td>
-			<td class="column25 style54 s style207">13 Units</td>
-			<td class="column30 style54 s style207">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td class="column36 style001 s">$254.7
+			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
+			<td class="column4 style54 s style00"><div id="spare_parts" style="padding-left: 10px;"></div></td>
+			<td class="column25 style54 s style207"><div id="qty" name="qty"></div></td>
+			<td class="column30 style54 s style207"><div id="unit_price" name="unit_price"></div></td>
+			<td class="column36 style001 s"><div id="amount" name="amount"></div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
-		  <tr class="row22">
+		  <tr id="prnDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05">3)</td>
-			<td class="column4 style54 s style00">Printer (Model: SP-85S)</td>
-			<td class="column25 style54 s style207">40 Units</td>
-			<td class="column30 style54 s style207">$0.00&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td class="column36 style001 s">$0.00
+			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
+			<td class="column4 style54 s style00"><div id="prn" style="padding-left: 10px;"></div></td>
+			<td class="column25 style54 s style207"><div id="prn_qty"></td>
+			<td class="column30 style54 s style207">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column36 style001 s"><div id="prn_tot_amt">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
-		  <tr class="row22">
+		  <tr id="repairDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05">4)</td>
-			<td class="column4 style54 s style00">Repair Parts</td>
-			<td class="column25 style54 s style207">517 Units</td>
+			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
+			<td class="column4 style54 s style00"><div id="repair" style="padding-left: 10px;"></div></td>
+			<td class="column25 style54 s style207"><div id="repr_qty"></div></td>
 			<td class="column30 style54 s style207">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td class="column36 style001 s">$4,340.00
+			<td class="column36 style001 s"><div id="repr_tot_amt"></div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td class="column47 style13 null"></td>
@@ -706,9 +527,9 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"></td>
 			<td class="column4 style66 s style05">TOTAL :</td>
-			<td class="column25 style001 s">160 Units</td>
-			<td class="column30 style001 s">$0.00&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td class="column36 style001 s">$4,594.70
+			<td class="column25 style001 s"><div id="tot_qty"></div></td>
+			<td class="column30 style001 s"><div id="tot_unit_price"></div>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column36 style001 s"><div id="tot_amt"></div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td class="column47 style13 null"></td>
@@ -739,6 +560,273 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 		  
 		</tbody>
 	</table>
-  </body>
+</form>
+</div>
+	</body>
+	
+<script type="text/javascript">
+	
+	$(document).ready(function(e) {	
+<?php
+if(isset($_REQUEST["edit_mode"])){
+	$edit_mode = $_REQUEST["edit_mode"];
+?> 
+		$("#edit_mode").val("<?php echo $edit_mode;?>");
+	
+		var params = {
+			"pi_no": "<?php echo $_REQUEST["pi_no"];?>"
+		};  
+		$.ajax({
+	        type: "POST",
+	        url: "/index.php/admin/outer/viewInvoice",
+	        async: false,
+	        dataType: "json",
+	        data: params,
+	        cache: false,
+	        success: function(result, status, xhr){
+//	            alert(xhr.status);
+				$("#pi_no").val(params.pi_no);
+				if($("#edit_mode").val()=="1"){
+					editForm(result);
+				}else if($("#edit_mode").val()=="2"){
+					fn_readMail();
+				}
+			}
+		});
+				
+<?php 
+}
+?>
+
+	});
+
+	function editForm(result) {
+    	var invoiceInfo = result.invoiceInfo; 
+    	var orderEqpList = result.orderEqpList; 
+    	var orderPartList = result.orderPartList; 
+
+		var f = document.saveForm;
+
+		$("#txt_pi_no").html("PI-" + invoiceInfo.pi_no + "-" + invoiceInfo.pi_sndmail_seq);
+
+		var buyer = "SAME AS CONSIGNEE";
+		if(invoiceInfo.buyer!=invoiceInfo.csn_attn){
+			buyer = invoiceInfo.buyer;
+		}
+		$("#buyer").html(buyer);
+		
+		$("#csn_cmpy_nm").html(invoiceInfo.csn_cmpy_nm);
+		$("#csn_addr").val(invoiceInfo.csn_addr);
+		$("#csn_tel").val(invoiceInfo.csn_tel);
+		$("#csn_fax").val(invoiceInfo.csn_fax);
+		$("#csn_attn").val(invoiceInfo.csn_attn);
+		$("#cntry").html(invoiceInfo.cntry);
+		
+		$("#txt_invoice_dt").html(invoiceInfo.txt_invoice_dt);
+		$("#destnt").html(invoiceInfo.destnt + ", " + invoiceInfo.cntry);
+		$("#inv_payment").html(invoiceInfo.inv_payment);
+
+		var txt_invoice_no = "SWI-" + invoiceInfo.pi_no;
+		if(invoiceInfo.ci_sndmail_seq!=null){
+			$("#btnSend").attr("disabled",false);
+			txt_invoice_no += invoiceInfo.ci_sndmail_seq;
+		}
+		$("#txt_invoice_no").html(txt_invoice_no);
+		$("#txt_ship_port_atcd").html(invoiceInfo.txt_ship_port_atcd);
+		if(invoiceInfo.ci_sndmail_seq!=null){
+			$("#txt_invoice_no").append("-" + invoiceInfo.ci_sndmail_seq);
+		}
+
+		var tot_qty = 0;
+		var mdl_nm = "";
+		var eqp_qty = 0;
+		var eqp_amt = 0.0;
+		if(orderEqpList!=null){
+	        eqpDiv.style.display = ""
+			$.each(orderEqpList, function(key) {
+				var targetInfo = orderEqpList[key];
+				mdl_nm += targetInfo.mdl_nm + "  Currency Discrimination Counter<br>";
+				eqp_qty += eval(targetInfo.eqp_qty);
+				eqp_amt += eval(targetInfo.amt);
+				tot_qty += eval(targetInfo.eqp_qty);
+			})
+			eqp_amt = eqp_amt.toFixed(2);
+	        $("#mdl_nm").html(mdl_nm);
+	        $("#eqp_qty").html(eqp_qty + " Units");
+	        $("#eqp_amt").html("$ " + eqp_amt);
+		}
+		
+		var spare_parts = "Currency Discrimination Counter Spare Parts";
+		var qty = 0;
+		var unit_price = 0;
+		var amount = 0;
+		if(orderPartList!=null){
+			spareDiv.style.display = "";
+			$.each(orderPartList, function(key) {
+				var targetInfo = orderPartList[key];
+				qty += eval(targetInfo.qty);
+				unit_price += eval(targetInfo.unit_price);
+				amount += eval(targetInfo.amount);
+				tot_qty += eval(targetInfo.qty);
+			})
+	        $("#spare_parts").html(spare_parts);
+	        $("#qty").html(qty + " Units");
+	        $("#unit_price").html("$ " + unit_price);
+	        $("#amount").html("$ " + amount);
+	        
+		}
+		
+		if(invoiceInfo.prn_qty!=null){
+			prnDiv.style.display = "";
+			$("#prn").html("Printer");
+//	        $("#prn_nm").html("SP-58S");
+	        $("#prn_qty").html(invoiceInfo.prn_qty + " Units");
+	        $("#prn_tot_amt").html("$ " + invoiceInfo.prn_tot_amt);
+		}
+		
+		if(invoiceInfo.repr_qty!=null){
+			repairDiv.style.display = "";
+	        $("#repair").html("Repair Parts");
+	        $("#repr_qty").html(invoiceInfo.repr_qty + " Units");
+	        $("#repr_tot_amt").html("$ " + invoiceInfo.repr_tot_amt);
+		}
+		
+        $("#tot_amt").html("$ " + invoiceInfo.inv_tot_amt);
+		if(orderEqpList!=null){
+			$("#tot_amt").append("<br>(Eqp.DC: $ -" + invoiceInfo.discount + ")");
+		}
+		
+		tot_qty += eval(invoiceInfo.repr_qty);
+		tot_qty += eval(invoiceInfo.prn_qty);
+		$("#tot_qty").html(tot_qty + " Units");
+
+		var listNo = 0;
+		for(i=0; i<f.listNo.length;i++){
+			if(i==0 && orderEqpList==null){
+				continue;
+			} 
+			if(i==1 && orderPartList==null){
+				continue;
+			} 
+			if(i==2 && invoiceInfo.prn_qty==null){
+				continue;
+			} 
+			if(i==3 && invoiceInfo.repr_qty==null){
+				continue;
+			} 
+			listNo++;
+			f.listNo[i].value = listNo + ")";
+		}
+
+	}
+
+	function fn_edit(){
+    	location.replace("/index.php/admin/outer/tab02?edit_mode=1&pi_no=" + $("#pi_no").val());
+	}
+
+	function fn_send(){
+    	location.replace("/index.php/admin/outer/tab02?edit_mode=2&pi_no=" + $("#pi_no").val());
+	}
+
+	function fn_readMail(){
+		var params = {"sndmail_atcd":"00700411", "pi_no":$("#pi_no").val()};  
+	
+		saveFormDiv.style.display = "none";
+		fncReadMail(params);
+		resultDiv.style.display = "";
+	}
+
+	function fn_sendMail(){
+		alert("ing..");
+		return;
+		if(confirm("딜러에게 메일이 발송됩니다. 계속하시겠습니까?")){
+			var params = {"wrk_tp_atcd": "00700410","sndmail_atcd":"00700411", "pi_no":$("#pi_no").val()};  
+			fncCrtCiSndMail(params);
+		}else{
+			return;
+		}
+	}
+	
+	function fn_isValid(){
+		if($("#csn_addr").val()==""){
+			alert("Consignee Address. is required!");
+			$("#csn_addr").focus();
+			return false;
+		}
+		if($("#csn_tel").val()==""){
+			alert("Consignee Tel. is required!");
+			$("#csn_tel").focus();
+			return false;
+		}
+		if($("#csn_fax").val()==""){
+			alert("Consignee Fax. is required!");
+			$("#csn_fax").focus();
+			return false;
+		}
+		if($("#csn_attn").val()==""){
+			alert("Consignee Attn. is required!");
+			$("#csn_attn").focus();
+			return false;
+		}
+		return true;
+	}
+	
+	function fn_save() {
+		var f = document.saveForm;
+		
+		if(!fn_isValid()){
+			return;
+		}
+		f.action = "/index.php/admin/outer/saveCI";
+
+		$('#btnSave').attr('disabled',true);
+		$('#btnSend').attr('disabled',true);
+
+//		f.submit();
+//		return;
+		var options = {
+					type:"POST",
+					dataType:"json",
+			        beforeSubmit: function(formData, jqForm, options) {
+//			        	$("#resultDiv").html('<b>this order is sending...</b>');
+					},
+			        success: function(result, statusText, xhr, $form) {
+			            if(statusText == 'success'){
+				            var todo = result.qryInfo.todo;	  
+				            if(todo == "Y"){
+					            var qryInfo = result.qryInfo;	            	
+			    				if(qryInfo.result2==false)
+			    		        {
+			    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql2);
+			            			return;
+			    				}else{
+//			    		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
+			    				}
+				            }else if(todo == "N"){
+					            var txt_wrk_tp_atcd = result.qryInfo.txt_wrk_tp_atcd;
+					            if(cnfm_yn == "Y"){
+						            alert("This CI is already confirmed!(" + txt_wrk_tp_atcd + ")");
+						            return;
+					            }	  
+							}          	
+					    	$('#btnSave').attr('disabled',false);
+					    	$('#btnSend').attr('disabled',false);
+					    	alert("success!");
+					    	fn_send();
+			            }
+					},
+			        /* ajax options omitted */
+			        error:function(){
+			        	$('#error').shake();
+						$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. ");
+					}
+					
+			    };
+		$("#saveForm").ajaxSubmit(options);
+	}
+	
+</script>
+	
+  
 </html>
 		  

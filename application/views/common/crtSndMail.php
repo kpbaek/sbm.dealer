@@ -19,15 +19,9 @@ if(isset($_REQUEST["swp_no"])){
 
 session_start();
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
 
 $ctnt = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/include/email/".$sndmail_atcd.".php");
 
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
 
 if($sndmail_atcd=="00700111"){
 	$po_no = "";
@@ -236,6 +230,11 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		}
 		$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0071' and atcd = '" .$sndmail_atcd. "'), '', now(), '".$_SESSION['ss_user']['uid']."')";
 	}else{	// worker
+		
+		include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
+		
+		$ctnt = getPiMailCtnt($ctnt, $invoice);
+		
 		$sql = $sql . "VALUES ('" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "'";
 		$sql = $sql . ", (SELECT w_email FROM om_worker";
 		$sql = $sql . "   WHERE team_atcd='" .$_SESSION['ss_user']['team_atcd']. "' AND worker_uid='" .$_SESSION['ss_user']['uid']. "')";
@@ -260,7 +259,11 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	$order_dt = mysql_result($result_1,0,"order_dt");
 	$qryInfo['qryInfo']['sndmail_seq'] = $sendmail_seq;
 
-	$ctnt = str_replace("@order_dt", $order_dt, $ctnt);
+	if($sndmail_atcd=="00700211"){ // PI
+		$ctnt = str_replace("@pi_sndmail_seq", "-" . $sendmail_seq, $ctnt);
+	}else if($sndmail_atcd=="00700111" or $sndmail_atcd=="00700112"){  // order
+		$ctnt = str_replace("@order_dt", $order_dt, $ctnt);
+	}
 	$ctnt = str_replace("@sendmail_seq", $sendmail_seq, $ctnt);
 	$qryInfo['qryInfo']['ctnt'] = $ctnt;
 	
@@ -322,23 +325,37 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	$qryInfo['qryInfo']['sql3'] = $sql3;
 	$qryInfo['qryInfo']['result3'] = $result3;
 
-	
-	$sql4 = "";
-	if($sndmail_atcd=="00700111"){
-		$sql4 = "UPDATE om_ord_eqp";
-		$sql4 = $sql4 . " SET sndmail_seq = " .$sendmail_seq;
-		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
-		$sql4 = $sql4 . " and po_no = " .$po_no;
-	}else if($sndmail_atcd=="00700112"){
-		$sql4 = "UPDATE om_ord_part";
-		$sql4 = $sql4 . " SET sndmail_seq = " .$sendmail_seq;
-		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
-		$sql4 = $sql4 . " and swp_no = " .$swp_no;
+	if($wrk_tp_atcd == "00700110"){ // order
+		$sql4 = "";
+		if($sndmail_atcd=="00700111"){
+			$sql4 = "UPDATE om_ord_eqp";
+			$sql4 = $sql4 . " SET sndmail_seq = " .$sendmail_seq;
+			$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
+			$sql4 = $sql4 . " and po_no = " .$po_no;
+		}else if($sndmail_atcd=="00700112"){
+			$sql4 = "UPDATE om_ord_part";
+			$sql4 = $sql4 . " SET sndmail_seq = " .$sendmail_seq;
+			$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
+			$sql4 = $sql4 . " and swp_no = " .$swp_no;
+		}
+		$result4 = mysql_query($sql4);
+		$qryInfo['qryInfo']['sql4'] = $sql4;
+		$qryInfo['qryInfo']['result4'] = $result4;
+	}else if($wrk_tp_atcd == "00700210"){ // PI, CI
+		$sql4 = "";
+		if($sndmail_atcd=="00700211"){ // PI
+			$sql4 = "UPDATE om_invoice";
+			$sql4 = $sql4 . " SET pi_sndmail_seq = " .$sendmail_seq;
+			$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
+		}else if($sndmail_atcd=="00700411"){ // CI
+			$sql4 = "UPDATE om_invoice";
+			$sql4 = $sql4 . " SET ci_sndmail_seq = " .$sendmail_seq;
+			$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
+		}
+		$result4 = mysql_query($sql4);
+		$qryInfo['qryInfo']['sql4'] = $sql4;
+		$qryInfo['qryInfo']['result4'] = $result4;
 	}
-	
-	$result4 = mysql_query($sql4);
-	$qryInfo['qryInfo']['sql4'] = $sql4;
-	$qryInfo['qryInfo']['result4'] = $result4;
 	
 	echo json_encode($qryInfo);
 	

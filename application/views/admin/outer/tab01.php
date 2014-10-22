@@ -518,33 +518,33 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
   
 <script type="text/javascript">
 
-$(document).ready(function(e) {	
+	$(document).ready(function(e) {	
 <?php
 if(isset($_REQUEST["edit_mode"])){
 	$edit_mode = $_REQUEST["edit_mode"];
 ?> 
-	$("#edit_mode").val("<?php echo $edit_mode;?>");
-
-	var params = {
-		"pi_no": "<?php echo $_REQUEST["pi_no"];?>"
-	};  
-	$.ajax({
-        type: "POST",
-        url: "/index.php/admin/outer/viewInvoice",
-        async: false,
-        dataType: "json",
-        data: params,
-        cache: false,
-        success: function(result, status, xhr){
-//			            alert(xhr.status);
-			$("#pi_no").val(params.pi_no);
-			if($("#edit_mode").val()=="1"){
-				editForm(result);
-			}else if($("#edit_mode").val()=="2"){
-				fn_readMail();
+		$("#edit_mode").val("<?php echo $edit_mode;?>");
+	
+		var params = {
+			"pi_no": "<?php echo $_REQUEST["pi_no"];?>"
+		};  
+		$.ajax({
+	        type: "POST",
+	        url: "/index.php/admin/outer/viewInvoice",
+	        async: false,
+	        dataType: "json",
+	        data: params,
+	        cache: false,
+	        success: function(result, status, xhr){
+	//			            alert(xhr.status);
+				$("#pi_no").val(params.pi_no);
+				if($("#edit_mode").val()=="1"){
+					editForm(result);
+				}else if($("#edit_mode").val()=="2"){
+					fn_readMail();
+				}
 			}
-		}
-	});
+		});
 				
 <?php 
 }
@@ -601,8 +601,11 @@ if(isset($_REQUEST["edit_mode"])){
 		$("#destnt").val(invoiceInfo.destnt);
 		$("#cntry").val(invoiceInfo.cntry);
 		$("#validity").val(invoiceInfo.validity_dt);
-		
+
 		$("#txt_pi_no").html("Our Ref: PI-" + invoiceInfo.pi_no);
+		if(invoiceInfo.pi_sndmail_seq!=null){
+			$("#txt_pi_no").append("-" + invoiceInfo.pi_sndmail_seq);
+		}
 		$("#worker_eng_nm").html(invoiceInfo.worker_eng_nm);
 		$("#worker_team_duty").html(invoiceInfo.worker_team_duty);
 
@@ -754,11 +757,14 @@ if(isset($_REQUEST["edit_mode"])){
 	}
 
 	function fn_sendMail(){
-		var params = {"sndmail_atcd":"00700211", "pi_no":$("#pi_no").val()};  
-	
-		alert("ing..");
-		
+		if(confirm("딜러에게 메일이 발송됩니다. 계속하시겠습니까?")){
+			var params = {"wrk_tp_atcd": "00700210","sndmail_atcd":"00700211", "pi_no":$("#pi_no").val()};  
+			fncCrtPiSndMail(params);
+		}else{
+			return;
+		}
 	}
+
 	
 	function fn_save() {
 		var f = document.saveForm;

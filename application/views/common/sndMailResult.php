@@ -10,14 +10,6 @@ if(isset($_REQUEST["atcd"])){
 
 session_start();
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
-
-
 
 $mail = new PHPMailer(); // the true param means it will throw exceptions on errors, which we need to catch
 
@@ -47,7 +39,6 @@ try {
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
 	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
 	}
-#    $mail->Password   = "kpbaek123"; // 패스워드
 	
 	$sql3 = "SELECT a.sender_eng_nm, a.title, a.ctnt, email_from, email_to, snd_yn, b.snd_no, b.rcpnt_tp_atcd";
 	$sql3 = $sql3 . ",(select usr_nm from om_user where uid = b.email_to) rcpnt_nm";
@@ -83,7 +74,7 @@ try {
 	    
 	    $mail->AddAttachment($_SERVER["DOCUMENT_ROOT"]."/images/common/sbm_footer.jpg"); // attachment
 	    
-	    if($row['rcpnt_tp_atcd']!="00100010"){  // test - not dealer
+	    if($row['rcpnt_tp_atcd']=="00100010"){  // test - not dealer
 		    $mail->Send();
 	    }
 	

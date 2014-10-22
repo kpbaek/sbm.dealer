@@ -1,49 +1,160 @@
 <?php
+function getPiMailCtnt($ctnt, $invoice){
+	$validity_dt = "";
+	if($invoice['invoiceInfo']['validity_dt']!=null){
+		$exp_validity_dt = explode("-", $invoice['invoiceInfo']['validity_dt']);
+		$validity_dt = date('M. d, Y', mktime(0,0,0,$exp_validity_dt[1],$exp_validity_dt[2],$exp_validity_dt[0]));
+	}
+	$ctnt = str_replace("@txt_invoice_dt", $invoice['invoiceInfo']['txt_invoice_dt'], $ctnt);
+	$ctnt = str_replace("@txt_pi_no", $invoice['invoiceInfo']['pi_no'], $ctnt);
+	$ctnt = str_replace("@csn_cmpy_nm", $invoice['invoiceInfo']['csn_cmpy_nm'], $ctnt);
+	$ctnt = str_replace("@csn_attn", $invoice['invoiceInfo']['csn_attn'], $ctnt);
+	$ctnt = str_replace("@repr_qty", $invoice['invoiceInfo']['repr_qty'], $ctnt);
+	$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
+	$ctnt = str_replace("@destnt", $invoice['invoiceInfo']['destnt'], $ctnt);
+	$ctnt = str_replace("@cntry", $invoice['invoiceInfo']['cntry'], $ctnt);
+	$ctnt = str_replace("@txt_ship_port_atcd", $invoice['invoiceInfo']['txt_ship_port_atcd'], $ctnt);
+	$ctnt = str_replace("@inv_payment", $invoice['invoiceInfo']['inv_payment'], $ctnt);
+	$ctnt = str_replace("@txt_validity", $validity_dt, $ctnt);
+	$ctnt = str_replace("@txt_bank_atcd_dscrt", $invoice['invoiceInfo']['txt_bank_atcd_dscrt'], $ctnt);
+	$ctnt = str_replace("@inv_bank", $invoice['invoiceInfo']['inv_bank'], $ctnt);
+	$ctnt = str_replace("@discount", $invoice['invoiceInfo']['discount'], $ctnt);
+
+	$ctnt = str_replace("@worker_eng_nm", $invoice['invoiceInfo']['worker_eng_nm'], $ctnt);
+	$ctnt = str_replace("@worker_team_duty", $invoice['invoiceInfo']['worker_team_duty'], $ctnt);
+
+	if($invoice['invoiceInfo']["prn_qty"]==null){
+		$ctnt = str_replace("@prnDiv", "none", $ctnt);
+	}else{
+		$ctnt = str_replace("@prnDiv", "", $ctnt);
+		$ctnt = str_replace("@prn_qty", $invoice['invoiceInfo']['prn_qty'], $ctnt);
+		$ctnt = str_replace("@prn_tot_amt", $invoice['invoiceInfo']['prn_tot_amt'], $ctnt);
+	}
+
+	if($invoice['invoiceInfo']["repr_qty"]==null){
+		$ctnt = str_replace("@repairDiv", "none", $ctnt);
+	}else{
+		$ctnt = str_replace("@repairDiv", "", $ctnt);
+		$ctnt = str_replace("@repr_qty", $invoice['invoiceInfo']['repr_qty'], $ctnt);
+		$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
+	}
+
+
+
+	$tot_amt = $invoice['invoiceInfo']['inv_tot_amt'];
+	if($invoice['orderEqpList']==null){
+		$ctnt = str_replace("@eqpDiv", "none", $ctnt);
+		$ctnt = str_replace("@eqpListDiv", "none", $ctnt);
+	}else{
+		$ctnt = str_replace("@eqpListDiv", "", $ctnt);
+
+		$mdl_nm = "";
+		$eqp_qty = "";
+		$eqp_amt = "";
+		$dscrt = "";
+		$courier = "";
+		$currency = "";
+		foreach($invoice['orderEqpList'] as $orderEqpList) {
+			$mdl_nm .= $orderEqpList['mdl_nm'] . "<br>";
+			$eqp_qty .= $orderEqpList['eqp_qty'] . "<br>";
+			$eqp_amt .= "USD " . $orderEqpList['amt'] . "<br>";
+			$dscrt .= "P/O NO:" . $orderEqpList['po_no'];
+			if($orderEqpList['txt_incoterms_atcd']!=null){
+				$dscrt .= " , " . "Incoterms:" . $orderEqpList['txt_incoterms_atcd'];
+			}
+			$dscrt .= "<BR>";
+			if($orderEqpList['txt_shipped_by_atcd']!=null){
+				$dscrt .= "shipped_by " . $orderEqpList['txt_shipped_by_atcd'];
+			}
+			if($orderEqpList['txt_courier_atcd']!=null){
+				$dscrt .= "(" . $orderEqpList['txt_courier_atcd'] . ")";
+			}
+			$dscrt .= "<BR>";
+			if($orderEqpList['txt_srl_atcd']!=null){
+				$currency .= " only " . $orderEqpList['txt_srl_atcd'] . " for " + $orderEqpList['serial_currency'];
+			}
+			$dscrt .= "For " . $orderEqpList['currency'] . "<p>";
+		}
+		$ctnt = str_replace("@mdl_nm", $mdl_nm, $ctnt);
+		$ctnt = str_replace("@eqp_qty", $eqp_qty, $ctnt);
+		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
+		$ctnt = str_replace("@dscrt", $dscrt, $ctnt);
+		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
+
+		$tot_amt .= "<br>(Eqp.DC:-" . $invoice['invoiceInfo']['discount'] . ")";
+	}
+	$ctnt = str_replace("@tot_amt", $tot_amt, $ctnt);
+
+	if($invoice['orderPartList']==null){
+		$ctnt = str_replace("@spareDiv", "none", $ctnt);
+		$ctnt = str_replace("@partsDiv", "", $ctnt);
+	}else{
+		$ctnt = str_replace("@partsDiv", "spare_parts", $ctnt);
+		$spare_parts = "";
+		$qty = "";
+		$unit_price = "";
+		$amount = "";
+		foreach($invoice['orderPartList'] as $orderPartList) {
+			$spare_parts .= $orderPartList['mdl_nm']. " " . $orderPartList['part_nm']. "<p>";
+			$qty .= $orderPartList['qty'] . "<p>";
+			$unit_price .= "USD " . $orderPartList['unit_price'] . "<p>";
+			$amount .= "USD " . $orderPartList['amount'] . "<p>";
+		}
+		$ctnt = str_replace("@spare_parts", $spare_parts, $ctnt);
+		$ctnt = str_replace("@qty", $qty, $ctnt);
+		$ctnt = str_replace("@unit_price", $unit_price, $ctnt);
+		$ctnt = str_replace("@amount", $amount, $ctnt);
+	}
+
+	return $ctnt;
+}
+
 $pi_no = $_REQUEST["pi_no"];
 
-$sql = "SELECT a.pi_no, a.cntry_atcd, a.dealer_seq, a.worker_seq, a.premium_rate, a.tot_amt, a.cnfm_yn, a.cnfm_dt, a.slip_sndmail_seq, a.wrk_tp_atcd";
-$sql = $sql . ", b.prn_qty, b.prn_tot_amt, b.repr_qty, b.repr_tot_amt, b.ship_port_atcd, b.payment_atcd";
-$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '00G0' and atcd = b.payment_atcd) inv_payment";
-$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '00F3' and atcd = b.ship_port_atcd) txt_ship_port_atcd";
-$sql = $sql . ", b.destnt, b.validity, b.bank_atcd, b.invoice_dt, b.pi_sndmail_seq, b.ci_sndmail_seq";
-$sql = $sql . ", b.csn_cmpy_nm, b.csn_addr, b.csn_tel, b.csn_fax, b.csn_attn";
-$sql = $sql . ", ifnull(ifnull(b.prn_tot_amt,0) + ifnull(b.repr_tot_amt,0) + ifnull(b.tot_amt,0) + (select ifnull(sum(amt),0) from om_ord_part where pi_no = a.pi_no),0) as inv_tot_amt";
-$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) inv_bank";
-$sql = $sql . ", (select atcd_dscrt from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) txt_bank_atcd_dscrt";
-$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = d.bank_atcd) dealer_bank";
-$sql = $sql . ", w.eng_nm as worker_eng_nm";
-$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = 'US60' and atcd = w.team_atcd) worker_team";
-$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = 'US80' and atcd = w.duty_atcd) worker_duty";
-$sql = $sql . ", DATE_FORMAT(b.validity, '%Y-%m-%d') validity_dt";
-$sql = $sql . ", DATE_FORMAT(b.invoice_dt, '%d %b., %Y') txt_invoice_dt";
-$sql = $sql . ",(SELECT atcd_nm";
-$sql = $sql . " FROM cm_cd_attr";
-$sql = $sql . " WHERE cd = '0022' AND atcd = a.cntry_atcd) cntry";
-#$sql = $sql . " ,floor(ifnull(a.tot_amt,0) * a.premium_rate / 100) discount";
-$sql = $sql . " ,(select floor( ifnull(sum(amt),0) * ifnull(a.premium_rate,0) / 100 ) from om_ord_eqp where pi_no=a.pi_no) discount";
-$sql = $sql . " FROM (";
-$sql = $sql . " SELECT a.*";
-$sql = $sql . " FROM om_ord_inf a";
-$sql = $sql . " where a.pi_no = '" .$pi_no. "'";
-$sql = $sql . "		) a";
-$sql = $sql . "		left outer join om_invoice b";
-$sql = $sql . "		on a.pi_no = b.pi_no";
-$sql = $sql . "		left outer join om_dealer d";
-$sql = $sql . "		on a.dealer_seq = d.dealer_seq";
-$sql = $sql . "		left outer join om_worker w";
-$sql = $sql . "		on a.worker_seq = w.worker_seq";
+$sql_invoice = "SELECT a.pi_no, a.cntry_atcd, a.dealer_seq, a.worker_seq, a.premium_rate, a.tot_amt, a.cnfm_yn, a.cnfm_dt, a.slip_sndmail_seq, a.wrk_tp_atcd";
+$sql_invoice = $sql_invoice . ", b.prn_qty, b.prn_tot_amt, b.repr_qty, b.repr_tot_amt, b.ship_port_atcd, b.payment_atcd";
+$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00G0' and atcd = b.payment_atcd) inv_payment";
+$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00F3' and atcd = b.ship_port_atcd) txt_ship_port_atcd";
+$sql_invoice = $sql_invoice . ", b.destnt, b.validity, b.bank_atcd, b.invoice_dt, b.pi_sndmail_seq, b.ci_sndmail_seq";
+$sql_invoice = $sql_invoice . ", b.csn_cmpy_nm, b.csn_addr, b.csn_tel, b.csn_fax, b.csn_attn";
+$sql_invoice = $sql_invoice . ", ifnull(ifnull(b.prn_tot_amt,0) + ifnull(b.repr_tot_amt,0) + ifnull(b.tot_amt,0) + (select ifnull(sum(amt),0) from om_ord_part where pi_no = a.pi_no),0) as inv_tot_amt";
+$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) inv_bank";
+$sql_invoice = $sql_invoice . ", (select atcd_dscrt from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) txt_bank_atcd_dscrt";
+$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = d.bank_atcd) dealer_bank";
+$sql_invoice = $sql_invoice . ", w.eng_nm as worker_eng_nm";
+$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = 'US60' and atcd = w.team_atcd) worker_team";
+$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = 'US80' and atcd = w.duty_atcd) worker_duty";
+$sql_invoice = $sql_invoice . ", DATE_FORMAT(b.validity, '%Y-%m-%d') validity_dt";
+$sql_invoice = $sql_invoice . ", DATE_FORMAT(b.invoice_dt, '%d %b., %Y') txt_invoice_dt";
+$sql_invoice = $sql_invoice . ",(SELECT atcd_nm";
+$sql_invoice = $sql_invoice . " FROM cm_cd_attr";
+$sql_invoice = $sql_invoice . " WHERE cd = '0022' AND atcd = a.cntry_atcd) cntry";
+#$sql_invoice = $sql_invoice . " ,floor(ifnull(a.tot_amt,0) * a.premium_rate / 100) discount";
+$sql_invoice = $sql_invoice . " ,(select round( ifnull(sum(amt),0) * ifnull(a.premium_rate,0) / 100 ) from om_ord_eqp where pi_no=a.pi_no) discount";
+$sql_invoice = $sql_invoice . " ,(select concat(atcd_nm, ' ', d.dealer_nm) from cm_cd_attr where cd = 'US30' and atcd = (select gender_atcd from om_user where uid = d.dealer_uid)) as buyer";
+$sql_invoice = $sql_invoice . " FROM (";
+$sql_invoice = $sql_invoice . " SELECT a.*";
+$sql_invoice = $sql_invoice . " FROM om_ord_inf a";
+$sql_invoice = $sql_invoice . " where a.pi_no = '" .$pi_no. "'";
+$sql_invoice = $sql_invoice . "		) a";
+$sql_invoice = $sql_invoice . "		left outer join om_invoice b";
+$sql_invoice = $sql_invoice . "		on a.pi_no = b.pi_no";
+$sql_invoice = $sql_invoice . "		left outer join om_dealer d";
+$sql_invoice = $sql_invoice . "		on a.dealer_seq = d.dealer_seq";
+$sql_invoice = $sql_invoice . "		left outer join om_worker w";
+$sql_invoice = $sql_invoice . "		on a.worker_seq = w.worker_seq";
 		
-#$sql = "SELECT a.*";
-#$sql = $sql . ", DATE_FORMAT(a.validity, '%Y-%m-%d') validity_dt";
-#$sql = $sql . ", DATE_FORMAT(a.invoice_dt, '%d %b., %Y') txt_invoice_dt";
-#$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0022' and atcd = b.cntry_atcd) cntry";
-#$sql = $sql . ", floor(b.tot_amt * b.premium_rate / 100) discount";
-#$sql = $sql . " FROM om_invoice a, om_ord_inf b";
-#$sql = $sql . "  WHERE a.pi_no = b.pi_no";
-#$sql = $sql . "  AND a.pi_no = '" .$pi_no. "'";
-#echo $sql;
+#$sql_invoice = "SELECT a.*";
+#$sql_invoice = $sql_invoice . ", DATE_FORMAT(a.validity, '%Y-%m-%d') validity_dt";
+#$sql_invoice = $sql_invoice . ", DATE_FORMAT(a.invoice_dt, '%d %b., %Y') txt_invoice_dt";
+#$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0022' and atcd = b.cntry_atcd) cntry";
+#$sql_invoice = $sql_invoice . ", floor(b.tot_amt * b.premium_rate / 100) discount";
+#$sql_invoice = $sql_invoice . " FROM om_invoice a, om_ord_inf b";
+#$sql_invoice = $sql_invoice . "  WHERE a.pi_no = b.pi_no";
+#$sql_invoice = $sql_invoice . "  AND a.pi_no = '" .$pi_no. "'";
+#echo $sql_invoice;
 
-$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
+$result = mysql_query( $sql_invoice ) or die("Couldn t execute query.".mysql_error());
 $row = mysql_fetch_array($result,MYSQL_ASSOC);
 
 $invoice['invoiceInfo']['pi_no'] = $row['pi_no'];
@@ -83,6 +194,7 @@ $invoice['invoiceInfo']['txt_invoice_dt'] = $row['txt_invoice_dt'];
 $invoice['invoiceInfo']['cntry'] = $row['cntry'];
 $invoice['invoiceInfo']['premium_rate'] = $row['premium_rate'];
 $invoice['invoiceInfo']['discount'] = $row['discount'];
+$invoice['invoiceInfo']['buyer'] = $row['buyer'];
 
 
 $sql_eqp = "SELECT a.*";

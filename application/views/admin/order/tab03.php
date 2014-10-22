@@ -138,7 +138,7 @@
                     c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" " + disableCnfm + ">";
                     c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
                     c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
-                    c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
+                    c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"fn_sendCi('"+rowData.pi_no+"');\">";
                     c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     //                    jQuery("#list").jqGrid('setRowData',ids[i],{c_image:c_image});
@@ -531,6 +531,10 @@
 		
 	function fn_sendPi(pi_no){
     	location.replace("/index.php/admin/outer/tab01?edit_mode=2&pi_no=" + pi_no);
+	}
+		
+	function fn_sendCi(pi_no){
+    	location.replace("/index.php/admin/outer/tab02?edit_mode=1&pi_no=" + pi_no);
 	}
 		
 </script>
