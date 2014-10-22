@@ -336,7 +336,7 @@ if($sndmail_atcd=="00700111"){
 
 		
 }
-#$ctnt = str_replace("@base_url", base_url(), $ctnt);
+$ctnt = str_replace("@base_url", base_url(), $ctnt);
 #echo $ctnt;
 #echo BASEPATH;
 $qryInfo['qryInfo']['ctnt'] = $ctnt;
