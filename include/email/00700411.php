@@ -202,14 +202,14 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column5 style10 s" valign=top>SBM CO., LTD.</td>
 			<td class="column23 style11 null"></td>
 			<td class="column24 style1 s" width=100px>Invoice date :</td>
-			<td class="column31 style217 n">@txt_invoice_dt</td>
+			<td class="column31 style217 n"><div>@txt_invoice_dt</div></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
 			<td class="column23 style14 null">6F, Hyunwoo Bld, 206, Anyang-Dong</td>
 			<td class="column23 style11 null"></td>
 			<td class="column24 style1 s">Invoice No :</td>
-			<td class="column31 style217 n style217" width=90px>SWI-@txt_invoice_no</td>
+			<td class="column31 style217 n style217" width=90px><div>SWI-@txt_invoice_no</div></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
@@ -223,7 +223,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column23 style14 null">430-817, KOREA</td>
 			<td class="column23 style02 null"></td>
 			<td class="column24 style01 s">&nbsp;&nbsp;&nbsp;&nbsp;PI no.:</td>
-			<td class="column31 style01 s">@txt_pi_no</td>
+			<td class="column31 style01 s"><div>@txt_pi_no</div></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
@@ -316,18 +316,17 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style66 s style05">No.</td>
 			<td class="column4 style66 s style05">Description of Goods</td>
-			<td class="column30 style205 s" width=10%>Quantity</td>
-			<td class="column30 style205 s">Unit price</td>
-			<td class="column36 style205 s">Amount</td>
+			<td class="column30 style66 s style05" width=10%>Quantity</td>
+			<td class="column30 style66 s style05">Unit price</td>
+			<td class="column36 style66 s style05">Amount</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
-			
 		  <tr id="eqpDiv" style="display:@eqpDiv" class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05">@listNo_1)</td>
 			<td class="column4 style00"><div>@mdl_nm</div></td>
-			<td class="column25 style54 s style207">@eqp_qty</td>
-			<td class="column30 style54 s style207">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column25 style54 s style05">@eqp_qty</td>
+			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s">@eqp_amt
 			</td>
 			<td class="column47 style13 null"></td>
@@ -337,8 +336,8 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05">@listNo_2)</td>
 			<td class="column4 style54 s style00"><div>Currency Discrimination Counter Spare Parts</div></td>
-			<td class="column25 style54 s style207">@qty Units</td>
-			<td class="column30 style54 s style207"></td>
+			<td class="column25 style54 s style05">@qty Units</td>
+			<td class="column30 style54 s style05"></td>
 			<td class="column36 style001 s">$ @amount</div>
 			</td>
 			<td class="column47 style13 null"></td>
@@ -347,8 +346,8 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05">@listNo_3)</td>
 			<td class="column4 style54 s style00"><div>Printer</div></td>
-			<td class="column25 style54 s style207">@prn_qty Units</td>
-			<td class="column30 style54 s style207">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column25 style54 s style05">@prn_qty Units</td>
+			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s">$ @prn_tot_amt
 			</td>
 			<td class="column47 style13 null"></td>
@@ -357,8 +356,8 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05">@listNo_4)</td>
 			<td class="column4 style54 s style00"><div>Repair Parts</div></td>
-			<td class="column25 style54 s style207">@repr_qty Units</td>
-			<td class="column30 style54 s style207">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column25 style54 s style05">@repr_qty Units</td>
+			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s">$ @repr_tot_amt
 			</td>
 			<td class="column47 style13 null"></td>
@@ -367,7 +366,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"></td>
 			<td class="column4 style66 s style05">TOTAL :</td>
-			<td class="column25 style001 s">@tot_qty Units</td>
+			<td class="column25 style001 s"><div>@tot_qty Units</div></td>
 			<td class="column30 style001 s">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s">$ @tot_amt
 			</td>
