@@ -14,13 +14,6 @@ if(isset($_REQUEST["pi_no"])){
 	$sch_pi_no = $_REQUEST["pi_no"];
 }
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
 
 $sql = "SELECT cnfm_yn from om_ord_inf where pi_no = '" .$sch_pi_no. "'";
 $result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());

@@ -5,12 +5,6 @@ $worker_seq = $_REQUEST["worker_seq"];
 $w_email = $_REQUEST["w_email"];
 $extns_num = $_REQUEST["extns_num"];
 #echo sizeof($worker_seq);
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
 
 if(isSet($_POST['worker_seq'])){
 	for($i_item=0; $i_item < sizeof($worker_seq); $i_item++)

@@ -4,12 +4,6 @@
 $pi_no = $_REQUEST["pi_no"];
 $po_no = $_REQUEST["po_no"];
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
 
 $sql = "SELECT a.*";
 $sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '00B0' and atcd = a.srl_atcd) txt_srl_atcd";

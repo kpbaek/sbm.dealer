@@ -21,12 +21,6 @@ if(isset($_REQUEST["searchId"])){
 	$searchId = $_REQUEST["searchId"];
 }
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
 
 $result = mysql_query("SELECT COUNT(*) AS count FROM om_worker");
 $row = mysql_fetch_array($result,MYSQL_ASSOC);

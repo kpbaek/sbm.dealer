@@ -25,13 +25,6 @@ if(isset($_REQUEST["sch_worker_seq"])){
 	$sch_worker_seq = trim($_REQUEST["sch_worker_seq"]);
 }
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
-
 
 $sql_cnt = "SELECT COUNT(*) AS count FROM om_ord_inf ";
 $sql_cnt = $sql_cnt . " WHERE 1=1";

@@ -4,13 +4,6 @@
 $pi_no = $_REQUEST["pi_no"];
 $swp_no = $_REQUEST["swp_no"];
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
-
 
 $sql = "SELECT a.*";
 $sql = $sql . ", (select cmpy_nm from om_dealer where dealer_seq = a.dealer_seq) cmpy_nm";

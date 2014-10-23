@@ -115,13 +115,6 @@ if(isset($_POST["remark"])){
 $dealer_seq = $_POST["dealer_seq"];
 
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
-
 session_start();
 
 

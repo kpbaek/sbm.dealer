@@ -29,12 +29,6 @@ if(isset($_REQUEST["sch_part_nm"])){
 	$sch_part_nm = $_REQUEST["sch_part_nm"];
 }
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
 
 $sql_cnt = "SELECT COUNT(*) AS count FROM om_part a";
 $sql_where = " WHERE use_yn = 'Y'";

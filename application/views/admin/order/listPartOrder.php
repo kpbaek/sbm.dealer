@@ -4,13 +4,6 @@
 $pi_no = $_REQUEST["pi_no"];
 $swp_no = $_REQUEST["swp_no"];
 
-// include db config
-include_once($_SERVER["DOCUMENT_ROOT"] . "/config.php");
-
-// set up DB
-$db = mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
-mysql_select_db(PHPGRID_DBNAME);
-
 
 $sql_dtl = "SELECT concat(b.mdl_cd, b.part_ver, b.part_cd) id, b.part_nm, b.ord_num, b.srl_no, b.remark";
 $sql_dtl = $sql_dtl . ", a.* ";
