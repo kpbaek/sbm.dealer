@@ -184,7 +184,7 @@ function chkEmail(){
 	$.ajax({
         type: "POST",
 //        url: "/user/ajaxLogin",
-        url: "/common/user/chkEmail",
+        url: "/index.php/common/user/chkEmail",
         async: false,
         dataType: "json",
         data: {"usr_email":$("#usr_email").val()},
@@ -245,7 +245,7 @@ function createData() {
 		return;
 	}
 
-	f.action = "/admin/client/crtDealer";
+	f.action = "/index.php/admin/client/crtDealer";
 	$('#usr_email').attr('disabled',false);
 //	f.submit();
 	var options = {
