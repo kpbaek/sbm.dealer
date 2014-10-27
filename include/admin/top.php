@@ -3,7 +3,7 @@
 <head>
 
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-	<title>jQuery treeView</title>
+	<title>수주관리시스템</title>
 	
 	<link rel="stylesheet" href="/lib/jquery.treeview/jquery.treeview.css" />
 	<link rel="stylesheet" href="/lib/jquery.treeview/screen.css" />
