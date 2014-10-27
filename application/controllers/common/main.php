@@ -67,6 +67,11 @@ class Main extends CI_Controller {
 		$this->load->view('/common/sndMail');
 	}
 	
+	public function viewSndMail()
+	{
+		$this->load->view('/common/viewSndMail');
+	}
+	
 	public function sndMailResult()
 	{
 		$this->load->view('/common/sndMailResult.php');
