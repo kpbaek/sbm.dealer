@@ -271,6 +271,7 @@
 body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-margin: 0.39370078740157in; bottom-margin: 0.2755905511811in; }
 </style>
 
+<div id="sndMailDiv" style="display:none"></div>
 
 <div id="resultDiv" style="display:none">
 	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
@@ -285,6 +286,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 <div id="saveFormDiv">	
 <form id="saveForm" name="saveForm" method="post">
 <input type=hidden id="pi_no" name="pi_no">
+<input type=hidden id="pi_sndmail_seq" name="pi_sndmail_seq">
 <input type=hidden id="edit_mode" name="edit_mode">
 	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
 	<tr>
@@ -382,7 +384,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column23 style14 null">430-817, KOREA</td>
 			<td class="column23 style02 null"></td>
 			<td class="column24 style01 s">&nbsp;&nbsp;&nbsp;&nbsp;PI no.:</td>
-			<td class="column31 style01 s"><a href="javascript:fn_readPiMail();"><div id="txt_pi_no"></div></a></td>
+			<td class="column31 style01 s"><a href="javascript:fn_viewSndMail();"><div id="txt_pi_no"></div></a></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
@@ -609,6 +611,7 @@ if(isset($_REQUEST["edit_mode"])){
 
 		var f = document.saveForm;
 
+		$("#pi_sndmail_seq").val(invoiceInfo.pi_sndmail_seq);
 		$("#txt_pi_no").html("PI-" + invoiceInfo.pi_no + "-" + invoiceInfo.pi_sndmail_seq);
 
 		var buyer = "SAME AS CONSIGNEE";
@@ -727,10 +730,14 @@ if(isset($_REQUEST["edit_mode"])){
     	location.replace("/index.php/admin/outer/tab02?edit_mode=2&pi_no=" + $("#pi_no").val());
 	}
 
+	function fn_viewSndMail(){
+    	location.replace("/index.php/common/main/viewSndMail?sndmail_seq=" + $("#pi_sndmail_seq").val());
+	}
+
 	function fn_readPiMail(){
     	location.replace("/index.php/admin/outer/tab01?edit_mode=0&pi_no=" + $("#pi_no").val());
 	}
-
+	
 	function fn_readMail(){
 		var params = {"sndmail_atcd":"00700411", "pi_no":$("#pi_no").val()};  
 	
