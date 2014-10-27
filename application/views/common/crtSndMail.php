@@ -313,7 +313,15 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			$rcpnt_tp_atcd = "00100050";
 		}
 		$sql3 = $sql3 . " (sndmail_seq, email_from, email_to, rcpnt_tp_atcd, snd_yn, crt_dt, crt_uid)";
-		$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", '" .$email_sbm. "', '" .$_SESSION['ss_user']['usr_email']. "', '" .$rcpnt_tp_atcd. "' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+		// to SBM
+		$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", '" .$_SESSION['ss_user']['usr_email']. "', '" .$email_sbm. "', '" .$rcpnt_tp_atcd. "' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+		$sql3 = $sql3 . " UNION";
+		// to dealer
+#		$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", '" .$email_sbm. "', '" .$_SESSION['ss_user']['usr_email']. "', '" .$rcpnt_tp_atcd. "' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+		$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", (select w_email from om_worker where worker_seq = a.worker_seq), '" .$_SESSION['ss_user']['usr_email']. "', '00100050' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+		$sql3 = $sql3 . " FROM om_dealer a, om_ord_inf b";
+		$sql3 = $sql3 . " WHERE a.dealer_seq = b.dealer_seq";
+		$sql3 = $sql3 . " AND b.pi_no = '" .$pi_no. "'";
 		$sql3 = $sql3 . " UNION";
 		// to worker
 		$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", '" .$email_sbm. "', (select w_email from om_worker where worker_seq = a.worker_seq) email_to, '00100020' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
