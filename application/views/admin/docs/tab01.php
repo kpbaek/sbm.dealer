@@ -15,7 +15,7 @@
 	<script src="/lib/js/jquery.multiple.select.js"></script>
 	<script src="/lib/js/msdropdown/jquery.dd.js"></script>
 	<script src="/lib/js/jquery.ui.shake.js"></script>
-	  
+	<script src="/lib/js/jquery.ui.shake.js"></script>
 	  
 	<style type="text/css">
 	  html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
@@ -58,6 +58,8 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 </div>
 <form id="saveForm" name="saveForm" method="post">
 <input type=hidden id="eqp_sndmail_seq" name="eqp_sndmail_seq">
+<input type=hidden id="pi_no" name="pi_no">
+<input type=hidden id="po_no" name="po_no">
 	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0" align=center>
 	<tr>
 		<td colspan=10 align=right>
@@ -413,9 +415,9 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 				</div>
 				<TABLE border=1 width=100%>
 				<TR>
-					<TD class="style01" width=35px>기타</TD>
+					<TD class="style01" width=30px>기타</TD>
 					<TD class="style01" width=160px>특이사항</TD>
-					<TD><input type=text name="extra" size=50></TD>
+					<TD><input type=text name="extra" size=70></TD>
 				</TR>
 				</TABLE>
 			</td>
@@ -496,13 +498,13 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  <tr>
 		    <td colspan=5 class="style01">User's Manual</td>
 			<td colspan=13>
-				<select name="manual_lang_atcd">
+				<select id="manual_lang_atcd" name="manual_lang_atcd">
 				</select>
 			</td>
 		  </tr>
 		  <tr>
 			<td colspan="8" class="style01">품질 출하일</td>
-		    <td colspan=12><input type="text" id="date_from" name="date_from" value="<?php echo date("Y-m-d")?>" size="10" maxlength="10"/></td>
+		    <td colspan=12><input type="text" id="qual_ship_dt" name="qual_ship_dt" value="<?php echo date("Y-m-d")?>" size="10" maxlength="10"/></td>
 		  </tr>
 		  <!-- 
 		  <tr>
@@ -598,6 +600,10 @@ $(document).ready(function(e) {
 //			            alert(xhr.status);
 			        	var eqpOrdInfo = result.eqpOrdInfo; 
 			        	var eqpOrdDtlList = result.eqpOrdDtlList; 
+			        	
+						$('#pi_no').val(eqpOrdInfo.pi_no);
+						$('#po_no').val(eqpOrdInfo.po_no);
+			        	
 						if(eqpOrdInfo.wrk_tp_atcd < "00700210")  // P/I 발송(00700210)
 				        {
 							editForm(eqpOrdInfo, eqpOrdDtlList);
@@ -688,22 +694,22 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 	for(var i=0; i < eqpOrdDtlList.length; i++){
 		if(eqpOrdDtlList[i].currency_atch!=""){
 			c1Ar[c1Ar.length] = eqpOrdDtlList[i]["currency_atch"];
-			$("#cf1").append("<select name='fitness' style='width:39px'></select>");
+			$("#cf1").append("<select id='fitness' name='fitness[]' style='width:39px'></select>");
 		}
 		if(eqpOrdDtlList[i].serial_currency_atch!=""){
 			srl_cAr[srl_cAr.length] = eqpOrdDtlList[i]["serial_currency_atch"];
-			$("#srl_cf").append("<select name='srl_fitness' style='width:39px'></select>");
+			$("#srl_cf").append("<select id='srl_fitness' name='srl_fitness[]' style='width:39px'></select>");
 		}
 	}
 	if(c1Ar.length){
 		if(c1Ar.length > 1){
 			for(var i=0; i < f.fitness.length; i++){
-				$("#c1").append("<input type=text style='width:35px' value='" + c1Ar[i] + "'>");
+				$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px' value='" + c1Ar[i] + "'>");
 				getOXCombo(f.fitness[i], "X");
 				$("#c1_f1").append(f.fitness[i]);
 			}
 		}else{
-			$("#c1").append("<input type=text style='width:35px' value='" + c1Ar[0] + "'>");
+			$("#c1").append("<input type=text id='currency_atch' name='currency_atch' style='width:35px' value='" + c1Ar[0] + "'>");
 			getOXCombo(f.fitness, "X");
 			$("#c1_f1").append(f.fitness);
 		}
@@ -711,13 +717,13 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 	if(srl_cAr.length){
 		if(srl_cAr.length > 1){
 			for(var i=0; i < f.srl_fitness.length; i++){
-				$("#srl_c").append("<input type=text style='width:35px' value='" + srl_cAr[i] + "'>");
+				$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px' value='" + srl_cAr[i] + "'>");
 				getOXCombo(f.srl_fitness[i], "X");
 				$("#srl_f").append(f.srl_fitness[i]);
 			}
 		}else{
-			$("#srl_c").append("<input type=text style='width:35px' value='" + srl_cAr[0] + "'>");
-			getOXCombo(f.srl_fitness[i], "X");
+			$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch' style='width:35px' value='" + srl_cAr[0] + "'>");
+			getOXCombo(f.srl_fitness, "X");
 			$("#srl_f").append(f.srl_fitness);
 		}
 	}
@@ -739,7 +745,7 @@ function fn_viewSndMail(){
 $.datepicker.setDefaults($.datepicker.regional['ko']);
 
 $(function() {
-    $( "#date_from" ).datepicker({
+    $( "#qual_ship_dt" ).datepicker({
         constrainInput: true,
 //        showOn: 'both',
 //        buttonImageOnly: 'true',
@@ -760,11 +766,101 @@ function checkDate(dateText, inst){
     if (inst=="from") {
         if (dateText < today) {
             alert("현재날짜 이후로 선택하세요.");
-            $("#date_from").val("");
+            $("#qual_ship_dt").val("");
         }
     }
 }
-    
+
+function fn_isValid(){
+	if(!$("#manual_lang_atcd").val()){
+		alert("User's Manual is required!");
+		$("#manual_lang_atcd").focus();
+		return false;
+	}else if(!$("#qual_ship_dt").val().trim()){
+		alert("품질 출하일 is required!");
+		$("#qual_ship_dt").focus();
+		return false;
+	}
+	return true;
+}
+
+function fn_save() {
+	var f = document.saveForm;
+	
+	if(!fn_isValid()){
+		return;
+	}
+	f.action = "/index.php/admin/docs/savePrdReq";
+
+//	$('#btnSave').attr('disabled',true);
+	$('#btnSend').attr('disabled',true);
+
+//	f.submit();
+//	return;
+	var options = {
+				type:"POST",
+				dataType:"json",
+		        beforeSubmit: function(formData, jqForm, options) {
+//		        	$("#resultDiv").html('<b>this order is sending...</b>');
+				},
+		        success: function(result, statusText, xhr, $form) {
+		            if(statusText == 'success'){
+			            var todo = result.qryInfo.todo;	  
+			            if(todo == "Y"){
+				            var qryInfo = result.qryInfo;	            	
+		    				if(qryInfo.result==false)
+		    		        {
+		    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql);
+		            			return;
+		    				}else{
+//		    		        	alert(qryInfo.result + ":" + qryInfo.sql);
+		    				}
+		    				if(qryInfo.insPrdCur){
+			    				var qryList = qryInfo.insPrdCur;	            	
+			    				$.each(qryList, function(key){ 
+				        			var targetInfo = qryList[key];
+				    				if(targetInfo.result2==false)
+				    		        {
+				    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql2);
+				            			return;
+									}else{
+//				    		        	alert(targetInfo.result2 + ":" + targetInfo.sql2);
+				    				}
+					     		}); 
+							}
+		    				if(qryInfo.insPrdSrl){
+			    				var qryList = qryInfo.insPrdSrl;	            	
+			    				$.each(qryList, function(key){ 
+				        			var targetInfo = qryList[key];
+				    				if(targetInfo.result3==false)
+				    		        {
+				    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql3);
+				            			return;
+									}else{
+//				    		        	alert(targetInfo.result3 + ":" + targetInfo.sql3);
+				    				}
+					     		}); 
+							}
+			            }else if(todo == "N"){
+				            var txt_wrk_tp_atcd = result.qryInfo.txt_wrk_tp_atcd;
+				            alert("This PI is already confirmed!(" + txt_wrk_tp_atcd + ")");
+				            return;
+						}          	
+				    	$('#btnSave').attr('disabled',false);
+				    	alert("success!");
+//				    	fn_edit();
+		            }
+				},
+		        /* ajax options omitted */
+		        error:function(){
+		        	$('#error').shake();
+					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. ");
+				}
+				
+		    };
+	$("#saveForm").ajaxSubmit(options);
+}
+
 </script>
 
  
