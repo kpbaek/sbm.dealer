@@ -44,10 +44,10 @@
 body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margin: 0.75in; }
 </style>
 
-<div id="sndMailDiv" style="display:none"></div>
+<div id="sndMailDiv" style="display:none" align=center></div>
 
 <div id="resultDiv" style="display:none">
-	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0">
+	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0" align=center>
 	<tr>
 		<td colspan=10 align=right>
 		<input type="button" id="btnEdit" name="btnEdit" value="edit" onclick="javascript:fn_edit();"/>
@@ -57,7 +57,8 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 	</table>
 </div>
 <form id="saveForm" name="saveForm" method="post">
-	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0">
+<input type=hidden id="eqp_sndmail_seq" name="eqp_sndmail_seq">
+	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0" align=center>
 	<tr>
 		<td colspan=10 align=right>
 		<input type="button" id="btnSave" name="btnSave" value="save" onclick="javascript:fn_save();"/>
@@ -67,7 +68,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 	</table>
 	<p>
 
-	<table border="3" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0">
+	<table border="3" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0" align=center>
 		<col class="col0">
 		<col class="col1">
 		<col class="col2">
@@ -137,79 +138,48 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 			<td colspan="3" class="style01">CURRENCY</td>
-			<!-- <td class="style01">C1</td>
-			<td class="style01">C2</td>
-			<td width=5% class="style01">C3</td>
-			<td width=5% class="style01">C4</td>
-			<td width=5% class="style01">C5</td>
-			<td width=5% class="style01">C6</td>
-			<td width=5% class="style01">C7</td>
-			<td width=5% class="style01">C8</td>
-			<td width=5% class="style01">C9</td>
-			<td class="style01">C10</td>
-			<td class="style01">C11</td>
-			<td class="style01">C12</td>
-			<td class="style01">C13</td>
-			<td class="style01">C14</td>
-			<td class="style01">C15</td>
-			<td class="style01">기타</td> 
-		  </tr>-->
-			<td>RSD</td>
-			<td>EUR</td>
-			<td width=5%>USD</td>
-			<td width=5%>GBP</td>
-			<td width=5%>CHF</td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
+			<td colspan=15><div id="c1" width=5%></div></td>
 			<td width=5% class="style01">기타</td>
 		  </tr>
 		  <tr>
 			<td colspan="3" class="style01">Fitness</td>
-			<td>
-				<select name="fitness_01">
-				</select>
-			</td>
-			<td>
-				<select name="fitness_02">
-				</select>
-			</td>
-			<td>
-				<select name="fitness_03">
-				</select>
-			</td>
-			<td>
-				<select name="fitness_04">
-				</select>
-			</td>
-			<td>
-				<select name="fitness_05">
-				</select>
-			</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td colspan=15><div id="c1_f1" width=5%></div></td>
+			<td width=5%></td>
 		  </tr>
 		  <tr>
+			<td colspan="3" class="style01">currency_fitness</td>
+			<td id="cf1" colspan=15>
+			</td>
+			<td width=5%></td>
+		  </tr>
+		  <tr id="srl_01" style="display:none">
 			<td rowspan=2 colspan="3" class="style01">SERIAL NUMBER</td>
 			<td colspan=2 class="style01">SRL</td>
 			<td colspan=2 class="style01">P-OCR</td>
 			<td colspan=2 class="style01">S-OCR</td>
+			<td colspan=9><div id="srl_c" width=5%></div></td>
+			<td class="style01">기타</td>
+		  </tr>
+		  <tr id="srl_02" style="display:none">
+			<td colspan=2><div id="srl_ox">X</div></td>
+			<td colspan=2><div id="p-ocr_ox">X</div></td>
+			<td colspan=2><div id="s-ocr_ox">X</div></td>
+			<td colspan=10><div id="srl_f" width=5%></div>
+
+		  </tr>
+		  <tr>
+			<td colspan="3" class="style01">serial Fitness</td>
+			<td id="srl_cf" colspan=16>
+			</td>
+		  </tr>
+		  <tr id="srl_none_01" style="display:none">
+			<td rowspan=2 colspan="3" class="style01">SERIAL NUMBER</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
 			<td>RSD</td>
 			<td>EUR</td>
 			<td>USD</td>
@@ -221,28 +191,31 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td></td>
 			<td class="style01">기타</td>
 		  </tr>
-		  <tr>
-			<td colspan=2>X</td>
-			<td colspan=2>X</td>
-			<td colspan=2>X</td>
+		  <tr id="srl_none_02" style="display:none">
+			<td><div id="srl_atcd"></div></td>
+			<td>X</td>
+			<td>X</td>
+			<td><div id="srl_atcd"></div></td>
+			<td>X</td>
+			<td>X</td>
 			<td>
-				<select name="serial_fitness_01">
+				<select name="srl_none_fitness">
 				</select>
 			</td>
 			<td>
-				<select name="serial_fitness_02">
+				<select name="srl_none_fitness">
 				</select>
 			</td>
 			<td>
-				<select name="serial_fitness_03">
+				<select name="srl_none_fitness">
 				</select>
 			</td>
 			<td>
-				<select name="serial_fitness_04">
+				<select name="srl_none_fitness">
 				</select>
 			</td>
 			<td>
-				<select name="serial_fitness_05">
+				<select name="srl_none_fitness">
 				</select>
 			</td>
 			<td></td>
@@ -588,7 +561,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		   -->
 		  </table>
 
-		<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;">
+		<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
 			  <tbody>
 			  <tr style="border:0px;">
 				<td width=20% class="style00">SBM-영업-P-701-05</td>
@@ -607,7 +580,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 
 $(document).ready(function(e) {	
 	<?php
-		if(isset($_REQUEST["edit_mode"])){
+		if(isset($_REQUEST ["edit_mode"])){
 	?> 
 			var params = {
 			        "pi_no": "<?php echo $_REQUEST["pi_no"];?>",
@@ -616,7 +589,7 @@ $(document).ready(function(e) {
 		
 			$.ajax({
 			        type: "POST",
-			        url: "/index.php/admin/order/viewEqpOrder",
+			        url: "/index.php/admin/docs/viewPrdReq",
 			        async: false,
 			        dataType: "json",
 			        data: params,
@@ -667,6 +640,9 @@ function initForm() {
 
 function editForm(eqpOrdInfo, eqpOrdDtlList) {
 	var f = document.saveForm;
+
+	$("#eqp_sndmail_seq").val(eqpOrdInfo.sndmail_seq);
+	
 	$("#txt_pi_no").html("PI-" + eqpOrdInfo.pi_no);
 	$("#buyer").html(eqpOrdInfo.txt_cntry_atcd + "-" + eqpOrdInfo.cmpy_nm);
 	$("#po_no").html(eqpOrdInfo.po_no);
@@ -677,13 +653,28 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 	$("#txt_lcd_color_atcd").html(eqpOrdInfo.txt_lcd_color_atcd);
 	$("#pwr_cab").html(eqpOrdInfo.txt_pwr_cab_atcd + "<img src='/images/common/dropdown/00E0/" + eqpOrdInfo.pwr_cab_atcd + ".png'>");
 	$("#srl_prn_cab_ox").html(eqpOrdInfo.srl_prn_cab_ox);
+	if(eqpOrdInfo.srl_atcd!=null){
+		srl_01.style.display = "";
+		srl_02.style.display = "";
+		if(eqpOrdInfo.srl_atcd=="00B00001"){ //P-OCR
+			$("#p-ocr_ox").html("O");
+		}else if(eqpOrdInfo.srl_atcd=="00B00002"){ //S-OCR
+			$("#s-ocr_ox").html("O");
+		}else if(eqpOrdInfo.srl_atcd=="00B00003"){ //SRL
+			$("#srl_ox").html("O");
+		}
+	}else{
+		srl_none_01.style.display = "";
+		srl_none_02.style.display = "";
+	}
+	$("#srl_atcd").html(eqpOrdInfo.srl_atcd);
 	
 	if(eqpOrdInfo.mdl_cd == "0007"){
 		mdl_0007_div.style.display = "";
 	}else if(eqpOrdInfo.mdl_cd == "0009"){
 		mdl_0009_div.style.display = "";
-	}else if(eqpOrdInfo.mdl_cd == "1100"){
-		mdl_1100_div.style.display = "";
+	}else if(eqpOrdInfo.mdl_cd == "1100"){ //test
+		mdl_0009_div.style.display = "";
 	}else if(eqpOrdInfo.mdl_cd == "2000"){
 		mdl_2000_div.style.display = "";
 	}else if(eqpOrdInfo.mdl_cd == "3000"){
@@ -691,18 +682,46 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 	}else if(eqpOrdInfo.mdl_cd == "5000"){
 		mdl_5000_div.style.display = "";
 	}
+
+	var c1Ar = [];
+	var srl_cAr = [];
+	for(var i=0; i < eqpOrdDtlList.length; i++){
+		if(eqpOrdDtlList[i].currency_atch!=""){
+			c1Ar[c1Ar.length] = eqpOrdDtlList[i]["currency_atch"];
+			$("#cf1").append("<select name='fitness' style='width:39px'></select>");
+		}
+		if(eqpOrdDtlList[i].serial_currency_atch!=""){
+			srl_cAr[srl_cAr.length] = eqpOrdDtlList[i]["serial_currency_atch"];
+			$("#srl_cf").append("<select name='srl_fitness' style='width:39px'></select>");
+		}
+	}
+	if(c1Ar.length){
+		if(c1Ar.length > 1){
+			for(var i=0; i < f.fitness.length; i++){
+				$("#c1").append("<input type=text style='width:35px' value='" + c1Ar[i] + "'>");
+				getOXCombo(f.fitness[i], "X");
+				$("#c1_f1").append(f.fitness[i]);
+			}
+		}else{
+			$("#c1").append("<input type=text style='width:35px' value='" + c1Ar[0] + "'>");
+			getOXCombo(f.fitness, "X");
+			$("#c1_f1").append(f.fitness);
+		}
+	}
+	if(srl_cAr.length){
+		if(srl_cAr.length > 1){
+			for(var i=0; i < f.srl_fitness.length; i++){
+				$("#srl_c").append("<input type=text style='width:35px' value='" + srl_cAr[i] + "'>");
+				getOXCombo(f.srl_fitness[i], "X");
+				$("#srl_f").append(f.srl_fitness[i]);
+			}
+		}else{
+			$("#srl_c").append("<input type=text style='width:35px' value='" + srl_cAr[0] + "'>");
+			getOXCombo(f.srl_fitness[i], "X");
+			$("#srl_f").append(f.srl_fitness);
+		}
+	}
 	
-	
-	getOXCombo(f.fitness_01, "X");
-	getOXCombo(f.fitness_02, "X");
-	getOXCombo(f.fitness_03, "X");
-	getOXCombo(f.fitness_04, "X");
-	getOXCombo(f.fitness_05, "X");
-	getOXCombo(f.serial_fitness_01, "X");
-	getOXCombo(f.serial_fitness_02, "X");
-	getOXCombo(f.serial_fitness_03, "X");
-	getOXCombo(f.serial_fitness_04, "X");
-	getOXCombo(f.serial_fitness_05, "X");
 	getOXCombo(f.detector_uv, "X");
 	getOXCombo(f.detector_mg, "X");
 	getOXCombo(f.detector_mra, "X");
@@ -713,7 +732,7 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 }
 
 function fn_viewSndMail(){
-	location.replace("/index.php/common/main/viewSndMail?sndmail_seq=" + $("#pi_sndmail_seq").val());
+	location.replace("/index.php/common/main/viewSndMail?sndmail_seq=" + $("#eqp_sndmail_seq").val());
 }
 
 
