@@ -29,16 +29,9 @@ if(isset($_POST["qual_ship_dt"])){
 	$qual_ship_dt = str_replace("-", "", $qual_ship_dt);
 }
 
+$currency_atch = $_REQUEST["currency_atch"];
 
-$currency_atch = null;
-if(isset($_POST["currency_atch"])){
-	$currency_atch = $_POST["currency_atch"];
-}
-
-$fitness = null;
-if(isset($_POST["fitness"])){
-	$fitness = $_POST["fitness"];
-}
+$fitness = $_REQUEST["fitness"];
 
 
 $serial_currency_atch = null;
@@ -52,6 +45,34 @@ if(isset($_POST["srl_fitness"])){
 }
 
 
+$detector_uv = "";
+if(isset($_POST["detector_uv"])){
+	$detector_uv = trim($_POST["detector_uv"]);
+}
+
+$detector_mg = "";
+if(isset($_POST["detector_mg"])){
+	$detector_mg = trim($_POST["detector_mg"]);
+}
+
+$detector_mra = "";
+if(isset($_POST["detector_mra"])){
+	$detector_mra = trim($_POST["detector_mra"]);
+}
+
+$detector_ir = "";
+if(isset($_POST["detector_ir"])){
+	$detector_ir = trim($_POST["detector_ir"]);
+}
+
+$detector_tape = "";
+if(isset($_POST["detector_tape"])){
+	$detector_tape = trim($_POST["detector_tape"]);
+}
+
+
+
+
 $addon_tot_amt = null;
 if(isset($_POST["addon_tot_amt"])){
 	$addon_tot_amt = trim($_POST["addon_tot_amt"]);
@@ -59,7 +80,9 @@ if(isset($_POST["addon_tot_amt"])){
 
 $qryInfo['qryInfo']['todo'] = "N";
 
-if(isSet($_POST['swm_no'])){
+if($swm_no!=""){
+	
+	$qryInfo['qryInfo']['todo'] = "U";
 	
 	$pi_no = mysql_real_escape_string($pi_no);
 	
@@ -153,7 +176,7 @@ if(isSet($_POST['swm_no'])){
 	}
 	
 }else{
-	$qryInfo['qryInfo']['todo'] = "Y";
+	$qryInfo['qryInfo']['todo'] = "C";
 	
 	$sql_req = "INSERT INTO om_prd_req";
 	$sql_req = $sql_req . " (pi_no, po_no, qual_ship_dt, qual_trans_dt, manual_lang_atcd, extra, crt_dt, crt_uid) ";
@@ -164,9 +187,14 @@ if(isSet($_POST['swm_no'])){
 	$qryInfo['qryInfo']['sql'] = $sql_req;
 	$qryInfo['qryInfo']['result'] = $result;
 
-	
 	for($i_cur=0; $i_cur < sizeof($currency_atch); $i_cur++)
 	{
+		if(sizeof($currency_atch)==1){
+			$target_currency_atch = $currency_atch;
+		}else{
+			$target_currency_atch = $currency_atch[$i_cur];
+		}
+		
 		$sql_cur = "INSERT INTO om_prd_req_dtl";
 		$sql_cur = $sql_cur . " (swm_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
 		$sql_cur = $sql_cur . " VALUES (LAST_INSERT_ID(), '0091', '" .$currency_atch[$i_cur]. "', '" .$fitness[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
@@ -180,6 +208,11 @@ if(isSet($_POST['swm_no'])){
 	
 	for($i_cur=0; $i_cur < sizeof($serial_currency_atch); $i_cur++)
 	{
+		if(sizeof($serial_currency_atch)==1){
+			$target_serial_currency_atch = $serial_currency_atch;
+		}else{
+			$target_serial_currency_atch = $serial_currency_atch[$i_cur];
+		}
 		$sql_srl = "INSERT INTO om_prd_req_dtl";
 		$sql_srl = $sql_srl . " (swm_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
 		$sql_srl = $sql_srl . " VALUES (LAST_INSERT_ID(), '0092', '" .$serial_currency_atch[$i_cur]. "', '" .$srl_fitness[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
@@ -190,6 +223,25 @@ if(isSet($_POST['swm_no'])){
 		$qryInfo['qryInfo']['insPrdSrl'][$i_cur]['result3'] = $result3;
 	}
 	
+	$sql_dtt = "INSERT INTO om_prd_req_dtl";
+	$sql_dtt = $sql_dtt . " (swm_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+	$sql_dtt = $sql_dtt . " SELECT last_insert_id(), cd, atcd";
+	$sql_dtt = $sql_dtt . ",(case when atcd='0K000010' then '" .$detector_uv. "'";
+	$sql_dtt = $sql_dtt . "    when atcd='0K000020' then '" .$detector_mg. "'";
+	$sql_dtt = $sql_dtt . "    when atcd='0K000030' then '" .$detector_mra. "'";
+	$sql_dtt = $sql_dtt . "    when atcd='0K000040' then '" .$detector_ir. "'";
+	$sql_dtt = $sql_dtt . "    when atcd='0K000050' then '" .$detector_tape. "'";
+	$sql_dtt = $sql_dtt . "    end) atcd_ox";
+	$sql_dtt = $sql_dtt . "  , now()";
+	$sql_dtt = $sql_dtt . "  , '" .$_SESSION['ss_user']['uid']. "'";
+	$sql_dtt = $sql_dtt . " FROM cm_cd_attr";
+	$sql_dtt = $sql_dtt . " WHERE cd='00K0'";
+	$sql_dtt = $sql_dtt . " AND atcd in ('0K000010','0K000020','0K000030','0K000040','0K000050')	";
+	
+#	echo $sql_dtt;
+	$result4 = mysql_query($sql_dtt);
+	$qryInfo['qryInfo']['insPrdDtt']['sql4'] = $sql_dtt;
+	$qryInfo['qryInfo']['insPrdDtt']['result4'] = $result4;
 	
 	
 }
