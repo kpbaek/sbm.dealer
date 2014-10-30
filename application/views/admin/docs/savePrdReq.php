@@ -72,12 +72,6 @@ if(isset($_POST["detector_tape"])){
 
 
 
-
-$addon_tot_amt = null;
-if(isset($_POST["addon_tot_amt"])){
-	$addon_tot_amt = trim($_POST["addon_tot_amt"]);
-}
-
 $qryInfo['qryInfo']['todo'] = "N";
 
 if($swm_no!=""){
@@ -99,88 +93,93 @@ if($swm_no!=""){
 		$qryInfo['qryInfo']['txt_wrk_tp_atcd'] = $txt_wrk_tp_atcd;
 		
 	}else{
-		$qryInfo['qryInfo']['todo'] = "Y";
+		$qryInfo['qryInfo']['todo'] = "U";
 		
-		for($i_amt=0; $i_amt < sizeof($amt); $i_amt++)
-		{
-			$sql_eqp = "UPDATE om_ord_eqp";
-			$sql_eqp = $sql_eqp . " SET amt=" .$amt[$i_amt];
-			$sql_eqp = $sql_eqp . " , udt_uid='" .$_SESSION['ss_user']['uid']. "'";
-			$sql_eqp = $sql_eqp . " WHERE pi_no = '" .$pi_no. "'";
-			$sql_eqp = $sql_eqp . " AND po_no = '" .$po_no[$i_amt]. "'";
-			#echo $sql_eqp;
+		$sql_req = "UPDATE om_prd_req";
+		$sql_req = $sql_req . " SET qual_ship_dt = '" .$qual_ship_dt. "'";
+		$sql_req = $sql_req . ", manual_lang_atcd = '" .$manual_lang_atcd. "'";
+		$sql_req = $sql_req . ", extra = '" .$extra. "'";
+		$sql_req = $sql_req . ", udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
+		$sql_req = $sql_req . " WHERE swm_no =" .$swm_no;
+		
+	#	echo $sql_req;
+		
+		$result=mysql_query($sql_req);
+		$qryInfo['qryInfo']['sql'] = $sql_req;
+		$qryInfo['qryInfo']['result'] = $result;
+		
+	
+		$sql_del = "DELETE FROM om_prd_req_dtl";
+		$sql_del = $sql_del . " WHERE swm_no =" .$swm_no;
+		#		echo $sql_del;
+		$result_del = mysql_query($sql_del);
+		$qryInfo['qryInfo']['sql_del'] = $sql_del;
+		$qryInfo['qryInfo']['result_del'] = $result_del;
 			
-			$result2 = mysql_query($sql_eqp);
-			$qryInfo['qryInfo']['udtEqp'][$i_amt]['sql2'] = $sql_eqp;
-			$qryInfo['qryInfo']['udtEqp'][$i_amt]['result2'] = $result2;
-		}
-		
-		$sql_tot_amt = "select sum(a.amt) tot_amt from ";
-		$sql_tot_amt = $sql_tot_amt . "(";
-		$sql_tot_amt = $sql_tot_amt . "  select amt from om_ord_eqp";
-		$sql_tot_amt = $sql_tot_amt . "  where pi_no = '" .$pi_no. "'";
-#		$sql_tot_amt = $sql_tot_amt . "  union all";
-#		$sql_tot_amt = $sql_tot_amt . "  select amt from om_ord_part";
-#		$sql_tot_amt = $sql_tot_amt . "  where pi_no = '" .$pi_no. "'";
-		$sql_tot_amt = $sql_tot_amt . ") a";
-		
-		$sql_ord = "UPDATE om_ord_inf a";
-		$sql_ord = $sql_ord . " SET tot_amt=(select sum(amt) from om_ord_eqp where pi_no = a.pi_no)";
-		$sql_ord = $sql_ord . " , udt_uid='" .$_SESSION['ss_user']['uid']. "'";
-		$sql_ord = $sql_ord . " WHERE pi_no = '" .$pi_no. "'";
-		#echo $sql_ord;
-		$result3 = mysql_query($sql_ord);
-		$qryInfo['qryInfo']['sql3'] = $sql_ord;
-		$qryInfo['qryInfo']['result3'] = $result3;
-		
-		
-#		$sql_inv_tot = "SELECT (case when tot_amt is null then 0 else (tot_amt - tot_amt * premium_rate / 100) end) as inv_tot_amt FROM om_ord_inf";
-#		$sql_inv_tot = $sql_inv_tot . " WHERE pi_no ='" .$pi_no. "'";
-#		$result=mysql_query($sql_inv_tot);
-#		$inv_tot_amt = mysql_result($result,0,"inv_tot_amt");
-		
-		
-		$sql_inv = "UPDATE om_invoice a";
-		$sql_inv = $sql_inv . " SET udt_uid='" .$_SESSION['ss_user']['uid']. "'";
-		$sql_inv = $sql_inv . ", ship_port_atcd='" .$ship_port_atcd. "'";
-		$sql_inv = $sql_inv . ", destnt='" .$destnt. "'";
-		$sql_inv = $sql_inv . ", payment_atcd='" .$payment_atcd. "'";
-		if(strlen($validity)==8){
-			$sql_inv = $sql_inv . ", validity='" .$validity. "'";
-		}
-		$sql_inv = $sql_inv . ", bank_atcd='" .$bank_atcd. "'";
-		$sql_inv = $sql_inv . ", tot_amt=(select ifnull( ( sum(amt) - sum(amt) * (select ifnull(premium_rate,0) from om_ord_inf where pi_no = a.pi_no) / 100 ), 0) from om_ord_eqp where pi_no=a.pi_no)";
-		if($addon=="PRN"){
-			if($addon_qty=="0"){
-				$sql_inv = $sql_inv . ", prn_qty=null";
-				$sql_inv = $sql_inv . ", prn_tot_amt=null";
+		for($i_cur=0; $i_cur < sizeof($currency_atch); $i_cur++)
+		{
+			if(sizeof($currency_atch)==1){
+				$target_currency_atch = $currency_atch;
 			}else{
-				$sql_inv = $sql_inv . ", prn_qty=" .$addon_qty;
-				$sql_inv = $sql_inv . ", prn_tot_amt=" .$addon_tot_amt;
+				$target_currency_atch = $currency_atch[$i_cur];
 			}
-		}else if($addon=="RPR"){
-			if($addon_qty=="0"){
-				$sql_inv = $sql_inv . ", repr_qty=null";
-				$sql_inv = $sql_inv . ", repr_tot_amt=null";
-			}else{
-				$sql_inv = $sql_inv . ", repr_qty=" .$addon_qty;
-				$sql_inv = $sql_inv . ", repr_tot_amt=" .$addon_tot_amt;
-			}
+			
+			$sql_cur = "INSERT INTO om_prd_req_dtl";
+			$sql_cur = $sql_cur . " (swm_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+			$sql_cur = $sql_cur . " VALUES (" .$swm_no. ", '0091', '" .$currency_atch[$i_cur]. "', '" .$fitness[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+			
+	#		echo $sql_cur;
+			$result2 = mysql_query($sql_cur);
+			$qryInfo['qryInfo']['insPrdCur'][$i_cur]['sql2'] = $sql_cur;
+			$qryInfo['qryInfo']['insPrdCur'][$i_cur]['result2'] = $result2;
 		}
-		$sql_inv = $sql_inv . " WHERE pi_no = '" .$pi_no. "'";
-		#echo $sql_inv;
-		$result4 = mysql_query($sql_inv);
-		$qryInfo['qryInfo']['sql4'] = $sql_inv;
+		
+		
+		for($i_cur=0; $i_cur < sizeof($serial_currency_atch); $i_cur++)
+		{
+			if(sizeof($serial_currency_atch)==1){
+				$target_serial_currency_atch = $serial_currency_atch;
+			}else{
+				$target_serial_currency_atch = $serial_currency_atch[$i_cur];
+			}
+			$sql_srl = "INSERT INTO om_prd_req_dtl";
+			$sql_srl = $sql_srl . " (swm_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+			$sql_srl = $sql_srl . " VALUES (" .$swm_no. ", '0092', '" .$serial_currency_atch[$i_cur]. "', '" .$srl_fitness[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+			
+	#		echo $sql_srl;
+			$result3 = mysql_query($sql_srl);
+			$qryInfo['qryInfo']['insPrdSrl'][$i_cur]['sql3'] = $sql_srl;
+			$qryInfo['qryInfo']['insPrdSrl'][$i_cur]['result3'] = $result3;
+		}
+		
+		$sql_dtt = "INSERT INTO om_prd_req_dtl";
+		$sql_dtt = $sql_dtt . " (swm_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+		$sql_dtt = $sql_dtt . " SELECT " .$swm_no. ", cd, atcd";
+		$sql_dtt = $sql_dtt . ",(case when atcd='0K000010' then '" .$detector_uv. "'";
+		$sql_dtt = $sql_dtt . "    when atcd='0K000020' then '" .$detector_mg. "'";
+		$sql_dtt = $sql_dtt . "    when atcd='0K000030' then '" .$detector_mra. "'";
+		$sql_dtt = $sql_dtt . "    when atcd='0K000040' then '" .$detector_ir. "'";
+		$sql_dtt = $sql_dtt . "    when atcd='0K000050' then '" .$detector_tape. "'";
+		$sql_dtt = $sql_dtt . "    end) atcd_ox";
+		$sql_dtt = $sql_dtt . "  , now()";
+		$sql_dtt = $sql_dtt . "  , '" .$_SESSION['ss_user']['uid']. "'";
+		$sql_dtt = $sql_dtt . " FROM cm_cd_attr";
+		$sql_dtt = $sql_dtt . " WHERE cd='00K0'";
+		$sql_dtt = $sql_dtt . " AND atcd in ('0K000010','0K000020','0K000030','0K000040','0K000050')	";
+		
+	#	echo $sql_dtt;
+		$result4 = mysql_query($sql_dtt);
+		$qryInfo['qryInfo']['sql4'] = $sql_dtt;
 		$qryInfo['qryInfo']['result4'] = $result4;
-		
+				
 	}
 	
 }else{
 	$qryInfo['qryInfo']['todo'] = "C";
 	
 	$sql_req = "INSERT INTO om_prd_req";
-	$sql_req = $sql_req . " (pi_no, po_no, qual_ship_dt, qual_trans_dt, manual_lang_atcd, extra, crt_dt, crt_uid) ";
-	$sql_req = $sql_req . " VALUES ('" .$pi_no. "', " .$po_no. ", '" .$qual_ship_dt. "', date_format(now(),'%Y%m%d'), '" .$manual_lang_atcd. "', '" .$extra. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+	$sql_req = $sql_req . " (pi_no, po_no, qual_ship_dt, manual_lang_atcd, extra, crt_dt, crt_uid) ";
+	$sql_req = $sql_req . " VALUES ('" .$pi_no. "', " .$po_no. ", '" .$qual_ship_dt. "', '" .$manual_lang_atcd. "', '" .$extra. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #	echo $sql_req;
 	
 	$result=mysql_query($sql_req);
@@ -240,9 +239,9 @@ if($swm_no!=""){
 	
 #	echo $sql_dtt;
 	$result4 = mysql_query($sql_dtt);
-	$qryInfo['qryInfo']['insPrdDtt']['sql4'] = $sql_dtt;
-	$qryInfo['qryInfo']['insPrdDtt']['result4'] = $result4;
-	
+	$qryInfo['qryInfo']['sql4'] = $sql_dtt;
+	$qryInfo['qryInfo']['result4'] = $result4;
+		
 	
 }
 
