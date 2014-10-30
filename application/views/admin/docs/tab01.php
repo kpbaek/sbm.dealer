@@ -15,7 +15,6 @@
 	<script src="/lib/js/jquery.multiple.select.js"></script>
 	<script src="/lib/js/msdropdown/jquery.dd.js"></script>
 	<script src="/lib/js/jquery.ui.shake.js"></script>
-	<script src="/lib/js/jquery.ui.shake.js"></script>
 	  
 	<style type="text/css">
 	  html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
@@ -56,10 +55,13 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 	</tr>
 	</table>
 </div>
+<p><div id="error"></div>
+
 <form id="saveForm" name="saveForm" method="post">
 <input type=hidden id="eqp_sndmail_seq" name="eqp_sndmail_seq">
 <input type=hidden id="pi_no" name="pi_no">
 <input type=hidden id="po_no" name="po_no">
+<input type=hidden id="swm_no" name="swm_no">
 	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0" align=center>
 	<tr>
 		<td colspan=10 align=right>
@@ -238,22 +240,27 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  <tr>
 		    <td colspan=2>
 				<select name="detector_uv">
+				<option value="">Select</option>
 				</select>
 		    </td>
 		    <td colspan=2>
 				<select name="detector_mg">
+				<option value="">Select</option>
 				</select>
 		    </td>
 		    <td colspan=2>
 				<select name="detector_mra">
+				<option value="">Select</option>
 				</select>
 		    </td>
 		    <td colspan=2>
 				<select name="detector_ir">
+				<option value="">Select</option>
 				</select>
 		    </td>
 		    <td colspan=3>
 				<select name="detector_tape">
+				<option value="">Select</option>
 				</select>
 		    </td>
 		    <td colspan=5></td>
@@ -417,7 +424,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 				<TR>
 					<TD class="style01" width=30px>기타</TD>
 					<TD class="style01" width=160px>특이사항</TD>
-					<TD><input type=text name="extra" size=70></TD>
+					<TD><input type=text id="extra" name="extra" size=70></TD>
 				</TR>
 				</TABLE>
 			</td>
@@ -600,13 +607,15 @@ $(document).ready(function(e) {
 //			            alert(xhr.status);
 			        	var eqpOrdInfo = result.eqpOrdInfo; 
 			        	var eqpOrdDtlList = result.eqpOrdDtlList; 
+			        	var prdReqInfo = result.prdReqInfo; 
+			        	var prdReqDtlList = result.prdReqDtlList; 
 			        	
 						$('#pi_no').val(eqpOrdInfo.pi_no);
 						$('#po_no').val(eqpOrdInfo.po_no);
 			        	
 						if(eqpOrdInfo.wrk_tp_atcd < "00700210")  // P/I 발송(00700210)
 				        {
-							editForm(eqpOrdInfo, eqpOrdDtlList);
+							editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList);
 						}else{
 							$('#btnSubmit').attr('disabled',true);
 							$('#error').shake();
@@ -644,9 +653,10 @@ function initForm() {
 	getCodeCombo("0040", f.manual_lang_atcd);
 }
 
-function editForm(eqpOrdInfo, eqpOrdDtlList) {
+function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	var f = document.saveForm;
 
+	$("#swm_no").val(prdReqInfo.swm_no);
 	$("#eqp_sndmail_seq").val(eqpOrdInfo.sndmail_seq);
 	
 	$("#txt_pi_no").html("PI-" + eqpOrdInfo.pi_no);
@@ -709,7 +719,7 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 				$("#c1_f1").append(f.fitness[i]);
 			}
 		}else{
-			$("#c1").append("<input type=text id='currency_atch' name='currency_atch' style='width:35px' value='" + c1Ar[0] + "'>");
+			$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px' value='" + c1Ar[0] + "'>");
 			getOXCombo(f.fitness, "X");
 			$("#c1_f1").append(f.fitness);
 		}
@@ -722,18 +732,21 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 				$("#srl_f").append(f.srl_fitness[i]);
 			}
 		}else{
-			$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch' style='width:35px' value='" + srl_cAr[0] + "'>");
+			$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px' value='" + srl_cAr[0] + "'>");
 			getOXCombo(f.srl_fitness, "X");
 			$("#srl_f").append(f.srl_fitness);
 		}
 	}
-	
-	getOXCombo(f.detector_uv, "X");
-	getOXCombo(f.detector_mg, "X");
-	getOXCombo(f.detector_mra, "X");
-	getOXCombo(f.detector_ir, "X");
-	getOXCombo(f.detector_tape, "X");
-	getCodeCombo("0040", f.manual_lang_atcd);
+
+	getOXCombo(f.detector_uv, prdReqInfo.detector_uv);
+	getOXCombo(f.detector_mg, prdReqInfo.detector_mg);
+	getOXCombo(f.detector_mra, prdReqInfo.detector_mra);
+	getOXCombo(f.detector_ir, prdReqInfo.detector_ir);
+	getOXCombo(f.detector_tape, prdReqInfo.detector_tape);
+
+	$('#extra').val(prdReqInfo.extra);
+	$('#qual_ship_dt').val(prdReqInfo.txt_qual_ship_dt);
+	getCodeCombo("0040", f.manual_lang_atcd, prdReqInfo.manual_lang_atcd);
 
 }
 
@@ -806,7 +819,7 @@ function fn_save() {
 		        success: function(result, statusText, xhr, $form) {
 		            if(statusText == 'success'){
 			            var todo = result.qryInfo.todo;	  
-			            if(todo == "Y"){
+			            if(todo == "C"){
 				            var qryInfo = result.qryInfo;	            	
 		    				if(qryInfo.result==false)
 		    		        {
@@ -821,7 +834,7 @@ function fn_save() {
 				        			var targetInfo = qryList[key];
 				    				if(targetInfo.result2==false)
 				    		        {
-				    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql2);
+				    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql2 Error!. " + qryInfo.sql2);
 				            			return;
 									}else{
 //				    		        	alert(targetInfo.result2 + ":" + targetInfo.sql2);
@@ -834,14 +847,72 @@ function fn_save() {
 				        			var targetInfo = qryList[key];
 				    				if(targetInfo.result3==false)
 				    		        {
-				    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql3);
+				    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql3 Error!. " + qryInfo.sql3);
 				            			return;
 									}else{
 //				    		        	alert(targetInfo.result3 + ":" + targetInfo.sql3);
 				    				}
 					     		}); 
 							}
-			            }else if(todo == "N"){
+		    				if(qryInfo.result4==false)
+		    		        {
+		    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql4 Error!. " + qryInfo.sql4);
+		            			return;
+		    				}else{
+//		    		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
+		    				}
+			            }else if(todo == "U"){
+
+				            var qryInfo = result.qryInfo;	            	
+		    				if(qryInfo.result==false)
+		    		        {
+		    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql);
+		            			return;
+		    				}else{
+//		    		        	alert(qryInfo.result + ":" + qryInfo.sql);
+		    				}
+		    				if(qryInfo.result_del==false)
+		    		        {
+		    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql_del Error!. " + qryInfo.sql_del);
+		            			return;
+		    				}else{
+//		    		        	alert(qryInfo.result_del + ":" + qryInfo.sql_del);
+		    				}
+		    				if(qryInfo.insPrdCur){
+			    				var qryList = qryInfo.insPrdCur;	            	
+			    				$.each(qryList, function(key){ 
+				        			var targetInfo = qryList[key];
+				    				if(targetInfo.result2==false)
+				    		        {
+				    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql2 Error!. " + qryInfo.sql2);
+				            			return;
+									}else{
+//				    		        	alert(targetInfo.result2 + ":" + targetInfo.sql2);
+				    				}
+					     		}); 
+							}
+		    				if(qryInfo.insPrdSrl){
+			    				var qryList = qryInfo.insPrdSrl;	            	
+			    				$.each(qryList, function(key){ 
+				        			var targetInfo = qryList[key];
+				    				if(targetInfo.result3==false)
+				    		        {
+				    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql3 Error!. " + qryInfo.sql3);
+				            			return;
+									}else{
+//				    		        	alert(targetInfo.result3 + ":" + targetInfo.sql3);
+				    				}
+					     		}); 
+							}
+		    				if(qryInfo.result4==false)
+		    		        {
+		    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql4 Error!. " + qryInfo.sql4);
+		            			return;
+		    				}else{
+//		    		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
+		    				}
+											            
+						}else if(todo == "N"){
 				            var txt_wrk_tp_atcd = result.qryInfo.txt_wrk_tp_atcd;
 				            alert("This PI is already confirmed!(" + txt_wrk_tp_atcd + ")");
 				            return;
