@@ -33,6 +33,10 @@
 	  td.style04 { vertical-align:middle; border-bottom:2px solid #000000 !important; border-top:2px solid #000000; border-left:none #000000; border-right:2px solid #000000; font-weight:bold; color:#000000; font-family:'굴림'; font-size:10pt; background-color:white }
 	  td.style05 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'굴림'; font-size:10pt; background-color:#FFFFFF }
 	  td.style06 { vertical-align:middle; text-align:center; border-bottom:1px solid #000000 !important; border-top:2px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:'굴림'; font-size:10pt; background-color:#CCCCFF }
+	  td.style10 { background-color:#CCCCFF; border-right:1px solid #000000 !important;}
+	  td.style20 { background-color:#FFFFFF;}
+	  td.style30 { border-top:none ; border-bottom:none; border-left:none; border-right:none;  background-color:#FFFFFF;}
+	  td.style40 { border-top:1px solid ; border-bottom:none; border-left:none; border-right:none;  background-color:#FFFFFF;}
 	  table.sheet0 tr { height:16pt; }
 	</style>
   </head>
@@ -66,7 +70,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 	<tr>
 		<td colspan=10 align=right>
 		<input type="button" id="btnSave" name="btnSave" value="save" onclick="javascript:fn_save();"/>
-		<input type="button" id="btnSend" name="btnSend" value="send" onclick="javascript:fn_readMail();"/>
+		<input type="button" id="btnSend" name="btnSend" value="send" onclick="javascript:fn_readMail();" disabled/>
 		</td>
 	  </tr>
 	</table>
@@ -120,25 +124,23 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 			<td colspan="3" width=15% class="style01">문서번호</td>
-			<td colspan="5" width="25%"></td>
+			<td colspan="5" width="25%"><div id="swm_no_div"></div></td>
 			<td colspan="2" width=10% class="style01">P/I NO. </td>
-			<td colspan="3" class="style03"><a href="javascript:fn_viewSndMail();"><div id="txt_pi_no"></div></a></td>
+			<td colspan="3" class="style03"><div id="txt_pi_no"></div></td>
 			<td colspan="2" class="style06">작성일</td>
-			<td colspan="4" class="style03">
-			
-			</td>
+			<td colspan="4" class="style03" width=10%><div id="udt_dt_div"></div></td>
 		  </tr>
 		  <tr>
 			<td colspan="3" width=10% class="style01">바이어</td>
 			<td colspan="10" width="30%"><div id="buyer"></div></td>
 			<td colspan="2" class="style01">P/O NO.</td>
-			<td colspan="4"><div id="po_no"></div></td>
+			<td colspan="4" align=center><div id="po_no_div"></div></td>
 		  </tr>
 		  <tr>
 			<td colspan="3" width=10% class="style01">MODEL</td>
 			<td colspan="10" width="30%"><div id="mdl_nm"></div></td>
 			<td colspan="2" class="style01">Q'TY</td>
-			<td colspan="4"><div id="qty"></div></td>
+			<td colspan="4" align=center><div id="qty"></div></td>
 		  </tr>
 		  <tr>
 			<td colspan="3" class="style01">CURRENCY</td>
@@ -150,7 +152,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan=15><div id="c1_f1" width=5%></div></td>
 			<td width=5%></td>
 		  </tr>
-		  <tr>
+		  <tr style="display:none">
 			<td colspan="3" class="style01">currency_fitness</td>
 			<td id="cf1" colspan=15>
 			</td>
@@ -161,17 +163,17 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan=2 class="style01">SRL</td>
 			<td colspan=2 class="style01">P-OCR</td>
 			<td colspan=2 class="style01">S-OCR</td>
-			<td colspan=9><div id="srl_c" width=5%></div></td>
+			<td colspan=9 align=left><div id="srl_c" width=5%></div></td>
 			<td class="style01">기타</td>
 		  </tr>
 		  <tr id="srl_02" style="display:none">
-			<td colspan=2><div id="srl_ox">X</div></td>
-			<td colspan=2><div id="p-ocr_ox">X</div></td>
-			<td colspan=2><div id="s-ocr_ox">X</div></td>
-			<td colspan=10><div id="srl_f" width=5%></div>
-
+			<td colspan=2 align=center><div id="srl_ox">X</div></td>
+			<td colspan=2 align=center><div id="p-ocr_ox">X</div></td>
+			<td colspan=2 align=center><div id="s-ocr_ox">X</div></td>
+			<td colspan=9 align=left><div id="srl_f" width=5%></div>
+			<TD></TD>
 		  </tr>
-		  <tr>
+		  <tr style="display:none">
 			<td colspan="3" class="style01">serial Fitness</td>
 			<td id="srl_cf" colspan=16>
 			</td>
@@ -238,27 +240,27 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan=5 class="style01">기타</td>
 		  </tr> 
 		  <tr>
-		    <td colspan=2>
+		    <td colspan=2 align=center>
 				<select name="detector_uv">
 				<option value="">Select</option>
 				</select>
 		    </td>
-		    <td colspan=2>
+		    <td colspan=2 align=center>
 				<select name="detector_mg">
 				<option value="">Select</option>
 				</select>
 		    </td>
-		    <td colspan=2>
+		    <td colspan=2 align=center>
 				<select name="detector_mra">
 				<option value="">Select</option>
 				</select>
 		    </td>
-		    <td colspan=2>
+		    <td colspan=2 align=center>
 				<select name="detector_ir">
 				<option value="">Select</option>
 				</select>
 		    </td>
-		    <td colspan=3>
+		    <td colspan=3 align=center>
 				<select name="detector_tape">
 				<option value="">Select</option>
 				</select>
@@ -268,159 +270,34 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  <tr>
 			<td class="style01" colspan=3>OPTION</td>
 			<td colspan=18>
-				<div id="mdl_0007_div" style="display:none">
-				<!-- SB-7 -->
-				<TABLE border=1 width=100%>
+				<TABLE border=0 width=100%>
 				<TR>
 					<TD rowspan=2 class="style01" width=30px>SW</TD>
 					<TD class="style01" width=160px>Dispenser Mode</TD>
-					<TD align=center>X</TD>
+					<TD class="style02" align=center>X</TD>
 				</TR>
 				<TR>
 					<TD class="style01">ISSUE</TD>
-					<TD align=center>X</TD>
+					<TD class="style02" colspan=2 align=center>X</TD>
 				</TR>
-				<TR>
-					<TD rowspan=4 class="style01">HW</TD>
-					<TD class="style01">LAN</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">Printer</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SV-200</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SDP-7</TD>
-					<TD align=center>X</TD>
-				</TR>
-				</TABLE>
-				</div>
 				<!-- SB-9 -->
-				<div id="mdl_0009_div" style="display:none">
-				<TABLE border=1 width=100%>
-				<TR>
-					<TD rowspan=3 class="style01" width=30px>SW</TD>
-					<TD class="style01" width=160px>Dispenser Mode</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">ISSUE</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
+				<TR id="mdl_0009_div" style="display:none">
 					<TD class="style01">SNC</TD>
-					<TD align=center>X</TD>
+					<TD align=center colspan=2 >X</TD>
 				</TR>
 				<TR>
-					<TD rowspan=5 class="style01">HW</TD>
-					<TD class="style01">MDD</TD>
-					<TD align=center>X</TD>
+					<TD class="style01">HW</TD>
+					<TD class="style01" colspan=2 width=160px>
+						<TABLE border=1 width=100% id="opt_hw_div">
+						<tbody">
+						<TR>
+							<TD class="style10"></TD>
+							<TD class="style20"></TD>
+						</TR>
+						</tbody>
+						</TABLE>
+					</TD>
 				</TR>
-				<TR>
-					<TD class="style01">LAN</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">Printer</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SV-200</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SDP-7</TD>
-					<TD align=center>X</TD>
-				</TR>
-				</TABLE>
-				</div>
-				<!-- SB-2000 -->
-				<div id="mdl_2000_div" style="display:none">
-				<TABLE border=1 width=100%>
-				<TR>
-					<TD rowspan=3 class="style01" width=30px>SW</TD>
-					<TD class="style01" width=160px>Dispenser Mode</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">ISSUE</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SNC</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD rowspan=5 class="style01">HW</TD>
-					<TD class="style01">Parallel Board</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">LAN</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">Printer</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SV-200</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SDP-7</TD>
-					<TD align=center>X</TD>
-				</TR>
-				</TABLE>
-				</div>
-				<!-- SB-3000 -->
-				<div id="mdl_3000_div" style="display:none">
-				<TABLE border=1 width=100%>
-				<TR>
-					<TD rowspan=3 class="style01" width=30px>SW</TD>
-					<TD class="style01" width=160px>Dispenser Mode</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">ISSUE</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SNC</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD rowspan=6 class="style01">HW</TD>
-					<TD class="style01">CIS</TD>
-					<TD align=center>2</TD>
-				</TR>
-				<TR>
-					<TD class="style01">LAN</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">Printer</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">Reject Pocket</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SV-200</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SDP-7</TD>
-					<TD align=center>X</TD>
-				</TR>
-				</TABLE>
-				</div>
-				<TABLE border=1 width=100%>
 				<TR>
 					<TD class="style01" width=30px>기타</TD>
 					<TD class="style01" width=160px>특이사항</TD>
@@ -482,15 +359,15 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">LCD Window</td>
-			<td colspan=13 align=center>SBM <div id="lcd_mdl_nm"></div></td>
+			<td colspan=13 align=center><div id="lcd_mdl_nm"></div></td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">Out Box</td>
-			<td colspan=13 align=center>SBM <div id="box_mdl_nm"></div></td>
+			<td colspan=13 align=center><div id="box_mdl_nm"></div></td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">Label</td>
-			<td colspan=13 align=center>SBM <div id="label_mdl_nm"></div></td>
+			<td colspan=13 align=center><div id="label_mdl_nm"></div></td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">PWR / Printer Power Cable</td>
@@ -570,7 +447,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		   -->
 		  </table>
 
-		<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
+		<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;;" align=center>
 			  <tbody>
 			  <tr style="border:0px;">
 				<td width=20% class="style00">SBM-영업-P-701-05</td>
@@ -633,6 +510,47 @@ $(document).ready(function(e) {
 				
 	});
 
+function addRow(id){
+//	opt_sw
+	var oRow = opt_hw_div.insertRow(0);
+	opt_hw_div.insertRow(0);
+//	oRow.style.backgroundColor="#CCCCFF";
+	var oCell_1 = oRow.insertCell();
+	var oCell_2 = oRow.insertCell();
+	var oCell_3 = oRow.insertCell();
+	oCell_1.style.backgroundColor = "#CCCCFF";
+	oCell_2.style.backgroundColor = "#CCCCFF";
+	oCell_1.innerHTML = "SW";
+	return;
+}
+	
+function fn_addOptHwRow(id, txt_opt_hw_atcd, ox_opt_hw_atcd){
+	
+    var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
+    var row = document.createElement("TR");
+//    var td_1 = document.createElement("TD");
+    var td_2 = document.createElement("TD");
+    var td_3 = document.createElement("TD");
+//    td_1.appendChild(document.createTextNode("HW"));
+//    td_1.style.backgroundColor = "#CCCCFF";
+//    td_1.style.width = "30px";
+//    td_1.align = "center";
+    td_2.appendChild(document.createTextNode(txt_opt_hw_atcd));
+    td_2.style.backgroundColor = "#CCCCFF";
+    td_2.style.width = "160px";
+    td_2.align = "center";
+    td_2.setAttribute('class','style10');
+    td_3.appendChild(document.createTextNode(ox_opt_hw_atcd));
+    td_3.setAttribute('class','style20');
+    td_3.align = "center";
+//    row.appendChild(td_1);
+    row.appendChild(td_2);
+    row.appendChild(td_3);
+    tbody.appendChild(row);
+}
+
+
+
 function initForm() {
 	var f = document.saveForm;
 	getOXCombo(f.fitness_01, "X");
@@ -656,13 +574,46 @@ function initForm() {
 function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	var f = document.saveForm;
 
-	$("#swm_no").val(prdReqInfo.swm_no);
+	opt_hw_div.deleteRow();
+	for(var i=0; i < eqpOrdDtlList.length; i++){
+		if(eqpOrdDtlList[i].opt_hw_atcd!=""){
+			fn_addOptHwRow('opt_hw_div', eqpOrdDtlList[i].txt_opt_hw_atcd, "O");
+		}
+	}
+
+	if(prdReqInfo!=null){
+		$("#swm_no_div").html("SWM-" + prdReqInfo.txt_swm_no);
+		$("#swm_no").val(prdReqInfo.swm_no);
+		$("#udt_dt_div").html(prdReqInfo.txt_udt_dt);
+		$('#extra').val(prdReqInfo.extra);
+		$('#qual_ship_dt').val(prdReqInfo.txt_qual_ship_dt);
+
+		if(prdReqInfo.sndmail_seq!=null){
+			$("#btnSend").attr("disabled",false);
+			$("#swm_no_div").append("-" + prdReqInfo.sndmail_seq);
+		}
+	}
+
+	getOXCombo(f.detector_uv, prdReqInfo.detector_uv);
+	getOXCombo(f.detector_mg, prdReqInfo.detector_mg);
+	getOXCombo(f.detector_mra, prdReqInfo.detector_mra);
+	getOXCombo(f.detector_ir, prdReqInfo.detector_ir);
+	getOXCombo(f.detector_tape, prdReqInfo.detector_tape);
+	getCodeCombo("0040", f.manual_lang_atcd, prdReqInfo.manual_lang_atcd);
+
 	$("#eqp_sndmail_seq").val(eqpOrdInfo.sndmail_seq);
 	
 	$("#txt_pi_no").html("PI-" + eqpOrdInfo.pi_no);
+	$("#po_no_div").html(eqpOrdInfo.po_no);
+	if(eqpOrdInfo.sndmail_seq!=null){
+		$("#po_no_div").html("<a href='javascript:fn_viewSndMail();'>" + eqpOrdInfo.po_no + "</a>");
+	}
 	$("#buyer").html(eqpOrdInfo.txt_cntry_atcd + "-" + eqpOrdInfo.cmpy_nm);
 	$("#po_no").html(eqpOrdInfo.po_no);
 	$("#mdl_nm").html(eqpOrdInfo.mdl_nm);
+	$("#lcd_mdl_nm").html("SBM " + eqpOrdInfo.mdl_nm);
+	$("#box_mdl_nm").html("SBM " + eqpOrdInfo.mdl_nm);
+	$("#label_mdl_nm").html("SBM " + eqpOrdInfo.mdl_nm);
 	$("#qty").html(eqpOrdInfo.qty);
 
 	$("#txt_lcd_lang_atcd").html(eqpOrdInfo.txt_lcd_lang_atcd);
@@ -685,16 +636,10 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	}
 	$("#srl_atcd").html(eqpOrdInfo.srl_atcd);
 	
-	if(eqpOrdInfo.mdl_cd == "0007"){
-		mdl_0007_div.style.display = "";
-	}else if(eqpOrdInfo.mdl_cd == "0009"){
+	if(eqpOrdInfo.mdl_cd == "0009" || eqpOrdInfo.mdl_cd == "2000" || eqpOrdInfo.mdl_cd == "3000"){
 		mdl_0009_div.style.display = "";
 	}else if(eqpOrdInfo.mdl_cd == "1100"){ //test
 		mdl_0009_div.style.display = "";
-	}else if(eqpOrdInfo.mdl_cd == "2000"){
-		mdl_2000_div.style.display = "";
-	}else if(eqpOrdInfo.mdl_cd == "3000"){
-		mdl_3000_div.style.display = "";
 	}else if(eqpOrdInfo.mdl_cd == "5000"){
 		mdl_5000_div.style.display = "";
 	}
@@ -714,12 +659,12 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	if(c1Ar.length){
 		if(c1Ar.length > 1){
 			for(var i=0; i < f.fitness.length; i++){
-				$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px' value='" + c1Ar[i] + "'>");
+				$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px;border: none' value='" + c1Ar[i] + "' readonly>");
 				getOXCombo(f.fitness[i], "X");
 				$("#c1_f1").append(f.fitness[i]);
 			}
 		}else{
-			$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px' value='" + c1Ar[0] + "'>");
+			$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px;border: none' value='" + c1Ar[0] + "' readonly>");
 			getOXCombo(f.fitness, "X");
 			$("#c1_f1").append(f.fitness);
 		}
@@ -727,26 +672,66 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	if(srl_cAr.length){
 		if(srl_cAr.length > 1){
 			for(var i=0; i < f.srl_fitness.length; i++){
-				$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px' value='" + srl_cAr[i] + "'>");
+				$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px;border: none' value='" + srl_cAr[i] + "' readonly>");
 				getOXCombo(f.srl_fitness[i], "X");
 				$("#srl_f").append(f.srl_fitness[i]);
 			}
 		}else{
-			$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px' value='" + srl_cAr[0] + "'>");
+			$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px;border: none' value='" + srl_cAr[0] + "' readonly>");
 			getOXCombo(f.srl_fitness, "X");
 			$("#srl_f").append(f.srl_fitness);
 		}
 	}
+	
+	// fitness
+	var currencyAr = [];
+	var fitnessAr = [];
+	var srlCurrencyAr = [];
+	var srlFitnessAr = [];
+	if(prdReqDtlList!=null){
+		for(var i=0; i < prdReqDtlList.length; i++){
+			if(prdReqDtlList[i].currency_atch!=""){
+				currencyAr[currencyAr.length] = prdReqDtlList[i].currency_atch;
+				fitnessAr[fitnessAr.length] = prdReqDtlList[i].fitness;
+	/**			
+				$("#cf1").append(prdReqDtlList[i].currency_atch);
+				$("#cf1").append("(");
+				$("#cf1").append(prdReqDtlList[i].fitness);
+				$("#cf1").append(")");
+				$("#cf1").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+	*/			
+			}
+			if(prdReqDtlList[i].serial_currency_atch!=""){
+				srlCurrencyAr[srlCurrencyAr.length] = prdReqDtlList[i].serial_currency_atch;
+				srlFitnessAr[srlFitnessAr.length] = prdReqDtlList[i].srl_fitness;
+				/**			
+				$("#srl_cf").append(prdReqDtlList[i].serial_currency_atch);
+				$("#srl_cf").append("(");
+				$("#srl_cf").append(prdReqDtlList[i].srl_fitness);
+				$("#srl_cf").append(")");
+				$("#srl_cf").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+				*/			
+			}
+		}
 
-	getOXCombo(f.detector_uv, prdReqInfo.detector_uv);
-	getOXCombo(f.detector_mg, prdReqInfo.detector_mg);
-	getOXCombo(f.detector_mra, prdReqInfo.detector_mra);
-	getOXCombo(f.detector_ir, prdReqInfo.detector_ir);
-	getOXCombo(f.detector_tape, prdReqInfo.detector_tape);
-
-	$('#extra').val(prdReqInfo.extra);
-	$('#qual_ship_dt').val(prdReqInfo.txt_qual_ship_dt);
-	getCodeCombo("0040", f.manual_lang_atcd, prdReqInfo.manual_lang_atcd);
+		if(f.currency_atch.length){
+			for(var i=0; i < f.currency_atch.length; i++){
+				if(currencyAr[i]==f.currency_atch[i].value){
+					getOXCombo(f.fitness[i], fitnessAr[i]);
+				}
+			}
+		}
+		if(f.serial_currency_atch){
+			if(f.serial_currency_atch.length){
+				for(var i=0; i < f.serial_currency_atch.length; i++){
+					if(srlCurrencyAr[i]==f.serial_currency_atch[i].value){
+						getOXCombo(f.srl_fitness[i], srlFitnessAr[i]);
+					}
+				}
+			}
+		}
+	}
+	
 
 }
 
@@ -930,6 +915,7 @@ function fn_save() {
 				
 		    };
 	$("#saveForm").ajaxSubmit(options);
+
 }
 
 </script>
