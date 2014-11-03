@@ -65,101 +65,48 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 			<td colspan="3" width=15% class="style01">문서번호</td>
-			<td colspan="5" width="25%" class="style03">SWM-310001</td>
+			<td colspan="5" width="25%" class="style03"><div id="swm_no_div"></div></td>
 			<td colspan="2" width=10% class="style01">P/I NO. </td>
-			<td colspan="3" class="style03">PI-14AT0001</td>
-			<td colspan="2" class="style06">작성일</td>
-			<td colspan="4" class="style03">2012-02-10</td>
+			<td colspan="4" class="style03">PI-@pi_no</td>
+			<td colspan="1" class="style06">작성일</td>
+			<td colspan="4" width=10%>@txt_udt_dt</td>
 		  </tr>
 		  <tr>
 			<td colspan="3" width=10% class="style01">바이어</td>
-			<td colspan="10" width="30%" align=center>Austria - STREMA</td>
-			<td colspan="2" class="style01">P/O NO.</td>
-			<td colspan="4" align=center>Order No. 3315</td>
+			<td colspan="11" width="30%" align=center>@buyer</td>
+			<td colspan="1" class="style01">P/O NO.</td>
+			<td colspan="4" align=center>Order No. @po_no</td>
 		  </tr>
 		  <tr>
 			<td colspan="3" width=10% class="style01">MODEL</td>
-			<td colspan="10" width="30%" align=center>SB-7</td>
-			<td colspan="2" class="style01">Q'TY</td>
-			<td colspan="4" align=center>30</td>
+			<td colspan="10" width="30%" align=center>@mdl_nm</td>
+			<td></td>
+			<td colspan="1" class="style01">Q'TY</td>
+			<td colspan="4" align=center>@qty</td>
 		  </tr>
 		  <tr>
 			<td colspan="3" class="style01">CURRENCY</td>
-			<td align=center>RSD</td>
-			<td align=center>EUR</td>
-			<td width=5% align=center>USD</td>
-			<td width=5% align=center>GBP</td>
-			<td width=5% align=center>CHF</td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
-			<td width=5%></td>
+			<td colspan=15><div id="c1">@currency_atch</div></td>
 			<td width=5% class="style01">기타</td>
 		  </tr>
 		  <tr>
 			<td colspan="3" class="style01">Fitness</td>
-			<td align=center>O
-			</td>
-			<td align=center>O
-			</td>
-			<td align=center>O
-			</td>
-			<td align=center>O
-			</td>
-			<td align=center>O
-			</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td colspan=15><div id="c1_f1">@fitness</div></td>
+			<td width=5%></td>
 		  </tr>
 		  <tr>
 			<td rowspan=2 colspan="3" class="style01">SERIAL NUMBER</td>
-			<td colspan=2 class="style01">SRL</td>
-			<td colspan=2 class="style01">P-OCR</td>
-			<td colspan=2 class="style01">S-OCR</td>
-			<td align=center>RSD</td>
-			<td align=center>EUR</td>
-			<td align=center>USD</td>
-			<td align=center>GBP</td>
-			<td align=center>CHF</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td colspan=2 class="style01" WIDTH=7%>SRL</td>
+			<td colspan=2 class="style01" WIDTH=7%>P-OCR</td>
+			<td colspan=2 class="style01" WIDTH=7%>S-OCR</td>
+			<td colspan=9 align=left id="srl_c">@srl_c</td>
 			<td class="style01">기타</td>
 		  </tr>
 		  <tr>
-			<td colspan=2 align=center>X</td>
-			<td colspan=2 align=center>X</td>
-			<td colspan=2 align=center>X</td>
-			<td align=center>O
-			</td>
-			<td align=center>O
-			</td>
-			<td align=center>O
-			</td>
-			<td align=center>O
-			</td>
-			<td align=center>O
-			</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td colspan=2 align=center><div id="srl_ox">@srl_ox</div></td>
+			<td colspan=2 align=center><div id="p-ocr_ox">@p-ocr_ox</div></td>
+			<td colspan=2 align=center><div id="s-ocr_ox">@s-ocr_ox</div></td>
+			<td colspan=9 align=left><div id="srl_f">@srl_f</div></td>
 			<td></td>
 		  </tr>
 		  <tr>
@@ -172,15 +119,15 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan=5 class="style01">기타</td>
 		  </tr> 
 		  <tr>
-		    <td colspan=2 align=center>O
+		    <td colspan=2 align=center>@detector_uv
 		    </td>
-		    <td colspan=2 align=center>O
+		    <td colspan=2 align=center>@detector_mg
 		    </td>
-		    <td colspan=2 align=center>O
+		    <td colspan=2 align=center>@detector_mra
 		    </td>
-		    <td colspan=2 align=center>O
+		    <td colspan=2 align=center>@detector_ir
 		    </td>
-		    <td colspan=3 align=center>O
+		    <td colspan=3 align=center>@detector_tape
 		    </td>
 		    <td colspan=5></td>
 		  </tr>
@@ -333,7 +280,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 				<TR>
 					<TD class="style01" width=35px>기타</TD>
 					<TD class="style01" width=160px>특이사항</TD>
-					<TD>ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</TD>
+					<TD>@extra</TD>
 				</TR>
 				</TABLE>
 			</td>
@@ -341,42 +288,42 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  <tr>
 			<td rowspan=8 colspan="3" class="style01">USER OPTION</td>
 		    <td colspan=5 class="style01">Language (LCD)</td>
-			<td colspan=13 align=center>English</td>
+			<td colspan=13 align=center>@txt_lcd_lang_atcd</td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">LCD Color</td>
-			<td colspan=13 align=center>MONO CHROM</td>
+			<td colspan=13 align=center>@txt_lcd_color_atcd</td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">LCD Window</td>
-			<td colspan=13 align=center>SBM @MODEL</td>
+			<td colspan=13 align=center>SBM @lcd_mdl_nm</td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">Out Box</td>
-			<td colspan=13 align=center>SBM @MODEL</td>
+			<td colspan=13 align=center>SBM @box_mdl_nm</td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">Label</td>
-			<td colspan=13 align=center>SBM @MODEL</td>
+			<td colspan=13 align=center>SBM @label_mdl_nm</td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">PWR / Printer Power Cable</td>
 			<td colspan=13 style="text-align: center;vertical-align: middle;">
-			220V 한국 향<img src="/images/common/dropdown/00E0/00E00005.png">
+			@pwr_cab
 			</td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">Serial Printer Cable</td>
-			<td colspan=13 align=center>X</td>
+			<td colspan=13 align=center>@srl_prn_cab_ox</td>
 		  </tr>
 		  <tr>
 		    <td colspan=5 class="style01">User's Manual</td>
-			<td colspan=13 align=center>영문, SB-7용
+			<td colspan=13 align=center>@txt_manual_lang_atcd, @mdl_nm용
 			</td>
 		  </tr>
 		  <tr>
 			<td colspan="8" class="style01">품질 출하일</td>
-		    <td colspan=12>2014-08-21</td>
+		    <td colspan=12 align=center>@qual_ship_dt</td>
 		  </tr>
 
 		  </table>
