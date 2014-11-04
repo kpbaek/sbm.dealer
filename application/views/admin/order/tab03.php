@@ -546,6 +546,21 @@
     	location.replace("/index.php/admin/outer/tab02?edit_mode=1&pi_no=" + pi_no);
 	}
 		
+	function fn_sendReq(order_tp, pi_no, po_no){
+		var f = document.editOrderForm;
+		f.method = "post";
+		f.edit_mode.value = "1";
+		f.pi_no.value = pi_no;
+		f.po_no.value = po_no;
+		if(order_tp=="E"){
+			f.action = "/index.php/admin/docs/tab01";
+			f.submit();
+		}else if(order_tp=="P"){
+			f.action = "/index.php/admin/docs/tab03";
+			f.submit();
+		}
+	}
+
 </script>
 
 </html>
