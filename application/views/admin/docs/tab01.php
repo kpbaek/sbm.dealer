@@ -26,6 +26,10 @@
 	  .inlineStr { text-align:left }
 	  .n { text-align:right }
 	  .s { text-align:left }
+	  .inputBox{
+        background-color:white;
+        text-align:center;font-size: 12px; font-weight: bold;border-color:black;border-style: solid;
+	  }	  
 	  td.style00 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'굴림'; font-size:10pt; background-color:#FFFFFF }
 	  td.style01 { vertical-align:middle; text-align:center; border-bottom:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:'굴림'; font-size:10pt; background-color:#CCCCFF }
 	  td.style02 { vertical-align:middle; text-align:center; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:none #000000; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:'굴림'; font-size:10pt; background-color:white }
@@ -669,12 +673,12 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	if(c1Ar.length){
 		if(c1Ar.length > 1){
 			for(var i=0; i < f.fitness.length; i++){
-				$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px;border: none' value='" + c1Ar[i] + "' readonly>");
+				$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px;' class='inputBox' value='" + c1Ar[i] + "' readonly>");
 				getOXCombo(f.fitness[i], "X");
 				$("#c1_f1").append(f.fitness[i]);
 			}
 		}else{
-			$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px;border: none' value='" + c1Ar[0] + "' readonly>");
+			$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px;' class='inputBox' value='" + c1Ar[0] + "' readonly>");
 			getOXCombo(f.fitness, "X");
 			$("#c1_f1").append(f.fitness);
 		}
@@ -682,12 +686,12 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	if(srl_cAr.length){
 		if(srl_cAr.length > 1){
 			for(var i=0; i < f.srl_fitness.length; i++){
-				$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px;border: none' value='" + srl_cAr[i] + "' readonly>");
+				$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px;' class='inputBox' value='" + srl_cAr[i] + "' readonly>");
 				getOXCombo(f.srl_fitness[i], "X");
 				$("#srl_f").append(f.srl_fitness[i]);
 			}
 		}else{
-			$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px;border: none' value='" + srl_cAr[0] + "' readonly>");
+			$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px;' class='inputBox' value='" + srl_cAr[0] + "' readonly>");
 			getOXCombo(f.srl_fitness, "X");
 			$("#srl_f").append(f.srl_fitness);
 		}
@@ -925,6 +929,7 @@ function fn_save() {
 				            return;
 						}          	
 				    	$('#btnSave').attr('disabled',false);
+				    	$('#btnSend').attr('disabled',false);
 				    	alert("success!");
 //				    	fn_edit();
 		            }

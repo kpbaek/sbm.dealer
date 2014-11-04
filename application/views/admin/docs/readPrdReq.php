@@ -163,8 +163,8 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 			foreach ($prdReq['prdReqDtlList'] as $row)
 			{
 				if($row["currency_atch"]!=""){
-					$currency_atch = $currency_atch. "<input type=text value='" . $row["currency_atch"] . "' size=3 style='text-align:center;' readonly>";
-					$fitness = $fitness. "<input type=text value='" . $row["fitness"] . "' size=3 style='text-align:center' readonly>";
+					$currency_atch = $currency_atch. "<input type=text value='" . $row["currency_atch"] . "' size=3 class='inputBox' readonly>";
+					$fitness = $fitness. "<input type=text value='" . $row["fitness"] . "' size=3 class='inputBox'  readonly>";
 				}
 			}
 		}
@@ -178,8 +178,8 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 			foreach ($prdReq['prdReqDtlList'] as $row)
 			{
 				if($row["serial_currency_atch"]!=""){
-					$serial_currency_atch = $serial_currency_atch. "<input type=text value='" . $row["serial_currency_atch"]. "' size=3 style='text-align:center' readonly>";
-					$srl_fitness = $srl_fitness. "<input type=text value='" . $row["srl_fitness"]. "' size=3 style='text-align:center' readonly>";
+					$serial_currency_atch = $serial_currency_atch. "<input type=text value='" . $row["serial_currency_atch"]. "' size=3 class='inputBox'  readonly>";
+					$srl_fitness = $srl_fitness. "<input type=text value='" . $row["srl_fitness"]. "' size=3 class='inputBox' readonly>";
 				}
 			}
 		}
