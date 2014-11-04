@@ -1,6 +1,4 @@
 <?php
-#session_start();
-
 $pi_no = $_REQUEST["pi_no"];
 $po_no = $_REQUEST["po_no"];
 
