@@ -54,6 +54,16 @@ class Docs extends CI_Controller {
 		$this->load->view('/admin/docs/tab03');
 	}
 	
+	public function viewPrdReq()
+	{
+		$this->load->view('/admin/docs/viewPrdReq');
+	}
+	
+	public function savePrdReq()
+	{
+		$this->load->view('/admin/docs/savePrdReq');
+	}
+	
 }
 
 /* End of file welcome.php */
