@@ -65,7 +65,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 			<td colspan="3" width=15% class="style01">문서번호</td>
-			<td colspan="5" width="25%" class="style03"><div id="swm_no_div"></div></td>
+			<td colspan="5" width="25%" class="style03">SWM-@txt_swm_no</td>
 			<td colspan="2" width=10% class="style01">P/I NO. </td>
 			<td colspan="4" class="style03">PI-@pi_no</td>
 			<td colspan="1" class="style06">작성일</td>
@@ -137,31 +137,26 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 				<TABLE border=1 width=100%>
 				<!-- SB-7 -->
 				<TR>
-					<TD rowspan=2 class="style01" width=30px>SW</TD>
-					<TD class="style01" width=160px>Dispenser Mode</TD>
+					<TD rowspan=3 class="style01" width=35px>SW</TD>
+					<TD class="style01" width=140px>Dispenser Mode</TD>
 					<TD align=center>X</TD>
 				</TR>
 				<TR>
 					<TD class="style01">ISSUE</TD>
 					<TD align=center>X</TD>
 				</TR>
-				<TR>
-					<TD rowspan=4 class="style01">HW</TD>
-					<TD class="style01">LAN</TD>
-					<TD align=center>X</TD>
+				<TR id="snc_div" style="display:@snc_div">
+					<TD class="style01"><div>SNC</div></TD>
+					<TD align=center colspan=2 >@snc_ox</TD>
 				</TR>
-				<TR>
-					<TD class="style01">Printer</TD>
-					<TD align=center>X</TD>
+				</TABLE>
+				<TABLE border=1 width=100%>
+				<TR id="opt_hw_div" style="display:;">
+					<TD rowspan=@opt_hw_cnt class="style01" colspan=1 width=35px>HW</TD>
+					<TD align=center class="style01">Other</TD>
+					<TD align=center></TD>
 				</TR>
-				<TR>
-					<TD class="style01">SV-200</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">SDP-7</TD>
-					<TD align=center>X</TD>
-				</TR>
+				@opt_hw_tr
 				<!-- SB-9 -->
 <!-- 				
 				<TR>
@@ -279,7 +274,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 -->				
 				<TR>
 					<TD class="style01" width=35px>기타</TD>
-					<TD class="style01" width=160px>특이사항</TD>
+					<TD class="style01" width=140px>특이사항</TD>
 					<TD>@extra</TD>
 				</TR>
 				</TABLE>
@@ -287,43 +282,43 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 			<td rowspan=8 colspan="3" class="style01">USER OPTION</td>
-		    <td colspan=5 class="style01">Language (LCD)</td>
-			<td colspan=13 align=center>@txt_lcd_lang_atcd</td>
+		    <td colspan=6 class="style01">Language (LCD)</td>
+			<td colspan=12 align=center>@txt_lcd_lang_atcd</td>
 		  </tr>
 		  <tr>
-		    <td colspan=5 class="style01">LCD Color</td>
-			<td colspan=13 align=center>@txt_lcd_color_atcd</td>
+		    <td colspan=6 class="style01">LCD Color</td>
+			<td colspan=12 align=center>@txt_lcd_color_atcd</td>
 		  </tr>
 		  <tr>
-		    <td colspan=5 class="style01">LCD Window</td>
-			<td colspan=13 align=center>SBM @lcd_mdl_nm</td>
+		    <td colspan=6 class="style01">LCD Window</td>
+			<td colspan=12 align=center>SBM @lcd_mdl_nm</td>
 		  </tr>
 		  <tr>
-		    <td colspan=5 class="style01">Out Box</td>
-			<td colspan=13 align=center>SBM @box_mdl_nm</td>
+		    <td colspan=6 class="style01">Out Box</td>
+			<td colspan=12 align=center>SBM @box_mdl_nm</td>
 		  </tr>
 		  <tr>
-		    <td colspan=5 class="style01">Label</td>
-			<td colspan=13 align=center>SBM @label_mdl_nm</td>
+		    <td colspan=6 class="style01">Label</td>
+			<td colspan=12 align=center>SBM @label_mdl_nm</td>
 		  </tr>
 		  <tr>
-		    <td colspan=5 class="style01">PWR / Printer Power Cable</td>
-			<td colspan=13 style="text-align: center;vertical-align: middle;">
+		    <td colspan=6 class="style01">PWR / Printer Power Cable</td>
+			<td colspan=12 style="text-align: center;vertical-align: middle;">
 			@pwr_cab
 			</td>
 		  </tr>
 		  <tr>
-		    <td colspan=5 class="style01">Serial Printer Cable</td>
-			<td colspan=13 align=center>@srl_prn_cab_ox</td>
+		    <td colspan=6 class="style01">Serial Printer Cable</td>
+			<td colspan=12 align=center>@srl_prn_cab_ox</td>
 		  </tr>
 		  <tr>
-		    <td colspan=5 class="style01">User's Manual</td>
-			<td colspan=13 align=center>@txt_manual_lang_atcd, @mdl_nm용
+		    <td colspan=6 class="style01">User's Manual</td>
+			<td colspan=12 align=center>@txt_manual_lang_atcd, @mdl_nm용
 			</td>
 		  </tr>
 		  <tr>
-			<td colspan="8" class="style01">품질 출하일</td>
-		    <td colspan=12 align=center>@qual_ship_dt</td>
+			<td colspan="9" class="style01">품질 출하일</td>
+		    <td colspan=11 align=center>@qual_ship_dt</td>
 		  </tr>
 
 		  </table>
