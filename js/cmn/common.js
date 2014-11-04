@@ -523,6 +523,55 @@
     	});
     }
     
+    function fncCrtPrdSndMail(params){
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/crtSndMail",
+    		async: false,
+    		dataType: "json",
+    		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "po_no":params.po_no},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			var qryInfo = result.qryInfo;
+    			if(qryInfo.result==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql);
+    				return false;
+    			}else{
+//		        	alert(qryInfo.result + ":" + qryInfo.sql);
+    			}
+    			if(qryInfo.result2==false)
+    			{
+    				$("#resultDiv").html("sql2 error:" + qryInfo.sql2);
+    				return false;
+    			}else{
+//		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
+    			}
+    			if(qryInfo.result3==false)
+    			{
+    				$("#resultDiv").html("sql3 error:" + qryInfo.sql3);
+    				return false;
+    			}else{
+//		        	alert(qryInfo.result3 + ":" + qryInfo.sql3);
+    			}
+    			if(qryInfo.result4==false)
+    			{
+    				$("#resultDiv").html("sql4 error:" + qryInfo.sql4);
+    				return false;
+    			}else{
+//		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
+    				$("#resultDiv").html(qryInfo.ctnt);
+    				fncDisplayDiv(resultDiv, true);
+//    				fncSndMail(qryInfo.sndmail_seq);
+    				alert("success!");
+    			}
+    		},
+    		error:function(){
+    			return false;
+    		}
+    	});
+    }
+    
     function fncSndMail(sndmail_seq){
     	
     	$.ajax({
@@ -560,6 +609,42 @@
 	        error:function(){
                 return false;
 			}
+    	});
+    }
+    
+    function fncReadReqMail(params){
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/readMail",
+    		async: false,
+    		dataType: "json",
+    		data: {"sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "po_no":params.po_no},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			var qryInfo = result.qryInfo;
+    			$("#resultDiv").append(qryInfo.ctnt); 
+    		},
+    		error:function(){
+    			return false;
+    		}
+    	});
+    }
+    
+    function fncViewSndMail(sndmail_seq){
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/viewSndMail",
+    		async: false,
+    		dataType: "json",
+    		data: {"sndmail_seq":sndmail_seq},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			var qryInfo = result.qryInfo;
+    			$("#sndMailDiv").append(qryInfo.ctnt); 
+    		},
+    		error:function(){
+    			return false;
+    		}
     	});
     }
     
