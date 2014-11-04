@@ -49,7 +49,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 
 <div id="sndMailDiv" style="display:none" align=center></div>
 
-<div id="resultDiv" style="display:none">
+<div id="resultDiv" style="display:none" align=center>
 	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0" align=center>
 	<tr>
 		<td colspan=10 align=right>
@@ -58,9 +58,11 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		</td>
 	</tr>
 	</table>
+	<p>
 </div>
-<p><div id="error"></div>
+<div id="error"></div>
 
+<div id="saveFormDiv">	
 <form id="saveForm" name="saveForm" method="post">
 <input type=hidden id="eqp_sndmail_seq" name="eqp_sndmail_seq">
 <input type=hidden id="pi_no" name="pi_no">
@@ -170,7 +172,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan=2 align=center><div id="srl_ox">X</div></td>
 			<td colspan=2 align=center><div id="p-ocr_ox">X</div></td>
 			<td colspan=2 align=center><div id="s-ocr_ox">X</div></td>
-			<td colspan=9 align=left><div id="srl_f" width=5%></div>
+			<td colspan=9 align=left><div id="srl_f" width=5%></div></td>
 			<TD></TD>
 		  </tr>
 		  <tr style="display:none">
@@ -270,28 +272,30 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  <tr>
 			<td class="style01" colspan=3>OPTION</td>
 			<td colspan=18>
-				<TABLE border=0 width=100%>
+				<TABLE border=1 width=100%>
 				<TR>
-					<TD rowspan=2 class="style01" width=30px>SW</TD>
-					<TD class="style01" width=160px>Dispenser Mode</TD>
-					<TD class="style02" align=center>X</TD>
+					<TD rowspan=3 class="style01" width=35px>SW</TD>
+					<TD class="style01" width=155px>Dispenser Mode</TD>
+					<TD align=center>X</TD>
 				</TR>
 				<TR>
 					<TD class="style01">ISSUE</TD>
-					<TD class="style02" colspan=2 align=center>X</TD>
+					<TD align=center>X</TD>
 				</TR>
 				<!-- SB-9 -->
 				<TR id="mdl_0009_div" style="display:none">
-					<TD class="style01">SNC</TD>
+					<TD class="style01"><div>SNC</div></TD>
 					<TD align=center colspan=2 >X</TD>
 				</TR>
+				</TABLE>
+				<TABLE border=1 width=100%>
 				<TR>
-					<TD class="style01">HW</TD>
-					<TD class="style01" colspan=2 width=160px>
+					<TD class="style01" width=35px>HW</TD>
+					<TD class="style01" colspan=2>
 						<TABLE border=1 width=100% id="opt_hw_div">
 						<tbody">
 						<TR>
-							<TD class="style10"></TD>
+							<TD class="style10" width=155px></TD>
 							<TD class="style20"></TD>
 						</TR>
 						</tbody>
@@ -299,8 +303,8 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 					</TD>
 				</TR>
 				<TR>
-					<TD class="style01" width=30px>기타</TD>
-					<TD class="style01" width=160px>특이사항</TD>
+					<TD class="style01" width=35px>기타</TD>
+					<TD class="style01" width=155px>특이사항</TD>
 					<TD><input type=text id="extra" name="extra" size=70></TD>
 				</TR>
 				</TABLE>
@@ -457,7 +461,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			  </tbody>
 		</table>
 </form>
-		
+</div>		
 </body>
   
  
@@ -490,13 +494,13 @@ $(document).ready(function(e) {
 						$('#pi_no').val(eqpOrdInfo.pi_no);
 						$('#po_no').val(eqpOrdInfo.po_no);
 			        	
-						if(eqpOrdInfo.wrk_tp_atcd < "00700210")  // P/I 발송(00700210)
+						if(eqpOrdInfo.wrk_tp_atcd < "00700510")  // 출고전표 발송(00700510)
 				        {
 							editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList);
 						}else{
 							$('#btnSubmit').attr('disabled',true);
 							$('#error').shake();
-							$("#error").html("<span style='color:#cc0000'>Notice:</span> this order is already confirmed!. ");
+							$("#error").html("<span style='color:#cc0000'>Notice:</span> 출고전표가 이미발송되었습니다!. ");
 				        }
 			        },
 			});
@@ -549,6 +553,14 @@ function fn_addOptHwRow(id, txt_opt_hw_atcd, ox_opt_hw_atcd){
     tbody.appendChild(row);
 }
 
+function fn_sendMail(){
+	if(confirm("담당자에게 메일이 발송됩니다. 계속하시겠습니까?")){
+		var params = {"wrk_tp_atcd": "00700310","sndmail_atcd":"00700311", "pi_no":$("#pi_no").val(), "po_no":$("#po_no").val()};  
+		fncCrtPrdSndMail(params);
+	}else{
+		return;
+	}
+}
 
 
 function initForm() {
@@ -581,17 +593,15 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 		}
 	}
 
-	if(prdReqInfo!=null){
+	if(prdReqInfo.swm_no!=null){
 		$("#swm_no_div").html("SWM-" + prdReqInfo.txt_swm_no);
 		$("#swm_no").val(prdReqInfo.swm_no);
 		$("#udt_dt_div").html(prdReqInfo.txt_udt_dt);
 		$('#extra').val(prdReqInfo.extra);
 		$('#qual_ship_dt').val(prdReqInfo.txt_qual_ship_dt);
 
-		if(prdReqInfo.sndmail_seq!=null){
-			$("#btnSend").attr("disabled",false);
-			$("#swm_no_div").append("-" + prdReqInfo.sndmail_seq);
-		}
+		$("#btnSend").attr("disabled",false);
+		
 	}
 
 	getOXCombo(f.detector_uv, prdReqInfo.detector_uv);
@@ -641,7 +651,7 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	}else if(eqpOrdInfo.mdl_cd == "1100"){ //test
 		mdl_0009_div.style.display = "";
 	}else if(eqpOrdInfo.mdl_cd == "5000"){
-		mdl_5000_div.style.display = "";
+//		mdl_5000_div.style.display = "";
 	}
 
 	var c1Ar = [];
@@ -735,8 +745,20 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 
 }
 
+function fn_edit(){
+	location.replace("/index.php/admin/docs/tab01?edit_mode=1&pi_no=" + $("#pi_no").val() + "&po_no=" + $("#po_no").val());
+}
+
 function fn_viewSndMail(){
 	location.replace("/index.php/common/main/viewSndMail?sndmail_seq=" + $("#eqp_sndmail_seq").val());
+}
+
+function fn_readMail(){
+	var params = {"sndmail_atcd":"00700311", "pi_no":$("#pi_no").val(), "po_no":$("#po_no").val()};  
+
+	saveFormDiv.style.display = "none";
+	fncReadReqMail(params);
+	resultDiv.style.display = "";
 }
 
 
