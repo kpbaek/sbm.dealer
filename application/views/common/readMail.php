@@ -196,6 +196,19 @@ if($sndmail_atcd=="00700111"){
 
 	$ctnt = getCiMailCtnt($ctnt, $invoice);
 		
+}else if($sndmail_atcd=="00700311"){  // Commercial Invoice
+	$po_no = "";
+	if(isset($_REQUEST["po_no"])){
+		$po_no = $_REQUEST["po_no"];
+	}
+	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/order/readEqpOrder.php");
+	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/docs/readPrdReq.php");
+
+	$prdReq = readEqpOrder($pi_no, $po_no);
+	$prdReq = readPrdReq($prdReq, $pi_no, $po_no);
+	
+	$ctnt = getPrdReqMailCtnt($ctnt, $prdReq);
+	
 #	print_r($invoice['invoiceInfo']["wrk_tp_atcd"]);
 #	print_r($invoice['orderEqpList']);
 #	print_r($invoice['orderEqpList'][0]['mdl_nm']);

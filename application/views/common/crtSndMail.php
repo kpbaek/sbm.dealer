@@ -239,6 +239,19 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			}else if($sndmail_atcd=="00700411"){  // CI
 				$ctnt = getCiMailCtnt($ctnt, $invoice);
 			}
+		}else if($wrk_tp_atcd == "00700310" && $sndmail_atcd=="00700311"){ // 생산의뢰서
+			$po_no = "";
+			if(isset($_REQUEST["po_no"])){
+				$po_no = $_REQUEST["po_no"];
+			}
+			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/order/readEqpOrder.php");
+			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/docs/readPrdReq.php");
+			
+			$prdReq = readEqpOrder($pi_no, $po_no);
+			$prdReq = readPrdReq($prdReq, $pi_no, $po_no);
+
+			$ctnt = getPrdReqMailCtnt($ctnt, $prdReq);
+				
 		}
 		$ctnt = str_replace("@base_url", base_url(), $ctnt);
 		
@@ -382,6 +395,16 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$qryInfo['qryInfo']['sql5'] = $sql5;
 		$qryInfo['qryInfo']['result5'] = $result5;
 		
+	}else if($wrk_tp_atcd == "00700310"){ // 생산의뢰서
+		$sql4 = "UPDATE om_prd_req";
+		$sql4 = $sql4 . " SET sndmail_seq = " .$sendmail_seq;
+		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
+		$sql4 = $sql4 . " AND po_no = " .$po_no;
+		
+		$result4 = mysql_query($sql4);
+		$qryInfo['qryInfo']['sql4'] = $sql4;
+		$qryInfo['qryInfo']['result4'] = $result4;
+
 	}
 	
 	echo json_encode($qryInfo);
