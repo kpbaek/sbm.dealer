@@ -238,36 +238,36 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 			<td rowspan=2 colspan="3" class="style01">CF DETECTOR</td>
-		    <td colspan=2 class="style01">UV</td>
-			<td colspan=2 class="style01">MG</td>
-			<td colspan=2 class="style01">MRA</td>
-			<td colspan=2 class="style01">IR</td>
-			<td colspan=3 class="style01">Tape Detector</td>
+		    <td colspan=2 class="style01"><div style="display:none" id="detector_uv_div">UV</div></td>
+			<td colspan=2 class="style01"><div style="display:none" id="detector_mg_div">MG</div></td>
+			<td colspan=2 class="style01"><div style="display:none" id="detector_mra_div">MRA</div></td>
+			<td colspan=3 class="style01"><div style="display:none" id="detector_ir_div">IR</div></td>
+			<td colspan=2 class="style01"><div style="display:none" id="detector_tape_div">Tape Detector</div></td>
 			<td colspan=5 class="style01">기타</td>
 		  </tr> 
 		  <tr>
 		    <td colspan=2 align=center>
-				<select name="detector_uv">
+				<select id="detector_uv" name="detector_uv" style="display:none">
 				<option value="">Select</option>
 				</select>
 		    </td>
 		    <td colspan=2 align=center>
-				<select name="detector_mg">
+				<select id="detector_mg" name="detector_mg" style="display:none">
 				<option value="">Select</option>
 				</select>
 		    </td>
 		    <td colspan=2 align=center>
-				<select name="detector_mra">
-				<option value="">Select</option>
-				</select>
-		    </td>
-		    <td colspan=2 align=center>
-				<select name="detector_ir">
+				<select id="detector_mra" name="detector_mra" style="display:none">
 				<option value="">Select</option>
 				</select>
 		    </td>
 		    <td colspan=3 align=center>
-				<select name="detector_tape">
+				<select id="detector_ir" name="detector_ir" style="display:none">
+				<option value="">Select</option>
+				</select>
+		    </td>
+		    <td colspan=2 align=center>
+				<select id="detector_tape" name="detector_tape" style="display:none">
 				<option value="">Select</option>
 				</select>
 		    </td>
@@ -560,6 +560,7 @@ function fn_addOptHwRow(id, txt_opt_hw_atcd, ox_opt_hw_atcd){
 function fn_sendMail(){
 	if(confirm("담당자에게 메일이 발송됩니다. 계속하시겠습니까?")){
 		var params = {"wrk_tp_atcd": "00700310","sndmail_atcd":"00700311", "pi_no":$("#pi_no").val(), "po_no":$("#po_no").val()};  
+		$('#btnMail').attr('disabled',true);
 		fncCrtPrdSndMail(params);
 	}else{
 		return;
@@ -569,21 +570,11 @@ function fn_sendMail(){
 
 function initForm() {
 	var f = document.saveForm;
-	getOXCombo(f.fitness_01, "X");
-	getOXCombo(f.fitness_02, "X");
-	getOXCombo(f.fitness_03, "X");
-	getOXCombo(f.fitness_04, "X");
-	getOXCombo(f.fitness_05, "X");
-	getOXCombo(f.serial_fitness_01, "X");
-	getOXCombo(f.serial_fitness_02, "X");
-	getOXCombo(f.serial_fitness_03, "X");
-	getOXCombo(f.serial_fitness_04, "X");
-	getOXCombo(f.serial_fitness_05, "X");
-	getOXCombo(f.detector_uv, "X");
-	getOXCombo(f.detector_mg, "X");
-	getOXCombo(f.detector_mra, "X");
-	getOXCombo(f.detector_ir, "X");
-	getOXCombo(f.detector_tape, "X");
+	getOXCombo(f.detector_uv, "");
+	getOXCombo(f.detector_mg, "");
+	getOXCombo(f.detector_mra, "");
+	getOXCombo(f.detector_ir, "");
+	getOXCombo(f.detector_tape, "");
 	getCodeCombo("0040", f.manual_lang_atcd);
 }
 
@@ -604,15 +595,39 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 		$('#extra').val(prdReqInfo.extra);
 		$('#qual_ship_dt').val(prdReqInfo.txt_qual_ship_dt);
 
+			
+		if(prdReqInfo.sndmail_seq!=null){
+//			$("#btnSave").attr("disabled",true);
+//			$("#btnEdit").attr("disabled",true);
+//			$("#btnMail").attr("disabled",true);
+		}
 		$("#btnSend").attr("disabled",false);
 		
 	}
 
+	detector_uv_div.style.display = "";
+	f.detector_uv.style.display = "";
 	getOXCombo(f.detector_uv, prdReqInfo.detector_uv);
+
+	detector_mg_div.style.display = "";
+	f.detector_mg.style.display = "";
 	getOXCombo(f.detector_mg, prdReqInfo.detector_mg);
+
+	detector_mra_div.style.display = "";
+	f.detector_mra.style.display = "";
 	getOXCombo(f.detector_mra, prdReqInfo.detector_mra);
-	getOXCombo(f.detector_ir, prdReqInfo.detector_ir);
-	getOXCombo(f.detector_tape, prdReqInfo.detector_tape);
+
+	if(eqpOrdInfo.mdl_cd!="0007"){
+		detector_ir_div.style.display = "";
+		f.detector_ir.style.display = "";
+		getOXCombo(f.detector_ir, prdReqInfo.detector_ir);
+	}
+	if(eqpOrdInfo.mdl_cd=="2000" || eqpOrdInfo.mdl_cd=="3000"){
+		detector_tape_div.style.display = "";
+		f.detector_tape.style.display = "";
+		getOXCombo(f.detector_tape, prdReqInfo.detector_tape);
+	}
+	
 	getCodeCombo("0040", f.manual_lang_atcd, prdReqInfo.manual_lang_atcd);
 
 	$("#eqp_sndmail_seq").val(eqpOrdInfo.sndmail_seq);
@@ -734,6 +749,8 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 					getOXCombo(f.fitness[i], fitnessAr[i]);
 				}
 			}
+		}else{
+			getOXCombo(f.fitness, fitnessAr[0]);
 		}
 		if(f.serial_currency_atch){
 			if(f.serial_currency_atch.length){
@@ -742,6 +759,8 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 						getOXCombo(f.srl_fitness[i], srlFitnessAr[i]);
 					}
 				}
+			}else{
+				getOXCombo(f.srl_fitness, srlFitnessAr[0]);
 			}
 		}
 	}
@@ -872,7 +891,10 @@ function fn_save() {
 		    				}else{
 //		    		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
 		    				}
-			            }else if(todo == "U"){
+					    	$('#btnSave').attr('disabled',false);
+					    	$('#btnSend').attr('disabled',false);
+					    	alert("success!");
+						}else if(todo == "U"){
 
 				            var qryInfo = result.qryInfo;	            	
 		    				if(qryInfo.result==false)
@@ -922,15 +944,16 @@ function fn_save() {
 		    				}else{
 //		    		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
 		    				}
-											            
+		    				fn_readMail();
+					    	alert("success!");
+		    				
 						}else if(todo == "N"){
 				            var txt_wrk_tp_atcd = result.qryInfo.txt_wrk_tp_atcd;
+					    	$('#btnSave').attr('disabled',true);
+					    	$('#btnSend').attr('disabled',false);
 				            alert("This PI is already confirmed!(" + txt_wrk_tp_atcd + ")");
 				            return;
 						}          	
-				    	$('#btnSave').attr('disabled',false);
-				    	$('#btnSend').attr('disabled',false);
-				    	alert("success!");
 //				    	fn_edit();
 		            }
 				},

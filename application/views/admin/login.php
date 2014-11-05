@@ -36,7 +36,7 @@
 	<td>권한대행 아이디: 딜러 email</td>
 </tr>
 <tr>
-	<td>Test 딜러(<a href="http://webmail.hostinger.kr" target="_new">webmail</a> : dealer1@sbmkorea.url.ph)</td>
+	<td>메일Test(<a href="http://webmail.hostinger.kr/auth/?r=" target="_new">webmail</a> : sbm@sbmkorea.url.ph)</td>
 </tr>
 </table>
 

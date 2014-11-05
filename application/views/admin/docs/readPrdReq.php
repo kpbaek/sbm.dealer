@@ -101,7 +101,7 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 	$ctnt = str_replace("@lcd_mdl_nm", $prdReq['eqpOrdInfo']["mdl_nm"], $ctnt);
 	$ctnt = str_replace("@box_mdl_nm", $prdReq['eqpOrdInfo']["mdl_nm"], $ctnt);
 	$ctnt = str_replace("@label_mdl_nm", $prdReq['eqpOrdInfo']["mdl_nm"], $ctnt);
-	$ctnt = str_replace("@pwr_cab", $prdReq['eqpOrdInfo']["txt_pwr_cab_atcd"] . "<img src='/images/common/dropdown/00E0/" . $prdReq['eqpOrdInfo']["pwr_cab_atcd"] . ".png'>", $ctnt);
+	$ctnt = str_replace("@pwr_cab", $prdReq['eqpOrdInfo']["txt_pwr_cab_atcd"] . "<img src='" .base_url(). "/images/common/dropdown/00E0/" . $prdReq['eqpOrdInfo']["pwr_cab_atcd"] . ".png'>", $ctnt);
 	$ctnt = str_replace("@srl_prn_cab_ox", $prdReq['eqpOrdInfo']["srl_prn_cab_ox"], $ctnt);
 	
 	if($prdReq['eqpOrdInfo']["srl_atcd"]=="00B00001"){ //P-OCR
@@ -127,6 +127,20 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 	}else{
 		$ctnt = str_replace("@snc_div", "none", $ctnt);
 	}
+	
+	if($prdReq['eqpOrdInfo']['mdl_cd'] != "0007"){
+		$ctnt = str_replace("@detector_ir_div", "", $ctnt);
+	}else{
+		$ctnt = str_replace("@detector_ir_div", "none", $ctnt);
+		$ctnt = str_replace("@detector_ir", "", $ctnt);
+	}
+	if($prdReq['eqpOrdInfo']['mdl_cd'] == "2000" || $prdReq['eqpOrdInfo']['mdl_cd'] == "3000"){
+		$ctnt = str_replace("@detector_tape_div", "", $ctnt);
+	}else{
+		$ctnt = str_replace("@detector_tape_div", "none", $ctnt);
+		$ctnt = str_replace("@detector_tape", "", $ctnt);
+	}
+	
 	
 	$opt_hw_tr = "";
 	$opt_hw_cnt = 1;

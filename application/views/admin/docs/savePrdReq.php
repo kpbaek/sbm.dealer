@@ -29,9 +29,15 @@ if(isset($_POST["qual_ship_dt"])){
 	$qual_ship_dt = str_replace("-", "", $qual_ship_dt);
 }
 
-$currency_atch = $_REQUEST["currency_atch"];
+$currency_atch = null;
+if(isset($_POST["currency_atch"])){
+	$currency_atch = $_POST["currency_atch"];
+}
 
-$fitness = $_REQUEST["fitness"];
+$fitness = null;
+if(isset($_POST["fitness"])){
+	$fitness = $_POST["fitness"];
+}
 
 
 $serial_currency_atch = null;
@@ -154,6 +160,8 @@ if($swm_no!=""){
 		
 		$sql_dtt = "INSERT INTO om_prd_req_dtl";
 		$sql_dtt = $sql_dtt . " (swm_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+		$sql_dtt = $sql_dtt . " SELECT a.*";
+		$sql_dtt = $sql_dtt . " FROM (";
 		$sql_dtt = $sql_dtt . " SELECT " .$swm_no. ", cd, atcd";
 		$sql_dtt = $sql_dtt . ",(case when atcd='0K000010' then '" .$detector_uv. "'";
 		$sql_dtt = $sql_dtt . "    when atcd='0K000020' then '" .$detector_mg. "'";
@@ -166,6 +174,8 @@ if($swm_no!=""){
 		$sql_dtt = $sql_dtt . " FROM cm_cd_attr";
 		$sql_dtt = $sql_dtt . " WHERE cd='00K0'";
 		$sql_dtt = $sql_dtt . " AND atcd in ('0K000010','0K000020','0K000030','0K000040','0K000050')	";
+		$sql_dtt = $sql_dtt . " ) a	";
+		$sql_dtt = $sql_dtt . " WHERE atcd_ox in ('O','X')";
 		
 	#	echo $sql_dtt;
 		$result4 = mysql_query($sql_dtt);
