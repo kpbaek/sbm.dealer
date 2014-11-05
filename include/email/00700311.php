@@ -118,8 +118,8 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		    <td colspan=2 class="style01">UV</td>
 			<td colspan=2 class="style01">MG</td>
 			<td colspan=2 class="style01">MRA</td>
-			<td colspan=2 class="style01">IR</td>
-			<td colspan=3 class="style01">Tape Detector</td>
+			<td colspan=2 class="style01"><div style="display:@detector_ir_div">IR</div></td>
+			<td colspan=3 class="style01"><div style="display:@detector_tape_div">Tape Detector</div></td>
 			<td colspan=5 class="style01">기타</td>
 		  </tr> 
 		  <tr>

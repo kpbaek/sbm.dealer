@@ -41,6 +41,7 @@
 	}
 	
 	function getOXCombo(selObj, sVal) {
+		deleteOptionElements(selObj);
         addOptionElement(selObj, "O", "O");
         addOptionElement(selObj, "X", "X");
 		for(i=0;i<selObj.length;i++){ 
@@ -562,7 +563,7 @@
 //		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
     				$("#resultDiv").html(qryInfo.ctnt);
     				fncDisplayDiv(resultDiv, true);
-//    				fncSndMail(qryInfo.sndmail_seq);
+    				fncSndMail(qryInfo.sndmail_seq);
     				alert("success!");
     			}
     		},

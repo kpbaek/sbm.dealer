@@ -3,7 +3,7 @@ session_start();
 if(!isset($_SESSION['ss_user'])){
 ?>
 <script type="text/javascript">
-	parent.location.replace("/admin");
+	parent.location.replace("/index.php/admin");
 </script>
 <?php
 }

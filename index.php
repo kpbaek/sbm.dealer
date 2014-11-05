@@ -199,6 +199,8 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
+define('SBM_PUB_EMAIL', 'sbm@sbmkorea.url.ph');
+	
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
