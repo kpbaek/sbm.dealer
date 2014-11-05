@@ -301,7 +301,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	
 	
 	$sql3 = "INSERT INTO om_sndmail_dtl";
-	$email_sbm = "sbmkorea@sbmkorea.url.ph";
+	$email_sbm = SBM_PUB_EMAIL; //"sbm@sbmkorea.url.ph";
 	$email_to = "kpbaek@localhost";
 	if($wrk_tp_atcd == "00700210" or $wrk_tp_atcd=="00700410"){ // PI, CI
 		$sql3 = $sql3 . " (sndmail_seq, email_from, email_to, rcpnt_tp_atcd, snd_yn, crt_dt, crt_uid)";
