@@ -334,40 +334,29 @@ body { left-margin: 0.15748031496063in; right-margin: 0.15748031496063in; top-ma
 			<td class="column1 " width=30%>
 				<table width=100%>
 				<tr class="row6">
-					<td class="column1 style101 s style101" height="40px">&nbsp;● PI No.</td>
-					<td class="column2 style110 n style110" colspan="2" >PI-14LB0001</td>
+					<td class="column1 style101 s style101" width=100px height="40px">&nbsp;● PI No.</td>
+					<td class="column2 style110 n style110" colspan="2" >PI-@pi_no</td>
 				</tr>
 				<tr class="row6">
 					<td class="column1 style101 s style101" height="40px">&nbsp;● Ref No.</td>
-					<td class="column2 style109 f style109" colspan="2">SWP-320001</td>
+					<td class="column2 style109 f style109" colspan="2">SWP-@swp_no</td>
 				</tr>
-				<tr class="row6">
-					<td class="column1 style101 s style101" height="40px">&nbsp;● SB-1100</td>
-					<td class="column2 style109 f style109" colspan="2">O</td>
-				</tr>
-				<tr class="row6">
-					<td class="column1 style101 s style101" height="40px">&nbsp;● SB-9</td>
-					<td class="column2 style109 f style109" colspan="2">O</td>
-				</tr>
-				<tr class="row6">
-					<td class="column1 style101 s style101" height="40px">&nbsp;● SB-7</td>
-					<td class="column2 style109 f style109" colspan="2">O</td>
-				</tr>
+				@mdl_list_tr
 				<tr class="row6">
 					<td class="column1 style101 s style101" height="40px">&nbsp;● 바이어</td>
-					<td class="column2 style109 f style109" colspan="2">Ladkani</td>
+					<td class="column2 style109 f style109" colspan="2">@buyer</td>
 				</tr>
 				<tr class="row6">
 					<td class="column1 style101 s style101" height="40px">&nbsp;● 국가명</td>
-					<td class="column2 style109 f style109" colspan="2">Lebanon</td>
+					<td class="column2 style109 f style109" colspan="2">@cntry</td>
 				</tr>
 				<tr class="row6">
 					<td class="column1 style101 s style101" height="40px">&nbsp;● 작성일</td>
-					<td class="column2 style109 f style109" colspan="2">2013. 12. 30</td>
+					<td class="column2 style109 f style109" colspan="2">@txt_udt_dt</td>
 				</tr>
 				<tr class="row6">
 					<td class="column1 style101 s style101" height="40px">&nbsp;● 납기일</td>
-					<td class="column2 style109 f style109" colspan="2">20XX. XX. XX</td>
+					<td class="column2 style109 f style109" colspan="2">20  &nbsp;&nbsp;&nbsp;.   &nbsp;&nbsp;&nbsp;&nbsp;.  &nbsp;&nbsp;</td>
 				</tr>
 				<tr class="row6">
 					<td class="column1 style101 s style101" height="40px">&nbsp;● Main Ver./ &nbsp;&nbsp;&nbsp;&nbsp;Checksum</td>
@@ -379,12 +368,11 @@ body { left-margin: 0.15748031496063in; right-margin: 0.15748031496063in; top-ma
 				</tr>
 				<tr class="row6">
 					<td class="column1 style101 s style101" height="40px">&nbsp;● 출하일</td>
-					<td class="column2 style109 f style109" colspan="2">20XX. XX. XX</td>
+					<td class="column2 style109 f style109" colspan="2">@txt_ship_dt</td>
 				</tr>
 				<tr class="row6">
 					<td class="column1 style101 s style101" height="40px">&nbsp;● 추가내용:</td>
-					<td class="column2 style109 f style109" colspan="2">출고 가능일정 확인해 주세요. 감사합니다.
-					</td>
+					<td class="column2 style109 f style109" colspan="2">@ctnt</td>
 				</tr>
 				</table>
 			</td>
@@ -398,58 +386,10 @@ body { left-margin: 0.15748031496063in; right-margin: 0.15748031496063in; top-ma
 					<td class="column8 style111 s style113">Remark</td>
 					<td></td>
 				</tr>
-				<tr>
-					<td class="column5 style114 s style116" colspan="4">SB-1100 부품입니다.</td>
-				</tr>
-				<tr>
-					<td class="column5 style20 s">720002300A</td>
-					<td class="column6 style21 s">GUIDE_SELECTOR</td>
-					<td class="column7 style22 n">2</td>
-					<td class="column8 style21 s style113"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td class="column5 style20 s">1A01X1046A</td>
-					<td class="column6 style21 s">PBA_UVA_V1.4</td>
-					<td class="column7 style22 n">5</td>
-					<td class="column8 style21 s style120">CF OPTION (W/ UV)-2RCV Sensors</td>
-				</tr>
-				<tr>
-					<td class="column5 style114 s style116" colspan="4">SB-7 부품입니다.</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td class="column5 style20 s">720508300A</td>
-					<td class="column6 style21 s">COVER_SENSOR (Rev.A)</td>
-					<td class="column7 style22 n">6</td>
-					<td class="column8 style21 s style113"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td class="column5 style20 s">720508400A</td>
-					<td class="column6 style21 s">COVER_SENSOR_IR</td>
-					<td class="column7 style22 n">3</td>
-					<td class="column8 style21 s style120"></td>
-				</tr>
-				<tr>
-					<td class="column5 style114 s style116" colspan="4">SB-9 부품입니다.</td>
-				</tr>
-				<tr>
-					<td class="column5 style20 s">720507601B</td>
-					<td class="column6 style21 s">BUSH_STACKER_MOTOR_P_(Rev.B)</td>
-					<td class="column7 style22 n">2</td>
-					<td class="column8 style21 s style113"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td class="column5 style20 s">720507601C</td>
-					<td class="column6 style21 s">BUSH_STACKER_MOTOR_P(Rev. C)</td>
-					<td class="column7 style22 n">2</td>
-					<td class="column8 style21 s style120"></td>
-				</tr>
+				@part_list_tr
 				</table>
 			</td>
-			<td width="5px"></td>
+			<td class="5px"></td>
 		  </tr>
 
 		  <tr class="row36">
