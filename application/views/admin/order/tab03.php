@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
+	<title>주문내역</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" type="text/css" media="screen" href="/lib/js/themes/redmond/jquery-ui.custom.css"></link>	
 	<link rel="stylesheet" type="text/css" media="screen" href="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.css"></link>	
@@ -77,6 +78,7 @@
 <input type=hidden id="edit_mode" name="edit_mode">
 <input type=hidden id="pi_no" name="pi_no">
 <input type=hidden id="po_no" name="po_no">
+<input type=hidden id="swp_no" name="swp_no">
 </form>
 
 </body>
@@ -551,11 +553,12 @@
 		f.method = "post";
 		f.edit_mode.value = "1";
 		f.pi_no.value = pi_no;
-		f.po_no.value = po_no;
 		if(order_tp=="E"){
+			f.po_no.value = po_no;
 			f.action = "/index.php/admin/docs/tab01";
 			f.submit();
 		}else if(order_tp=="P"){
+			f.swp_no.value = po_no;
 			f.action = "/index.php/admin/docs/tab03";
 			f.submit();
 		}
