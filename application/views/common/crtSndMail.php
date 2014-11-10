@@ -19,6 +19,10 @@ if(isset($_REQUEST["swp_no"])){
 
 session_start();
 
+//$this->db->trans_start();
+
+//$this->db->trans_off();
+$this->db->trans_begin();
 
 $ctnt = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/include/email/".$sndmail_atcd.".php");
 
@@ -252,6 +256,19 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 
 			$ctnt = getPrdReqMailCtnt($ctnt, $prdReq);
 				
+		}else if($wrk_tp_atcd == "00700320"){ // 부품출고의뢰서
+			$swp_no = "";
+			if(isset($_REQUEST["swp_no"])){
+				$swp_no = $_REQUEST["swp_no"];
+			}
+			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/order/readPartOrder.php");
+			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/docs/readPartReq.php");
+			
+			$partReq = readPartOrder($pi_no, $swp_no);
+			$partReq = readPartReq($partReq, $pi_no, $swp_no);
+			
+			$ctnt = getPartReqMailCtnt($ctnt, $partReq);
+							
 		}
 		$ctnt = str_replace("@base_url", base_url(), $ctnt);
 		
@@ -264,7 +281,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	}		
 //		   echo $sql;
 
-	$result = mysql_query($sql);
+	$result = $this->db->query($sql);
 	$qryInfo['qryInfo']['sql'] = $sql;
 	$qryInfo['qryInfo']['result'] = $result;
 //		echo json_encode($qryInfo);
@@ -294,7 +311,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	$sql2 = "UPDATE om_sndmail";
 	$sql2 = $sql2 . " SET ctnt = '" .addslashes($ctnt). "'";
 	$sql2 = $sql2 . " WHERE sndmail_seq = LAST_INSERT_ID()";
-	$result2 = mysql_query($sql2);
+	$result2 = $this->db->query($sql2);
 	$qryInfo['qryInfo']['sql2'] = $sql2;
 	$qryInfo['qryInfo']['result2'] = $result2;
 	
@@ -351,7 +368,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	}		
 		
 //		echo $sql3;
-	$result3 = mysql_query($sql3);
+	$result3 = $this->db->query($sql3);
 	$qryInfo['qryInfo']['sql3'] = $sql3;
 	$qryInfo['qryInfo']['result3'] = $result3;
 
@@ -368,7 +385,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
 			$sql4 = $sql4 . " and swp_no = " .$swp_no;
 		}
-		$result4 = mysql_query($sql4);
+		$result4 = $this->db->query($sql4);
 		$qryInfo['qryInfo']['sql4'] = $sql4;
 		$qryInfo['qryInfo']['result4'] = $result4;
 	}else if($wrk_tp_atcd == "00700210" or $wrk_tp_atcd=="00700410"){ // PI, CI
@@ -382,7 +399,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			$sql4 = $sql4 . " SET ci_sndmail_seq = " .$sendmail_seq;
 			$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
 		}
-		$result4 = mysql_query($sql4);
+		$result4 = $this->db->query($sql4);
 		$qryInfo['qryInfo']['sql4'] = $sql4;
 		$qryInfo['qryInfo']['result4'] = $result4;
 
@@ -391,7 +408,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$sql5 = $sql5 . " SET wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
 		$sql5 = $sql5 . " WHERE pi_no = '" .$pi_no. "'";
 		
-		$result5 = mysql_query($sql5);
+		$result5 = $this->db->query($sql5);
 		$qryInfo['qryInfo']['sql5'] = $sql5;
 		$qryInfo['qryInfo']['result5'] = $result5;
 		
@@ -401,14 +418,35 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
 		$sql4 = $sql4 . " AND po_no = " .$po_no;
 		
-		$result4 = mysql_query($sql4);
+		$result4 = $this->db->query($sql4);
+		$qryInfo['qryInfo']['sql4'] = $sql4;
+		$qryInfo['qryInfo']['result4'] = $result4;
+
+	}else if($wrk_tp_atcd == "00700320"){ // 부품출고의뢰서
+		$sql4 = "UPDATE om_part_ship_req";
+		$sql4 = $sql4 . " SET send_yn = 'Y'";
+		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
+		$sql4 = $sql4 . " AND swp_no = " .$swp_no;
+		
+//		$result4 = mysql_query($sql4);
+		$result4 = $this->db->query($sql4);
 		$qryInfo['qryInfo']['sql4'] = $sql4;
 		$qryInfo['qryInfo']['result4'] = $result4;
 
 	}
 	
+
 	echo json_encode($qryInfo);
 	
 }
 
+if ($this->db->trans_status() === FALSE)
+{
+	$this->db->trans_rollback();
+}
+else
+{
+	$this->db->trans_commit();
+}
+//	$this->db->trans_complete();
 ?>

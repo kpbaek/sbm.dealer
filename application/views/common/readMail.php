@@ -209,6 +209,16 @@ if($sndmail_atcd=="00700111"){
 	
 	$ctnt = getPrdReqMailCtnt($ctnt, $prdReq);
 	
+}else if($sndmail_atcd=="00700321"){  // 부품출고의뢰서
+	$swp_no = $_REQUEST["swp_no"];
+	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/order/readPartOrder.php");
+	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/docs/readPartReq.php");
+	
+	$partReq = readPartOrder($pi_no, $swp_no);
+	$partReq = readPartReq($partReq, $pi_no, $swp_no);
+	
+	$ctnt = getPartReqMailCtnt($ctnt, $partReq);
+	
 #	print_r($invoice['invoiceInfo']["wrk_tp_atcd"]);
 #	print_r($invoice['orderEqpList']);
 #	print_r($invoice['orderEqpList'][0]['mdl_nm']);
