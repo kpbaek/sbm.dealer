@@ -25,6 +25,10 @@ $sndmail_atcd = "00700111";
 
 #echo sizeof($mdl_cd);
 
+//$this->db->trans_off();
+$this->db->trans_begin();
+
+
 $sql = "SELECT * FROM om_ord_inf";
 $sql = $sql . " WHERE pi_no ='" .$pi_no. "'";
 $result=mysql_query($sql);
@@ -59,7 +63,7 @@ if($swp_no==""){
 		$sql_ord = $sql_ord . ", (select premium_rate from om_dealer where dealer_seq = " .$dealer_seq. ")";
 		$sql_ord = $sql_ord . ", NULL, 'N', '" .$wrk_tp_atcd. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 		#		echo $sql_ord;
-		$result = mysql_query($sql_ord);
+		$result = $this->db->query($sql_ord);
 		$qryInfo['qryInfo']['sql'] = $sql_ord;
 		$qryInfo['qryInfo']['result'] = $result;
 	
@@ -86,7 +90,7 @@ if($swp_no==""){
 		$sql_part = $sql_part . "(pi_no, amt, wgt, crt_dt, crt_uid)";
 		$sql_part = $sql_part . " VALUES ('" .$new_pi_no. "', " .$amt. ", " .$wgt. ", now(), '" .$_SESSION['ss_user']['uid']. "')";
 		#		echo $sql_part;
-		$result2 = mysql_query($sql_part);
+		$result2 = $this->db->query($sql_part);
 		$qryInfo['qryInfo']['sql2'] = $sql_part;
 		$qryInfo['qryInfo']['result2'] = $result2;
 		
@@ -96,7 +100,7 @@ if($swp_no==""){
 			$sql_dtl = $sql_dtl . " (pi_no, swp_no, mdl_cd, part_ver, part_cd, qty, unit_prd_cost, crt_dt, crt_uid) ";
 			$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '" .$mdl_cd[$i_item]. "', '" .$part_ver[$i_item]. "', '" .$part_cd[$i_item]. "', " .$qty[$i_item]. ", " .$unit_prd_cost[$i_item]. ", now(), '" .$_SESSION['ss_user']['uid']. "')";
 	#			echo $sql_dtl;
-			$result3 = mysql_query($sql_dtl);
+			$result3 = $this->db->query($sql_dtl);
 			$qryInfo['qryInfo']['insPartDtl'][$i_item]['sql3'] = $sql_dtl;
 			$qryInfo['qryInfo']['insPartDtl'][$i_item]['result3'] = $result3;
 		}
@@ -114,7 +118,7 @@ if($swp_no==""){
 	$sql_ord = $sql_ord . ",udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
 	$sql_ord = $sql_ord . " WHERE pi_no ='" .$new_pi_no. "'";
 	#		echo $sql_ord;
-	$result4=mysql_query($sql_ord);
+	$result4=$this->db->query($sql_ord);
 	$qryInfo['qryInfo']['sql4'] = $sql_ord;
 	$qryInfo['qryInfo']['result4'] = $result4;
 	
@@ -138,7 +142,7 @@ if($swp_no==""){
 		$sql_dtl = $sql_dtl . " WHERE pi_no = '" .$pi_no. "'";
 		$sql_dtl = $sql_dtl . " AND swp_no =" .$swp_no;
 		#		echo $sql_dtl;
-		$result = mysql_query($sql_dtl);
+		$result = $this->db->query($sql_dtl);
 		$qryInfo['qryInfo']['sql'] = $sql_dtl;
 		$qryInfo['qryInfo']['result'] = $result;
 
@@ -148,7 +152,7 @@ if($swp_no==""){
 			$sql_dtl = $sql_dtl . " (pi_no, swp_no, mdl_cd, part_ver, part_cd, qty, unit_prd_cost, crt_dt, crt_uid) ";
 						$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$swp_no. ", '" .$mdl_cd[$i_item]. "', '" .$part_ver[$i_item]. "', '" .$part_cd[$i_item]. "', " .$qty[$i_item]. ", " .$unit_prd_cost[$i_item]. ", now(), '" .$_SESSION['ss_user']['uid']. "')";
 	#			echo $sql_dtl;
-			$result2 = mysql_query($sql_dtl);
+			$result2 = $this->db->query($sql_dtl);
 			$qryInfo['qryInfo']['insPartDtl'][$i_item]['sql2'] = $sql_dtl;
 			$qryInfo['qryInfo']['insPartDtl'][$i_item]['result2'] = $result2;
 		}
@@ -173,7 +177,7 @@ if($swp_no==""){
 		$sql_part = $sql_part . " WHERE pi_no = '" .$pi_no. "'";
 		$sql_part = $sql_part . " AND swp_no =" .$swp_no;
 		#		echo $sql_part;
-		$result3 = mysql_query($sql_part);
+		$result3 = $this->db->query($sql_part);
 		$qryInfo['qryInfo']['sql3'] = $sql_part;
 		$qryInfo['qryInfo']['result3'] = $result3;
 		
@@ -192,7 +196,7 @@ if($swp_no==""){
 		$sql_ord = $sql_ord . ",udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
 		$sql_ord = $sql_ord . " WHERE pi_no ='" .$pi_no. "'";
 		#		echo $sql_ord;
-		$result4=mysql_query($sql_ord);
+		$result4=$this->db->query($sql_ord);
 		$qryInfo['qryInfo']['sql4'] = $sql_ord;
 		$qryInfo['qryInfo']['result4'] = $result4;
 		
@@ -205,5 +209,14 @@ if($swp_no==""){
 	echo json_encode($qryInfo);
 	
 }
-	
+
+if ($this->db->trans_status() === FALSE)
+{
+	$this->db->trans_rollback();
+}
+else
+{
+	$this->db->trans_commit();
+}
+//	$this->db->trans_complete();
 ?>

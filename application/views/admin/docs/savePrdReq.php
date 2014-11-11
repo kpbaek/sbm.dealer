@@ -76,6 +76,8 @@ if(isset($_POST["detector_tape"])){
 	$detector_tape = trim($_POST["detector_tape"]);
 }
 
+//$this->db->trans_off();
+$this->db->trans_begin();
 
 
 $qryInfo['qryInfo']['todo'] = "N";
@@ -110,7 +112,7 @@ if($swm_no!=""){
 		
 	#	echo $sql_req;
 		
-		$result=mysql_query($sql_req);
+		$result=$this->db->query($sql_req);
 		$qryInfo['qryInfo']['sql'] = $sql_req;
 		$qryInfo['qryInfo']['result'] = $result;
 		
@@ -118,7 +120,7 @@ if($swm_no!=""){
 		$sql_del = "DELETE FROM om_prd_req_dtl";
 		$sql_del = $sql_del . " WHERE swm_no =" .$swm_no;
 		#		echo $sql_del;
-		$result_del = mysql_query($sql_del);
+		$result_del = $this->db->query($sql_del);
 		$qryInfo['qryInfo']['sql_del'] = $sql_del;
 		$qryInfo['qryInfo']['result_del'] = $result_del;
 			
@@ -135,7 +137,7 @@ if($swm_no!=""){
 			$sql_cur = $sql_cur . " VALUES (" .$swm_no. ", '0091', '" .$currency_atch[$i_cur]. "', '" .$fitness[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 			
 	#		echo $sql_cur;
-			$result2 = mysql_query($sql_cur);
+			$result2 = $this->db->query($sql_cur);
 			$qryInfo['qryInfo']['insPrdCur'][$i_cur]['sql2'] = $sql_cur;
 			$qryInfo['qryInfo']['insPrdCur'][$i_cur]['result2'] = $result2;
 		}
@@ -153,7 +155,7 @@ if($swm_no!=""){
 			$sql_srl = $sql_srl . " VALUES (" .$swm_no. ", '0092', '" .$serial_currency_atch[$i_cur]. "', '" .$srl_fitness[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 			
 	#		echo $sql_srl;
-			$result3 = mysql_query($sql_srl);
+			$result3 = $this->db->query($sql_srl);
 			$qryInfo['qryInfo']['insPrdSrl'][$i_cur]['sql3'] = $sql_srl;
 			$qryInfo['qryInfo']['insPrdSrl'][$i_cur]['result3'] = $result3;
 		}
@@ -178,7 +180,7 @@ if($swm_no!=""){
 		$sql_dtt = $sql_dtt . " WHERE atcd_ox in ('O','X')";
 		
 	#	echo $sql_dtt;
-		$result4 = mysql_query($sql_dtt);
+		$result4 = $this->db->query($sql_dtt);
 		$qryInfo['qryInfo']['sql4'] = $sql_dtt;
 		$qryInfo['qryInfo']['result4'] = $result4;
 				
@@ -192,7 +194,7 @@ if($swm_no!=""){
 	$sql_req = $sql_req . " VALUES ('" .$pi_no. "', " .$po_no. ", '" .$qual_ship_dt. "', '" .$manual_lang_atcd. "', '" .$extra. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #	echo $sql_req;
 	
-	$result=mysql_query($sql_req);
+	$result=$this->db->query($sql_req);
 	$qryInfo['qryInfo']['sql'] = $sql_req;
 	$qryInfo['qryInfo']['result'] = $result;
 
@@ -209,7 +211,7 @@ if($swm_no!=""){
 		$sql_cur = $sql_cur . " VALUES (LAST_INSERT_ID(), '0091', '" .$currency_atch[$i_cur]. "', '" .$fitness[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 		
 #		echo $sql_cur;
-		$result2 = mysql_query($sql_cur);
+		$result2 = $this->db->query($sql_cur);
 		$qryInfo['qryInfo']['insPrdCur'][$i_cur]['sql2'] = $sql_cur;
 		$qryInfo['qryInfo']['insPrdCur'][$i_cur]['result2'] = $result2;
 	}
@@ -227,7 +229,7 @@ if($swm_no!=""){
 		$sql_srl = $sql_srl . " VALUES (LAST_INSERT_ID(), '0092', '" .$serial_currency_atch[$i_cur]. "', '" .$srl_fitness[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 		
 #		echo $sql_srl;
-		$result3 = mysql_query($sql_srl);
+		$result3 = $this->db->query($sql_srl);
 		$qryInfo['qryInfo']['insPrdSrl'][$i_cur]['sql3'] = $sql_srl;
 		$qryInfo['qryInfo']['insPrdSrl'][$i_cur]['result3'] = $result3;
 	}
@@ -248,12 +250,21 @@ if($swm_no!=""){
 	$sql_dtt = $sql_dtt . " AND atcd in ('0K000010','0K000020','0K000030','0K000040','0K000050')	";
 	
 #	echo $sql_dtt;
-	$result4 = mysql_query($sql_dtt);
+	$result4 = $this->db->query($sql_dtt);
 	$qryInfo['qryInfo']['sql4'] = $sql_dtt;
 	$qryInfo['qryInfo']['result4'] = $result4;
 		
-	
 }
+
+if ($this->db->trans_status() === FALSE)
+{
+	$this->db->trans_rollback();
+}
+else
+{
+	$this->db->trans_commit();
+}
+//	$this->db->trans_complete();
 
 echo json_encode($qryInfo);
 

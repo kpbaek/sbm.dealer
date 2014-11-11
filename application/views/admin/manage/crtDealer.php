@@ -97,6 +97,10 @@ if(isset($_POST["mkt_inf"])){
 	
 session_start();
 
+//$this->db->trans_off();
+$this->db->trans_begin();
+
+
 if(isSet($_POST['usr_email'])){
 	
 	$dealer_nm = mysql_real_escape_string($dealer_nm);
@@ -136,7 +140,7 @@ if(isSet($_POST['usr_email'])){
 		$sql_user = $sql_user . "(uid, pswd, auth_grp_cd, usr_nm, usr_email, gender_atcd, nation_atcd, join_dt, active_yn, crt_dt, crt_uid)";
 		$sql_user = $sql_user . "VALUES ('" .$usr_email. "', 'dealer123', 'UD', '" .$dealer_nm. "', '" .$usr_email. "', '" .$gender_atcd. "', '" .$nation_atcd. "', now(), 'Y', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #		echo $sql_user;
-		$result = mysql_query($sql_user);
+		$result = $this->db->query($sql_user);
 		$qryInfo['qryInfo']['sql'] = $sql_user;
 		$qryInfo['qryInfo']['result'] = $result;
 		
@@ -152,7 +156,7 @@ if(isSet($_POST['usr_email'])){
 		$sql_dealer = $sql_dealer . ", 'Y'";
 		$sql_dealer = $sql_dealer .", " .$worker_seq. ", now(), '" .$_SESSION['ss_user']['uid']. "')";
 #		echo $sql_dealer;
-		$result2 = mysql_query($sql_dealer);
+		$result2 = $this->db->query($sql_dealer);
 		$qryInfo['qryInfo']['sql2'] = $sql_dealer;
 		$qryInfo['qryInfo']['result2'] = $result2;
 		
@@ -162,7 +166,7 @@ if(isSet($_POST['usr_email'])){
 			$sql_cntry = $sql_cntry . "(dealer_seq, cntry_atcd, crt_dt, crt_uid) ";
 			$sql_cntry = $sql_cntry . "VALUES (LAST_INSERT_ID(), '" .$cntry_atcd[$i_cntry]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #			echo $sql_cntry;
-			$result3 = mysql_query($sql_cntry);
+			$result3 = $this->db->query($sql_cntry);
 			$qryInfo['qryInfo']['qryList'][$i_cntry]['sql3'] = $sql_cntry;
 			$qryInfo['qryInfo']['qryList'][$i_cntry]['result3'] = $result3;
 		}
@@ -176,7 +180,7 @@ if(isSet($_POST['usr_email'])){
 		$sql_user = $sql_user . ",udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
 		$sql_user = $sql_user . " WHERE usr_email ='" .$usr_email. "'";
 #		echo $sql_user;
-		$result=mysql_query($sql_user);
+		$result=$this->db->query($sql_user);
 		$qryInfo['qryInfo']['sql'] = $sql_user;
 		$qryInfo['qryInfo']['result'] = $result;
 		
@@ -211,14 +215,14 @@ if(isSet($_POST['usr_email'])){
 		$sql_dealer = $sql_dealer . ",udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
 		$sql_dealer = $sql_dealer . " WHERE dealer_seq =" .$dealer_seq;
 #		echo $sql_dealer;
-		$result2 = mysql_query($sql_dealer);
+		$result2 = $this->db->query($sql_dealer);
 		$qryInfo['qryInfo']['sql2'] = $sql_dealer;
 		$qryInfo['qryInfo']['result2'] = $result2;
 		
 		$sql_cntry = "DELETE FROM om_dealer_cntry";
 		$sql_cntry = $sql_cntry . " WHERE dealer_seq = " .$dealer_seq;
 #		echo $sql_cntry;
-		$result3 = mysql_query($sql_cntry);
+		$result3 = $this->db->query($sql_cntry);
 		$qryInfo['qryInfo']['sql3'] = $sql_cntry;
 		$qryInfo['qryInfo']['result3'] = $result3;
 		
@@ -228,12 +232,21 @@ if(isSet($_POST['usr_email'])){
 			$sql_cntry = $sql_cntry . "(dealer_seq, cntry_atcd, crt_dt, crt_uid) ";
 			$sql_cntry = $sql_cntry . "VALUES (" .$dealer_seq . ", '" .$cntry_atcd[$i_cntry]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #			echo $sql_cntry;
-			$result4 = mysql_query($sql_cntry);
+			$result4 = $this->db->query($sql_cntry);
 			$qryInfo['qryInfo']['qryList'][$i_cntry]['sql4'] = $sql_cntry;
 			$qryInfo['qryInfo']['qryList'][$i_cntry]['result4'] = $result4;
 		}
 
 	}
 	echo json_encode($qryInfo);
+}
+
+if ($this->db->trans_status() === FALSE)
+{
+	$this->db->trans_rollback();
+}
+else
+{
+	$this->db->trans_commit();
 }
 ?>

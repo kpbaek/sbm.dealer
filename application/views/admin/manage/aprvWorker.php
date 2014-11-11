@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+//$this->db->trans_off();
+$this->db->trans_begin();
+
 $worker_seq = $_REQUEST["worker_seq"];
 $w_email = $_REQUEST["w_email"];
 $extns_num = $_REQUEST["extns_num"];
@@ -21,7 +24,7 @@ if(isSet($_POST['worker_seq'])){
 		$sql = $sql . " ,aprv_dt=now(), udt_uid='" .$_SESSION['ss_user']['uid']. "'";
 		$sql = $sql . " WHERE 1=1 and worker_seq = " .$target_worker_seq;
 		
-		$result = mysql_query($sql);
+		$result = $this->db->query($sql);
 		$qryInfo['qryInfo'][$i_item]['sql'] = $sql;
 		$qryInfo['qryInfo'][$i_item]['result'] = $result;
 		
@@ -30,11 +33,23 @@ if(isSet($_POST['worker_seq'])){
 		$sql2 = $sql2 . " WHERE 1=1";
 		$sql2 = $sql2 . " and uid = (select worker_uid from om_worker where worker_uid = a.uid and worker_seq = $target_worker_seq)";
 		
-		$result2 = mysql_query($sql2);
+		$result2 = $this->db->query($sql2);
 		$qryInfo['qryInfo'][$i_item]['sql2'] = $sql2;
 		$qryInfo['qryInfo'][$i_item]['result2'] = $result2;
 	}
 	echo json_encode($qryInfo);
 	
 }
+
+if ($this->db->trans_status() === FALSE)
+{
+	$this->db->trans_rollback();
+}
+else
+{
+	$this->db->trans_commit();
+}
+//	$this->db->trans_complete();
+
+
 ?>

@@ -75,6 +75,9 @@ if(isSet($_POST['pi_no'])){
 		$qryInfo['qryInfo']['txt_wrk_tp_atcd'] = $txt_wrk_tp_atcd;
 		
 	}else{
+		//$this->db->trans_off();
+		$this->db->trans_begin();
+		
 		$qryInfo['qryInfo']['todo'] = "Y";
 		
 		for($i_amt=0; $i_amt < sizeof($amt); $i_amt++)
@@ -86,7 +89,7 @@ if(isSet($_POST['pi_no'])){
 			$sql_eqp = $sql_eqp . " AND po_no = '" .$po_no[$i_amt]. "'";
 			#echo $sql_eqp;
 			
-			$result2 = mysql_query($sql_eqp);
+			$result2 = $this->db->query($sql_eqp);
 			$qryInfo['qryInfo']['udtEqp'][$i_amt]['sql2'] = $sql_eqp;
 			$qryInfo['qryInfo']['udtEqp'][$i_amt]['result2'] = $result2;
 		}
@@ -105,7 +108,7 @@ if(isSet($_POST['pi_no'])){
 		$sql_ord = $sql_ord . " , udt_uid='" .$_SESSION['ss_user']['uid']. "'";
 		$sql_ord = $sql_ord . " WHERE pi_no = '" .$pi_no. "'";
 		#echo $sql_ord;
-		$result3 = mysql_query($sql_ord);
+		$result3 = $this->db->query($sql_ord);
 		$qryInfo['qryInfo']['sql3'] = $sql_ord;
 		$qryInfo['qryInfo']['result3'] = $result3;
 		
@@ -145,12 +148,20 @@ if(isSet($_POST['pi_no'])){
 		}
 		$sql_inv = $sql_inv . " WHERE pi_no = '" .$pi_no. "'";
 		#echo $sql_inv;
-		$result4 = mysql_query($sql_inv);
+		$result4 = $this->db->query($sql_inv);
 		$qryInfo['qryInfo']['sql4'] = $sql_inv;
 		$qryInfo['qryInfo']['result4'] = $result4;
+
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+		}
+		else
+		{
+			$this->db->trans_commit();
+		}
 		
 	}
 	echo json_encode($qryInfo);
-	
 }
 ?>

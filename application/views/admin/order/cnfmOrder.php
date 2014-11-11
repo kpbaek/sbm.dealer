@@ -3,6 +3,7 @@ $pi_no = $_REQUEST["pi_no"];
 
 session_start();
 
+
 if(isSet($_POST['pi_no'])){
 	
 	$pi_no = mysql_real_escape_string($pi_no);
@@ -18,12 +19,15 @@ if(isSet($_POST['pi_no'])){
 	
 	if($count==0)
 	{
+		//$this->db->trans_off();
+		$this->db->trans_begin();
+		
 		$sql_ord = "UPDATE om_ord_inf";
 		$sql_ord = $sql_ord . " SET cnfm_yn = 'Y'";
 		$sql_ord = $sql_ord . " ,cnfm_dt=now(), udt_uid='" .$_SESSION['ss_user']['uid']. "'";
 		$sql_ord = $sql_ord . " WHERE pi_no = '" .$pi_no. "'";
 		#		echo $sql_ord;
-		$result = mysql_query($sql_ord);
+		$result = $this->db->query($sql_ord);
 		$qryInfo['qryInfo']['sql'] = $sql_ord;
 		$qryInfo['qryInfo']['result'] = $result;
 		
@@ -49,10 +53,19 @@ if(isSet($_POST['pi_no'])){
 		$sql_inv = $sql_inv . " WHERE a.dealer_seq = b.dealer_seq";
 		$sql_inv = $sql_inv . " and a.pi_no='" .$pi_no. "'";
 
-		$result2 = mysql_query($sql_inv);
+		$result2 = $this->db->query($sql_inv);
 		$qryInfo['qryInfo']['sql2'] = $sql_inv;
 		$qryInfo['qryInfo']['result2'] = $result2;
 		
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+		}
+		else
+		{
+			$this->db->trans_commit();
+		}
+		//	$this->db->trans_complete();
 		
 		echo json_encode($qryInfo);			
 	}

@@ -117,6 +117,8 @@ $dealer_seq = $_POST["dealer_seq"];
 
 session_start();
 
+//$this->db->trans_off();
+$this->db->trans_begin();
 
 $qty = mysql_real_escape_string($qty);
 $remark = mysql_real_escape_string($remark);
@@ -160,7 +162,7 @@ if($po_no==""){
 		$sql_ord = $sql_ord . ", (select premium_rate from om_dealer where dealer_seq = " .$dealer_seq. ")";
 		$sql_ord = $sql_ord . ", NULL, 'N', '" .$wrk_tp_atcd. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 	#		echo $sql_ord;
-		$result = mysql_query($sql_ord);
+		$result = $this->db->query($sql_ord);
 		$qryInfo['qryInfo']['sql'] = $sql_ord;
 		$qryInfo['qryInfo']['result'] = $result;
 		
@@ -174,7 +176,7 @@ if($po_no==""){
 	$sql_eqp = $sql_eqp . ", '" .$payment_atcd. "', '" .$incoterms_atcd. "', '" .$acct_no. "', '" .$srl_prn_cab_ox. "', '" .$calibr_sheet_ox. "', '" .$pc_cab_ox. "', '" .$remark. "'";
 	$sql_eqp = $sql_eqp . ", " .$qty. ", NULL, now(), '" .$_SESSION['ss_user']['uid']. "')";
 #		echo $sql_eqp;
-	$result3 = mysql_query($sql_eqp);
+	$result3 = $this->db->query($sql_eqp);
 	$qryInfo['qryInfo']['sql3'] = $sql_eqp;
 	$qryInfo['qryInfo']['result3'] = $result3;
 	
@@ -184,7 +186,7 @@ if($po_no==""){
 		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
 		$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '0091', '" .$currency_atch[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #			echo $sql_dtl;
-		$result4 = mysql_query($sql_dtl);
+		$result4 = $this->db->query($sql_dtl);
 		$qryInfo['qryInfo']['insEqpDtl'][$i_cur]['sql4'] = $sql_dtl;
 		$qryInfo['qryInfo']['insEqpDtl'][$i_cur]['result4'] = $result4;
 	}
@@ -195,7 +197,7 @@ if($po_no==""){
 		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
 		$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '0092', '" .$serial_currency_atch[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #			echo $sql_dtl;
-		$result5 = mysql_query($sql_dtl);
+		$result5 = $this->db->query($sql_dtl);
 		$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['sql5'] = $sql_dtl;
 		$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['result5'] = $result5;
 	}
@@ -206,7 +208,7 @@ if($po_no==""){
 		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
 		$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '00A0', '" .$opt_hw_atcd[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #			echo $sql_dtl;
-		$result6 = mysql_query($sql_dtl);
+		$result6 = $this->db->query($sql_dtl);
 		$qryInfo['qryInfo']['insEqpDtl3'][$i_cur]['sql6'] = $sql_dtl;
 		$qryInfo['qryInfo']['insEqpDtl3'][$i_cur]['result6'] = $result6;
 	}
@@ -243,7 +245,7 @@ if($po_no==""){
 			$sql_ord = $sql_ord . ",udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
 			$sql_ord = $sql_ord . " WHERE pi_no ='" .$pi_no. "'";
 			#		echo $sql_ord;
-			$result=mysql_query($sql_ord);
+			$result=$this->db->query($sql_ord);
 			$qryInfo['qryInfo']['sql'] = $sql_ord;
 			$qryInfo['qryInfo']['result'] = $result;
 			
@@ -270,7 +272,7 @@ if($po_no==""){
 			$sql_eqp = $sql_eqp . " WHERE pi_no = '" .$pi_no. "'";
 			$sql_eqp = $sql_eqp . " AND po_no =" .$po_no;
 			#		echo $sql_eqp;
-			$result2 = mysql_query($sql_eqp);
+			$result2 = $this->db->query($sql_eqp);
 			$qryInfo['qryInfo']['sql2'] = $sql_eqp;
 			$qryInfo['qryInfo']['result2'] = $result2;
 			
@@ -278,7 +280,7 @@ if($po_no==""){
 			$sql_dtl = $sql_dtl . " WHERE pi_no = '" .$pi_no. "'";
 			$sql_dtl = $sql_dtl . " AND po_no =" .$po_no;
 			#		echo $sql_dtl;
-			$result3 = mysql_query($sql_dtl);
+			$result3 = $this->db->query($sql_dtl);
 			$qryInfo['qryInfo']['sql3'] = $sql_dtl;
 			$qryInfo['qryInfo']['result3'] = $result3;
 			
@@ -288,7 +290,7 @@ if($po_no==""){
 				$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
 				$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$po_no. ", '0091', '" .$currency_atch[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 		#			echo $sql_dtl;
-				$result4 = mysql_query($sql_dtl);
+				$result4 = $this->db->query($sql_dtl);
 				$qryInfo['qryInfo']['insEqpDtl'][$i_cur]['sql4'] = $sql_dtl;
 				$qryInfo['qryInfo']['insEqpDtl'][$i_cur]['result4'] = $result4;
 			}
@@ -299,7 +301,7 @@ if($po_no==""){
 				$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
 				$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$po_no. ", '0092', '" .$serial_currency_atch[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 		#			echo $sql_dtl;
-				$result5 = mysql_query($sql_dtl);
+				$result5 = $this->db->query($sql_dtl);
 				$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['sql5'] = $sql_dtl;
 				$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['result5'] = $result5;
 			}
@@ -310,7 +312,7 @@ if($po_no==""){
 				$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
 				$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$po_no. ", '00A0', '" .$opt_hw_atcd[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 					#			echo $sql_dtl;
-				$result6 = mysql_query($sql_dtl);
+				$result6 = $this->db->query($sql_dtl);
 				$qryInfo['qryInfo']['insEqpDtl3'][$i_cur]['sql6'] = $sql_dtl;
 				$qryInfo['qryInfo']['insEqpDtl3'][$i_cur]['result6'] = $result6;
 			}
@@ -318,10 +320,18 @@ if($po_no==""){
 			
 		}
 		
-	
 	$qryInfo['qryInfo']['pi_no'] = $pi_no;
 	$qryInfo['qryInfo']['po_no'] = $po_no;
 	echo json_encode($qryInfo);
 	
+}
+
+if ($this->db->trans_status() === FALSE)
+{
+	$this->db->trans_rollback();
+}
+else
+{
+	$this->db->trans_commit();
 }
 ?>
