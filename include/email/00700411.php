@@ -128,6 +128,7 @@
 	  td.style97 { vertical-align:middle; text-align:right; border-bottom:none #000000; border-top:1px solid #000000 !important; border-left:none #000000; border-right:1px dashed #000000 !important; color:#000000; font-family:'Arial'; font-size:9pt; background-color:white }
 	  td.style98 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:1px solid #000000 !important; border-left:1px dashed #000000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Arial'; font-size:9pt; background-color:white }
 	  td.style99 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Arial'; font-size:14pt; background-color:white }
+	  td.style225 { vertical-align:middle; text-align:center; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Arial'; font-size:14pt; background-color:white }
 	</style>
   </head>
 

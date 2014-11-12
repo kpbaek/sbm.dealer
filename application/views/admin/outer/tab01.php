@@ -618,7 +618,7 @@ if(isset($_REQUEST["edit_mode"])){
 		var mdl_nm = "";
 		var eqp_qty = "";
 		var eqp_amt = "";
-		var detection = "";
+		var detector = "";
 		var incoterms = "";
 		var dscrt = "";
 		var shipped_by = "";
@@ -636,8 +636,7 @@ if(isset($_REQUEST["edit_mode"])){
 				}
 				eqp_amt += "<input type=text id='amt' name='amt[]' value='" + amt + "' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyDecimal(this);'>";
 				eqp_amt += "<input type=hidden id='po_no' name='po_no[]' value='" + targetInfo.po_no + "'>";
-//				detection = "MG, MR-Array, IR, UV";
-				detection = "";
+				detector = "";
 				incoterms = "";
 				shipped_by = "";
 				courier = "";
@@ -658,6 +657,9 @@ if(isset($_REQUEST["edit_mode"])){
 				dscrt += incoterms + "<BR>";
 				dscrt += shipped_by;
 				dscrt += courier + "<BR>";
+				if(targetInfo.detector!=""){
+					dscrt += "Counterfeit Detection:" + targetInfo.detector + "<BR>";
+				}
 				dscrt += "For " + targetInfo.currency + serial + "<p>";
 			})
 	        $("#mdl_nm").html(mdl_nm);

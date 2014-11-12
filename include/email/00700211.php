@@ -174,7 +174,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column6">&nbsp;</td>
 		  </tr>
 		  <tr class="row6">
-			<td class="column0 style62 n style62" colspan="4">Date: @txt_invoice_dt</td>
+			<td class="column0 style62 n style62" colspan="3">Date: @txt_invoice_dt</td>
 			<td class="column3 style5 null"></td>
 			<td class="column4">&nbsp;</td>
 			<td class="column5 style63 n style63" colspan="2">Our Ref: PI-@txt_pi_no@pi_sndmail_seq</td>

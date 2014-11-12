@@ -239,8 +239,10 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
 				
 			if($sndmail_atcd=="00700211"){ // PI
+				$invoice = readInvoice($pi_no);
 				$ctnt = getPiMailCtnt($ctnt, $invoice);
 			}else if($sndmail_atcd=="00700411"){  // CI
+				$invoice = readInvoice($pi_no);
 				$ctnt = getCiMailCtnt($ctnt, $invoice);
 			}
 		}else if($wrk_tp_atcd == "00700310" && $sndmail_atcd=="00700311"){ // 생산의뢰서

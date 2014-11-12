@@ -189,11 +189,15 @@ if($sndmail_atcd=="00700111"){
 }else if($sndmail_atcd=="00700211"){  // Proforma Invoice
 	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
 	
+	$invoice = readInvoice($pi_no);
+	
 	$ctnt = getPiMailCtnt($ctnt, $invoice);
 	
 }else if($sndmail_atcd=="00700411"){  // Commercial Invoice
 	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
 
+	$invoice = readInvoice($pi_no);
+	
 	$ctnt = getCiMailCtnt($ctnt, $invoice);
 		
 }else if($sndmail_atcd=="00700311"){  // Commercial Invoice
