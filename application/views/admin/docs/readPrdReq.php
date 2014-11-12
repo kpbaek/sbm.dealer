@@ -1,5 +1,5 @@
 <?php
-function readPrdReq($responce, $pi_no, $po_no){
+function readPrdReq($prdReq, $pi_no, $po_no){
 	
 	$sql = "SELECT a.*";
 	$sql = $sql . ",(select atcd_nm from cm_cd_attr where cd = '0040' and atcd = a.manual_lang_atcd) txt_manual_lang_atcd";
@@ -27,31 +27,31 @@ function readPrdReq($responce, $pi_no, $po_no){
 	if($result!=null){
 		$row = mysql_fetch_array($result,MYSQL_ASSOC);
 		
-		$responce['prdReqInfo']['pi_no'] = $row['pi_no'];
-		$responce['prdReqInfo']['swm_no'] = $row['swm_no'];
-		$responce['prdReqInfo']['txt_swm_no'] = $row['txt_swm_no'];
-		$responce['prdReqInfo']['extra'] = $row['extra'];
-		$responce['prdReqInfo']['manual_lang_atcd'] = $row['manual_lang_atcd'];
-		$responce['prdReqInfo']['txt_manual_lang_atcd'] = $row['txt_manual_lang_atcd'];
-		$responce['prdReqInfo']['detector_uv'] = $row['detector_uv'];
-		$responce['prdReqInfo']['detector_mg'] = $row['detector_mg'];
-		$responce['prdReqInfo']['detector_mra'] = $row['detector_mra'];
-		$responce['prdReqInfo']['detector_ir'] = $row['detector_ir'];
-		$responce['prdReqInfo']['detector_tape'] = $row['detector_tape'];
-		$responce['prdReqInfo']['qual_ship_dt'] = $row['qual_ship_dt'];
-		$responce['prdReqInfo']['txt_qual_ship_dt'] = $row['txt_qual_ship_dt'];
-		$responce['prdReqInfo']['txt_udt_dt'] = $row['txt_udt_dt'];
+		$prdReq['prdReqInfo']['pi_no'] = $row['pi_no'];
+		$prdReq['prdReqInfo']['swm_no'] = $row['swm_no'];
+		$prdReq['prdReqInfo']['txt_swm_no'] = $row['txt_swm_no'];
+		$prdReq['prdReqInfo']['extra'] = $row['extra'];
+		$prdReq['prdReqInfo']['manual_lang_atcd'] = $row['manual_lang_atcd'];
+		$prdReq['prdReqInfo']['txt_manual_lang_atcd'] = $row['txt_manual_lang_atcd'];
+		$prdReq['prdReqInfo']['detector_uv'] = $row['detector_uv'];
+		$prdReq['prdReqInfo']['detector_mg'] = $row['detector_mg'];
+		$prdReq['prdReqInfo']['detector_mra'] = $row['detector_mra'];
+		$prdReq['prdReqInfo']['detector_ir'] = $row['detector_ir'];
+		$prdReq['prdReqInfo']['detector_tape'] = $row['detector_tape'];
+		$prdReq['prdReqInfo']['qual_ship_dt'] = $row['qual_ship_dt'];
+		$prdReq['prdReqInfo']['txt_qual_ship_dt'] = $row['txt_qual_ship_dt'];
+		$prdReq['prdReqInfo']['txt_udt_dt'] = $row['txt_udt_dt'];
 		
-		$responce['prdReqInfo']['cntry_atcd'] = $row['cntry_atcd'];
-		$responce['prdReqInfo']['dealer_seq'] = $row['dealer_seq'];
-		$responce['prdReqInfo']['worker_seq'] = $row['worker_seq'];
-		$responce['prdReqInfo']['premium_rate'] = $row['premium_rate'];
-		$responce['prdReqInfo']['tot_amt'] = $row['tot_amt'];
-		$responce['prdReqInfo']['cnfm_yn'] = $row['cnfm_yn'];
-		$responce['prdReqInfo']['cnfm_dt'] = $row['cnfm_dt'];
-		$responce['prdReqInfo']['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
-		$responce['prdReqInfo']['sndmail_seq'] = $row['sndmail_seq'];
-		//	$responce['prdReqInfo']['pi_sndmail_seq'] = $row['pi_sndmail_seq'];
+		$prdReq['prdReqInfo']['cntry_atcd'] = $row['cntry_atcd'];
+		$prdReq['prdReqInfo']['dealer_seq'] = $row['dealer_seq'];
+		$prdReq['prdReqInfo']['worker_seq'] = $row['worker_seq'];
+		$prdReq['prdReqInfo']['premium_rate'] = $row['premium_rate'];
+		$prdReq['prdReqInfo']['tot_amt'] = $row['tot_amt'];
+		$prdReq['prdReqInfo']['cnfm_yn'] = $row['cnfm_yn'];
+		$prdReq['prdReqInfo']['cnfm_dt'] = $row['cnfm_dt'];
+		$prdReq['prdReqInfo']['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
+		$prdReq['prdReqInfo']['sndmail_seq'] = $row['sndmail_seq'];
+		//	$prdReq['prdReqInfo']['pi_sndmail_seq'] = $row['pi_sndmail_seq'];
 	}
 	
 	
@@ -77,17 +77,17 @@ function readPrdReq($responce, $pi_no, $po_no){
 	
 	$i=0;
 	while($row2 = mysql_fetch_array($result2,MYSQL_ASSOC)) {
-		$responce['prdReqDtlList'][$i]['currency_atch'] = $row2['currency_atch'];
-		$responce['prdReqDtlList'][$i]['fitness'] = $row2['fitness'];
-		$responce['prdReqDtlList'][$i]['serial_currency_atch'] = $row2['serial_currency_atch'];
-		$responce['prdReqDtlList'][$i]['srl_fitness'] = $row2['srl_fitness'];
+		$prdReq['prdReqDtlList'][$i]['currency_atch'] = $row2['currency_atch'];
+		$prdReq['prdReqDtlList'][$i]['fitness'] = $row2['fitness'];
+		$prdReq['prdReqDtlList'][$i]['serial_currency_atch'] = $row2['serial_currency_atch'];
+		$prdReq['prdReqDtlList'][$i]['srl_fitness'] = $row2['srl_fitness'];
 		#    echo $row['id'];
 		$i++;
 	}
 	if($i==0){
-		$responce['prdReqDtlList']=null;
+		$prdReq['prdReqDtlList']=null;
 	}	
-	return $responce;
+	return $prdReq;
 }
 
 function getPrdReqMailCtnt($ctnt, $prdReq){
