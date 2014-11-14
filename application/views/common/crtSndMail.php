@@ -271,6 +271,11 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			
 			$ctnt = getPartReqMailCtnt($ctnt, $partReq);
 							
+		}else if($wrk_tp_atcd == "00700510"){ // 출고전표
+			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/docs/readSlip.php");
+			
+			$slip = readSlip($pi_no);
+			$ctnt = getSlipMailCtnt($ctnt, $slip);
 		}
 		$ctnt = str_replace("@base_url", base_url(), $ctnt);
 		
@@ -430,6 +435,17 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
 		$sql4 = $sql4 . " AND swp_no = " .$swp_no;
 		
+//		$result4 = mysql_query($sql4);
+		$result4 = $this->db->query($sql4);
+		$qryInfo['qryInfo']['sql4'] = $sql4;
+		$qryInfo['qryInfo']['result4'] = $result4;
+
+	}else if($wrk_tp_atcd == "00700510"){ // 출고전표
+		$sql4 = "UPDATE om_ord_inf";
+		$sql4 = $sql4 . " SET slip_sndmail_seq = " .$sendmail_seq;
+		$sql4 = $sql4 . " , wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
+		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
+				
 //		$result4 = mysql_query($sql4);
 		$result4 = $this->db->query($sql4);
 		$qryInfo['qryInfo']['sql4'] = $sql4;
