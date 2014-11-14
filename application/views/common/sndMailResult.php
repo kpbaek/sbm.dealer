@@ -75,7 +75,7 @@ try {
 	    $mail->Subject = $row['title']; // 메일 제목
 	    $mail->MsgHTML($row['ctnt']); // 메일 내용 (HTML 형식도 되고 그냥 일반 텍스트도 사용 가능함)
 	    
-	    if($row['wrk_tp_atcd']!="00700310" && $row['wrk_tp_atcd']!="00700320"){  // if not 의뢰서
+	    if($row['wrk_tp_atcd']!="00700310" && $row['wrk_tp_atcd']!="00700320" && $row['wrk_tp_atcd']!="00700510"){  // if not 의뢰서/출고전표
 		    $mail->AddAttachment($_SERVER["DOCUMENT_ROOT"]."/images/common/sbm_footer.jpg"); // attachment
 	    }
 	    

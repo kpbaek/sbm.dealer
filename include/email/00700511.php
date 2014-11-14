@@ -127,18 +127,18 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 			<td class="column1 style5 s" colspan=2 style="text-decoration:underline;">청구 부서 : 영업팀</td>
 			<td class="column3 style5 null"></td>
 			<td class="column4 style54 s style54" colspan="2" rowspan="2">출고 전표</td>
-			<td class="column6 style57 n style57" colspan="2" style="text-decoration:underline;">청구 일자 : 2014.04.07</td>
+			<td class="column6 style57 n style57" colspan="2" style="text-decoration:underline;">청구 일자 : @txt_slip_dt</td>
 			<td class="column8 style6 null"></td>
 		  </tr>
 		  <tr class="row2">
 			<td class="column0 style4 null"></td>
-			<td class="column1 style58 f style58" colspan="3" style="text-decoration:underline;">청구 번호 : SWD-14LN0001</td>
-			<td class="column6 style59 f style59" colspan="2" style="text-decoration:underline;">출고 일자: &nbsp;2014.04.07</td>
+			<td class="column1 style58 f style58" colspan="3" style="text-decoration:underline;">청구 번호 : @txt_pi_no</td>
+			<td class="column6 style59 f style59" colspan="2" style="text-decoration:underline;">출고 일자: &nbsp;@txt_slip_dt</td>
 			<td class="column8 style6 null"></td>
 		  </tr>
 		  <tr class="row3">
 			<td class="column0 style4 null"></td>
-			<td class="column1 style5 s" colspan=3 style="text-decoration:underline;">Buyer: Ladkani</td>
+			<td class="column1 style5 s" colspan=3 style="text-decoration:underline;">Buyer: @buyer_slip</td>
 			<td class="column4 style5 null"></td>
 			<td class="column5 style5 null"></td>
 			<td class="column6 style5 null"></td>
@@ -176,34 +176,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 			<td class="column10">&nbsp;</td>
 			<td class="column11">&nbsp;</td>
 		  </tr>
-		  <tr class="row6">
-			<td class="column0 style4 null"></td>
-			<td class="column1 style9 n">1</td>
-			<td class="column2 style10 s">SB-9RL</td>
-			<td class="column3 style9 n">40</td>
-			<td class="column4 style11 n">PI-14LN0001</td>
-			<td class="column5 style12 n">SWM-310001</td>
-			<td class="column6 style13 n"></td>
-			<td class="column7 style14 null"></td>
-			<td class="column8 style6 null"></td>
-			<td class="column9">&nbsp;</td>
-			<td class="column10">&nbsp;</td>
-			<td class="column11">&nbsp;</td>
-		  </tr>
-		  <tr class="row7">
-			<td class="column0 style4 null"></td>
-			<td class="column1 style9 n">2</td>
-			<td class="column2 style10 null">SB-1100</td>
-			<td class="column3 style9 null">3</td>
-			<td class="column4 style11 null">PI-14LN0001</td>
-			<td class="column5 style12 null">SWM-310002</td>
-			<td class="column6 style13 null"></td>
-			<td class="column7 style9 null"></td>
-			<td class="column8 style6 null"></td>
-			<td class="column9">&nbsp;</td>
-			<td class="column10">&nbsp;</td>
-			<td class="column11">&nbsp;</td>
-		  </tr>
+		  @mdl_list_tr
 		  <tr class="row8">
 			<td class="column0 style4 null"></td>
 			<td class="column1 style9 n">3</td>
@@ -235,7 +208,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		  <tr class="row10">
 			<td class="column0 style4 null"></td>
 			<td class="column1 style60 s style61" colspan="2">총 수량</td>
-			<td class="column3 style9 f">43</td>
+			<td class="column3 style9 f">@tot_qty</td>
 			<td class="column4 style62 null style64" colspan="4"></td>
 			<td class="column8 style6 null"></td>
 			<td class="column9">&nbsp;</td>
@@ -498,7 +471,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		  <tr class="row25">
 			<td class="column0 style29 null"></td>
 			<td class="column1 style15 null"></td>
-			<td class="column2 style35 s" colspan=6>상기  본인은  ㈜에스비엠의  Banking  Machine(43) Carton을  인수 하였음을 확인합니다.</td>
+			<td class="column2 style35 s" colspan=6>상기  본인은  ㈜에스비엠의  Banking  Machine(@tot_qty) Carton을  인수 하였음을 확인합니다.</td>
 			<td class="column8 style31 null"></td>
 			<td class="column9">&nbsp;</td>
 			<td class="column10">&nbsp;</td>
@@ -515,20 +488,23 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		  <tr class="row30">
 			<td class="column0 style29 null"></td>
 			<td class="column1 style42 null"></td>
-			<td class="column2 style43 f">Ladkani</td>
+			<td class="column2 style43 f">@buyer_slip</td>
 			<td class="column3 style5 null"></td>
 			<td class="column4 style5 null"></td>
-			<td class="column5 style56 f style56" colspan="3">2014년  04월 07일</td>
+			<td class="column5 style56 f style56" colspan="3">@txt_cert_dt</td>
 			<td class="column8 style31 null"></td>
 			<td class="column9">&nbsp;</td>
 			<td class="column10">&nbsp;</td>
 			<td class="column11">&nbsp;</td>
 		  </tr>
-		  <!-- <tr class="row31">
+		  <tr class="row31">
 			<td class="column0 style29 null"></td>
 			<td class="column1 style44 null"></td>
-			<td class="column2 style45 f">SB-9RL</td>
-			<td class="column3 style46 f">40 대</td>
+			<td class="column2 style45 f" colspan=2>
+				<table id="cert_mdl_list">
+				@cert_mdl_list_tr
+				</table>
+			</td>
 			<td class="column4 style5 null"></td>
 			<td class="column5 style5 null"></td>
 			<td class="column6 style5 null"></td>
@@ -537,7 +513,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 			<td class="column9">&nbsp;</td>
 			<td class="column10">&nbsp;</td>
 			<td class="column11">&nbsp;</td>
-		  </tr> -->
+		  </tr>
 		  <tr class="row32">
 			<td class="column0 style29 null"></td>
 			<td class="column1 style44 null"></td>

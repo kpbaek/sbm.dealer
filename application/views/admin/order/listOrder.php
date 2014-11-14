@@ -54,10 +54,12 @@ $sql = $sql . ", date_format(a.cnfm_dt,'%Y/%m/%d') txt_cnfm_dt";
 $sql = $sql . ", (select dealer_nm from om_dealer where dealer_seq = a.dealer_seq) dealer_nm";
 $sql = $sql . ", (select kr_nm from om_worker where worker_seq = a.worker_seq) worker";
 $sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0022' and atcd = a.cntry_atcd) cntry";
+$sql = $sql . ", IF(a.cnt_mdl, 'Y', 'N') slip_yn";
 $sql = $sql . " FROM";
 $sql = $sql . "(";
 $sql = $sql . "SELECT pi_no, cntry_atcd, dealer_seq, worker_seq, premium_rate, tot_amt, cnfm_yn, cnfm_dt, slip_sndmail_seq, wrk_tp_atcd, crt_dt, crt_uid, udt_dt, udt_uid";
-$sql = $sql . " FROM om_ord_inf";
+$sql = $sql . ",(select count(*) from om_ord_eqp where pi_no = a.pi_no) cnt_mdl";
+$sql = $sql . " FROM om_ord_inf a";
 $sql = $sql . ") a";
 $sql = $sql . " WHERE 1=1";
 if($sch_cnfm_yn!=""){
@@ -93,7 +95,9 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	$responce['rows'][$i]['premium_rate'] = $row['premium_rate'];
 	$responce['rows'][$i]['pi_no'] = $row['pi_no'];
 	$responce['rows'][$i]['cnfm_yn'] = $row['cnfm_yn'];
+	$responce['rows'][$i]['slip_sndmail_seq'] = $row['slip_sndmail_seq'];
 	$responce['rows'][$i]['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
+	$responce['rows'][$i]['slip_yn'] = $row['slip_yn'];
 	
     $i++;
 }  

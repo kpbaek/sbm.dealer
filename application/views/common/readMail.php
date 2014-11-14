@@ -223,6 +223,12 @@ if($sndmail_atcd=="00700111"){
 	
 	$ctnt = getPartReqMailCtnt($ctnt, $partReq);
 	
+}else if($sndmail_atcd=="00700511"){  // 출고전표
+	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/docs/readSlip.php");
+	
+	$slip = readSlip($pi_no);
+	$ctnt = getSlipMailCtnt($ctnt, $slip);
+		
 #	print_r($invoice['invoiceInfo']["wrk_tp_atcd"]);
 #	print_r($invoice['orderEqpList']);
 #	print_r($invoice['orderEqpList'][0]['mdl_nm']);

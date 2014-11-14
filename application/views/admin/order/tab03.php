@@ -90,11 +90,12 @@
 		var mygrid = jQuery("#list").jqGrid({
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	colNames:['', '', '', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
+		   	colNames:['', '', '', 'slip_yn', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
 		   	colModel:[
 		   		{name:'chk', index:'chk', width:55,hidden:true,search:true,formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:true}}, 
 		   		{name:'cnfm_yn',index:'cnfm_yn', width:80, align:"right",search:true,hidden:true},		
 		   		{name:'wrk_tp_atcd',index:'wrk_tp_atcd', width:80, align:"right",search:true,hidden:true},		
+		   		{name:'slip_yn',index:'slip_yn', width:80, align:"right",hidden:true},		
 		   		{name:'order_date',index:'order_date', width:80, align:"center",search:true},
 		   		{name:'cntry',index:'cntry', width:100,search:true},
 		        {name:'dealer_nm',index:'dealer_nm', width:70, align:"left",search:true},
@@ -127,6 +128,7 @@
                     var disablePiEdit = "";
                     var disablePiSend = "disabled";
                     var disableCiSend = "disabled";
+                    var disableSlip = "disabled";
                     var cnfm_yn = rowData.cnfm_yn;
                     var wrk_tp_atcd = rowData.wrk_tp_atcd;
                     if(cnfm_yn == "Y"){
@@ -144,19 +146,24 @@
 	                    	disablePiSend = "disabled";
                         	disableCiSend = "";
 						}
+                        if(wrk_tp_atcd >= "00700410"){  // after INVOICE 발송(00700410)
+                        	disableSlip = "";
+						}
                     }
                     c_image = "<img src='/images/ci_logo.jpg' height='20'>";
                     c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" " + disableCnfm + ">";
                     c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
                     c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
                     c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"fn_sendCi('"+rowData.pi_no+"');\" " + disableCiSend + ">";
-                    c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
+                    if(rowData.slip_yn=="Y"){  // after INVOICE 발송(00700410)
+                    	c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"fn_sendSlip('"+rowData.pi_no+"');\" " + disableSlip + ">";
+	                    jQuery("#list").jqGrid('setRowData',ids[i],{rptout:c_rptout});
+					}
                     c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
                     //                    jQuery("#list").jqGrid('setRowData',ids[i],{c_image:c_image});
                     jQuery("#list").jqGrid('setRowData',ids[i],{cnfm:c_cnfm});
                     jQuery("#list").jqGrid('setRowData',ids[i],{pi:c_pi});
                     jQuery("#list").jqGrid('setRowData',ids[i],{ci:c_ci});
-                    jQuery("#list").jqGrid('setRowData',ids[i],{rptout:c_rptout});
                     jQuery("#list").jqGrid('setRowData',ids[i],{packing:c_packing});
                     if(rowData.qty > 0){
 	                    jQuery("#list").jqGrid('setRowData',ids[i],{chk:'1'});
@@ -546,6 +553,10 @@
 		
 	function fn_sendCi(pi_no){
     	location.replace("/index.php/admin/outer/tab02?edit_mode=1&pi_no=" + pi_no);
+	}
+		
+	function fn_sendSlip(pi_no){
+    	location.replace("/index.php/admin/docs/tab02?edit_mode=1&pi_no=" + pi_no);
 	}
 		
 	function fn_sendReq(order_tp, pi_no, po_no){
