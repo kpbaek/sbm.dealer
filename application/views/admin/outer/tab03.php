@@ -648,11 +648,11 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 		</tbody>
 		  <tr id="eqpDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05"><input type=text id="eqp_carton_no" name="eqp_carton_no" value="" size="3" style="text-align: right"></td>
+			<td class="column1 style54 s style05"><input type=text id="eqp_carton_no" name="eqp_carton_no" value="" size="3" maxlength=8 style="text-align: right"></td>
 			<td class="column4 style00"><div id="mdl_nm"></div></td>
 			<td class="column25 style54 s style207"><div id="eqp_qty"></div></td>
 			<td class="column30 style54 s style207"><div id="eqp_net_wgt">&nbsp;&nbsp;&nbsp;&nbsp;</div></td>
-			<td class="column36 style54 s style207 s"><input type=text id="eqp_gross_wgt" name="eqp_gross_wgt" value="" size="3" style="text-align: right"> Kg
+			<td class="column36 style54 s style207 s"><input type=text id="eqp_gross_wgt" name="eqp_gross_wgt" value="" size="3" maxlength=6 style="text-align: right"> Kg
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td class="column36 style205 s"></td>
@@ -668,7 +668,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column36 style205 s"></td>
 			<td class="column47 style13 null"></td>
 		  </tr>
-		  <tr id="addonDiv" class="row22">
+		  <tr id="addonDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"><input type=text id="repr_carton_no" name="repr_carton_no" value="" size="3" style="text-align: right"></td>
 			<td class="column4 style54 s style00"><div id="addon_div"></div></td>
@@ -862,26 +862,23 @@ if(isset($_REQUEST["edit_mode"])){
 		var eqp_net_wgt = 0.0;
 		var eqp_gross_wgt = 0.0;
 		if(orderEqpList!=null){
-//	        eqpDiv.style.display = ""
+	        eqpDiv.style.display = ""
 			$.each(orderEqpList, function(key) {
 				var targetInfo = orderEqpList[key];
-				fn_addEqpRow('carton_list_div', targetInfo);
-/**				
-				mdl_nm += targetInfo.mdl_nm + "  Currency Discrimination Counter<br>";
+//				fn_addEqpRow('carton_list_div', targetInfo);
+				mdl_nm += targetInfo.mdl_nm + "  Currency Discrimination Counter ( " + targetInfo.eqp_qty + " )<br>";
 				eqp_qty += eval(targetInfo.eqp_qty);
-				eqp_net_wgt += eval(targetInfo.net_wgt);
-				eqp_gross_wgt += eval(targetInfo.gross_wgt);
-*/				
-				tot_cartons += eval(targetInfo.eqp_qty);
+				eqp_net_wgt += eval(targetInfo.net_wgt) * eqp_qty;
+				eqp_gross_wgt += eval(targetInfo.gross_wgt) * eqp_qty;
 			})
-/**			
 			eqp_net_wgt = eqp_net_wgt.toFixed(2);
 	        $("#mdl_nm").html(mdl_nm);
 	        $("#eqp_qty").html(eqp_qty + " Cartons");
 	        $("#eqp_net_wgt").html(eqp_net_wgt + " Kg");
 	        $("#eqp_gross_wgt").val(eqp_gross_wgt);
-*/	        
 		}
+		tot_cartons += eval(eqp_qty);
+        
 		
 		var spare_parts = "Currency Discrimination Counter Spare Parts";
 		var part_net_wgt = 0;
@@ -921,16 +918,12 @@ if(isset($_REQUEST["edit_mode"])){
 	        $("#repr_gross_wgt").html(packingInfo.repr_gross_wgt);
 		}
 		
- 		if(packingInfo.repr_cartons!=null){
+ 		if(packingInfo!=null){
 			tot_cartons += eval(packingInfo.repr_cartons);
-		}
-		if(packingInfo.tot_cartons!=null){
 			$("#tot_cartons").html(packingInfo.tot_cartons + " Cartons");
+		    $("#tot_gross_wgt").html(packingInfo.tot_gross_wgt + " Kg");
 		}else{
 			$("#tot_cartons").html(tot_cartons + " Cartons");
-		}
-		if(packingInfo.tot_gross_wgt!=null){
-		    $("#tot_gross_wgt").html(packingInfo.tot_gross_wgt + " Kg");
 		}
 		
 	}
