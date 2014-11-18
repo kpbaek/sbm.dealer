@@ -277,7 +277,8 @@ function readInvoice($pi_no){
 	$sql_invoice = $sql_invoice . " WHERE cd = '0022' AND atcd = a.cntry_atcd) cntry";
 	#$sql_invoice = $sql_invoice . " ,floor(ifnull(a.tot_amt,0) * a.premium_rate / 100) discount";
 	$sql_invoice = $sql_invoice . " ,(select round( ifnull(sum(amt),0) * ifnull(a.premium_rate,0) / 100 ) from om_ord_eqp where pi_no=a.pi_no) discount";
-	$sql_invoice = $sql_invoice . " ,(select concat(atcd_nm, ' ', d.dealer_nm) from cm_cd_attr where cd = 'US30' and atcd = (select gender_atcd from om_user where uid = d.dealer_uid)) as buyer";
+	$sql_invoice = $sql_invoice . ", d.dealer_nm";
+	$sql_invoice = $sql_invoice . " ,(select atcd_nm from cm_cd_attr where cd = 'US30' and atcd = (select gender_atcd from om_user where uid = d.dealer_uid)) as gender_nm";
 	$sql_invoice = $sql_invoice . " FROM (";
 	$sql_invoice = $sql_invoice . " SELECT a.*";
 	$sql_invoice = $sql_invoice . " FROM om_ord_inf a";
@@ -298,7 +299,7 @@ function readInvoice($pi_no){
 	#$sql_invoice = $sql_invoice . " FROM om_invoice a, om_ord_inf b";
 	#$sql_invoice = $sql_invoice . "  WHERE a.pi_no = b.pi_no";
 	#$sql_invoice = $sql_invoice . "  AND a.pi_no = '" .$pi_no. "'";
-	#echo $sql_invoice;
+#	echo $sql_invoice;
 	
 	$result = mysql_query( $sql_invoice ) or die("Couldn t execute query.".mysql_error());
 	$row = mysql_fetch_array($result,MYSQL_ASSOC);
@@ -340,7 +341,10 @@ function readInvoice($pi_no){
 	$invoice['invoiceInfo']['cntry'] = $row['cntry'];
 	$invoice['invoiceInfo']['premium_rate'] = $row['premium_rate'];
 	$invoice['invoiceInfo']['discount'] = $row['discount'];
-	$invoice['invoiceInfo']['buyer'] = $row['buyer'];
+	$invoice['invoiceInfo']['buyer'] = $row['dealer_nm'];
+	if($row['gender_nm']!=null){
+		$invoice['invoiceInfo']['buyer'] = $row['gender_nm'] . " " . $row['dealer_nm'];
+	}
 	
 	
 	$sql_eqp = "SELECT a.*";
@@ -355,7 +359,9 @@ function readInvoice($pi_no){
 	$sql_eqp = $sql_eqp . ", (select atcd_nm from cm_cd_attr where cd = '00M0' and atcd = a.lcd_lang_atcd) txt_lcd_lang_atcd";
 	$sql_eqp = $sql_eqp . ", (select cmpy_nm from om_dealer where dealer_seq = a.dealer_seq) cmpy_nm";
 	$sql_eqp = $sql_eqp . ", DATE_FORMAT(a.delivery_dt, '%Y-%m-%d') delivery_dt";
-	$sql_eqp = $sql_eqp . ",(select mdl_nm from om_mdl where mdl_cd = a.mdl_cd) mdl_nm";
+	$sql_eqp = $sql_eqp . ", m.mdl_nm";
+	$sql_eqp = $sql_eqp . ", ifnull(round(m.net_wgt,2),0) as net_wgt";
+	$sql_eqp = $sql_eqp . ", ifnull(round(m.gross_wgt,2),0) as gross_wgt";
 	$sql_eqp = $sql_eqp . " FROM";
 	$sql_eqp = $sql_eqp . " (";
 	$sql_eqp = $sql_eqp . " SELECT a.*, b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt, b.wrk_tp_atcd, b.udt_dt as order_dt";
@@ -363,12 +369,17 @@ function readInvoice($pi_no){
 	$sql_eqp = $sql_eqp . " WHERE a.pi_no = b.pi_no";
 	$sql_eqp = $sql_eqp . " AND a.pi_no = '" .$pi_no. "'";
 	$sql_eqp = $sql_eqp . " ) a";
+	$sql_eqp = $sql_eqp . " left outer join om_mdl m";
+	$sql_eqp = $sql_eqp . " on a.mdl_cd = m.mdl_cd";
 	$sql_eqp = $sql_eqp . " order by mdl_cd";
+//	echo $sql_eqp;
 	
 	$result = mysql_query( $sql_eqp ) or die("Couldn t execute query.".mysql_error());
 	$i=0;
 	while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 		$invoice['orderEqpList'][$i]['mdl_nm'] = $row['mdl_nm'];
+		$invoice['orderEqpList'][$i]['net_wgt'] = $row['net_wgt'];
+		$invoice['orderEqpList'][$i]['gross_wgt'] = $row['gross_wgt'];
 		$invoice['orderEqpList'][$i]['po_no'] = $row['po_no'];
 		$invoice['orderEqpList'][$i]['eqp_qty'] = $row['qty'];
 		$invoice['orderEqpList'][$i]['amt'] = $row['amt'];
@@ -377,6 +388,9 @@ function readInvoice($pi_no){
 		$invoice['orderEqpList'][$i]['txt_incoterms_atcd'] = $row['txt_incoterms_atcd'];
 		$invoice['orderEqpList'][$i]['txt_shipped_by_atcd'] = $row['txt_shipped_by_atcd'];
 		$invoice['orderEqpList'][$i]['txt_courier_atcd'] = $row['txt_courier_atcd'];
+		
+		$invoice['orderEqpList'][$i]['net_wgt_tot'] = $row['qty'] * $row['net_wgt'];
+		$invoice['orderEqpList'][$i]['gross_wgt_tot'] = $row['qty'] * $row['gross_wgt'];
 		
 		$sql_eqp_dtl = "SELECT b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt, b.wrk_tp_atcd";
 		$sql_eqp_dtl = $sql_eqp_dtl . ", a.*";
@@ -485,12 +499,39 @@ function readInvoice($pi_no){
 		$invoice['orderPartList'][$i]['qty'] = $row['qty'];
 		$invoice['orderPartList'][$i]['unit_price'] = $row['unit_prd_cost'];
 		$invoice['orderPartList'][$i]['amount'] = $row['amount'];
+		$invoice['orderPartList'][$i]['wgt'] = $row['wgt'];
 		#    echo $row['id'];
 		$i++;
 	}
 	if($i==0){
 		$invoice['orderPartList']=null;
 	}
+	
+	
+	$sql_packing = "SELECT a.* FROM (SELECT * FROM om_packing";
+	$sql_packing = $sql_packing . " WHERE pi_no = '" .$pi_no. "') a";
+	$sql_packing = $sql_packing . " LEFT OUTER JOIN om_invoice i ON a.pi_no = i.pi_no";
+#	echo $sql_packing;
+	
+	$result2 = mysql_query( $sql_packing ) or die("Couldn t execute query.".mysql_error());
+	$row = mysql_fetch_array($result2,MYSQL_ASSOC);
+	if($row!=null){
+		$invoice['packingInfo']['pi_no'] = $row['pi_no'];
+		$invoice['packingInfo']['eqp_carton_no'] = $row['eqp_carton_no'];
+		$invoice['packingInfo']['part_carton_no'] = $row['part_carton_no'];
+		$invoice['packingInfo']['repr_carton_no'] = $row['repr_carton_no'];
+		$invoice['packingInfo']['part_cartons'] = $row['part_cartons'];
+		$invoice['packingInfo']['repr_cartons'] = $row['repr_cartons'];
+		$invoice['packingInfo']['eqp_gross_wgt'] = $row['eqp_gross_wgt'];
+		$invoice['packingInfo']['part_gross_wgt'] = $row['part_gross_wgt'];
+		$invoice['packingInfo']['repr_gross_wgt'] = $row['repr_gross_wgt'];
+		$invoice['packingInfo']['tot_cartons'] = $row['tot_cartons'];
+		$invoice['packingInfo']['tot_gross_wgt'] = $row['tot_gross_wgt'];
+		$invoice['packingInfo']['sndmail_seq'] = $row['sndmail_seq'];
+		$invoice['packingInfo']['udt_dt'] = $row['udt_dt'];
+	}
+	
+	
 	return $invoice;
 	
 }
