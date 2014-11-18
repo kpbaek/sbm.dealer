@@ -64,6 +64,11 @@ class Docs extends CI_Controller {
 		$this->load->view('/admin/docs/viewPartReq');
 	}
 	
+	public function viewSlip()
+	{
+		$this->load->view('/admin/docs/viewSlip');
+	}
+	
 	public function savePrdReq()
 	{
 		$this->load->view('/admin/docs/savePrdReq');
