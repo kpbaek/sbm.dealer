@@ -69,6 +69,11 @@ class Outer extends CI_Controller {
 		$this->load->view('/admin/outer/saveCI');
 	}
 	
+	public function savePacking()
+	{
+		$this->load->view('/admin/outer/savePacking');
+	}
+	
 }
 
 /* End of file welcome.php */
