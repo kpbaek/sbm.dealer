@@ -477,6 +477,8 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 <input type=hidden id="pi_no" name="pi_no">
 <input type=hidden id="ci_sndmail_seq" name="ci_sndmail_seq">
 <input type=hidden id="edit_mode" name="edit_mode">
+<input type=hidden id="tot_eqp_qty" name="tot_eqp_qty">
+<input type=hidden id="part_gross_wgt" name="part_gross_wgt">
 	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
 	<tr>
 		<td colspan=10 align=right>
@@ -648,11 +650,11 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 		</tbody>
 		  <tr id="eqpDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05"><input type=text id="eqp_carton_no" name="eqp_carton_no" value="" size="3" maxlength=8 style="text-align: right"></td>
+			<td class="column1 style54 s style05"><input type=text id="eqp_carton_no" name="eqp_carton_no" value="" size="3" maxlength=8 style="text-align: right;ime-mode:disabled"></td>
 			<td class="column4 style00"><div id="mdl_nm"></div></td>
-			<td class="column25 style54 s style207"><div id="eqp_qty"></div></td>
-			<td class="column30 style54 s style207"><div id="eqp_net_wgt">&nbsp;&nbsp;&nbsp;&nbsp;</div></td>
-			<td class="column36 style54 s style207 s"><input type=text id="eqp_gross_wgt" name="eqp_gross_wgt" value="" size="3" maxlength=6 style="text-align: right"> Kg
+			<td class="column25 style54 s style207"><div id="eqp_qty_div"></div></td>
+			<td class="column30 style54 s style207"><div id="eqp_net_wgt_div">&nbsp;&nbsp;&nbsp;&nbsp;</div></td>
+			<td class="column36 style54 s style207 s"><input type=text id="eqp_gross_wgt" name="eqp_gross_wgt" value="" size="3" maxlength=6 style="text-align: right" onKeyup="fncOnlyNumber(this);"> Kg
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td class="column36 style205 s"></td>
@@ -660,21 +662,21 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 		  </tr>
 		  <tr id="spareDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05"><input type=text id="part_carton_no" name="part_carton_no" value="" size="3" style="text-align: right"></td>
+			<td class="column1 style54 s style05"><input type=text id="part_carton_no" name="part_carton_no" value="" size="3" maxlength=8 style="text-align: right;ime-mode:disabled"></td>
 			<td class="column4 style54 s style00">Currency Discrimination Counter Spare Parts</td>
-			<td class="column25 style54 s style207"><input type=text id="part_cartons" name="part_cartons" value="" size="3" style="text-align: right"></td>
-			<td class="column30 style54 s style207"><div id="part_net_wgt"></div></td>
-			<td class="column36 style54 s style207"><div id="part_gross_wgt"></div></td>
+			<td class="column25 style54 s style207"><input type=text id="part_cartons" name="part_cartons" value="" size="3" maxlength=4 style="text-align: right" onKeyup="fncOnlyNumber(this);"></td>
+			<td class="column30 style54 s style207"><div id="part_net_wgt_div"></div></td>
+			<td class="column36 style54 s style207"><div id="part_gross_wgt_div"></div></td>
 			<td class="column36 style205 s"></td>
 			<td class="column47 style13 null"></td>
 		  </tr>
 		  <tr id="addonDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05"><input type=text id="repr_carton_no" name="repr_carton_no" value="" size="3" style="text-align: right"></td>
+			<td class="column1 style54 s style05"><input type=text id="addon_carton_no" name="addon_carton_no" value="" size="3" maxlength=8 style="text-align: right;ime-mode:disabled"></td>
 			<td class="column4 style54 s style00"><div id="addon_div"></div></td>
-			<td class="column25 style54 s style207"><input type=text name="repr_cartons" value="" size="3" style="text-align: right"> </td>
+			<td class="column25 style54 s style207"><input type=text id="addon_cartons" name="addon_cartons" value="" size="3" maxlength=4 style="text-align: right" onKeyup="fncOnlyNumber(this);"> </td>
 			<td class="column30 style54 s style207">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td class="column36 style54 s style207 s"><input type=text name="repr_gross_wgt" value="" size="3" style="text-align: right"> Kg
+			<td class="column36 style54 s style207 s"><input type=text id="addon_gross_wgt" name="addon_gross_wgt" value="" size="3" maxlength=5 style="text-align: right" onKeyup="fncOnlyNumber(this);"> Kg
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td class="column36 style205 s"></td>
@@ -873,12 +875,14 @@ if(isset($_REQUEST["edit_mode"])){
 			})
 			eqp_net_wgt = eqp_net_wgt.toFixed(2);
 	        $("#mdl_nm").html(mdl_nm);
-	        $("#eqp_qty").html(eqp_qty + " Cartons");
-	        $("#eqp_net_wgt").html(eqp_net_wgt + " Kg");
+	        $("#eqp_qty_div").html(eqp_qty + " Cartons");
+	        $("#eqp_net_wgt_div").html(eqp_net_wgt + " Kg");
 	        $("#eqp_gross_wgt").val(eqp_gross_wgt);
 		}
+		
 		tot_cartons += eval(eqp_qty);
-        
+        $("#tot_eqp_qty").val(tot_cartons);
+               
 		
 		var spare_parts = "Currency Discrimination Counter Spare Parts";
 		var part_net_wgt = 0;
@@ -890,13 +894,14 @@ if(isset($_REQUEST["edit_mode"])){
 				part_net_wgt += eval(targetInfo.wgt) * eval(targetInfo.qty);
 			})
 	        $("#spare_parts").html(spare_parts);
-	        $("#part_net_wgt").html(part_net_wgt + " Kg");
+	        $("#part_net_wgt_div").html(part_net_wgt + " Kg");
 
 	 		if(packingInfo!=null){
 		        $("#part_carton_no").val(packingInfo.part_carton_no);
 		        $("#part_cartons").val(packingInfo.part_cartons);
 				part_gross_wgt = part_net_wgt + eval(packingInfo.part_cartons);
-		        $("#part_gross_wgt").html(part_gross_wgt + " Kg");
+		        $("#part_gross_wgt").val(part_gross_wgt);
+		        $("#part_gross_wgt_div").html(part_gross_wgt + " Kg");
 			}
 		}
 		
@@ -913,13 +918,15 @@ if(isset($_REQUEST["edit_mode"])){
 				addon += "Repair Parts";
 			}
 			$("#addon_div").html(addon);
-			$("#repr_carton_no").val(packingInfo.repr_carton_no);
-	        $("#repr_cartons").val(packingInfo.repr_cartons);
-	        $("#repr_gross_wgt").html(packingInfo.repr_gross_wgt);
+			$("#addon_carton_no").val(packingInfo.addon_carton_no);
+	        $("#addon_cartons").val(packingInfo.addon_cartons);
+	        $("#addon_gross_wgt").val(packingInfo.addon_gross_wgt);
 		}
 		
  		if(packingInfo!=null){
-			tot_cartons += eval(packingInfo.repr_cartons);
+ 	        $("#eqp_carton_no").val(packingInfo.eqp_carton_no);
+ 	        
+			tot_cartons += eval(packingInfo.addon_cartons);
 			$("#tot_cartons").html(packingInfo.tot_cartons + " Cartons");
 		    $("#tot_gross_wgt").html(packingInfo.tot_gross_wgt + " Kg");
 		}else{
@@ -962,25 +969,46 @@ if(isset($_REQUEST["edit_mode"])){
 	}
 	
 	function fn_isValid(){
-		if($("#csn_addr").val()==""){
-			alert("Consignee Address. is required!");
-			$("#csn_addr").focus();
-			return false;
+		if(eqpDiv.style.display==""){
+			if($("#eqp_carton_no").val()==""){
+				alert("Carton No. is required!");
+				$("#eqp_carton_no").focus();
+				return false;
+			}
+			if($("#eqp_gross_wgt").val()==""){
+				alert("Gross Weight. is required!");
+				$("#eqp_gross_wgt").focus();
+				return false;
+			}
 		}
-		if($("#csn_tel").val()==""){
-			alert("Consignee Tel. is required!");
-			$("#csn_tel").focus();
-			return false;
+		if(spareDiv.style.display==""){
+			if($("#part_carton_no").val()==""){
+				alert("Carton No. is required!");
+				$("#part_carton_no").focus();
+				return false;
+			}
+			if($("#part_cartons").val()==""){
+				alert("Quantity. is required!");
+				$("#part_cartons").focus();
+				return false;
+			}
 		}
-		if($("#csn_fax").val()==""){
-			alert("Consignee Fax. is required!");
-			$("#csn_fax").focus();
-			return false;
-		}
-		if($("#csn_attn").val()==""){
-			alert("Consignee Attn. is required!");
-			$("#csn_attn").focus();
-			return false;
+		if(addonDiv.style.display==""){
+			if($("#addon_carton_no").val()==""){
+				alert("Carton No. is required!");
+				$("#addon_carton_no").focus();
+				return false;
+			}
+			if($("#addon_cartons").val()==""){
+				alert("Quantity. is required!");
+				$("#addon_cartons").focus();
+				return false;
+			}
+			if($("#addon_gross_wgt").val()==""){
+				alert("Gross Weight. is required!");
+				$("#addon_gross_wgt").focus();
+				return false;
+			}
 		}
 		return true;
 	}
@@ -996,8 +1024,8 @@ if(isset($_REQUEST["edit_mode"])){
 		$('#btnSave').attr('disabled',true);
 		$('#btnSend').attr('disabled',true);
 
-		f.submit();
-		return;
+//		f.submit();
+//		return;
 		var options = {
 					type:"POST",
 					dataType:"json",
