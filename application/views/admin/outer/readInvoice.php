@@ -360,8 +360,8 @@ function readInvoice($pi_no){
 	$sql_eqp = $sql_eqp . ", (select cmpy_nm from om_dealer where dealer_seq = a.dealer_seq) cmpy_nm";
 	$sql_eqp = $sql_eqp . ", DATE_FORMAT(a.delivery_dt, '%Y-%m-%d') delivery_dt";
 	$sql_eqp = $sql_eqp . ", m.mdl_nm";
-	$sql_eqp = $sql_eqp . ", ifnull(round(m.net_wgt,2),0) as net_wgt";
-	$sql_eqp = $sql_eqp . ", ifnull(round(m.gross_wgt,2),0) as gross_wgt";
+	$sql_eqp = $sql_eqp . ", ifnull(round(m.net_wgt,1),0) as net_wgt";
+	$sql_eqp = $sql_eqp . ", ifnull(round(m.gross_wgt,1),0) as gross_wgt";
 	$sql_eqp = $sql_eqp . " FROM";
 	$sql_eqp = $sql_eqp . " (";
 	$sql_eqp = $sql_eqp . " SELECT a.*, b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt, b.wrk_tp_atcd, b.udt_dt as order_dt";
@@ -500,6 +500,7 @@ function readInvoice($pi_no){
 		$invoice['orderPartList'][$i]['unit_price'] = $row['unit_prd_cost'];
 		$invoice['orderPartList'][$i]['amount'] = $row['amount'];
 		$invoice['orderPartList'][$i]['wgt'] = $row['wgt'];
+		$invoice['orderPartList'][$i]['net_wgt'] = $row['wgt'] * $row['qty'];
 		#    echo $row['id'];
 		$i++;
 	}
@@ -508,6 +509,7 @@ function readInvoice($pi_no){
 	}
 	
 	
+//	$sql_packing = "SELECT a.pi_no, eqp_carton_no, part_carton_no, addon_carton_no, part_cartons, addon_cartons, eqp_gross_wgt, part_gross_wgt, addon_gross_wgt, tot_cartons, sndmail_seq, crt_dt, udt_dt, crt_uid, udt_uid";
 	$sql_packing = "SELECT a.* FROM (SELECT * FROM om_packing";
 	$sql_packing = $sql_packing . " WHERE pi_no = '" .$pi_no. "') a";
 	$sql_packing = $sql_packing . " LEFT OUTER JOIN om_invoice i ON a.pi_no = i.pi_no";
@@ -519,12 +521,12 @@ function readInvoice($pi_no){
 		$invoice['packingInfo']['pi_no'] = $row['pi_no'];
 		$invoice['packingInfo']['eqp_carton_no'] = $row['eqp_carton_no'];
 		$invoice['packingInfo']['part_carton_no'] = $row['part_carton_no'];
-		$invoice['packingInfo']['repr_carton_no'] = $row['repr_carton_no'];
+		$invoice['packingInfo']['addon_carton_no'] = $row['addon_carton_no'];
 		$invoice['packingInfo']['part_cartons'] = $row['part_cartons'];
-		$invoice['packingInfo']['repr_cartons'] = $row['repr_cartons'];
+		$invoice['packingInfo']['addon_cartons'] = $row['addon_cartons'];
 		$invoice['packingInfo']['eqp_gross_wgt'] = $row['eqp_gross_wgt'];
 		$invoice['packingInfo']['part_gross_wgt'] = $row['part_gross_wgt'];
-		$invoice['packingInfo']['repr_gross_wgt'] = $row['repr_gross_wgt'];
+		$invoice['packingInfo']['addon_gross_wgt'] = $row['addon_gross_wgt'];
 		$invoice['packingInfo']['tot_cartons'] = $row['tot_cartons'];
 		$invoice['packingInfo']['tot_gross_wgt'] = $row['tot_gross_wgt'];
 		$invoice['packingInfo']['sndmail_seq'] = $row['sndmail_seq'];
