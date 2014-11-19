@@ -129,6 +129,7 @@
                     var disablePiSend = "disabled";
                     var disableCiSend = "disabled";
                     var disableSlip = "disabled";
+                    var disablePacking = "disabled";
                     var cnfm_yn = rowData.cnfm_yn;
                     var wrk_tp_atcd = rowData.wrk_tp_atcd;
                     if(cnfm_yn == "Y"){
@@ -148,23 +149,29 @@
 						}
                         if(wrk_tp_atcd >= "00700410"){  // after INVOICE 발송(00700410)
                         	disableSlip = "";
+                        	disablePacking = "";
 						}
                     }
                     c_image = "<img src='/images/ci_logo.jpg' height='20'>";
                     c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" " + disableCnfm + ">";
-                    c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
-                    c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
-                    c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"fn_sendCi('"+rowData.pi_no+"');\" " + disableCiSend + ">";
-                    if(rowData.slip_yn=="Y"){  // after INVOICE 발송(00700410)
-                    	c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"fn_sendSlip('"+rowData.pi_no+"');\" " + disableSlip + ">";
-	                    jQuery("#list").jqGrid('setRowData',ids[i],{rptout:c_rptout});
+                    if(cnfm_yn == "Y"){  
+	                    c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
+	                    c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
+	                    c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"fn_sendCi('"+rowData.pi_no+"');\" " + disableCiSend + ">";
+	                    jQuery("#list").jqGrid('setRowData',ids[i],{pi:c_pi});
+	                    jQuery("#list").jqGrid('setRowData',ids[i],{ci:c_ci});
+	                    
+	                    if(rowData.slip_yn=="Y"){  // 장비포함 주문인 경우
+	                    	c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"fn_sendSlip('"+rowData.pi_no+"');\" " + disableSlip + ">";
+		                    jQuery("#list").jqGrid('setRowData',ids[i],{rptout:c_rptout});
+						}
+	                    if(wrk_tp_atcd >= "00700410"){  // after INVOICE 발송(00700410)
+							c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"fn_sendPacking('"+rowData.pi_no+"');\" " + disablePacking + ">";
+		                    jQuery("#list").jqGrid('setRowData',ids[i],{packing:c_packing});
+		                }
 					}
-                    c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"jQuery('#rowed2').saveRow('"+rowData.id+"');\">";
-                    //                    jQuery("#list").jqGrid('setRowData',ids[i],{c_image:c_image});
+					//                    jQuery("#list").jqGrid('setRowData',ids[i],{c_image:c_image});
                     jQuery("#list").jqGrid('setRowData',ids[i],{cnfm:c_cnfm});
-                    jQuery("#list").jqGrid('setRowData',ids[i],{pi:c_pi});
-                    jQuery("#list").jqGrid('setRowData',ids[i],{ci:c_ci});
-                    jQuery("#list").jqGrid('setRowData',ids[i],{packing:c_packing});
                     if(rowData.qty > 0){
 	                    jQuery("#list").jqGrid('setRowData',ids[i],{chk:'1'});
 					}else{
@@ -557,6 +564,10 @@
 		
 	function fn_sendSlip(pi_no){
     	location.replace("/index.php/admin/docs/tab02?edit_mode=1&pi_no=" + pi_no);
+	}
+		
+	function fn_sendPacking(pi_no){
+    	location.replace("/index.php/admin/outer/tab03?edit_mode=1&pi_no=" + pi_no);
 	}
 		
 	function fn_sendReq(order_tp, pi_no, po_no){
