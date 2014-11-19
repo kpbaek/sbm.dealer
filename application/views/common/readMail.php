@@ -229,6 +229,14 @@ if($sndmail_atcd=="00700111"){
 	$slip = readSlip($pi_no);
 	$ctnt = getSlipMailCtnt($ctnt, $slip);
 		
+}else if($sndmail_atcd=="00700611"){  // Packing List
+	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
+	$invoice = readInvoice($pi_no);
+	
+	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readPacking.php");
+	$ctnt = getPackingMailCtnt($ctnt, $invoice);
+	
+			
 #	print_r($invoice['invoiceInfo']["wrk_tp_atcd"]);
 #	print_r($invoice['orderEqpList']);
 #	print_r($invoice['orderEqpList'][0]['mdl_nm']);
