@@ -966,11 +966,9 @@ if(isset($_REQUEST["edit_mode"])){
 	}
 
 	function fn_sendMail(){
-		alert("ing..");
-		return;
 		if(confirm("딜러에게 메일이 발송됩니다. 계속하시겠습니까?")){
 			var params = {"wrk_tp_atcd": "00700610","sndmail_atcd":"00700611", "pi_no":$("#pi_no").val()};  
-//			fncCrtPackingSndMail(params);
+			fncCrtPackingSndMail(params);
 		}else{
 			return;
 		}
