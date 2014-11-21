@@ -276,6 +276,14 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			
 			$slip = readSlip($pi_no);
 			$ctnt = getSlipMailCtnt($ctnt, $slip);
+
+		}else if($wrk_tp_atcd=="00700610"){  // Packing List
+			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
+			$invoice = readInvoice($pi_no);
+		
+			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readPacking.php");
+			$ctnt = getPackingMailCtnt($ctnt, $invoice);
+					
 		}
 		$ctnt = str_replace("@base_url", base_url(), $ctnt);
 		
@@ -327,7 +335,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	$sql3 = "INSERT INTO om_sndmail_dtl";
 	$email_sbm = SBM_PUB_EMAIL; //"sbm@sbmkorea.url.ph";
 	$email_to = "kpbaek@localhost";
-	if($wrk_tp_atcd == "00700210" or $wrk_tp_atcd=="00700410"){ // PI, CI
+	if($wrk_tp_atcd == "00700210" || $wrk_tp_atcd=="00700410" || $wrk_tp_atcd=="00700610"){ // PI, CI, Packing List
 		$sql3 = $sql3 . " (sndmail_seq, email_from, email_to, rcpnt_tp_atcd, snd_yn, crt_dt, crt_uid)";
 //		$sql3 = $sql3 . " SELECT LAST_INSERT_ID(), (SELECT w_email FROM om_worker WHERE worker_uid='" .$_SESSION['ss_user']['uid']. "'), '" .$email_to. "', '00100010' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
 		$sql3 = $sql3 . " SELECT LAST_INSERT_ID(), (SELECT w_email FROM om_worker WHERE worker_uid='" .$_SESSION['ss_user']['uid']. "')";
@@ -444,6 +452,16 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$sql4 = "UPDATE om_ord_inf";
 		$sql4 = $sql4 . " SET slip_sndmail_seq = " .$sendmail_seq;
 		$sql4 = $sql4 . " , wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
+		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
+				
+//		$result4 = mysql_query($sql4);
+		$result4 = $this->db->query($sql4);
+		$qryInfo['qryInfo']['sql4'] = $sql4;
+		$qryInfo['qryInfo']['result4'] = $result4;
+
+	}else if($wrk_tp_atcd == "00700610"){ // Packing List 발송
+		$sql4 = "UPDATE om_packing";
+		$sql4 = $sql4 . " SET sndmail_seq = " .$sendmail_seq;
 		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
 				
 //		$result4 = mysql_query($sql4);
