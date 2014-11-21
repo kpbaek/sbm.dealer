@@ -358,6 +358,57 @@
     	});
     }
     
+    function fncCrtPackingSndMail(params){
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/crtSndMail",
+    		async: false,
+    		dataType: "json",
+    		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			var qryInfo = result.qryInfo;
+    			if(qryInfo.result==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql);
+    				return false;
+    			}else{
+//    				$("#resultDiv").html(qryInfo.result + ":" + qryInfo.sql);
+    			}
+    			if(qryInfo.result2==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql2);
+    				return false;
+    			}else{
+//    				$("#resultDiv").append(qryInfo.result2 + ":" + qryInfo.sql2);
+    			}
+    			if(qryInfo.result3==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql3);
+        			return false;
+    			}else{
+//		        	alert(qryInfo.result3 + ":" + qryInfo.sql3);
+    			}
+    			if(qryInfo.result4==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql4);
+    				return false;
+    			}else{
+		        	$("#resultDiv").append(qryInfo.result4 + ":" + qryInfo.sql4);
+    				fncSndMail(qryInfo.sndmail_seq);
+    				fncDisplayDiv(saveFormDiv, false);
+//    				$("#resultDiv").html("<b>The Packing is completed! We sent you packing information mail.</b><p>"); 
+    				$("#resultDiv").append(qryInfo.ctnt);
+    				alert("success!");
+    			}
+    		},
+    		error:function(){
+    			alert("err");
+    			return false;
+    		}
+    	});
+    }
+    
     function fncCrtPartSndMail(params){
     	$.ajax({
     		type: "POST",
@@ -674,7 +725,6 @@
     }
     
     function fncSndMail(sndmail_seq){
-    	
     	$.ajax({
     		type: "POST",
     		url: "/index.php/common/main/sndMailResult",
