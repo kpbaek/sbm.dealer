@@ -138,20 +138,54 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  <tr>
 			<td class="style01" colspan=3>OPTION</td>
 			<td colspan=18>
-				<TABLE border=1 width=100%>
+				<TABLE border=0 width=100%  cellpadding="0">
+				<tr>
+					<td class="style01" width=35px>SW</TD>
+					<td colspan=2 align=center">
+						<TABLE border=1 width=100% style="" cellpadding="0">
+						<TR id="dispenser_div" style="display:@dispenser_div">
+							<TD class="style01" width=140px>Dispenser Mode</TD>
+							<TD align=center>@dispenser</TD>
+						</TR>
+						<TR>
+							<TD class="style01" width=140px>ISSUE</TD>
+							<TD align=center>@issue</TD>
+						</TR>
+						<!-- SB-9 -->
+						<TR id="snc_div" style="display:@snc_div">
+							<TD class="style01" width=140px><div>SNC</div></TD>
+							<TD align=center colspan=2 >@snc</TD>
+						</TR>
+						</TABLE>
+					</td>
+				</tr>
+				<tr>
+					<td class="style01" width=35px>HW</TD>
+					<td colspan=2 align=center">
+						<TABLE border=1 width=100% style="" cellpadding="0">
+						<TR>
+							<TD class="style01" width=140px></TD>
+							<TD></TD>
+						</TR>
+						@opt_hw_tr
+						</TABLE>
+					</td>
+				</tr>
+				
 				<!-- SB-7 -->
-				<TR>
+<!-- 				
+				<TR id="dispenser_div" style="display:">
 					<TD rowspan=3 class="style01" width=35px>SW</TD>
 					<TD class="style01" width=140px>Dispenser Mode</TD>
-					<TD align=center>X</TD>
+					<TD align=center></TD>
 				</TR>
 				<TR>
 					<TD class="style01">ISSUE</TD>
-					<TD align=center>X</TD>
+					<TD align=center></TD>
 				</TR>
-				<TR id="snc_div" style="display:@snc_div">
+				<TR id="snc_div" style="display:">
 					<TD class="style01"><div>SNC</div></TD>
-					<TD align=center colspan=2 >@snc_ox</TD>
+					<TD align=center colspan=2 ></TD>
 				</TR>
 				</TABLE>
 				<TABLE border=1 width=100%>
@@ -160,7 +194,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 					<TD align=center class="style01">Other</TD>
 					<TD align=center></TD>
 				</TR>
-				@opt_hw_tr
+-->				
 				<!-- SB-9 -->
 <!-- 				
 				<TR>
