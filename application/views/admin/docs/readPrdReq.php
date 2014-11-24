@@ -8,6 +8,9 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00K0' AND atcd = '0K000030') detector_mra";
 	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00K0' AND atcd = '0K000040') detector_ir";
 	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00K0' AND atcd = '0K000050') detector_tape";
+	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00J0' AND atcd = '00J00010') dispenser";
+	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00J0' AND atcd = '00J00020') issue";
+	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00J0' AND atcd = '00J00030') snc";
 //	$sql = $sql . ",(select pi_sndmail_seq from om_invoice where a.pi_no = '" .$pi_no. "') pi_sndmail_seq";
 	$sql = $sql . ", DATE_FORMAT(a.qual_ship_dt, '%Y-%m-%d') txt_qual_ship_dt";
 	$sql = $sql . ", DATE_FORMAT(a.udt_dt, '%Y-%m-%d') txt_udt_dt";
@@ -38,6 +41,10 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 		$prdReq['prdReqInfo']['detector_mra'] = $row['detector_mra'];
 		$prdReq['prdReqInfo']['detector_ir'] = $row['detector_ir'];
 		$prdReq['prdReqInfo']['detector_tape'] = $row['detector_tape'];
+		$prdReq['prdReqInfo']['dispenser'] = $row['dispenser'];
+		$prdReq['prdReqInfo']['issue'] = $row['issue'];
+		$prdReq['prdReqInfo']['snc'] = $row['snc'];
+		
 		$prdReq['prdReqInfo']['qual_ship_dt'] = $row['qual_ship_dt'];
 		$prdReq['prdReqInfo']['txt_qual_ship_dt'] = $row['txt_qual_ship_dt'];
 		$prdReq['prdReqInfo']['txt_udt_dt'] = $row['txt_udt_dt'];
@@ -115,18 +122,22 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 	$ctnt = str_replace("@s-ocr_ox", "X", $ctnt);
 	$ctnt = str_replace("@srl_ox", "X", $ctnt);
 
-	if($prdReq['eqpOrdInfo']['mdl_cd'] == "0009" || $prdReq['eqpOrdInfo']['mdl_cd'] == "2000" || $prdReq['eqpOrdInfo']['mdl_cd'] == "3000"){
-		$ctnt = str_replace("@snc_div", "", $ctnt);
-		$ctnt = str_replace("@snc_ox", "X", $ctnt);
-	}else if($prdReq['eqpOrdInfo']['mdl_cd'] == "1100"){ //test
-		$ctnt = str_replace("@snc_div", "", $ctnt);
-		$ctnt = str_replace("@snc_ox", "X", $ctnt);
-	}else if($prdReq['eqpOrdInfo']['mdl_cd'] == "5000"){
-		$ctnt = str_replace("@snc_div", "X", $ctnt);
-		$ctnt = str_replace("@snc_ox", "X", $ctnt);
-	}else{
-		$ctnt = str_replace("@snc_div", "none", $ctnt);
+	if($prdReq['eqpOrdInfo']['mdl_cd'] == "3000"){
+		$ctnt = str_replace("@dispenser_div", "none", $ctnt);
 	}
+	if($prdReq['eqpOrdInfo']['mdl_cd'] == "0007"){
+		$ctnt = str_replace("@snc_div", "none", $ctnt);
+	}else{
+		$ctnt = str_replace("@snc_div", "", $ctnt);
+	}
+	if($prdReq['eqpOrdInfo']['mdl_cd'] == "5000"){
+	}
+	
+	$ctnt = str_replace("@dispenser", $prdReq['prdReqInfo']['dispenser'], $ctnt);
+	$ctnt = str_replace("@issue", $prdReq['prdReqInfo']['issue'], $ctnt);
+	$ctnt = str_replace("@snc", $prdReq['prdReqInfo']['snc'], $ctnt);
+	
+	
 	
 	if($prdReq['eqpOrdInfo']['mdl_cd'] != "0007"){
 		$ctnt = str_replace("@detector_ir_div", "", $ctnt);
@@ -149,7 +160,7 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 		{
 			if($row["opt_hw_atcd"]!=""){
 				$opt_hw_tr = $opt_hw_tr . "<TR>";
-				$opt_hw_tr = $opt_hw_tr . "<TD class=\"style01\">" .$row["txt_opt_hw_atcd"]. "</TD>";
+				$opt_hw_tr = $opt_hw_tr . "<TD class=\"style01\" width=140px>" .$row["txt_opt_hw_atcd"]. "</TD>";
 				$opt_hw_tr = $opt_hw_tr . "<TD align=center>O</TD></TR>";
 				$opt_hw_cnt++;
 			}

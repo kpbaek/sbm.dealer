@@ -276,30 +276,46 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  <tr>
 			<td class="style01" colspan=3>OPTION</td>
 			<td colspan=18>
-				<TABLE border=1 width=100%>
-				<TR>
-					<TD rowspan=3 class="style01" width=35px>SW</TD>
-					<TD class="style01" width=155px>Dispenser Mode</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<TR>
-					<TD class="style01">ISSUE</TD>
-					<TD align=center>X</TD>
-				</TR>
-				<!-- SB-9 -->
-				<TR id="mdl_0009_div" style="display:none">
-					<TD class="style01"><div>SNC</div></TD>
-					<TD align=center colspan=2 >X</TD>
-				</TR>
-				</TABLE>
-				<TABLE border=1 width=100%>
+				<TABLE border=0 width=100% cellpadding="0">
+				<tr>
+					<td class="style01" width=35px>SW</TD>
+					<td align=left colspan=2>
+						<TABLE border=1 width=100% style="">
+						<TR id="dispenser_div" style="display:">
+							<TD class="style01">Dispenser Mode</TD>
+							<TD align=center>
+							<select id="dispenser_ox" name="dispenser_ox">
+							<option value="">Select</option>
+							</select>
+							</TD>
+						</TR>
+						<TR>
+							<TD class="style01" width=150px>ISSUE</TD>
+							<TD align=center>
+							<select id="issue_ox" name="issue_ox">
+							<option value="">Select</option>
+							</select>
+							</TD>
+						</TR>
+						<!-- SB-9 -->
+						<TR id="snc_div" style="display:none">
+							<TD class="style01"><div>SNC</div></TD>
+							<TD align=center colspan=2 >
+							<select id="snc_ox" name="snc_ox" disabled>
+							<option value="">Select</option>
+							</select>
+							</TD>
+						</TR>
+						</TABLE>
+					</td>
+				</tr>
 				<TR>
 					<TD class="style01" width=35px>HW</TD>
 					<TD class="style01" colspan=2>
-						<TABLE border=1 width=100% id="opt_hw_div">
+						<TABLE border=1 width=100% id="opt_hw_div" cellpadding="0">
 						<tbody">
 						<TR>
-							<TD class="style10" width=155px></TD>
+							<TD class="style10" width=140px></TD>
 							<TD class="style20"></TD>
 						</TR>
 						</tbody>
@@ -545,7 +561,7 @@ function fn_addOptHwRow(id, txt_opt_hw_atcd, ox_opt_hw_atcd){
 //    td_1.align = "center";
     td_2.appendChild(document.createTextNode(txt_opt_hw_atcd));
     td_2.style.backgroundColor = "#CCCCFF";
-    td_2.style.width = "160px";
+    td_2.style.width = "150px";
     td_2.align = "center";
     td_2.setAttribute('class','style10');
     td_3.appendChild(document.createTextNode(ox_opt_hw_atcd));
@@ -575,6 +591,9 @@ function initForm() {
 	getOXCombo(f.detector_mra, "");
 	getOXCombo(f.detector_ir, "");
 	getOXCombo(f.detector_tape, "");
+	getOXCombo(f.dispenser_ox, "");
+	getOXCombo(f.issue_ox, "");
+	getOXCombo(f.snc_ox, "");
 	getCodeCombo("0040", f.manual_lang_atcd);
 }
 
@@ -627,6 +646,8 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 		f.detector_tape.style.display = "";
 		getOXCombo(f.detector_tape, prdReqInfo.detector_tape);
 	}
+
+
 	
 	getCodeCombo("0040", f.manual_lang_atcd, prdReqInfo.manual_lang_atcd);
 
@@ -664,15 +685,33 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 		srl_none_02.style.display = "";
 	}
 	$("#srl_atcd").html(eqpOrdInfo.srl_atcd);
+
+
 	
-	if(eqpOrdInfo.mdl_cd == "0009" || eqpOrdInfo.mdl_cd == "2000" || eqpOrdInfo.mdl_cd == "3000"){
-		mdl_0009_div.style.display = "";
-	}else if(eqpOrdInfo.mdl_cd == "1100"){ //test
-		mdl_0009_div.style.display = "";
-	}else if(eqpOrdInfo.mdl_cd == "5000"){
+	if(eqpOrdInfo.mdl_cd == "3000"){ 
+		dispenser_div.style.display = "none";
+		$('#dispenser_ox').attr('disabled',true);
+	}
+	if(eqpOrdInfo.mdl_cd != "0007"){ 
+		snc_div.style.display = "";
+		$('#snc_ox').attr('disabled',false);
+	}
+	if(eqpOrdInfo.mdl_cd == "5000"){
 //		mdl_5000_div.style.display = "";
 	}
 
+	
+	if(f.dispenser_ox.disabled==false){
+		getOXCombo(f.dispenser_ox, prdReqInfo.dispenser);
+	}
+	if(f.issue_ox.disabled==false){
+		getOXCombo(f.issue_ox, prdReqInfo.issue);
+	}
+	if(f.snc_ox.disabled==false){
+		getOXCombo(f.snc_ox, prdReqInfo.snc);
+	}
+	
+	
 	var c1Ar = [];
 	var srl_cAr = [];
 	for(var i=0; i < eqpOrdDtlList.length; i++){
@@ -891,6 +930,13 @@ function fn_save() {
 		    				}else{
 //		    		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
 		    				}
+		    				if(qryInfo.result5==false)
+		    		        {
+		    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql5 Error!. " + qryInfo.sql5);
+		            			return;
+		    				}else{
+//		    		        	alert(qryInfo.result5 + ":" + qryInfo.sql5);
+		    				}
 					    	$('#btnSave').attr('disabled',false);
 					    	$('#btnSend').attr('disabled',false);
 					    	alert("success!");
@@ -943,6 +989,13 @@ function fn_save() {
 		            			return;
 		    				}else{
 //		    		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
+		    				}
+		    				if(qryInfo.result5==false)
+		    		        {
+		    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql5 Error!. " + qryInfo.sql5);
+		            			return;
+		    				}else{
+//		    		        	alert(qryInfo.result5 + ":" + qryInfo.sql5);
 		    				}
 		    				fn_readMail();
 					    	alert("success!");

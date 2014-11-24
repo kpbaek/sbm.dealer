@@ -76,6 +76,23 @@ if(isset($_POST["detector_tape"])){
 	$detector_tape = trim($_POST["detector_tape"]);
 }
 
+$dispenser_ox = "";
+if(isset($_POST["dispenser_ox"])){
+	$dispenser_ox = trim($_POST["dispenser_ox"]);
+}
+
+$issue_ox = "";
+if(isset($_POST["issue_ox"])){
+	$issue_ox = trim($_POST["issue_ox"]);
+}
+
+$snc_ox = "";
+if(isset($_POST["snc_ox"])){
+	$snc_ox = trim($_POST["snc_ox"]);
+}
+
+
+
 //$this->db->trans_off();
 $this->db->trans_begin();
 
@@ -184,6 +201,28 @@ if($swm_no!=""){
 		$qryInfo['qryInfo']['sql4'] = $sql_dtt;
 		$qryInfo['qryInfo']['result4'] = $result4;
 				
+		$sql_sw = "INSERT INTO om_prd_req_dtl";
+		$sql_sw = $sql_sw . " (swm_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+		$sql_sw = $sql_sw . " SELECT a.*";
+		$sql_sw = $sql_sw . " FROM (";
+		$sql_sw = $sql_sw . " SELECT " .$swm_no. ", cd, atcd";
+		$sql_sw = $sql_sw . ",(case when atcd='00J00010' then '" .$dispenser_ox. "'";
+		$sql_sw = $sql_sw . "    when atcd='00J00020' then '" .$issue_ox. "'";
+		$sql_sw = $sql_sw . "    when atcd='00J00030' then '" .$snc_ox. "'";
+		$sql_sw = $sql_sw . "    end) atcd_ox";
+		$sql_sw = $sql_sw . "  , now()";
+		$sql_sw = $sql_sw . "  , '" .$_SESSION['ss_user']['uid']. "'";
+		$sql_sw = $sql_sw . " FROM cm_cd_attr";
+		$sql_sw = $sql_sw . " WHERE cd='00J0'";
+		$sql_sw = $sql_sw . " AND atcd in ('00J00010','00J00020','00J00030')	";
+		$sql_sw = $sql_sw . " ) a	";
+		$sql_sw = $sql_sw . " WHERE atcd_ox in ('O','X')";
+		
+	#	echo $sql_dtt;
+		$result5 = $this->db->query($sql_sw);
+		$qryInfo['qryInfo']['sql5'] = $sql_sw;
+		$qryInfo['qryInfo']['result5'] = $result5;
+				
 	}
 	
 }else{
@@ -253,6 +292,30 @@ if($swm_no!=""){
 	$result4 = $this->db->query($sql_dtt);
 	$qryInfo['qryInfo']['sql4'] = $sql_dtt;
 	$qryInfo['qryInfo']['result4'] = $result4;
+	
+	
+	$sql_sw = "INSERT INTO om_prd_req_dtl";
+	$sql_sw = $sql_sw . " (swm_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+	$sql_sw = $sql_sw . " SELECT a.*";
+	$sql_sw = $sql_sw . " FROM (";
+	$sql_sw = $sql_sw . " SELECT last_insert_id(), cd, atcd";
+	$sql_sw = $sql_sw . ",(case when atcd='00J00010' then '" .$dispenser_ox. "'";
+	$sql_sw = $sql_sw . "    when atcd='00J00020' then '" .$issue_ox. "'";
+	$sql_sw = $sql_sw . "    when atcd='00J00030' then '" .$snc_ox. "'";
+	$sql_sw = $sql_sw . "    end) atcd_ox";
+	$sql_sw = $sql_sw . "  , now()";
+	$sql_sw = $sql_sw . "  , '" .$_SESSION['ss_user']['uid']. "'";
+	$sql_sw = $sql_sw . " FROM cm_cd_attr";
+	$sql_sw = $sql_sw . " WHERE cd='00J0'";
+	$sql_sw = $sql_sw . " AND atcd in ('00J00010','00J00020','00J00030')	";
+	$sql_sw = $sql_sw . " ) a	";
+	$sql_sw = $sql_sw . " WHERE atcd_ox in ('O','X')";
+	
+	#	echo $sql_dtt;
+	$result5 = $this->db->query($sql_sw);
+	$qryInfo['qryInfo']['sql5'] = $sql_sw;
+	$qryInfo['qryInfo']['result5'] = $result5;
+	
 		
 }
 
