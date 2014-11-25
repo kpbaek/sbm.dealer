@@ -440,30 +440,9 @@ SELECT '00700310' AS wrk_tp_atcd,
          WHERE (    (cm_cd_attr.cd = '0071')
                 AND (cm_cd_attr.atcd = '00700311')))
           AS title,
-       '00100030' AS rcpnt_tp_atcd,
-       team_atcd AS rcpnt_team_atcd,
-       team_mngr_email AS rcpnt_email
-       ,(SELECT cm_cd_attr.atcd_nm
-          FROM cm_cd_attr
-         WHERE (    (cm_cd_attr.cd = '0010')
-                AND (cm_cd_attr.atcd = '00100030'))) rcpnt_tp_atcd_nm
-       ,(SELECT cm_cd_attr.atcd_nm
-          FROM cm_cd_attr
-         WHERE (    (cm_cd_attr.cd = '0060')
-                AND (cm_cd_attr.atcd = a.team_atcd))) rcpnt_team_atcd_nm
-  FROM om_team a
- WHERE (team_atcd IN ('00600MF0', '00600PC0', '00600QC0')) -- 생산의뢰서 : 팀관리자(생산/구매/품질)
-UNION ALL
-SELECT '00700310' AS wrk_tp_atcd,
-       '00700311' AS sndmail_atcd,
-       (SELECT cm_cd_attr.atcd_nm
-          FROM cm_cd_attr
-         WHERE (    (cm_cd_attr.cd = '0071')
-                AND (cm_cd_attr.atcd = '00700311')))
-          AS title,
        '00100040' AS rcpnt_tp_atcd,
        team_atcd AS rcpnt_team_atcd,
-       team_email
+       team_email AS rcpnt_email
        ,(SELECT cm_cd_attr.atcd_nm
           FROM cm_cd_attr
          WHERE (    (cm_cd_attr.cd = '0010')
@@ -473,7 +452,7 @@ SELECT '00700310' AS wrk_tp_atcd,
          WHERE (    (cm_cd_attr.cd = '0060')
                 AND (cm_cd_attr.atcd = a.team_atcd))) rcpnt_team_atcd_nm
   FROM om_team a
- WHERE (team_atcd IN ('00600MF0')) -- 생산의뢰서 : 팀메일(생산)
+ WHERE (team_atcd IN ('00600MF0', '00600QC0')) -- 생산의뢰서 : 팀메일(생산/품질)
 UNION ALL
 SELECT '00700320',
        '00700321',
@@ -536,7 +515,7 @@ SELECT '00700310',
          WHERE (    (cm_cd_attr.cd = '0060')
                 AND (cm_cd_attr.atcd = a.team_atcd))) rcpnt_team_atcd_nm
   FROM om_worker a
- WHERE (team_atcd IN ('00600PC0', '00600QC0','0060RHW0','0060RMC0','0060RSW1','0060RSW2','0060RSW3')) -- 생산의뢰서 담당자: 구매/품질/연구소(HW/기구/SW1/SW2/SW3)
+ WHERE (team_atcd IN ('00600PC0','0060RSW1','0060RSW2')) -- 생산의뢰서 담당자: 구매/연구소(SW1/SW2)
  and mailing_yn = 'Y'
 UNION ALL
 SELECT '00700510',
