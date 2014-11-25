@@ -16,6 +16,7 @@ $part_ver = $_REQUEST["part_ver"];
 $part_cd = $_REQUEST["part_cd"];
 $qty = $_REQUEST["qty"];
 $unit_prd_cost = $_REQUEST["unit_prd_cost"];
+$weight = $_REQUEST["weight"];
 
 $cntry_atcd = trim($_POST["cntry_atcd"]);
 $dealer_seq = $_POST["dealer_seq"];
@@ -81,7 +82,9 @@ if($swp_no==""){
 			$target_part_cd = $part_cd[$i_item];
 			$target_qty = $qty[$i_item];
 			$target_unit_prd_cost = $unit_prd_cost[$i_item];
+			$target_weight = $weight[$i_item];
 	
+			$wgt += $target_weight;
 			$amt += $target_qty * $target_unit_prd_cost;
 		
 		}
@@ -166,9 +169,10 @@ if($swp_no==""){
 			$target_part_cd = $part_cd[$i_item];
 			$target_qty = $qty[$i_item];
 			$target_unit_prd_cost = $unit_prd_cost[$i_item];
-			
+			$target_weight = $weight[$i_item];
+				
+			$wgt += $target_weight;
 			$amt += $target_qty * $target_unit_prd_cost;
-		
 		}
 		$sql_part = "UPDATE om_ord_part a";
 		$sql_part = $sql_part . " SET amt=" .$amt;

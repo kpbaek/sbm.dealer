@@ -197,7 +197,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 	            var params = $("#list").jqGrid('getRowData',rowid);
 //		        var params = {id:rowid};
 //	            view_detail("#list",params);
-	            printData(params);
+//	            printData(params);
 	        },
 			mtype: "POST",
 //			postData:{sch_mdl_cd:''},
@@ -384,7 +384,7 @@ if(isset($_REQUEST["edit_mode"])){
     	var sch_part_nm = document.searchForm.sch_part_nm.value;
     	$("#list").jqGrid('setPostData', {test:'aa',sch_mdl_cd:sch_mdl_cd, sch_part_cd:sch_part_cd,sch_part_nm:sch_part_nm});
     	jQuery("#list").jqGrid('setGridParam', {url:targetUrl,page:'1'}).trigger("reloadGrid");
-		printPostData();
+//		printPostData();
 	}
 
     function test_detail(list, id) {
@@ -555,11 +555,15 @@ if(isset($_REQUEST["edit_mode"])){
     		if(listData.id == data.id){
         		isDup = true;
     	    	var qty_d = 0;
+    	    	var weight_d = 0;
+    	    	var amount_d = 0;
         		if(listData.qty != ""){
         			qty_d = listData.qty;
+        			weight_d = listData.weight;
+        			amount_d = parseFloat(listData.amount).toFixed(2);
 //        			jQuery("#list_d").jqGrid('delRowData',i);	
 				}
-        		jQuery("#list_d").jqGrid('setRowData',ids_d[i],{qty:qty_d});
+        		jQuery("#list_d").jqGrid('setRowData',ids_d[i],{qty:qty_d,weight:weight_d,amount:amount_d});
     		}
         }
         if(isDup==false && listData.qty > 0){
@@ -670,6 +674,7 @@ if(isset($_REQUEST["edit_mode"])){
         var arPartVer = [];
         var arQty = [];
         var arUnitPrdCost = [];
+        var arWeight = [];
         for(var i=0; i < ids.length; i++){
             var dataInfo = jQuery("#list_d").jqGrid('getRowData', ids[i]);
             arData[arData.length] = dataInfo;
@@ -678,6 +683,7 @@ if(isset($_REQUEST["edit_mode"])){
             arPartCd[arPartCd.length]=arData[i].part_cd;
             arQty[arQty.length]=arData[i].qty;
             arUnitPrdCost[arUnitPrdCost.length]=arData[i].price; //
+            arWeight[arWeight.length]=arData[i].weight; //
 		}
 		
         var params = {
@@ -691,7 +697,8 @@ if(isset($_REQUEST["edit_mode"])){
                 "part_ver" : arPartVer,
                 "part_cd" : arPartCd,
                 "qty" : arQty,
-                "unit_prd_cost" : arUnitPrdCost
+                "unit_prd_cost" : arUnitPrdCost,
+                "weight" : arWeight
         };  
         for(var i=0; i < params.mdl_cd.length; i++){
 //        	alert(params.mdl_cd[i] + "::" + params.part_ver[i] + "::" + params.part_cd[i] + "::" + params.qty[i] + "::" + params.unit_prd_cost[i]);
