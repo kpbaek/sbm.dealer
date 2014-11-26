@@ -20,24 +20,24 @@ try {
     $mail->CharSet = "utf-8";
     $mail->Encoding = "base64";
 
-//    $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+    $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
 //    $mail->AddReplyTo('name@yourdomain.com', 'First Last');
 //    $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
-
+    
 	if($atcd=="local"){
-		$mail->Host = "localhost"; // email 보낼때 사용할 서버를 지정
-		$mail->Username   = "kpbaek"; // 
-		$mail->Password   = "1111"; // 
+		$mail->Host = LOCAL_SMTP_HOST; // email 보낼때 사용할 서버를 지정
+		$mail->Username   = LOCAL_SMTP_USER; // 
+		$mail->Password   = LOCAL_SMTP_PASS; // 
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
-	    $mail->Port = "25"; // email 보낼때 사용할 서버를 지정
+	    $mail->Port = LOCAL_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 #		echo "atcd:" .$atcd;
 	}else{
-		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
+		$mail->Host = SBM_SMTP_HOST; // email 보낼때 사용할 서버를 지정
 #		$mail->SMTPSecure = "ssl"; // SSL을 사용함
-		$mail->Username   = "sbmkorea@sbmkorea.url.ph"; 
-		$mail->Password   = "sbmkoreacom"; 
+		$mail->Username   = SBM_SMTP_USER; 
+		$mail->Password   = SBM_SMTP_PASS; 
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
-	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
+	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 	}
 	
 	$sql3 = "SELECT a.wrk_tp_atcd, a.sender_eng_nm, a.title, a.ctnt, email_from, email_to, snd_yn, b.snd_no, b.rcpnt_tp_atcd";
@@ -65,7 +65,7 @@ try {
 #	    $mail->AddAddress('kpbaek@localhost', $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 #	    $mail->AddAddress($row['email_to'], $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    if($atcd=="local"){
-		    $mail->AddAddress('kpbaek@localhost', $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+		    $mail->AddAddress(SBM_LOCAL_EMAIL, $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 #		    echo "mytest";
 	    }else{
 #		    $mail->AddAddress($row['email_to'], $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)

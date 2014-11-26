@@ -285,7 +285,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			$ctnt = getPackingMailCtnt($ctnt, $invoice);
 					
 		}
-		$ctnt = str_replace("@base_url", base_url(), $ctnt);
+		$ctnt = str_replace("@base_url", SBM_DOMAIN, $ctnt);
 		
 		$sql = $sql . "VALUES ('" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "'";
 		$sql = $sql . ", (SELECT w_email FROM om_worker";
@@ -333,8 +333,8 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	
 	
 	$sql3 = "INSERT INTO om_sndmail_dtl";
-	$email_sbm = SBM_PUB_EMAIL; //"sbm@sbmkorea.url.ph";
-	$email_to = "kpbaek@localhost";
+	$email_sbm = SBM_PUB_EMAIL; 
+	$email_to = SBM_LOCAL_EMAIL;
 	if($wrk_tp_atcd == "00700210" || $wrk_tp_atcd=="00700410" || $wrk_tp_atcd=="00700610"){ // PI, CI, Packing List
 		$sql3 = $sql3 . " (sndmail_seq, email_from, email_to, rcpnt_tp_atcd, snd_yn, crt_dt, crt_uid)";
 //		$sql3 = $sql3 . " SELECT LAST_INSERT_ID(), (SELECT w_email FROM om_worker WHERE worker_uid='" .$_SESSION['ss_user']['uid']. "'), '" .$email_to. "', '00100010' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
