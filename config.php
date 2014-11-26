@@ -7,18 +7,18 @@ define("PHPGRID_DBPASS","sbmkoreacom123");
 define("PHPGRID_DBNAME","test");
 
 // Local database connection settings
-define("SBMBIZ_DBTYPE","mysql"); // or mysqli
-define("SBMBIZ_DBHOST","localhost");
-define("SBMBIZ_DBUSER","sbmkorea");
-define("SBMBIZ_DBPASS","sbmkoreacom123");
-define("SBMBIZ_DBNAME","test");
+#define("SBMBIZ_DBTYPE","mysql"); // or mysqli
+#define("SBMBIZ_DBHOST","localhost");
+#define("SBMBIZ_DBUSER","sbmkorea");
+#define("SBMBIZ_DBPASS","sbmkoreacom123");
+#define("SBMBIZ_DBNAME","test");
 
 // sbmbiz database connection settings
-#define("SBMBIZ_DBTYPE","mysql"); // or mysqli
-#define("SBMBIZ_DBHOST","mysql.hostinger.kr");
-#define("SBMBIZ_DBUSER","u900714269_sbm");
-#define("SBMBIZ_DBPASS","sbmdealer!");
-#define("SBMBIZ_DBNAME","u900714269_sbm");
+define("SBMBIZ_DBTYPE","mysql"); // or mysqli
+define("SBMBIZ_DBHOST","mysql.hostinger.kr");
+define("SBMBIZ_DBUSER","u900714269_sbm");
+define("SBMBIZ_DBPASS","sbmdealer!");
+define("SBMBIZ_DBNAME","u900714269_sbm");
 
 // Automatically make db connection inside lib
 define("PHPGRID_AUTOCONNECT",0);
