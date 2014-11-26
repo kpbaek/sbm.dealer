@@ -71,6 +71,17 @@ try {
 	    $mail->SetFrom('sbmkorea@sbmkorea.url.ph'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    echo "to_addr:" .$to_addr. "<BR>";
 	    $mail->AddAddress($to_addr); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+    }else if($atcd=="sbm"){
+		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
+	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
+	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
+//		$mail->SMTPSecure = "ssl"; // SSL을 사용함
+		$mail->Username   = SBM_PUB_EMAIL; 
+		$mail->Password   = "sbm123"; 
+	    $mail->SetFrom(SBM_PUB_EMAIL); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    echo "SBM_PUB_EMAIL:" .SBM_PUB_EMAIL. "<BR>";
+	    echo "to_addr:" .$to_addr. "<BR>";
+	    $mail->AddAddress($to_addr); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	}
 echo $mail->Host . "<BR>";
 #    $mail->AddAddress('kpbaek@localhost', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
