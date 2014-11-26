@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'sbmkorea';
-$db['default']['password'] = 'sbmkoreacom123';
-$db['default']['database'] = 'test';
+$db['default']['hostname'] = 'mysql.hostinger.kr';
+$db['default']['username'] = 'u900714269_sbm';
+$db['default']['password'] = 'sbmdealer!';
+$db['default']['database'] = 'u900714269_sbm';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
