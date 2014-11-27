@@ -19,6 +19,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 	<script src="/lib/jquery.jqGrid-4.6.0/plugins/jquery.searchFilter.js" type="text/javascript"></script>
 	<script src="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.js" type="text/javascript"></script>
 	<script src="/js/cmn/common.js" type="text/javascript"></script>
+	<script src="/lib/js/jquery.ui.shake.js"></script>
 	
 	<style type="text/css">
 	  html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
@@ -123,9 +124,9 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 	        {
 				$('#dealer_seq').val(dealerInfo.dealer_seq);
 			}else{
-				$('#btnSubmit').attr('disabled',true);
 				$('#error').shake();
 				$("#error").html("<span style='color:#cc0000'>Notice:</span> unreceived dealer ID. ");
+				$('#btnSubmit').attr('disabled',true);
 	        }
         },
 	});

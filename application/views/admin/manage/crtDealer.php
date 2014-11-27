@@ -200,13 +200,13 @@ if(isSet($_POST['usr_email'])){
 		$sql_dealer = $sql_dealer . ",bank_atcd = '" .$bank_atcd. "'";
 		if($_SESSION['ss_user']['auth_grp_cd']=="SA" || $_SESSION['ss_user']['auth_grp_cd']=="WA"){
 			$sql_dealer = $sql_dealer . ",worker_seq = " .$worker_seq;
-#			if($worker_seq=="NULL"){
-#				$sql_dealer = $sql_dealer . ",aprv_yn = 'N'";
-#			}else{
-#				$sql_dealer = $sql_dealer . ",aprv_yn = 'Y'";
-#			}
+			if($worker_seq=="NULL"){
+				$sql_dealer = $sql_dealer . ",aprv_yn = 'N'";
+			}else{
+				$sql_dealer = $sql_dealer . ",aprv_yn = 'Y'";
+			}
 		}
-		$sql_dealer = $sql_dealer . ",aprv_yn = 'Y'";
+#		$sql_dealer = $sql_dealer . ",aprv_yn = 'Y'";
 		if($gender_atcd!=""){
 			$sql_dealer = $sql_dealer . ",attn = (select concat(atcd_nm, ' ', a.dealer_nm) from cm_cd_attr where cd = 'US30' and atcd = '" .$gender_atcd. "')";
 		}else{
