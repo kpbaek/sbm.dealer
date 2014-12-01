@@ -83,7 +83,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 	<?php 
 	}
 	?> 
-	Dest Country
+	Destination Country
 					<select id="cntry_atcd" name="cntry_atcd" style="width: 240px;">
 					</select>
 					
