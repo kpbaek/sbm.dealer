@@ -206,7 +206,7 @@ if($sndmail_atcd=="00700111"){
 		$i++;
 	}
 	$ctnt = str_replace("@00700112_sub", $ctnt_sub, $ctnt);
-	$ctnt = str_replace("@tot_price", $tot_price, $ctnt);
+//	$ctnt = str_replace("@tot_price", $tot_price, $ctnt);
 	$ctnt = str_replace("@tot_qty", $tot_qty, $ctnt);
 	$ctnt = str_replace("@tot_amt", $tot_amt, $ctnt);
 	$ctnt = str_replace("@tot_wgt", $tot_wgt, $ctnt);
