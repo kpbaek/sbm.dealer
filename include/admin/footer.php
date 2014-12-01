@@ -3,7 +3,7 @@
                 <h1><img src="http://www.sbmkorea.com/sbm/en/images/base/footer_logo.gif"  alt="SBM" /></h1>
 				
 				<p>40, Deokcheon-ro 34beon-gil, Manan-gu, Anyang-si, Gyeonggi-do, Korea,</p>
-                <p>TEL : 031-429-0789 / FAX : 031-429-3607</p>
+                <p>TEL : +82-031-429-0789 / FAX : +82-031-429-3607</p>
 				<p>copyright ⓒ 2014 by SBM, LTD. All rights reserved.</p>
 				<label for="footer">Family site</label>
 				<select id="footer"onchange="if(this.value) window.open(this.value);">
