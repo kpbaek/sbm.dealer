@@ -48,7 +48,7 @@ if(isSet($_POST['pi_no'])){
 		$sql_inv = $sql_inv . ") tot_qty";
 //		$sql_inv = $sql_inv . ", (case when tot_amt is null then 0 else (tot_amt - tot_amt * a.premium_rate / 100) end) tot_amt";
 		$sql_inv = $sql_inv . ", (select ifnull( ( sum(amt) - sum(amt) * a.premium_rate / 100 ), 0) from om_ord_eqp where pi_no=a.pi_no) tot_amt";
-		$sql_inv = $sql_inv . ", '', date_format(a.cnfm_dt + INTERVAL 21 DAY,'%Y%m%d'), b.bank_atcd, now(), b.cmpy_nm, b.addr, b.tel, b.fax, b.attn, now(), '" .$_SESSION['ss_user']['uid']. "'";
+		$sql_inv = $sql_inv . ", '', date_format(a.cnfm_dt + INTERVAL 21 DAY,'%Y%m%d'), ifnull(b.bank_atcd,''), now(), b.cmpy_nm, b.addr, b.tel, b.fax, b.attn, now(), '" .$_SESSION['ss_user']['uid']. "'";
 		$sql_inv = $sql_inv . " FROM om_ord_inf a, om_dealer b";
 		$sql_inv = $sql_inv . " WHERE a.dealer_seq = b.dealer_seq";
 		$sql_inv = $sql_inv . " and a.pi_no='" .$pi_no. "'";
