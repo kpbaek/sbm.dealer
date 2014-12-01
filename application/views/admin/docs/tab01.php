@@ -717,11 +717,11 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	for(var i=0; i < eqpOrdDtlList.length; i++){
 		if(eqpOrdDtlList[i].currency_atch!=""){
 			c1Ar[c1Ar.length] = eqpOrdDtlList[i]["currency_atch"];
-			$("#cf1").append("<select id='fitness' name='fitness[]' style='width:39px'></select>");
+			$("#cf1").append("<select id='fitness' name='fitness[]' style='width:41px'></select>");
 		}
 		if(eqpOrdDtlList[i].serial_currency_atch!=""){
 			srl_cAr[srl_cAr.length] = eqpOrdDtlList[i]["serial_currency_atch"];
-			$("#srl_cf").append("<select id='srl_fitness' name='srl_fitness[]' style='width:39px'></select>");
+			$("#srl_cf").append("<select id='srl_fitness' name='srl_fitness[]' style='width:41px'></select>");
 		}
 	}
 	if(c1Ar.length){
