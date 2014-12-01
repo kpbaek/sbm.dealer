@@ -1,0 +1,47 @@
+1. �ϴ� �ٿ�޴´�. http://james.apache.org ��Ⱑ�� �ִ�. �ֽ� ����(2.3)�� �޾Ҵ�.
+2. ������ Ǭ��. �ٵ� ��� ��ο� ��鰰���� ������ ����ϴ�...
+3. run.bat�� ���� Ŭ���Ѵ�. 
+4. ������ �� ������ �׽�Ʈ �غ���.
+ 4-1. �ϴ� �������Ѵ�.
+  telnet localhost 4555  �ϸ�  id/pw �����. Default�� root/root��.
+Welcom root. HELP for a list of commands ��� ���´�. �׸��� �������..
+adduser test 1111 
+User test added
+adduser test2 1111
+User test2 added ��� ������ ��.
+ 4-2. ���� �߼� �׽�Ʈ�Ѵ�.
+\telnet localhost 25 
+�ϸ� ������ ���� ȭ���� ���´�.
+220 HostName SMTP Server (JAMES SMTP Server 2.3.1) ready Wed, 31 Oct 2007 20:43:59 +0900 (KST)
+helo localhost
+mail from: <test@localhost>
+rcpt to: <test2@localhost>
+data
+subject: This is Test Mail with JAMES...
+��¼�� ��¼�� ���ϳ��� ����
+
+========================================================================================
+
+220 kpbaek-PC SMTP Server (JAMES SMTP Server 2.3.2) ready Sun, 24 Feb 2013 21:37
+:16 +0900 (KST)
+helo localhost
+250 kpbaek-PC Hello localhost (0:0:0:0:0:0:0:1 [0:0:0:0:0:0:0:1])
+mail from:<test@localhost>
+250 2.1.0 Sender <test@localhost> OK
+rcpt to:<test2@localhost>
+500 5.5.1 CommandRCPT unrecognized.
+data
+503 5.5.0 No recipients specified
+rcpt to:
+501 5.5.2 Syntax error in parameters or arguments
+rcpt:<test2@localhost>
+500 5.5.1 Command RCPT:<TEST2@LOCALHOST> unrecognized.
+rcpt to: <test2@localhost>
+250 2.1.5 Recipient <test2@localhost> OK
+data
+354 Ok Send data ending with <CRLF>.<CRLF>
+subject
+: this is test mail from mytest james
+.
+250 2.6.0 Message received
+
