@@ -357,7 +357,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="column1 style1 s" colspan="8">Spare Parts Order Information</td>
 		  </tr>
 		  <tr class="row1">
-			<td class="column1 " colspan=5 align=left>P/I NO. : @pi_no, &nbsp;&nbsp;&nbsp;&nbsp;Dest Country : @txt_cntry_atcd</td>
+			<td class="column1 " colspan=5 align=left>P/I NO. : @pi_no, &nbsp;&nbsp;&nbsp;&nbsp;Destination Country : @txt_cntry_atcd</td>
 			<td class="column1 " colspan=3 align=right>Order Date:@order_dt, Email No:@sendmail_seq</td>
 		  </tr>
 		  <tr class="row1">
@@ -392,7 +392,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 		  <tr class="row280">
 			<td class="column0">&nbsp;</td>
 			<td class="column2 style11 s" colspan=2>GRAND TOTAL</td>
-			<td class="column4 style17 n">$ @tot_price</td>
+			<td class="column4 style17 n"></td>
 			<td class="column5 style68 f">@tot_qty</td>
 			<td class="column6 style63 f">$ @tot_amt</td>
 			<td class="column7 style63 f">@tot_wgt Kg</td>
