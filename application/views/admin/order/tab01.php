@@ -390,7 +390,7 @@ function initForm() {
 		getCodeCombo("00B0", f.srl_atcd);
 
 		
-		var selAr =  ["CHF","GBP"];
+		var selAr =  ["USD","EUR"];
 		getCodeMultiCombo("0091", $('#currency_atch'), selAr);
 		
 		getCodeMultiCombo("0092", $('#serial_currency_atch'));
