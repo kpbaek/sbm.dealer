@@ -77,6 +77,7 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 	$sql_dtl = $sql_dtl . " AND a.po_no = " .$po_no;
 	$sql_dtl = $sql_dtl . ") a, om_ord_inf b";
 	$sql_dtl = $sql_dtl . " WHERE a.pi_no = b.pi_no";
+	$sql_dtl = $sql_dtl . " order by cd, atcd";
 #	echo $sql_dtl;
 	
 	$result2 = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
