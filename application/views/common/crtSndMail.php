@@ -469,6 +469,14 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$qryInfo['qryInfo']['sql4'] = $sql4;
 		$qryInfo['qryInfo']['result4'] = $result4;
 
+		$sql5 = "UPDATE om_ord_inf";
+		$sql5 = $sql5 . " SET wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
+		$sql5 = $sql5 . " WHERE pi_no = '" .$pi_no. "'";
+		
+		$result5 = $this->db->query($sql5);
+		$qryInfo['qryInfo']['sql5'] = $sql5;
+		$qryInfo['qryInfo']['result5'] = $result5;
+		
 	}
 	
 
