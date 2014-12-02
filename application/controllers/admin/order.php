@@ -99,6 +99,11 @@ class Order extends CI_Controller {
 		$this->load->view('/admin/order/cnfmOrder');
 	}
 
+	public function cancelCnfm()
+	{
+		$this->load->view('/admin/order/cancelCnfm');
+	}
+
 }
 
 /* End of file welcome.php */
