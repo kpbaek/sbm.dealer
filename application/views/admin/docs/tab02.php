@@ -613,7 +613,8 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		td_4.setAttribute('class','style10 null');
 	    td_5.appendChild(document.createTextNode(slipPrdInfo.txt_pi_no));
 		td_5.setAttribute('class','style10 null');
-	    td_6.appendChild(document.createTextNode(slipPrdInfo.txt_swm_no));
+//	    td_6.appendChild(document.createTextNode(slipPrdInfo.txt_swm_no));
+	    td_6.innerHTML = "<a href='javascript:fn_viewSndMail(" + slipPrdInfo.prd_sndmail_seq + ")'>" + slipPrdInfo.txt_swm_no + "</a>";
 		td_6.setAttribute('class','style10 null');
 	    td_7.appendChild(document.createTextNode(""));
 		td_7.setAttribute('class','style10 null');
@@ -686,6 +687,10 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 
 	function fn_viewSndMail(){
 		location.replace("/index.php/common/main/viewSndMail?sndmail_seq=" + $("#ci_sndmail_seq").val());
+	}
+
+	function fn_viewSndMail(sndmail_seq){
+		location.replace("/index.php/common/main/viewSndMail?sndmail_seq=" + sndmail_seq);
 	}
 
 	function fn_sendMail(){
