@@ -172,7 +172,9 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 	$ctnt = str_replace("@opt_hw_tr", $opt_hw_tr, $ctnt);
 	
 	if($prdReq!=null){
-		$ctnt = str_replace("@txt_swm_no", $prdReq['prdReqInfo']["txt_swm_no"], $ctnt);
+//		$ctnt = str_replace("@txt_swm_no", $prdReq['prdReqInfo']["txt_swm_no"], $ctnt);
+		$ctnt = str_replace("@swm_no", $prdReq['prdReqInfo']["swm_no"], $ctnt);
+		
 		$ctnt = str_replace("@txt_udt_dt", $prdReq['prdReqInfo']["txt_udt_dt"], $ctnt);
 		$ctnt = str_replace("@extra", $prdReq['prdReqInfo']["extra"], $ctnt);
 		$ctnt = str_replace("@txt_manual_lang_atcd", $prdReq['prdReqInfo']["txt_manual_lang_atcd"], $ctnt);
