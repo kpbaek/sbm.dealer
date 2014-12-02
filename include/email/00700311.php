@@ -69,7 +69,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 			<td colspan="3" width=15% class="style01">문서번호</td>
-			<td colspan="5" width="25%" class="style03">SWM-@txt_swm_no</td>
+			<td colspan="5" width="25%" class="style03">SWM-@swm_no-@sendmail_seq</td>
 			<td colspan="2" width=10% class="style01">P/I NO. </td>
 			<td colspan="4" class="style03">PI-@pi_no</td>
 			<td colspan="1" class="style06">작성일</td>
