@@ -394,7 +394,14 @@
     				$("#resultDiv").html("sql error:" + qryInfo.sql4);
     				return false;
     			}else{
-		        	$("#resultDiv").append(qryInfo.result4 + ":" + qryInfo.sql4);
+//		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
+    			}
+    			if(qryInfo.result5==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql5);
+    				return false;
+    			}else{
+		        	$("#resultDiv").append(qryInfo.result5 + ":" + qryInfo.sql5);
     				fncSndMail(qryInfo.sndmail_seq);
     				fncDisplayDiv(saveFormDiv, false);
 //    				$("#resultDiv").html("<b>The Packing is completed! We sent you packing information mail.</b><p>"); 
