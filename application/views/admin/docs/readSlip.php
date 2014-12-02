@@ -10,6 +10,7 @@ function readSlip($pi_no){
 	$sql = $sql . ", DATE_FORMAT(a.udt_dt, '%Y. %m. %d') txt_udt_dt";
 	$sql = $sql . ", e.mdl_cd, e.qty";
 	$sql = $sql . ", i.pi_sndmail_seq";
+	$sql = $sql . ", a.sndmail_seq as prd_sndmail_seq";
 	$sql = $sql . ", concat('SWM', '-', a.swm_no,'-',a.sndmail_seq) txt_swm_no";
 	$sql = $sql . ", concat(a.pi_no, '-', i.pi_sndmail_seq) txt_pi_no";
 	$sql = $sql . " FROM (SELECT a.*,";
@@ -41,6 +42,7 @@ function readSlip($pi_no){
 		$slip['slipPrdList'][$i]['txt_pi_no'] = $row['txt_pi_no'];
 		$slip['slipPrdList'][$i]['pi_no'] = $row['pi_no'];
 		$slip['slipPrdList'][$i]['swm_no'] = $row['swm_no'];
+		$slip['slipPrdList'][$i]['prd_sndmail_seq'] = $row['prd_sndmail_seq'];
 		$slip['slipPrdList'][$i]['txt_swm_no'] = $row['txt_swm_no'];
 		$slip['slipPrdList'][$i]['mdl_nm'] = $row['mdl_nm'];
 		$slip['slipPrdList'][$i]['qty'] = $row['qty'];
