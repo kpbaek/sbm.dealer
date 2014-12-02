@@ -200,7 +200,7 @@ if($sndmail_atcd=="00700111"){
 	
 	$ctnt = getCiMailCtnt($ctnt, $invoice);
 		
-}else if($sndmail_atcd=="00700311"){  // Commercial Invoice
+}else if($sndmail_atcd=="00700311"){  // 생산의뢰서
 	$po_no = "";
 	if(isset($_REQUEST["po_no"])){
 		$po_no = $_REQUEST["po_no"];
@@ -212,6 +212,7 @@ if($sndmail_atcd=="00700111"){
 	$prdReq = readPrdReq($prdReq, $pi_no, $po_no);
 	
 	$ctnt = getPrdReqMailCtnt($ctnt, $prdReq);
+	$ctnt = str_replace("-@sendmail_seq", "", $ctnt);
 	
 }else if($sndmail_atcd=="00700321"){  // 부품출고의뢰서
 	$swp_no = $_REQUEST["swp_no"];
