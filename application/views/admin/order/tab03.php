@@ -125,6 +125,7 @@
                     var rowId = ids[i];
                     var rowData = jQuery("#list").jqGrid('getRowData',rowId);
                     var disableCnfm = "";
+                    var disableCancel = "disabled";
                     var disablePiEdit = "";
                     var disablePiSend = "disabled";
                     var disableCiSend = "disabled";
@@ -133,7 +134,9 @@
                     var cnfm_yn = rowData.cnfm_yn;
                     var wrk_tp_atcd = rowData.wrk_tp_atcd;
                     if(cnfm_yn == "Y"){
-                    	disableCnfm = "disabled";
+                        if(wrk_tp_atcd <= "00700210"){  // until P/I 발송(00700210)
+	                    	disableCancel = "";
+						}
                     }else{
                     	disablePiEdit = "disabled";
                     	disableCiEdit = "disabled";
@@ -143,32 +146,47 @@
 	                    	disablePiSend = "";
                         }
                         if(wrk_tp_atcd >= "00700210"){  // after P/I 발송(00700210)
-                        	disablePiEdit = "disabled";
-	                    	disablePiSend = "disabled";
                         	disableCiSend = "";
 						}
                         if(wrk_tp_atcd >= "00700410"){  // after INVOICE 발송(00700410)
+                        	disablePiEdit = "disabled";
+	                    	disablePiSend = "disabled";
+                        	disableCiSend = "disabled";
                         	disableSlip = "";
                         	disablePacking = "";
 						}
+                        if(wrk_tp_atcd >= "00700610"){  // after Packing List 발송(00700610)
+                        	disableCiSend = "disabled";
+                        	disableSlip = "disabled";
+						}
                     }
                     c_image = "<img src='/images/ci_logo.jpg' height='20'>";
-                    c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" " + disableCnfm + ">";
+
                     if(cnfm_yn == "Y"){  
-	                    c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
-	                    c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
-	                    c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"fn_sendCi('"+rowData.pi_no+"');\" " + disableCiSend + ">";
-	                    jQuery("#list").jqGrid('setRowData',ids[i],{pi:c_pi});
-	                    jQuery("#list").jqGrid('setRowData',ids[i],{ci:c_ci});
-	                    
-	                    if(rowData.slip_yn=="Y"){  // 장비포함 주문인 경우
-	                    	c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"fn_sendSlip('"+rowData.pi_no+"');\" " + disableSlip + ">";
-		                    jQuery("#list").jqGrid('setRowData',ids[i],{rptout:c_rptout});
+                    	c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' disabled>";
+                    	if(wrk_tp_atcd <= "00700210"){  // until P/I 발송(00700210)
+                            c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='확정취소' onclick=\"fn_cancelCnfm('"+rowData.pi_no+"');\" " + disableCancel + ">";
 						}
+
+                        c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
+                        c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
+                        jQuery("#list").jqGrid('setRowData',ids[i],{pi:c_pi});
+
+                        if(wrk_tp_atcd >= "00700210"){  // after P/I 발송(00700210)
+	                    	c_ci = "<input style='height:22px;width:60px;' type=button name='c_ci' value='send' onclick=\"fn_sendCi('"+rowData.pi_no+"');\" " + disableCiSend + ">";
+		                    jQuery("#list").jqGrid('setRowData',ids[i],{ci:c_ci});
+						}
+	                    
 	                    if(wrk_tp_atcd >= "00700410"){  // after INVOICE 발송(00700410)
-							c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"fn_sendPacking('"+rowData.pi_no+"');\" " + disablePacking + ">";
+		                    if(rowData.slip_yn=="Y"){  // 장비포함 주문인 경우
+		                    	c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"fn_sendSlip('"+rowData.pi_no+"');\" " + disableSlip + ">";
+			                    jQuery("#list").jqGrid('setRowData',ids[i],{rptout:c_rptout});
+							}
+	                    	c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"fn_sendPacking('"+rowData.pi_no+"');\" " + disablePacking + ">";
 		                    jQuery("#list").jqGrid('setRowData',ids[i],{packing:c_packing});
 		                }
+					}else{
+                        c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" >";
 					}
 					//                    jQuery("#list").jqGrid('setRowData',ids[i],{c_image:c_image});
                     jQuery("#list").jqGrid('setRowData',ids[i],{cnfm:c_cnfm});
@@ -266,7 +284,7 @@
     	var sch_cnfm_yn = document.searchForm.sch_cnfm_yn.value;
         $("#list").jqGrid('setPostData', {test:'aa', sch_cnfm_yn:sch_cnfm_yn, sch_worker_seq:sch_worker_seq});
     	jQuery("#list").jqGrid('setGridParam', {url:targetUrl,page:'1'}).trigger("reloadGrid");
-		printPostData();
+//		printPostData();
 	}
 
     function test_detail(list, id) {
@@ -541,6 +559,45 @@
 //		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
 				}
 	        	alert("주문확정 되었습니다");
+//	        	var params = {"wrk_tp_atcd":"00700110","sndmail_atcd":"00700111"};
+//	        	var params = {"wrk_tp_atcd":"00700110","sndmail_atcd":"00700112"};
+//	        	fnc_crtSendMail(params);
+	        	gridReload();
+	        }
+		});
+		
+	}
+		
+	function fn_cancelCnfm(pi_no){
+        if(!confirm("확정취소하시겠습니까?")){
+            return;
+        }
+	
+		$.ajax({
+	        type: "POST",
+	        url: "/index.php/admin/order/cancelCnfm",
+	        async: false,
+	        dataType: "json",
+	        data: {"pi_no":pi_no},
+	        cache: false,
+	        success: function(result, status, xhr){
+//	            alert(xhr.status);
+	            var qryInfo = result.qryInfo;	            	
+				if(qryInfo.result==false)
+		        {
+					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql);
+        			return;
+				}else{
+//		        	alert(qryInfo.result + ":" + qryInfo.sql);
+				}
+				if(qryInfo.result2==false)
+		        {
+					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql2);
+        			return;
+				}else{
+//		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
+				}
+	        	alert("확정취소 되었습니다");
 //	        	var params = {"wrk_tp_atcd":"00700110","sndmail_atcd":"00700111"};
 //	        	var params = {"wrk_tp_atcd":"00700110","sndmail_atcd":"00700112"};
 //	        	fnc_crtSendMail(params);
