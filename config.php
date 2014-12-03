@@ -61,5 +61,7 @@ define('SBM_SMTP_PORT', '587');
 
 define('SBM_DOMAIN', 'http://www.sbmkorea.biz');
 */
+
 define('SBM_PUB_EMAIL', 'sbm@sbmkorea.biz');
+define('SBM_SALES_EMAIL', 'sales@sbmkorea.biz');
 
