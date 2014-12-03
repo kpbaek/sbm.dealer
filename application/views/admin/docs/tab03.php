@@ -207,6 +207,7 @@
 body { left-margin: 0.15748031496063in; right-margin: 0.15748031496063in; top-margin: 0.35433070866142in; bottom-margin: 0in; }
 </style>
 
+<div id="error"></div>
 <div id="sndMailDiv" style="display:none" align=center></div>
 
 <div id="resultDiv" style="display:none" align=center>
@@ -220,7 +221,6 @@ body { left-margin: 0.15748031496063in; right-margin: 0.15748031496063in; top-ma
 	</table>
 	<p>
 </div>
-<div id="error"></div>
 
 <div id="saveFormDiv">	
 	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0" align=center>
@@ -490,13 +490,13 @@ $(document).ready(function(e) {
 					$('#pi_no').val(partOrdInfo.pi_no);
 					$('#swp_no').val(partOrdInfo.swp_no);
 		        	
-					if(partOrdInfo.wrk_tp_atcd < "00700510")  // 출고전표 발송(00700510)
+					if(partOrdInfo.wrk_tp_atcd >= "00700410")  // after CI 발송(00700410)
 			        {
 			        	editForm(partOrdInfo, partOrdDtlList, partReqInfo);
 					}else{
 						$('#btnSubmit').attr('disabled',true);
 						$('#error').shake();
-						$("#error").html("<span style='color:#cc0000'>Notice:</span> 출고전표가 이미발송되었습니다!. ");
+						$("#error").html("<span style='color:#cc0000'>Notice:</span> CI가 발송되어야합니다!. ");
 			        }
 		        },
 		        /* ajax options omitted */
@@ -680,9 +680,36 @@ function fn_edit(){
 
 function fn_sendMail(){
 	if(confirm("담당자에게 메일이 발송됩니다. 계속하시겠습니까?")){
-		var params = {"wrk_tp_atcd": "00700320","sndmail_atcd":"00700321", "pi_no":$("#pi_no").val(), "swp_no":$("#swp_no").val()};  
-		$('#btnMail').attr('disabled',true);
-		fncCrtPartSndMail(params);
+
+		$.ajax({
+	        type: "POST",
+	        url: "/index.php/common/main/chkReqSnd",
+	        async: false,
+	        dataType: "json",
+	        data: {"pi_no":$("#pi_no").val()},
+	        cache: false,
+	        success: function(result, status, xhr){
+//		            alert(xhr.status);
+	        	var todo = result.todo; 
+	        	
+				if(todo.ci_yn == "Y")  // CI 발송(00700410)
+		        {
+					var params = {"wrk_tp_atcd": "00700320","sndmail_atcd":"00700321", "pi_no":$("#pi_no").val(), "swp_no":$("#swp_no").val()};  
+					$('#btnMail').attr('disabled',true);
+					fncCrtPartSndMail(params);
+				}else{
+					$("#btnMail").attr("disabled",true);
+					$('#error').shake();
+					$("#error").html("<span style='color:#cc0000'>Notice:</span> This PI is already confirmed!. ");
+		        }
+	        },
+	        /* ajax options omitted */
+	        error:function(){
+	        	$('#error').shake();
+				$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. ");
+			}
+		});
+	
 	}else{
 		return;
 	}
