@@ -582,7 +582,12 @@
 	        cache: false,
 	        success: function(result, status, xhr){
 //	            alert(xhr.status);
-	            var qryInfo = result.qryInfo;	            	
+				var qryInfo = result.qryInfo;	            	
+	            if(qryInfo.todo == "N"){
+		            alert("This order is already confirmed!");
+		        	gridReload();
+		            return;
+	            }	  
 				if(qryInfo.result==false)
 		        {
 					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql);
@@ -590,17 +595,7 @@
 				}else{
 //		        	alert(qryInfo.result + ":" + qryInfo.sql);
 				}
-				if(qryInfo.result2==false)
-		        {
-					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. " + qryInfo.sql2);
-        			return;
-				}else{
-//		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
-				}
 	        	alert("확정취소 되었습니다");
-//	        	var params = {"wrk_tp_atcd":"00700110","sndmail_atcd":"00700111"};
-//	        	var params = {"wrk_tp_atcd":"00700110","sndmail_atcd":"00700112"};
-//	        	fnc_crtSendMail(params);
 	        	gridReload();
 	        }
 		});
