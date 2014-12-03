@@ -77,6 +77,11 @@ class Main extends CI_Controller {
 		$this->load->view('/common/sndMailResult.php');
 	}
 	
+	public function chkReqSnd()
+	{
+		$this->load->view('/common/chkReqSnd.php');
+	}
+	
 	public function downAssembly()
 	{
 		$this->load->library('zip');
