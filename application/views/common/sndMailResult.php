@@ -71,15 +71,15 @@ try {
 #		    $mail->AddAddress($row['email_to'], $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 		    $mail->AddAddress(SBM_PUB_EMAIL);
 	    }
-	    if($row['rcpnt_tp_atcd']=="00100010"){  // if dealer
-	    	if($row['wrk_tp_atcd']="00700110" || $row['wrk_tp_atcd']="00700410" || $row['wrk_tp_atcd']="00700610"){  // if 주문서, CI, Packing
-	    		$mail->addBCC(SBM_SALES_EMAIL);
-	    	}
-	    }
 #		$mail->addCC('tester1@localhost');
 	    $mail->Subject = $row['title']; // 메일 제목
 	    $mail->MsgHTML($row['ctnt']); // 메일 내용 (HTML 형식도 되고 그냥 일반 텍스트도 사용 가능함)
 	    
+		if($row['rcpnt_tp_atcd']=="00100010"){  // if dealer
+	    	if($row['wrk_tp_atcd']=="00700110" || $row['wrk_tp_atcd']=="00700410" || $row['wrk_tp_atcd']=="00700610"){  // if 주문서, CI, Packing
+	    		$mail->AddAddress(SBM_SALES_EMAIL);
+	    	}
+	    }
 	    if($row['wrk_tp_atcd']!="00700310" && $row['wrk_tp_atcd']!="00700320" && $row['wrk_tp_atcd']!="00700510"){  // if not 의뢰서/출고전표
 		    $mail->AddAttachment($_SERVER["DOCUMENT_ROOT"]."/images/common/sbm_footer.jpg"); // attachment
 	    }
