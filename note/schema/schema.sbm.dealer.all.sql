@@ -516,6 +516,7 @@ SELECT '00700310',
                 AND (cm_cd_attr.atcd = a.team_atcd))) rcpnt_team_atcd_nm
   FROM om_worker a
  WHERE (team_atcd IN ('00600PC0','0060RSW1','0060RSW2')) -- 생산의뢰서 담당자: 구매/연구소(SW1/SW2)
+ and worker_seq IN ('14','12','60','61','69')
  and mailing_yn = 'Y'
 UNION ALL
 SELECT '00700510',
