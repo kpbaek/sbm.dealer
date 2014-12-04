@@ -267,9 +267,11 @@ function readInvoice($pi_no){
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) inv_bank";
 	$sql_invoice = $sql_invoice . ", (select atcd_dscrt from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) txt_bank_atcd_dscrt";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = d.bank_atcd) dealer_bank";
-	$sql_invoice = $sql_invoice . ", w.eng_nm as worker_eng_nm";
+#	$sql_invoice = $sql_invoice . ", w.eng_nm as worker_eng_nm";
+#	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = 'US80' and atcd = w.duty_atcd) worker_duty";
+	$sql_invoice = $sql_invoice . ", (select max(eng_nm) from om_worker where team_atcd='00600SL0' and duty_atcd = '00800200') as worker_eng_nm";
+	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = 'US80' and atcd = '00800200') as worker_duty";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = 'US60' and atcd = w.team_atcd) worker_team";
-	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = 'US80' and atcd = w.duty_atcd) worker_duty";
 	$sql_invoice = $sql_invoice . ", DATE_FORMAT(b.validity, '%Y-%m-%d') validity_dt";
 	$sql_invoice = $sql_invoice . ", DATE_FORMAT(b.invoice_dt, '%d %b., %Y') txt_invoice_dt";
 	$sql_invoice = $sql_invoice . ",(SELECT atcd_nm";
