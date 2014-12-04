@@ -360,7 +360,6 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column3 style39 s" colspan=4>
 			<select id="ship_port_atcd" name="ship_port_atcd">
 			</select>
-			 (Shipped by air)
 			</td>
 		  </tr>
 		  <tr class="row32">
@@ -502,7 +501,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column0 style54 s" colspan=7>6F, Hyunwoo Bld, 206, Anyang7-Dong, Manan-Gu, Anyang-City, Gyeonggi-Do, KOREA . 430-817</td>
 		  </tr>
 		  <tr class="row53">
-			<td class="column0 style54 s" colspan=7>Tel: +82-31-429-0789    Fax: +82-31-429-3607</td>
+			<td class="column0 style54 s" colspan=7></td>
 		  </tr>
 		  <tr class="row54">
 			<td class="column0 style55 s" colspan=3>SBM-<span style="color:#000000; font-family:'돋움'; font-size:10pt">영업</span><span style="color:#000000; font-family:'Arial'; font-size:10pt">-P-701-02</span></td>

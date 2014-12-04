@@ -16,7 +16,7 @@ function getPiMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@txt_ship_port_atcd", $invoice['invoiceInfo']['txt_ship_port_atcd'], $ctnt);
 	$ctnt = str_replace("@inv_payment", $invoice['invoiceInfo']['inv_payment'], $ctnt);
 	$ctnt = str_replace("@txt_validity", $validity_dt, $ctnt);
-	$ctnt = str_replace("@txt_bank_atcd_dscrt", $invoice['invoiceInfo']['txt_bank_atcd_dscrt'], $ctnt);
+	$ctnt = str_replace("@txt_bank_atcd_dscrt", str_replace("\n","<br>",$invoice['invoiceInfo']['txt_bank_atcd_dscrt']), $ctnt);
 	$ctnt = str_replace("@inv_bank", $invoice['invoiceInfo']['inv_bank'], $ctnt);
 	$ctnt = str_replace("@discount", $invoice['invoiceInfo']['discount'], $ctnt);
 
