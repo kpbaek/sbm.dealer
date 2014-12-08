@@ -85,61 +85,6 @@
 	  td.style67 { vertical-align:middle; text-align:center; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Arial'; font-size:10pt; background-color:white }
 	  td.style68 { vertical-align:middle; text-align:center; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#000000; font-family:'Arial'; font-size:10pt; background-color:white }
 	  td.style69 { vertical-align:middle; text-align:center; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:none #000000; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:'Arial'; font-size:10pt; background-color:white }
-	  table.sheet0 col.col0 { width:42.02222174pt }
-	  table.sheet0 col.col1 { width:16.26666648pt }
-	  table.sheet0 col.col2 { width:12.87777763pt }
-	  table.sheet0 col.col3 { width:104.37777658pt }
-	  table.sheet0 col.col4 { width:39.31111066pt }
-	  table.sheet0 col.col5 { width:58.28888822pt }
-	  table.sheet0 col.col6 { width:58.28888822pt }
-	  table.sheet0 col.col7 { width:42.02222174pt }
-	  table.sheet0 tr { height:15pt }
-	  table.sheet0 tr.row4 { height:34.5pt }
-	  table.sheet0 tr.row6 { height:15pt }
-	  table.sheet0 tr.row7 { height:15pt }
-	  table.sheet0 tr.row8 { height:15pt }
-	  table.sheet0 tr.row9 { height:5.25pt }
-	  table.sheet0 tr.row10 { height:13.5pt }
-	  table.sheet0 tr.row12 { height:12pt }
-	  table.sheet0 tr.row13 { height:12pt }
-	  table.sheet0 tr.row14 { height:12pt }
-	  table.sheet0 tr.row15 { height:12pt }
-	  table.sheet0 tr.row16 { height:12pt }
-	  table.sheet0 tr.row17 { height:12pt }
-	  table.sheet0 tr.row18 { height:12pt }
-	  table.sheet0 tr.row19 { height:12pt }
-	  table.sheet0 tr.row20 { height:12pt }
-	  table.sheet0 tr.row21 { height:12pt }
-	  table.sheet0 tr.row22 { height:12pt }
-	  table.sheet0 tr.row23 { height:12pt }
-	  table.sheet0 tr.row24 { height:12pt }
-	  table.sheet0 tr.row25 { height:12.75pt }
-	  table.sheet0 tr.row26 { height:13.5pt }
-	  table.sheet0 tr.row27 { height:3.75pt }
-	  table.sheet0 tr.row28 { height:12.75pt }
-	  table.sheet0 tr.row29 { height:12.75pt }
-	  table.sheet0 tr.row30 { height:12.75pt }
-	  table.sheet0 tr.row31 { height:12.75pt }
-	  table.sheet0 tr.row32 { height:12.75pt }
-	  table.sheet0 tr.row33 { height:12.75pt }
-	  table.sheet0 tr.row34 { height:12.75pt }
-	  table.sheet0 tr.row35 { height:12.75pt }
-	  table.sheet0 tr.row36 { height:12.75pt }
-	  table.sheet0 tr.row37 { height:12.75pt }
-	  table.sheet0 tr.row38 { height:12.75pt }
-	  table.sheet0 tr.row39 { height:12.75pt }
-	  table.sheet0 tr.row40 { height:12.75pt }
-	  table.sheet0 tr.row41 { height:15.75pt }
-	  table.sheet0 tr.row42 { height:12.75pt }
-	  table.sheet0 tr.row43 { height:12.75pt }
-	  table.sheet0 tr.row44 { height:12.75pt }
-	  table.sheet0 tr.row45 { height:12.75pt }
-	  table.sheet0 tr.row46 { height:12.75pt }
-	  table.sheet0 tr.row47 { height:12.75pt }
-	  table.sheet0 tr.row48 { height:5.25pt }
-	  table.sheet0 tr.row49 { height:15.75pt }
-	  table.sheet0 tr.row51 { height:15pt }
-	  table.sheet0 tr.row54 { height:12.75pt }
 	</style>
   </head>
 
