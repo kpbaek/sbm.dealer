@@ -238,7 +238,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column1 style15 s" colspan="3"><div id="dscrt" style="padding-left: 10px;line-height:20px;"></div>
 			</td>
 			<td class="column4 style17 n"><div id="eqp_qty" style="line-height:50px;"></div></td>
-			<td class="column5 style18 n"></td>
+			<td class="column5 style18 n"><div id="eqp_unit_price" style="line-height:50px;"></div></td>
 			<td class="column6 style19 f"><div id="eqp_amt" style="line-height:50px;"></div></td>
 		  </tr>
 		  <tr class="row18">
@@ -617,6 +617,7 @@ if(isset($_REQUEST["edit_mode"])){
 
 		var mdl_nm = "";
 		var eqp_qty = "";
+		var eqp_unit_price = "";
 		var eqp_amt = "";
 		var detector = "";
 		var incoterms = "";
@@ -634,7 +635,8 @@ if(isset($_REQUEST["edit_mode"])){
 				if(targetInfo.amt!=null){
 					amt = targetInfo.amt;
 				}
-				eqp_amt += "<input type=text id='amt' name='amt[]' value='" + amt + "' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyDecimal(this);'>";
+				eqp_unit_price += "<input type=text id='eqp_unit_price' name='eqp_unit_price[]' value='' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyDecimal(this);fn_calcAmt(this.value, " + targetInfo.eqp_qty + ", " + key + ");'>";
+				eqp_amt += "<input type=text id='amt' name='amt[]' value='" + amt + "' size=8 maxlength=8 style='ime-mode:disabled' readOnly>";
 				eqp_amt += "<input type=hidden id='po_no' name='po_no[]' value='" + targetInfo.po_no + "'>";
 				detector = "";
 				incoterms = "";
@@ -665,7 +667,7 @@ if(isset($_REQUEST["edit_mode"])){
 	        $("#mdl_nm").html(mdl_nm);
 	        $("#dscrt").html(dscrt);
 	        $("#eqp_qty").html(eqp_qty);
-	        
+	        $("#eqp_unit_price").html(eqp_unit_price);
 	        $("#eqp_amt").html(eqp_amt);
 		}
 		
@@ -749,6 +751,16 @@ if(isset($_REQUEST["edit_mode"])){
 			}
 		}
 		return true;
+	}
+
+	function fn_calcAmt(unit_price, eqp_qty, key){
+		var f = document.saveForm;
+		var amt = unit_price * eqp_qty;
+		if(f.amt.length){
+	    	f.amt[key].value = amt;
+		}else{
+	    	f.amt.value = amt;
+		}
 	}
 
 	function fn_edit(){
