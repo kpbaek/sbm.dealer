@@ -77,18 +77,33 @@ class Main extends CI_Controller {
 		$this->load->view('/common/sndMailResult.php');
 	}
 	
+	public function testSndMailResult()
+	{
+		$this->load->view('/common/testSndMailResult.php');
+	}
+	
 	public function chkReqSnd()
 	{
 		$this->load->view('/common/chkReqSnd.php');
 	}
 	
+	public function htmlToExcel()
+	{
+		$this->load->view('/common/htmlToExcel.php');
+	}
+	
+	public function htmlToPdf()
+	{
+		$this->load->view('/common/htmlToPdf.php');
+	}
+	
 	public function downAssembly()
 	{
 		$this->load->library('zip');
-		$path = $_SERVER["DOCUMENT_ROOT"]."/files/";
+		$path = $_SERVER["DOCUMENT_ROOT"]."/files/assembly/";
 		$this->zip->read_dir($path, false);
 
-#		$path = $_SERVER["DOCUMENT_ROOT"]."/files/SB-1100_Assembly Drawings.pdf";
+#		$path = $_SERVER["DOCUMENT_ROOT"]."/files/assembly/SB-1100_Assembly Drawings.pdf";
 #		$this->zip->read_file($path);
 		$this->zip->download("SB-Assembly Drawings");
 	}
