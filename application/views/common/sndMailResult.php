@@ -40,8 +40,9 @@ try {
 	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 	}
 	
-	$sql3 = "SELECT a.wrk_tp_atcd, a.sender_eng_nm, a.title, a.ctnt, email_from, email_to, snd_yn, b.snd_no, b.rcpnt_tp_atcd";
+	$sql3 = "SELECT a.sndmail_seq, a.wrk_tp_atcd, a.sender_eng_nm, a.title, a.ctnt, email_from, email_to, snd_yn, b.snd_no, b.rcpnt_tp_atcd";
 	$sql3 = $sql3 . ",(select usr_nm from om_user where uid = b.email_to) rcpnt_nm";
+	$sql3 = $sql3 . ",(select if(a.wrk_tp_atcd='00700210',pi_no,'') from om_invoice where pi_sndmail_seq = a.sndmail_seq) pi_no";
 	$sql3 = $sql3 . " FROM om_sndmail a, om_sndmail_dtl b";
 	$sql3 = $sql3 . " WHERE a.sndmail_seq = b.sndmail_seq and a.sndmail_seq=" .$sndmail_seq. " and snd_yn='N'";
 
@@ -50,6 +51,7 @@ try {
     $qryResult = "";
 	$i=0;
 	while($row = mysql_fetch_array($result3,MYSQL_ASSOC)) {
+		$qryResult['sndMail'][$i]['sndmail_seq'] = $row['sndmail_seq'];
 		$qryResult['sndMail'][$i]['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
 		$qryResult['sndMail'][$i]['snd_no'] = $row['snd_no'];
 		$qryResult['sndMail'][$i]['email_from'] = $row['email_from'];
@@ -57,6 +59,7 @@ try {
 		$qryResult['sndMail'][$i]['title'] = $row['title'];
 		$qryResult['sndMail'][$i]['ctnt'] = $row['ctnt'];
 		$qryResult['sndMail'][$i]['rcpnt_nm'] = $row['rcpnt_nm'];
+		$qryResult['sndMail'][$i]['pi_no'] = $row['pi_no'];
 		$i++;
 	    
 #		$mail->SetFrom($row['email_from'], "SBM"); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
@@ -78,6 +81,14 @@ try {
 		if($row['rcpnt_tp_atcd']=="00100010"){  // if dealer
 	    	if($row['wrk_tp_atcd']=="00700110" || $row['wrk_tp_atcd']=="00700410" || $row['wrk_tp_atcd']=="00700610"){  // if 주문서, CI, Packing
 	    		$mail->AddAddress(SBM_SALES_EMAIL);
+	    	}
+	    	if($row['wrk_tp_atcd']=="00700210"){  // if PI
+	    		$filename = "PI-" .$row['pi_no']. "-" .$row['sndmail_seq']. ".xls";
+		    	$path = $_SERVER["DOCUMENT_ROOT"]."/files/attach/";
+		    	$f = fopen($path.$filename,"w+");
+		    	fwrite($f, $row['ctnt']);
+		    	fclose($f);
+	    		$mail->AddAttachment($path.$filename); // attachment
 	    	}
 	    }
 	    if($row['wrk_tp_atcd']!="00700310" && $row['wrk_tp_atcd']!="00700320" && $row['wrk_tp_atcd']!="00700510"){  // if not 의뢰서/출고전표

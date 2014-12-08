@@ -192,6 +192,7 @@ if($sndmail_atcd=="00700111"){
 	$invoice = readInvoice($pi_no);
 	
 	$ctnt = getPiMailCtnt($ctnt, $invoice);
+	$ctnt = str_replace("@pi_sndmail_seq", "", $ctnt);
 	
 }else if($sndmail_atcd=="00700411"){  // Commercial Invoice
 	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
