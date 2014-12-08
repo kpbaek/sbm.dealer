@@ -109,13 +109,13 @@ function getPiMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@unit_price", $unit_price, $ctnt);
 		$ctnt = str_replace("@amount", $amount, $ctnt);
 	}
-	
+/**	
 	if($invoice['invoiceInfo']['pi_sndmail_seq']!=null){
 		$ctnt = str_replace("@pi_sndmail_seq", "-" . $invoice['invoiceInfo']['pi_sndmail_seq'], $ctnt);
 	}else{
 		$ctnt = str_replace("@pi_sndmail_seq", "", $ctnt);
 	}
-	
+*/	
 	return $ctnt;
 }
 

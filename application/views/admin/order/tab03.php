@@ -90,12 +90,13 @@
 		var mygrid = jQuery("#list").jqGrid({
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	colNames:['', '', '', 'slip_yn', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
+		   	colNames:['', '', '', 'slip_yn','pi_sndmail_seq', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
 		   	colModel:[
 		   		{name:'chk', index:'chk', width:55,hidden:true,search:true,formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:true}}, 
 		   		{name:'cnfm_yn',index:'cnfm_yn', width:80, align:"right",search:true,hidden:true},		
 		   		{name:'wrk_tp_atcd',index:'wrk_tp_atcd', width:80, align:"right",search:true,hidden:true},		
 		   		{name:'slip_yn',index:'slip_yn', width:80, align:"right",hidden:true},		
+		   		{name:'pi_sndmail_seq',index:'pi_sndmail_seq', width:80, align:"right",hidden:true},		
 		   		{name:'order_date',index:'order_date', width:80, align:"center",search:true},
 		   		{name:'cntry',index:'cntry', width:100,search:true},
 		        {name:'dealer_nm',index:'dealer_nm', width:70, align:"left",search:true},
@@ -133,6 +134,7 @@
                     var disablePacking = "disabled";
                     var cnfm_yn = rowData.cnfm_yn;
                     var wrk_tp_atcd = rowData.wrk_tp_atcd;
+                    var pi_sndmail_seq = rowData.pi_sndmail_seq;
                     if(cnfm_yn == "Y"){
                         if(wrk_tp_atcd <= "00700210"){  // until P/I 발송(00700210)
 	                    	disableCancel = "";
@@ -186,6 +188,10 @@
 		                    jQuery("#list").jqGrid('setRowData',ids[i],{packing:c_packing});
 		                }
 					}else{
+						if(pi_sndmail_seq!=""){
+	                        c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='Excel' onclick=\"fn_excelDown('"+rowData.pi_no+"','" + pi_sndmail_seq + "');\">";
+	                        jQuery("#list").jqGrid('setRowData',ids[i],{pi:c_pi});
+						}
                         c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='주문확정' onclick=\"fn_cnfmOrder('"+rowData.pi_no+"');\" >";
 					}
 					//                    jQuery("#list").jqGrid('setRowData',ids[i],{c_image:c_image});
@@ -621,7 +627,11 @@
 	function fn_sendPacking(pi_no){
     	location.replace("/index.php/admin/outer/tab03?edit_mode=1&pi_no=" + pi_no);
 	}
-		
+
+	function fn_excelDown(pi_no, pi_sndmail_seq){
+		location.href="/index.php/common/main/htmlToExcel?pi_no=" + pi_no + "&pi_sndmail_seq=" + pi_sndmail_seq + "&sndmail_atcd=00700211";
+	}
+	
 	function fn_sendReq(order_tp, pi_no, po_no){
 		var f = document.editOrderForm;
 		f.method = "post";

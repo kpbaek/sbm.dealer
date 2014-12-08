@@ -57,9 +57,12 @@ $sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0022' and atcd = a.
 $sql = $sql . ", IF(a.cnt_mdl, 'Y', 'N') slip_yn";
 $sql = $sql . " FROM";
 $sql = $sql . "(";
-$sql = $sql . "SELECT pi_no, cntry_atcd, dealer_seq, worker_seq, premium_rate, tot_amt, cnfm_yn, cnfm_dt, slip_sndmail_seq, wrk_tp_atcd, crt_dt, crt_uid, udt_dt, udt_uid";
+$sql = $sql . "SELECT a.*";
 $sql = $sql . ",(select count(*) from om_ord_eqp where pi_no = a.pi_no) cnt_mdl";
+$sql = $sql . ",ifnull(i.pi_sndmail_seq,'') pi_sndmail_seq";
 $sql = $sql . " FROM om_ord_inf a";
+$sql = $sql . " left outer join om_invoice i";
+$sql = $sql . " on a.pi_no = i.pi_no";
 $sql = $sql . ") a";
 $sql = $sql . " WHERE 1=1";
 if($sch_cnfm_yn!=""){
@@ -98,6 +101,7 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	$responce['rows'][$i]['slip_sndmail_seq'] = $row['slip_sndmail_seq'];
 	$responce['rows'][$i]['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
 	$responce['rows'][$i]['slip_yn'] = $row['slip_yn'];
+	$responce['rows'][$i]['pi_sndmail_seq'] = $row['pi_sndmail_seq'];
 	
     $i++;
 }  
