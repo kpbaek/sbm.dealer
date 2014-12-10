@@ -75,7 +75,7 @@ function getPackingMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@udt_dt", $invoice['packingInfo']['udt_dt'], $ctnt);
 
 	
-	if($invoice['invoiceInfo']['prn_qty']!=null || $invoice['invoiceInfo']['repr_qty']!=null){
+	if($invoice['invoiceInfo']['prn_qty']!=null || $invoice['invoiceInfo']['repr_qty']!=null || $invoice['eqpHwOptList']!=null){
 		$ctnt = str_replace("@addonDiv", "", $ctnt);
 		$addon = "";
 		if($invoice['invoiceInfo']['prn_qty']!=null){
@@ -86,6 +86,12 @@ function getPackingMailCtnt($ctnt, $invoice){
 		}
 		if($invoice['invoiceInfo']['repr_qty']!=null){
 			$addon .= "Repair Parts";
+		}
+		if($invoice['invoiceInfo']['prn_qty']!=null || $invoice['invoiceInfo']['repr_qty']!=null){
+			$addon .= ", ";
+		}
+		if($invoice['eqpHwOptList']!=null){
+			$addon .= "HW Option";
 		}
 		$ctnt = str_replace("@addon", $addon, $ctnt);
 	}else{

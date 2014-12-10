@@ -829,6 +829,7 @@ if(isset($_REQUEST["edit_mode"])){
     	var invoiceInfo = result.invoiceInfo; 
     	var orderEqpList = result.orderEqpList; 
     	var orderPartList = result.orderPartList; 
+    	var eqpHwOptList = result.eqpHwOptList; 
     	var packingInfo = result.packingInfo; 
 
 		var f = document.saveForm;
@@ -905,7 +906,7 @@ if(isset($_REQUEST["edit_mode"])){
 			}
 		}
 		 		
-		if(invoiceInfo.prn_qty!=null || invoiceInfo.repr_qty!=null){
+		if(invoiceInfo.prn_qty!=null || invoiceInfo.repr_qty!=null || eqpHwOptList!=null){
 			addonDiv.style.display = "";
 			var addon = "Addon - ";
 			if(invoiceInfo.prn_qty!=null){
@@ -917,8 +918,15 @@ if(isset($_REQUEST["edit_mode"])){
 			if(invoiceInfo.repr_qty!=null){
 				addon += "Repair Parts";
 			}
+			if(invoiceInfo.prn_qty!=null || invoiceInfo.repr_qty!=null){
+				addon += ", ";
+			}
+			if(eqpHwOptList!=null){
+				addon += "HW Option";
+			}
 			$("#addon_div").html(addon);
 		}
+		
 		if(packingInfo!=null){
  	        $("#eqp_carton_no").val(packingInfo.eqp_carton_no);
  	        $("#eqp_gross_wgt").val(packingInfo.eqp_gross_wgt);
