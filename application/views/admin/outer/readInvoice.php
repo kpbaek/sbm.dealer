@@ -522,6 +522,9 @@ function readInvoice($pi_no){
 		#    echo $row['id'];
 		$i++;
 	}
+	if($i==0){
+		$invoice['eqpHwOptList']=null;
+	}
 	
 	
 	
