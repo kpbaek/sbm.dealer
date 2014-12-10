@@ -363,6 +363,16 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
+		  <tr style="display:@eqpHwOptDiv" class="row22">
+			<td class="column0 style3 s"></td>
+			<td class="column1 style54 s style05">@listNo_5)</td>
+			<td class="column4 style54 s style00"><div style="line-height:20px;">@txt_opt_hw_atcd</div></td>
+			<td class="column25 style54 s style05"><div style="line-height:20px;">@opt_qty</div></td>
+			<td class="column30 style54 s style05"><div style="line-height:20px;"> @opt_unit_prc</div></td>
+			<td class="column36 style001 s"><div style="line-height:20px;"> @opt_amt</div>
+			</td>
+			<td class="column47 style13 null"></td>
+		  </tr>
 		  <tr class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"></td>
