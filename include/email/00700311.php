@@ -136,6 +136,22 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		    <td colspan=5></td>
 		  </tr>
 		  <tr>
+			<td rowspan=3 colspan="3" class="style01">Accessaries<br>(Bill Guide, Brush)</td>
+			<td colspan=6 class="style01">Serial Printer Cable</td>
+			<td colspan=10 align=center>@srl_prn_cab
+			</td>
+		  </tr>
+		  <tr>
+			<td colspan=6 class="style01">Calibration Sheet</td>
+			<td colspan=10 align=center>@calibr_sheet
+			</td>
+		  </tr>
+		  <tr>
+			<td colspan=6 class="style01">PC Cable</td>
+			<td colspan=10 align=center>@pc_cab
+			</td>
+		  </tr>
+		  <tr>
 			<td class="style01" colspan=3>OPTION</td>
 			<td colspan=18>
 				<TABLE border=0 width=100%  cellpadding="0">
@@ -346,17 +362,13 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			</td>
 		  </tr>
 		  <tr>
-		    <td colspan=6 class="style01">Serial Printer Cable</td>
-			<td colspan=12 align=center>@srl_prn_cab_ox</td>
-		  </tr>
-		  <tr>
 		    <td colspan=6 class="style01">User's Manual</td>
 			<td colspan=12 align=center>@txt_manual_lang_atcd, @mdl_nm용
 			</td>
 		  </tr>
 		  <tr>
-			<td colspan="9" class="style01">품질 출하일</td>
-		    <td colspan=11 align=center>@qual_ship_dt</td>
+			<td colspan="6" class="style01">품질 출하일</td>
+		    <td colspan=12 align=center>@qual_ship_dt</td>
 		  </tr>
 
 		  </table>

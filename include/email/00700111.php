@@ -118,19 +118,6 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			</td>
 		  </tr>
 		  <tr>
-			<td class="style01" colspan=2>Accessaries<br>(Bill Guide, Brush)</td>
-			<td class="style02">Serial Printer Cable</td>
-			<td colspan=2>@srl_prn_cab_ox
-			</td>
-			<td class="style02">Calibration Sheet</td>
-			<td>@calibr_sheet_ox
-			</td>
-			<td class="style02">PC Cable</td>
-			<td>@pc_cab_ox
-			</td>
-			<td colspan=2></td>
-		  </tr>
-		  <tr>
 			<td class="style01" colspan=2>Shipped by</td>
 			<td colspan=3>@txt_shipped_by_atcd @txt_courier_atcd
 			</td>
