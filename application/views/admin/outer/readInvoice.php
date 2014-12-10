@@ -39,6 +39,27 @@ function getPiMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
 	}
 
+	if($invoice['eqpHwOptList']==null){
+		$ctnt = str_replace("@eqpHwOptDiv", "none", $ctnt);
+	}else{
+		$txt_opt_hw_atcd = "";
+		$opt_unit_prc = "";
+		$opt_qty = "";
+		$opt_amt = "";
+		foreach($invoice['eqpHwOptList'] as $eqpHwOptList) {
+			if($eqpHwOptList['opt_qty'] > 0){
+				$txt_opt_hw_atcd .= $eqpHwOptList['txt_opt_hw_atcd'] . "(" .$eqpHwOptList['opt_mdl_nm']. ")<br>";
+				$opt_unit_prc .= "USD " .$eqpHwOptList['opt_unit_prc'] . "<br>";
+				$opt_qty .= $eqpHwOptList['opt_qty'] . "<br>";
+				$opt_amt .= "USD " .$eqpHwOptList['opt_amt'] . "<br>";
+			}
+		}
+		$ctnt = str_replace("@txt_opt_hw_atcd", $txt_opt_hw_atcd, $ctnt);
+		$ctnt = str_replace("@opt_unit_prc", $opt_unit_prc, $ctnt);
+		$ctnt = str_replace("@opt_qty", $opt_qty, $ctnt);
+		$ctnt = str_replace("@opt_amt", $opt_amt, $ctnt);
+	}
+
 
 
 	$tot_amt = $invoice['invoiceInfo']['inv_tot_amt'];
@@ -85,7 +106,9 @@ function getPiMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@dscrt", $dscrt, $ctnt);
 		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
 
-		$tot_amt .= "<br>(Eqp.DC:-" . $invoice['invoiceInfo']['discount'] . ")";
+		if($invoice['invoiceInfo']['discount'] > 0){
+			$tot_amt .= "<br>(Eqp.DC:-" . $invoice['invoiceInfo']['discount'] . ")";
+		}
 	}
 	$ctnt = str_replace("@tot_amt", $tot_amt, $ctnt);
 
@@ -263,7 +286,8 @@ function readInvoice($pi_no){
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00F3' and atcd = b.ship_port_atcd) txt_ship_port_atcd";
 	$sql_invoice = $sql_invoice . ", b.destnt, b.validity, b.bank_atcd, b.invoice_dt, b.pi_sndmail_seq, b.ci_sndmail_seq";
 	$sql_invoice = $sql_invoice . ", b.csn_cmpy_nm, b.csn_addr, b.csn_tel, b.csn_fax, b.csn_attn";
-	$sql_invoice = $sql_invoice . ", ifnull(ifnull(b.prn_tot_amt,0) + ifnull(b.repr_tot_amt,0) + ifnull(b.tot_amt,0) + (select ifnull(sum(amt),0) from om_ord_part where pi_no = a.pi_no),0) as inv_tot_amt";
+	$sql_invoice = $sql_invoice . ", ifnull(ifnull(b.prn_tot_amt,0) + ifnull(b.repr_tot_amt,0) + ifnull((select sum(opt_qty * opt_unit_prc) from om_ord_eqp_dtl where pi_no = a.pi_no), 0) + ifnull(b.tot_amt,0)";
+	$sql_invoice = $sql_invoice . " + (select ifnull(sum(amt),0) from om_ord_part where pi_no = a.pi_no),0) as inv_tot_amt";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) inv_bank";
 	$sql_invoice = $sql_invoice . ", (select atcd_dscrt from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) txt_bank_atcd_dscrt";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = d.bank_atcd) dealer_bank";
@@ -302,6 +326,7 @@ function readInvoice($pi_no){
 	#$sql_invoice = $sql_invoice . "  WHERE a.pi_no = b.pi_no";
 	#$sql_invoice = $sql_invoice . "  AND a.pi_no = '" .$pi_no. "'";
 #	echo $sql_invoice;
+#	log_message('debug', $sql_invoice);
 	
 	$result = mysql_query( $sql_invoice ) or die("Couldn t execute query.".mysql_error());
 	$row = mysql_fetch_array($result,MYSQL_ASSOC);
@@ -375,6 +400,7 @@ function readInvoice($pi_no){
 	$sql_eqp = $sql_eqp . " on a.mdl_cd = m.mdl_cd";
 	$sql_eqp = $sql_eqp . " order by mdl_cd";
 //	echo $sql_eqp;
+	log_message('debug', $sql_eqp);
 	
 	$result = mysql_query( $sql_eqp ) or die("Couldn t execute query.".mysql_error());
 	$i=0;
@@ -415,6 +441,7 @@ function readInvoice($pi_no){
 		$sql_eqp_dtl = $sql_eqp_dtl . ") a, om_ord_inf b";
 		$sql_eqp_dtl = $sql_eqp_dtl . " WHERE a.pi_no = b.pi_no";
 		#$sql_eqp_dtl = $sql_eqp_dtl . " and cd = '0091'";
+#		log_message('debug', $sql_eqp_dtl);
 		
 		$result2 = mysql_query( $sql_eqp_dtl ) or die("Couldn t execute query.".mysql_error());
 		
@@ -467,6 +494,35 @@ function readInvoice($pi_no){
 	if($i==0){
 		$invoice['orderEqpList']=null;
 	}
+	
+	
+	$sql_eqp_opt = "SELECT a.*";
+	$sql_eqp_opt = $sql_eqp_opt . ",(select mdl_nm from om_mdl where mdl_cd = a.mdl_cd) opt_mdl_nm";
+	$sql_eqp_opt = $sql_eqp_opt . ",(opt_qty * opt_unit_prc) opt_amt";
+	$sql_eqp_opt = $sql_eqp_opt . ",(SELECT atcd_nm FROM cm_cd_attr WHERE cd = '00A0' AND atcd = a.atcd) txt_opt_hw_atcd";
+	$sql_eqp_opt = $sql_eqp_opt . " FROM (SELECT a.mdl_cd, b.pi_no, b.po_no, ifnull(b.opt_qty,0) opt_qty, ifnull(b.opt_unit_prc,0) opt_unit_prc, b.atcd";
+	$sql_eqp_opt = $sql_eqp_opt . "       FROM om_ord_eqp a, om_ord_eqp_dtl b";
+	$sql_eqp_opt = $sql_eqp_opt . "       WHERE a.pi_no = b.pi_no";
+	$sql_eqp_opt = $sql_eqp_opt . "       AND a.po_no = b.po_no";
+	$sql_eqp_opt = $sql_eqp_opt . "       AND a.pi_no = '" .$pi_no. "'";
+	$sql_eqp_opt = $sql_eqp_opt . "       AND b.atcd in ('00A00002','00A00003','00A00004')) a, om_ord_inf b";
+	$sql_eqp_opt = $sql_eqp_opt . " WHERE a.pi_no = b.pi_no";
+	$sql_eqp_opt = $sql_eqp_opt . " ORDER BY po_no, atcd	";
+	$result2 = mysql_query( $sql_eqp_opt ) or die("Couldn t execute query.".mysql_error());
+	$i=0;
+	while($row = mysql_fetch_array($result2,MYSQL_ASSOC)) {
+		$invoice['eqpHwOptList'][$i]['opt_mdl_nm'] = $row['opt_mdl_nm'];
+		$invoice['eqpHwOptList'][$i]['pi_no'] = $row['pi_no'];
+		$invoice['eqpHwOptList'][$i]['po_no'] = $row['po_no'];
+		$invoice['eqpHwOptList'][$i]['opt_qty'] = $row['opt_qty'];
+		$invoice['eqpHwOptList'][$i]['opt_unit_prc'] = $row['opt_unit_prc'];
+		$invoice['eqpHwOptList'][$i]['opt_amt'] = $row['opt_amt'];
+		$invoice['eqpHwOptList'][$i]['atcd'] = $row['atcd'];
+		$invoice['eqpHwOptList'][$i]['txt_opt_hw_atcd'] = $row['txt_opt_hw_atcd'];
+		#    echo $row['id'];
+		$i++;
+	}
+	
 	
 	
 	

@@ -256,13 +256,11 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column6 style19 f"><div id="amount" name="amount"></div></td>
 		  </tr>
 		  <tr class="row22">
-			<td class="column0 style25 null"></td>
-			<td class="column1 style30 null"></td>
-			<td class="column2 style27 null"></td>
-			<td class="column3 style27 null"></td>
-			<td class="column4 style28 null"></td>
-			<td class="column5 style18 null"></td>
-			<td class="column6 style18 null"></td>
+			<td class="column0 style14 null"></td>
+			<td class="column1 style30 s" colspan=3><div id="txt_opt_hw_atcd" style="padding-left: 10px;line-height:50px;"></div></td>
+			<td class="column4 style33 null"><div id="opt_qty" style="line-height:50px;"></div></td>
+			<td class="column5 style19 null"><div id="opt_unit_prc" style="line-height:50px;"></div></td>
+			<td class="column6 style34 null"><div id="opt_amt" style="line-height:50px;"></div></td>
 		  </tr>
 		  <tr class="row12" id="prnDiv" style="display:none">
 			<td class="column0 style14 s"><div id="prn"></div></td>
@@ -303,7 +301,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column0 style14 s">Addon
 			<select id="addon" name="addon" onchange="javascript:fn_verifyAddon(this.value);">
 				<option value="">select</option>
-				<option value="PRN">Printer</option>
+				<!-- <option value="PRN">Printer</option> -->
 				<option value="RPR">Repair Parts</option>
 			</select>
 			</td>
@@ -311,15 +309,6 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column4 style17 n"><input type=text id="addon_qty" name="addon_qty" value="" size=8 maxlength=6 style="ime-mode:disabled" onKeyup="fncOnlyDecimal(this);" disabled></td>
 			<td class="column5 style19 n"></td>
 			<td class="column6 style19 f"><input type=text id="addon_tot_amt" name="addon_tot_amt" value="" size=8 maxlength=8 style="ime-mode:disabled" onKeyup="fncOnlyDecimal(this);" disabled></td>
-		  </tr>
-		  <tr class="row22">
-			<td class="column0 style25 null"></td>
-			<td class="column1 style30 null"></td>
-			<td class="column2 style27 null"></td>
-			<td class="column3 style27 null"></td>
-			<td class="column4 style28 null"></td>
-			<td class="column5 style18 null"></td>
-			<td class="column6 style18 null"></td>
 		  </tr>
 		  <tr class="row25">
 			<td class="column0 style14 null"></td>
@@ -394,21 +383,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column0 style44 s" colspan=2>Bank Information</td>
 			<td class="column2 style40 s">:</td>
 			<td class="column3 style60 s" colspan=4>
-			<select id="bank_atcd" name="bank_atcd">
-			<!-- 
-				<option value="CITI BANK INC.-Commercial Bank Center-Gyeonggi Nambu
-				2F, CITI Osan Bldg., 84 Seongho-daero
-				Osan-si, Gyeonggi-do, 447-804, KOREA
-				SWIFT Code: CITIKRSX
-				Account No.: 558-00113-436-01">CITI BANK INC
-				</option>
-				<option value="HANABANK, GASAN-DONG BRANCH 
-     550-1, GASAN-DONG, GEUMCHEON-GU, SEOUL, KOREA 
-     SWIFT CODE: HNBNKRSE 
-     Account No.: 332-910001-81938 
-				">HANABANK
-				</option>
-			 -->
+				<select id="bank_atcd" name="bank_atcd">
 				</select>
 			</td>
 		  </tr>
@@ -591,6 +566,7 @@ if(isset($_REQUEST["edit_mode"])){
     	var invoiceInfo = result.invoiceInfo; 
     	var orderEqpList = result.orderEqpList; 
     	var orderPartList = result.orderPartList; 
+    	var eqpHwOptList = result.eqpHwOptList; 
 
 		var f = document.saveForm;
 		getCodeCombo("00F3", f.ship_port_atcd, invoiceInfo.ship_port_atcd);
@@ -705,10 +681,35 @@ if(isset($_REQUEST["edit_mode"])){
 	        $("#prn_qty").html(invoiceInfo.prn_qty);
 	        $("#prn_tot_amt").html("USD " + invoiceInfo.prn_tot_amt);
 		}
+
+		if(eqpHwOptList!=null){
+			var opt_mdl_nm = "";
+			var txt_opt_hw_atcd = "";
+			var opt_unit_prc = "";
+			var opt_qty = "";
+			var opt_amt = "";
+			$.each(eqpHwOptList, function(key) {
+				var targetInfo = eqpHwOptList[key];
+				txt_opt_hw_atcd += targetInfo.txt_opt_hw_atcd + " ( " + targetInfo.opt_mdl_nm + " )<br>";
+				opt_qty += "<input type=text id='opt_qty' name='opt_qty[]' value='" + targetInfo.opt_qty + "' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyDecimal(this);fn_calcOptAmt(" + key + ");'>" + "<br>";
+				opt_unit_prc += "<input type=text id='opt_unit_prc' name='opt_unit_prc[]' value='" + targetInfo.opt_unit_prc + "' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyDecimal(this);fn_calcOptAmt(" + key + ");'>" + "<br>";
+				opt_amt += "<input type=text id='opt_amt' name='opt_amt[]' value='" + targetInfo.opt_amt + "' size=8 maxlength=8 style='ime-mode:disabled' disabled>" + "<br>";
+				opt_amt += "<input type=hidden id='opt_atcd' name='opt_atcd[]' value='" + targetInfo.atcd + "'>";
+				opt_amt += "<input type=hidden id='opt_po_no' name='opt_po_no[]' value='" + targetInfo.po_no + "'>";
+			})
+	        $("#txt_opt_hw_atcd").html(txt_opt_hw_atcd);
+	        $("#opt_unit_prc").html(opt_unit_prc);
+	        $("#opt_qty").html(opt_qty);
+	        $("#opt_amt").html(opt_amt);
+		}
+				
+				
 		
         $("#tot_amt").html("USD " + invoiceInfo.inv_tot_amt);
 		if(orderEqpList!=null){
-			$("#tot_amt").append("<br>(Eqp.DC:-" + invoiceInfo.discount + ")");
+			if(invoiceInfo.discount > 0){
+				$("#tot_amt").append("<br>(Eqp.DC:-" + invoiceInfo.discount + ")");
+			}
 		}
 		if(invoiceInfo.wrk_tp_atcd<"00700410"){  // INVOICE 발송(00700410)
 			$('#btnSave').attr('disabled',false);
@@ -753,13 +754,22 @@ if(isset($_REQUEST["edit_mode"])){
 		return true;
 	}
 
-	function fn_calcAmt(unit_price, eqp_qty, key){
+	function fn_calcAmt(unit_price, qty, key){
 		var f = document.saveForm;
-		var amt = unit_price * eqp_qty;
+		var amt = unit_price * qty;
 		if(f.amt.length){
 	    	f.amt[key].value = amt;
 		}else{
 	    	f.amt.value = amt;
+		}
+	}
+
+	function fn_calcOptAmt(key){
+		var f = document.saveForm;
+		if(f.opt_qty.length){
+	    	f.opt_amt[key].value = f.opt_qty[key].value * f.opt_unit_prc[key].value;
+		}else{
+	    	f.opt_amt.value = f.opt_qty.value * f.opt_unit_prc.value;
 		}
 	}
 

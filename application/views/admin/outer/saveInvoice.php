@@ -56,6 +56,27 @@ if(isset($_POST["po_no"])){
 	$po_no = $_POST["po_no"];
 }
 
+
+$opt_po_no = null;
+if(isset($_POST["opt_po_no"])){
+	$opt_po_no = $_POST["opt_po_no"];
+}
+
+$opt_atcd = null;
+if(isset($_POST["opt_atcd"])){
+	$opt_atcd = $_POST["opt_atcd"];
+}
+
+$opt_qty = null;
+if(isset($_POST["opt_qty"])){
+	$opt_qty = $_POST["opt_qty"];
+}
+
+$opt_unit_prc = null;
+if(isset($_POST["opt_unit_prc"])){
+	$opt_unit_prc = $_POST["opt_unit_prc"];
+}
+
 session_start();
 
 if(isSet($_POST['pi_no'])){
@@ -86,13 +107,32 @@ if(isSet($_POST['pi_no'])){
 			$sql_eqp = $sql_eqp . " SET amt=" .$amt[$i_amt];
 			$sql_eqp = $sql_eqp . " , udt_uid='" .$_SESSION['ss_user']['uid']. "'";
 			$sql_eqp = $sql_eqp . " WHERE pi_no = '" .$pi_no. "'";
-			$sql_eqp = $sql_eqp . " AND po_no = '" .$po_no[$i_amt]. "'";
+			$sql_eqp = $sql_eqp . " AND po_no = " .$po_no[$i_amt];
 			#echo $sql_eqp;
 			
 			$result2 = $this->db->query($sql_eqp);
 			$qryInfo['qryInfo']['udtEqp'][$i_amt]['sql2'] = $sql_eqp;
 			$qryInfo['qryInfo']['udtEqp'][$i_amt]['result2'] = $result2;
 		}
+
+		
+		for($i_opt_qty=0; $i_opt_qty < sizeof($opt_qty); $i_opt_qty++)
+		{
+			$sql_eqp_dtl = "UPDATE om_ord_eqp_dtl";
+			$sql_eqp_dtl = $sql_eqp_dtl . " SET opt_qty=" .$opt_qty[$i_opt_qty];
+			$sql_eqp_dtl = $sql_eqp_dtl . " , opt_unit_prc=" .$opt_unit_prc[$i_opt_qty];
+			$sql_eqp_dtl = $sql_eqp_dtl . " , udt_uid='" .$_SESSION['ss_user']['uid']. "'";
+			$sql_eqp_dtl = $sql_eqp_dtl . " WHERE pi_no = '" .$pi_no. "'";
+			$sql_eqp_dtl = $sql_eqp_dtl . " AND po_no = " .$opt_po_no[$i_opt_qty];
+			$sql_eqp_dtl = $sql_eqp_dtl . " AND cd = '00A0'";
+			$sql_eqp_dtl = $sql_eqp_dtl . " AND atcd = '" .$opt_atcd[$i_opt_qty]. "'";
+			#echo $sql_eqp;
+				
+			$result2 = $this->db->query($sql_eqp_dtl);
+			$qryInfo['qryInfo']['udtEqpDtl'][$i_opt_qty]['sql2'] = $sql_eqp_dtl;
+			$qryInfo['qryInfo']['udtEqpDtl'][$i_opt_qty]['result2'] = $result2;
+		}
+			
 		
 		$sql_tot_amt = "select sum(a.amt) tot_amt from ";
 		$sql_tot_amt = $sql_tot_amt . "(";
@@ -160,7 +200,7 @@ if(isSet($_POST['pi_no'])){
 		{
 			$this->db->trans_commit();
 		}
-		
+
 	}
 	echo json_encode($qryInfo);
 }
