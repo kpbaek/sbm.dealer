@@ -266,6 +266,8 @@ CREATE TABLE `om_ord_eqp_dtl` (
   `po_no` int(11) NOT NULL COMMENT '주문번호',
   `cd` varchar(4) NOT NULL COMMENT '코드',
   `atcd` varchar(8) NOT NULL COMMENT '속성코드',
+  `opt_qty` int(6) DEFAULT NULL COMMENT 'option수량',
+  `opt_unit_prc` decimal(8,2) DEFAULT NULL COMMENT 'option단가',
   `crt_dt` datetime NOT NULL COMMENT '생성일시',
   `crt_uid` varchar(50) NOT NULL COMMENT '생성자ID',
   `udt_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
