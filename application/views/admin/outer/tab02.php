@@ -528,6 +528,15 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
+		  <tr id="eqpHwOptDiv" style="display:none" class="row22">
+			<td class="column0 style3 s"></td>
+			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
+			<td class="column4 style54 s style00"><div id="txt_opt_hw_atcd" style="padding-left: 10px;"></div></td>
+			<td class="column5 style54 s style05"><div id="opt_qty"></div></td>
+			<td class="column6 style54 s style05"><div id="opt_unit_prc"></div></td>
+			<td class="column6 style001 s"><div id="opt_amt"></div></td>
+			<td class="column47 style13 null"></td>
+		  </tr>
 		  <tr class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"></td>
@@ -609,7 +618,8 @@ if(isset($_REQUEST["edit_mode"])){
     	var invoiceInfo = result.invoiceInfo; 
     	var orderEqpList = result.orderEqpList; 
     	var orderPartList = result.orderPartList; 
-
+    	var eqpHwOptList = result.eqpHwOptList; 
+    	
 		var f = document.saveForm;
 
 		$("#pi_sndmail_seq").val(invoiceInfo.pi_sndmail_seq);
@@ -675,7 +685,7 @@ if(isset($_REQUEST["edit_mode"])){
 	        $("#spare_parts").html(spare_parts);
 	        $("#qty").html(qty + " Units");
 //	        $("#unit_price").html("$ " + unit_price);
-	        $("#amount").html("$ " + amount);
+	        $("#amount").html("$ " + amount.toFixed(2));
 	        
 		}
 		
@@ -693,10 +703,32 @@ if(isset($_REQUEST["edit_mode"])){
 	        $("#repr_qty").html(invoiceInfo.repr_qty + " Units");
 	        $("#repr_tot_amt").html("$ " + invoiceInfo.repr_tot_amt);
 		}
+
+		if(eqpHwOptList!=null){
+			eqpHwOptDiv.style.display = "";
+			var opt_mdl_nm = "";
+			var txt_opt_hw_atcd = "";
+			var opt_unit_prc = "";
+			var opt_qty = "";
+			var opt_amt = "";
+			$.each(eqpHwOptList, function(key) {
+				var targetInfo = eqpHwOptList[key];
+				txt_opt_hw_atcd += targetInfo.txt_opt_hw_atcd + " ( " + targetInfo.opt_mdl_nm + " )<br>";
+				opt_qty += targetInfo.opt_qty + " Units<br>";
+				opt_unit_prc += "$ " + targetInfo.opt_unit_prc + "<br>";
+				opt_amt += "$ " + targetInfo.opt_amt + "<br>";
+			})
+	        $("#txt_opt_hw_atcd").html(txt_opt_hw_atcd);
+	        $("#opt_unit_prc").html(opt_unit_prc);
+	        $("#opt_qty").html(opt_qty);
+	        $("#opt_amt").html(opt_amt);
+		}
 		
         $("#tot_amt").html("$ " + invoiceInfo.inv_tot_amt);
 		if(orderEqpList!=null){
-			$("#tot_amt").append("<br>(Eqp.DC: $ -" + invoiceInfo.discount + ")");
+			if(invoiceInfo.discount > 0){
+				$("#tot_amt").append("<br>(Eqp.DC: $ -" + invoiceInfo.discount + ")");
+			}
 		}
 		
 		tot_qty += eval(invoiceInfo.repr_qty);
@@ -715,6 +747,9 @@ if(isset($_REQUEST["edit_mode"])){
 				continue;
 			} 
 			if(i==3 && invoiceInfo.repr_qty==null){
+				continue;
+			} 
+			if(i==4 && eqpHwOptList==null){
 				continue;
 			} 
 			listNo++;

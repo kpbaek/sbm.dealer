@@ -184,6 +184,26 @@ function getCiMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
 	}
 		
+	if($invoice['eqpHwOptList']==null){
+		$ctnt = str_replace("@eqpHwOptDiv", "none", $ctnt);
+	}else{
+		$txt_opt_hw_atcd = "";
+		$opt_unit_prc = "";
+		$opt_qty = "";
+		$opt_amt = "";
+		foreach($invoice['eqpHwOptList'] as $eqpHwOptList) {
+			if($eqpHwOptList['opt_qty'] > 0){
+				$txt_opt_hw_atcd .= $eqpHwOptList['txt_opt_hw_atcd'] . "(" .$eqpHwOptList['opt_mdl_nm']. ")<br>";
+				$opt_unit_prc .= "$ " .$eqpHwOptList['opt_unit_prc'] . "<br>";
+				$opt_qty .= $eqpHwOptList['opt_qty'] . " Units<br>";
+				$opt_amt .= "$ " .$eqpHwOptList['opt_amt'] . "<br>";
+			}
+		}
+		$ctnt = str_replace("@txt_opt_hw_atcd", $txt_opt_hw_atcd, $ctnt);
+		$ctnt = str_replace("@opt_unit_prc", $opt_unit_prc, $ctnt);
+		$ctnt = str_replace("@opt_qty", $opt_qty, $ctnt);
+		$ctnt = str_replace("@opt_amt", $opt_amt, $ctnt);
+	}
 	
 	$ctnt = str_replace("@csn_addr", $invoice['invoiceInfo']['csn_addr'], $ctnt);
 	$ctnt = str_replace("@csn_tel", $invoice['invoiceInfo']['csn_tel'], $ctnt);
@@ -232,7 +252,9 @@ function getCiMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@dscrt", $dscrt, $ctnt);
 		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
 	
-		$tot_amt .= "<br>(Eqp.DC: $ -" . $invoice['invoiceInfo']['discount'] . ")";
+		if($invoice['invoiceInfo']['discount'] > 0){
+			$tot_amt .= "<br>(Eqp.DC: $ -" . $invoice['invoiceInfo']['discount'] . ")";
+		}
 	}
 	$ctnt = str_replace("@tot_amt", $tot_amt, $ctnt);
 	
@@ -258,7 +280,7 @@ function getCiMailCtnt($ctnt, $invoice){
 
 	
 	$listNo = 0;
-	for($i_list=0; $i_list<4;$i_list++){
+	for($i_list=0; $i_list<5;$i_list++){
 		if($i_list==0 && $invoice['orderEqpList']==null){
 			continue;
 		}
@@ -269,6 +291,9 @@ function getCiMailCtnt($ctnt, $invoice){
 			continue;
 		}
 		if($i_list==3 && $invoice['invoiceInfo']["repr_qty"]==null){
+			continue;
+		}
+		if($i_list==4 && $invoice['eqpHwOptList']==null){
 			continue;
 		}
 		$listNo++;
