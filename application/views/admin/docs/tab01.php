@@ -274,6 +274,28 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		    <td colspan=5></td>
 		  </tr>
 		  <tr>
+			<td rowspan=3 colspan="3" class="style01">Accessaries<br>(Bill Guide, Brush)</td>
+			<td colspan=4 class="style01">Serial Printer Cable</td>
+			<td colspan=12 align=center>
+				<select id="srl_prn_cab_ox" name="srl_prn_cab_ox">
+				</select>
+			</td>
+		  </tr>
+		  <tr>
+			<td colspan=4 class="style01">Calibration Sheet</td>
+			<td colspan=12 align=center>
+				<select id="calibr_sheet_ox" name="calibr_sheet_ox">
+				</select>
+			</td>
+		  </tr>
+		  <tr>
+			<td colspan=4 class="style01">PC Cable</td>
+			<td colspan=12 align=center>
+				<select id="pc_cab_ox" name="pc_cab_ox">
+				</select>
+			</td>
+		  </tr>
+		  <tr>
 			<td class="style01" colspan=3>OPTION</td>
 			<td colspan=18>
 				<TABLE border=0 width=100% cellpadding="0">
@@ -282,7 +304,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 					<td align=left colspan=2>
 						<TABLE border=1 width=100% style="">
 						<TR id="dispenser_div" style="display:">
-							<TD class="style01">Dispenser Mode</TD>
+							<TD class="style01" width=157px>Dispenser Mode</TD>
 							<TD align=center>
 							<select id="dispenser_ox" name="dispenser_ox">
 							<option value="">Select</option>
@@ -315,7 +337,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 						<TABLE border=1 width=100% id="opt_hw_div" cellpadding="0">
 						<tbody">
 						<TR>
-							<TD class="style10" width=140px></TD>
+							<TD class="style10" width=157px></TD>
 							<TD class="style20"></TD>
 						</TR>
 						</tbody>
@@ -324,28 +346,13 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 				</TR>
 				<TR>
 					<TD class="style01" width=35px>기타</TD>
-					<TD class="style01" width=155px>특이사항</TD>
-					<TD><input type=text id="extra" name="extra" size=70></TD>
+					<TD class="style01" width=160px>특이사항</TD>
+					<TD>&nbsp;<input type=text id="extra" name="extra" size=70></TD>
 				</TR>
 				</TABLE>
 			</td>
 		  </tr>
 <!-- 		  
-		  <tr>
-			<td rowspan=9 colspan="2" class="style01">OPTION</td>
-			<td rowspan=2 class="style01">SW</td>
-			<td colspan=4 class="style01">ISSUE</td>
-			<td colspan=12></td>
-		  </tr>
-		  <tr>
-			<td colspan=4 class="style01">SNC</td>
-			<td colspan=12></td>
-		  </tr>
-		  <tr>
-			<td rowspan=7 class="style01">HW</td>
-			<td colspan=4 class="style01">CIS</td>
-			<td colspan=12></td>
-		  </tr>
 		  <tr>
 			<td colspan=4 class="style01">LAN</td>
 			<td colspan=12></td>
@@ -400,19 +407,15 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			</td>
 		  </tr>
 		  <tr>
-		    <td colspan=5 class="style01">Serial Printer Cable</td>
-			<td colspan=13 align=center><div id="srl_prn_cab_ox"></div></td>
-		  </tr>
-		  <tr>
 		    <td colspan=5 class="style01">User's Manual</td>
-			<td colspan=13>
+			<td colspan=13>&nbsp;
 				<select id="manual_lang_atcd" name="manual_lang_atcd">
 				</select>
 			</td>
 		  </tr>
 		  <tr>
-			<td colspan="8" class="style01">품질 출하일</td>
-		    <td colspan=12><input type="text" id="qual_ship_dt" name="qual_ship_dt" value="<?php echo date("Y-m-d")?>" size="10" maxlength="10"/></td>
+			<td colspan="5" class="style01">품질 출하일</td>
+		    <td colspan=13>&nbsp;<input type="text" id="qual_ship_dt" name="qual_ship_dt" value="<?php echo date("Y-m-d")?>" size="10" maxlength="10"/></td>
 		  </tr>
 		  <!-- 
 		  <tr>
@@ -561,7 +564,7 @@ function fn_addOptHwRow(id, txt_opt_hw_atcd, ox_opt_hw_atcd){
 //    td_1.align = "center";
     td_2.appendChild(document.createTextNode(txt_opt_hw_atcd));
     td_2.style.backgroundColor = "#CCCCFF";
-    td_2.style.width = "150px";
+    td_2.style.width = "159px";
     td_2.align = "center";
     td_2.setAttribute('class','style10');
     td_3.appendChild(document.createTextNode(ox_opt_hw_atcd));
@@ -595,6 +598,11 @@ function initForm() {
 	getOXCombo(f.issue_ox, "");
 	getOXCombo(f.snc_ox, "");
 	getCodeCombo("0040", f.manual_lang_atcd);
+
+	getOXCombo(f.srl_prn_cab_ox, "X");
+	getOXCombo(f.calibr_sheet_ox, "X");
+	getOXCombo(f.pc_cab_ox, "X");
+	
 }
 
 function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
@@ -646,7 +654,10 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 		f.detector_tape.style.display = "";
 		getOXCombo(f.detector_tape, prdReqInfo.detector_tape);
 	}
-
+	
+	getOXCombo(f.srl_prn_cab_ox, prdReqInfo.srl_prn_cab);
+	getOXCombo(f.calibr_sheet_ox, prdReqInfo.calibr_sheet);
+	getOXCombo(f.pc_cab_ox, prdReqInfo.pc_cab);
 
 	
 	getCodeCombo("0040", f.manual_lang_atcd, prdReqInfo.manual_lang_atcd);
@@ -669,7 +680,6 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	$("#txt_lcd_lang_atcd").html(eqpOrdInfo.txt_lcd_lang_atcd);
 	$("#txt_lcd_color_atcd").html(eqpOrdInfo.txt_lcd_color_atcd);
 	$("#pwr_cab").html(eqpOrdInfo.txt_pwr_cab_atcd + "<img src='/images/common/dropdown/00E0/" + eqpOrdInfo.pwr_cab_atcd + ".png'>");
-	$("#srl_prn_cab_ox").html(eqpOrdInfo.srl_prn_cab_ox);
 	if(eqpOrdInfo.srl_atcd!=null){
 		srl_01.style.display = "";
 		srl_02.style.display = "";
@@ -710,7 +720,6 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	if(f.snc_ox.disabled==false){
 		getOXCombo(f.snc_ox, prdReqInfo.snc);
 	}
-	
 	
 	var c1Ar = [];
 	var srl_cAr = [];

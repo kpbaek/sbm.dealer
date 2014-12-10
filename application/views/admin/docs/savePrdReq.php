@@ -91,6 +91,20 @@ if(isset($_POST["snc_ox"])){
 	$snc_ox = trim($_POST["snc_ox"]);
 }
 
+$srl_prn_cab_ox = "";
+if(isset($_POST["srl_prn_cab_ox"])){
+	$srl_prn_cab_ox = $_POST["srl_prn_cab_ox"];
+}
+
+$calibr_sheet_ox = "";
+if(isset($_POST["calibr_sheet_ox"])){
+	$calibr_sheet_ox = $_POST["calibr_sheet_ox"];
+}
+
+$pc_cab_ox = "";
+if(isset($_POST["pc_cab_ox"])){
+	$pc_cab_ox = $_POST["pc_cab_ox"];
+}
 
 
 //$this->db->trans_off();
@@ -195,6 +209,17 @@ if($swm_no!=""){
 		$sql_dtt = $sql_dtt . " AND atcd in ('0K000010','0K000020','0K000030','0K000040','0K000050')	";
 		$sql_dtt = $sql_dtt . " ) a	";
 		$sql_dtt = $sql_dtt . " WHERE atcd_ox in ('O','X')";
+		$sql_dtt = $sql_dtt . " UNION	";
+		$sql_dtt = $sql_dtt . " SELECT " .$swm_no. ", cd, atcd";
+		$sql_dtt = $sql_dtt . ",(case when atcd='00N00010' then '" .$srl_prn_cab_ox. "'";
+		$sql_dtt = $sql_dtt . "    when atcd='00N00020' then '" .$calibr_sheet_ox. "'";
+		$sql_dtt = $sql_dtt . "    when atcd='00N00030' then '" .$pc_cab_ox. "'";
+		$sql_dtt = $sql_dtt . "    end) atcd_ox";
+		$sql_dtt = $sql_dtt . "  , now()";
+		$sql_dtt = $sql_dtt . "  , '" .$_SESSION['ss_user']['uid']. "'";
+		$sql_dtt = $sql_dtt . " FROM cm_cd_attr";
+		$sql_dtt = $sql_dtt . " WHERE cd = '00N0'";
+		$sql_dtt = $sql_dtt . " AND atcd in ('00N00010','00N00020','00N00030')	";
 		
 	#	echo $sql_dtt;
 		$result4 = $this->db->query($sql_dtt);
@@ -285,8 +310,19 @@ if($swm_no!=""){
 	$sql_dtt = $sql_dtt . "  , now()";
 	$sql_dtt = $sql_dtt . "  , '" .$_SESSION['ss_user']['uid']. "'";
 	$sql_dtt = $sql_dtt . " FROM cm_cd_attr";
-	$sql_dtt = $sql_dtt . " WHERE cd='00K0'";
+	$sql_dtt = $sql_dtt . " WHERE cd = '00K0'";
 	$sql_dtt = $sql_dtt . " AND atcd in ('0K000010','0K000020','0K000030','0K000040','0K000050')	";
+	$sql_dtt = $sql_dtt . " UNION	";
+	$sql_dtt = $sql_dtt . " SELECT last_insert_id(), cd, atcd";
+	$sql_dtt = $sql_dtt . ",(case when atcd='00N00010' then '" .$srl_prn_cab_ox. "'";
+	$sql_dtt = $sql_dtt . "    when atcd='00N00020' then '" .$calibr_sheet_ox. "'";
+	$sql_dtt = $sql_dtt . "    when atcd='00N00030' then '" .$pc_cab_ox. "'";
+	$sql_dtt = $sql_dtt . "    end) atcd_ox";
+	$sql_dtt = $sql_dtt . "  , now()";
+	$sql_dtt = $sql_dtt . "  , '" .$_SESSION['ss_user']['uid']. "'";
+	$sql_dtt = $sql_dtt . " FROM cm_cd_attr";
+	$sql_dtt = $sql_dtt . " WHERE cd = '00N0'";
+	$sql_dtt = $sql_dtt . " AND atcd in ('00N00010','00N00020','00N00030')	";
 	
 #	echo $sql_dtt;
 	$result4 = $this->db->query($sql_dtt);

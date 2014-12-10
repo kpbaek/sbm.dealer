@@ -61,21 +61,6 @@ if(isset($_POST["opt_hw_atcd"])){
 	$opt_hw_atcd = $_POST["opt_hw_atcd"];
 }
 
-$srl_prn_cab_ox = "";
-if(isset($_POST["srl_prn_cab_ox"])){
-	$srl_prn_cab_ox = $_POST["srl_prn_cab_ox"];
-}
-
-$calibr_sheet_ox = "";
-if(isset($_POST["calibr_sheet_ox"])){
-	$calibr_sheet_ox = $_POST["calibr_sheet_ox"];
-}
-
-$pc_cab_ox = "";
-if(isset($_POST["pc_cab_ox"])){
-	$pc_cab_ox = $_POST["pc_cab_ox"];
-}
-
 $shipped_by_atcd = "";
 if(isset($_POST["shipped_by_atcd"])){
 	$shipped_by_atcd = $_POST["shipped_by_atcd"];
@@ -171,9 +156,9 @@ if($po_no==""){
 		
 	$sql_eqp = "INSERT INTO om_ord_eqp";
 	$sql_eqp = $sql_eqp . "(pi_no, mdl_cd, srl_atcd, lcd_color_atcd, lcd_lang_atcd, rjt_pkt_tp_atcd, pwr_cab_atcd, shipped_by_atcd, courier_atcd, delivery_dt";
-	$sql_eqp = $sql_eqp . ", payment_atcd, incoterms_atcd, acct_no, srl_prn_cab_ox, calibr_sheet_ox, pc_cab_ox, remark, qty, amt, crt_dt, crt_uid)"; 
+	$sql_eqp = $sql_eqp . ", payment_atcd, incoterms_atcd, acct_no, remark, qty, amt, crt_dt, crt_uid)"; 
 	$sql_eqp = $sql_eqp . " VALUES ('" .$new_pi_no. "', '" .$mdl_cd. "', '" .$srl_atcd. "', '" .$lcd_color_atcd. "', '" .$lcd_lang_atcd. "', '" .$rjt_pkt_tp_atcd. "', '" .$pwr_cab_atcd. "', '" .$shipped_by_atcd. "', '" .$courier_atcd. "', '" .$delivery_dt. "'";
-	$sql_eqp = $sql_eqp . ", '" .$payment_atcd. "', '" .$incoterms_atcd. "', '" .$acct_no. "', '" .$srl_prn_cab_ox. "', '" .$calibr_sheet_ox. "', '" .$pc_cab_ox. "', '" .$remark. "'";
+	$sql_eqp = $sql_eqp . ", '" .$payment_atcd. "', '" .$incoterms_atcd. "', '" .$acct_no. "', '" .$remark. "'";
 	$sql_eqp = $sql_eqp . ", " .$qty. ", NULL, now(), '" .$_SESSION['ss_user']['uid']. "')";
 #		echo $sql_eqp;
 	$result3 = $this->db->query($sql_eqp);
@@ -262,9 +247,6 @@ if($po_no==""){
 			$sql_eqp = $sql_eqp . ",payment_atcd = '" .$payment_atcd. "'";
 			$sql_eqp = $sql_eqp . ",incoterms_atcd = '" .$incoterms_atcd. "'";
 			$sql_eqp = $sql_eqp . ",acct_no = '" .$acct_no. "'";
-			$sql_eqp = $sql_eqp . ",srl_prn_cab_ox = '" .$srl_prn_cab_ox. "'";
-			$sql_eqp = $sql_eqp . ",calibr_sheet_ox = '" .$calibr_sheet_ox. "'";
-			$sql_eqp = $sql_eqp . ",pc_cab_ox = '" .$pc_cab_ox. "'";
 			$sql_eqp = $sql_eqp . ",remark = '" .$remark. "'";
 			$sql_eqp = $sql_eqp . ",qty = " .$qty;
 		#	$sql_eqp = $sql_eqp . ",amt = " .$amt;

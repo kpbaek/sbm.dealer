@@ -169,6 +169,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			    </div>
 			</td>
 		  </tr>
+<!-- 		  
 		  <tr>
 			<td class="style01" colspan=2>Accessaries<br>(Bill Guide, Brush)</td>
 			<td class="style02">Serial Printer Cable</td>
@@ -188,6 +189,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			</td>
 			<td colspan=2></td>
 		  </tr>
+ -->		  
 		  <tr>
 			<td class="style01" colspan=2>Shipped by</td>
 			<td colspan=3>
@@ -401,11 +403,11 @@ function initForm() {
 		getCodeCombo("00L0", f.lcd_color_atcd, "00L00001");
 		getCodeCombo("00M0", f.lcd_lang_atcd, "00M00001");
 		getCodeCombo("00D0", f.rjt_pkt_tp_atcd, "00D00001");
-
+/**
 		getOXCombo(f.srl_prn_cab_ox, "X");
 		getOXCombo(f.calibr_sheet_ox, "X");
 		getOXCombo(f.pc_cab_ox, "X");
-
+*/
 //		getCodeCombo("00C0", f.pc_cab_ox);
 		getCodeCombo("00F0", f.shipped_by_atcd);
 		getCodeCombo("00F1", f.courier_atcd);
@@ -481,11 +483,11 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		getCodeCombo("00L0", f.lcd_color_atcd, "00L00001", eqpOrdInfo.lcd_color_atcd);
 		getCodeCombo("00M0", f.lcd_lang_atcd, "00M00001", eqpOrdInfo.lcd_lang_atcd);
 		getCodeCombo("00D0", f.rjt_pkt_tp_atcd, "00D00001", eqpOrdInfo.rjt_pkt_tp_atcd);
-
+/**
 		getOXCombo(f.srl_prn_cab_ox, eqpOrdInfo.srl_prn_cab_ox);
 		getOXCombo(f.calibr_sheet_ox, eqpOrdInfo.calibr_sheet_ox);
 		getOXCombo(f.pc_cab_ox, eqpOrdInfo.pc_cab_ox);
-
+*/
 		getCodeCombo("00F0", f.shipped_by_atcd, eqpOrdInfo.shipped_by_atcd);
 		getCodeCombo("00F1", f.courier_atcd, eqpOrdInfo.courier_atcd);
 		getCodeCombo("00G0", f.payment_atcd, eqpOrdInfo.payment_atcd);

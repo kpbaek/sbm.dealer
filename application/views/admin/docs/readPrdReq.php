@@ -11,6 +11,9 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00J0' AND atcd = '00J00010') dispenser";
 	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00J0' AND atcd = '00J00020') issue";
 	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00J0' AND atcd = '00J00030') snc";
+	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00N0' AND atcd = '00N00010') srl_prn_cab";
+	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00N0' AND atcd = '00N00020') calibr_sheet";
+	$sql = $sql . ",(select atcd_ox from om_prd_req_dtl where a.swm_no = swm_no and cd = '00N0' AND atcd = '00N00030') pc_cab";
 //	$sql = $sql . ",(select pi_sndmail_seq from om_invoice where a.pi_no = '" .$pi_no. "') pi_sndmail_seq";
 	$sql = $sql . ", DATE_FORMAT(a.qual_ship_dt, '%Y-%m-%d') txt_qual_ship_dt";
 	$sql = $sql . ", DATE_FORMAT(a.udt_dt, '%Y-%m-%d') txt_udt_dt";
@@ -41,9 +44,15 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 		$prdReq['prdReqInfo']['detector_mra'] = $row['detector_mra'];
 		$prdReq['prdReqInfo']['detector_ir'] = $row['detector_ir'];
 		$prdReq['prdReqInfo']['detector_tape'] = $row['detector_tape'];
+		$prdReq['prdReqInfo']['srl_prn_cab'] = $row['srl_prn_cab'];
+		$prdReq['prdReqInfo']['calibr_sheet'] = $row['calibr_sheet'];
+		$prdReq['prdReqInfo']['pc_cab'] = $row['pc_cab'];
 		$prdReq['prdReqInfo']['dispenser'] = $row['dispenser'];
 		$prdReq['prdReqInfo']['issue'] = $row['issue'];
 		$prdReq['prdReqInfo']['snc'] = $row['snc'];
+		$prdReq['prdReqInfo']['srl_prn_cab'] = $row['srl_prn_cab'];
+		$prdReq['prdReqInfo']['calibr_sheet'] = $row['calibr_sheet'];
+		$prdReq['prdReqInfo']['pc_cab'] = $row['pc_cab'];
 		
 		$prdReq['prdReqInfo']['qual_ship_dt'] = $row['qual_ship_dt'];
 		$prdReq['prdReqInfo']['txt_qual_ship_dt'] = $row['txt_qual_ship_dt'];
@@ -110,7 +119,6 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 	$ctnt = str_replace("@box_mdl_nm", $prdReq['eqpOrdInfo']["mdl_nm"], $ctnt);
 	$ctnt = str_replace("@label_mdl_nm", $prdReq['eqpOrdInfo']["mdl_nm"], $ctnt);
 	$ctnt = str_replace("@pwr_cab", $prdReq['eqpOrdInfo']["txt_pwr_cab_atcd"] . "<img src='" .base_url(). "/images/common/dropdown/00E0/" . $prdReq['eqpOrdInfo']["pwr_cab_atcd"] . ".png'>", $ctnt);
-	$ctnt = str_replace("@srl_prn_cab_ox", $prdReq['eqpOrdInfo']["srl_prn_cab_ox"], $ctnt);
 	
 	if($prdReq['eqpOrdInfo']["srl_atcd"]=="00B00001"){ //P-OCR
 		$ctnt = str_replace("@p-ocr_ox", "O", $ctnt);
@@ -184,6 +192,9 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 		$ctnt = str_replace("@detector_mra", $prdReq['prdReqInfo']["detector_mra"], $ctnt);
 		$ctnt = str_replace("@detector_ir", $prdReq['prdReqInfo']["detector_ir"], $ctnt);
 		$ctnt = str_replace("@detector_tape", $prdReq['prdReqInfo']["detector_tape"], $ctnt);
+		$ctnt = str_replace("@srl_prn_cab", $prdReq['prdReqInfo']["srl_prn_cab"], $ctnt);
+		$ctnt = str_replace("@calibr_sheet", $prdReq['prdReqInfo']["calibr_sheet"], $ctnt);
+		$ctnt = str_replace("@pc_cab", $prdReq['prdReqInfo']["pc_cab"], $ctnt);
 
 		$currency_atch = "";
 		$fitness = "";
