@@ -69,9 +69,6 @@ function readEqpOrder($pi_no, $po_no){
 	$eqpOrder['eqpOrdInfo']['mdl_cd'] = $row['mdl_cd'];
 	$eqpOrder['eqpOrdInfo']['delivery_dt'] = $row['delivery_dt'];
 	$eqpOrder['eqpOrdInfo']['acct_no'] = $row['acct_no'];
-	$eqpOrder['eqpOrdInfo']['srl_prn_cab_ox'] = $row['srl_prn_cab_ox'];
-	$eqpOrder['eqpOrdInfo']['calibr_sheet_ox'] = $row['calibr_sheet_ox'];
-	$eqpOrder['eqpOrdInfo']['pc_cab_ox'] = $row['pc_cab_ox'];
 	$eqpOrder['eqpOrdInfo']['remark'] = $row['remark'];
 	$eqpOrder['eqpOrdInfo']['qty'] = $row['qty'];
 	$eqpOrder['eqpOrdInfo']['amt'] = $row['amt'];
