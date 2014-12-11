@@ -72,9 +72,6 @@ if($sndmail_atcd=="00700111"){
 	$ctnt = str_replace("@txt_lcd_lang_atcd", $row['txt_lcd_lang_atcd'], $ctnt);
 	$ctnt = str_replace("@txt_rjt_pkt_tp_atcd", $row['txt_rjt_pkt_tp_atcd'], $ctnt);
 	$ctnt = str_replace("@txt_pwr_cab_atcd", $row['txt_pwr_cab_atcd'], $ctnt);
-	$ctnt = str_replace("@srl_prn_cab_ox", $row['srl_prn_cab_ox'], $ctnt);
-	$ctnt = str_replace("@calibr_sheet_ox", $row['calibr_sheet_ox'], $ctnt);
-	$ctnt = str_replace("@pc_cab_ox", $row['pc_cab_ox'], $ctnt);
 	$ctnt = str_replace("@txt_shipped_by_atcd", $row['txt_shipped_by_atcd'], $ctnt);
 	$ctnt = str_replace("@txt_courier_atcd", $row['txt_courier_atcd'], $ctnt);
 	$ctnt = str_replace("@acct_no", $row['acct_no'], $ctnt);
