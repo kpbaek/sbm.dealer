@@ -192,13 +192,12 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column5 style18 null"></td>
 			<td class="column6 style18 null"></td>
 		  </tr>
-		  <tr class="row12" id="prnDiv" style="display:@prnDiv">
-			<td class="column0 style14 s">Printer</td>
-			<td class="column1 style15 s" colspan="3">
-			</td>
-			<td class="column4 style17 n">@prn_qty</td>
-			<td class="column5 style18 n"></td>
-			<td class="column6 style19 f">USD @prn_tot_amt</td>
+		  <tr class="row18" id="eqpHwOptDiv" style="display:@eqpHwOptDiv">
+			<td class="column0 style25 null">HW Option</td>
+			<td class="column1 style26 s" colspan="3"><div style="padding-left: 10px;line-height:20px;">@txt_opt_hw_atcd</div></td>
+			<td class="column4 style28 null"><div style="line-height:20px;">@opt_qty</div></td>
+			<td class="column5 style18 null"><div style="line-height:20px;">@opt_unit_prc</div></td>
+			<td class="column6 style18 null"><div style="line-height:20px;">@opt_amt</div></td>
 		  </tr>
 		  <tr class="row18">
 			<td class="column0 style25 null"></td>
@@ -208,8 +207,8 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column6 style18 null"></td>
 		  </tr>
 		  <tr class="row19" id="repairDiv" style="display:@repairDiv">
-			<td class="column0 style25 null">Repair Parts</td>
-			<td class="column1 style30 s" colspan="3"></td>
+			<td class="column0 style25 null"></td>
+			<td class="column1 style26 s" colspan="3"><div style="padding-left: 10px;">Repair Parts</div></td>
 			<td class="column4 style28 n">@repr_qty</td>
 			<td class="column5 style18 n"></td>
 			<td class="column6 style19 f">USD @repr_tot_amt</td>
@@ -221,12 +220,20 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column5 style18 null"></td>
 			<td class="column6 style18 null"></td>
 		  </tr>
-		  <tr class="row18" id="eqpHwOptDiv" style="display:@eqpHwOptDiv">
-			<td class="column0 style25 null">HW Option</td>
-			<td class="column1 style30 s" colspan="3"><div style="padding-left: 10px;line-height:20px;">@txt_opt_hw_atcd</div></td>
-			<td class="column4 style28 null"><div style="line-height:20px;">@opt_qty</div></td>
-			<td class="column5 style18 null"><div style="line-height:20px;">@opt_unit_prc</div></td>
-			<td class="column6 style18 null"><div style="line-height:20px;">@opt_amt</div></td>
+		  <tr class="row12" id="frtChrgDiv" style="display:@frtChrgDiv">
+			<td class="column0 style14 s"></td>
+			<td class="column1 style26 s" colspan="3"><div style="padding-left: 10px;">Freight Charge</div>
+			</td>
+			<td class="column4 style17 n"></td>
+			<td class="column5 style18 n"></td>
+			<td class="column6 style19 f">USD @frtchrg_amt</td>
+		  </tr>
+		  <tr class="row18">
+			<td class="column0 style25 null"></td>
+			<td class="column1 style26 s" colspan="3"></td>
+			<td class="column4 style28 null"></td>
+			<td class="column5 style18 null"></td>
+			<td class="column6 style18 null"></td>
 		  </tr>
 		  <tr class="row26">
 			<td class="column0 style67 s style27" colspan="4">Total Amount</td>

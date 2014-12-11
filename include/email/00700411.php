@@ -325,51 +325,50 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 		  <tr id="eqpDiv" style="display:@eqpDiv" class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05">@listNo_1)</td>
-			<td class="column4 style00"><div>@mdl_nm</div></td>
+			<td class="column4 style00"><div style="padding-left: 10px;">@mdl_nm</div></td>
 			<td class="column25 style54 s style05">@eqp_qty</td>
 			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s">@eqp_amt
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
-		  
-		  <tr id="partsDiv" style="display:@spareDiv" class="row22">
+		  <tr style="display:@eqpHwOptDiv" class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05">@listNo_2)</td>
-			<td class="column4 style54 s style00"><div>Currency Discrimination Counter Spare Parts</div></td>
+			<td class="column4 style54 s style00"><div style="padding-left: 10px;line-height:20px;">@txt_opt_hw_atcd</div></td>
+			<td class="column25 style54 s style05"><div style="line-height:20px;">@opt_qty</div></td>
+			<td class="column30 style54 s style05"><div style="line-height:20px;"> @opt_unit_prc</div></td>
+			<td class="column36 style001 s"><div style="line-height:20px;"> @opt_amt</div>
+			</td>
+			<td class="column47 style13 null"></td>
+		  </tr>
+		  <tr id="partsDiv" style="display:@spareDiv" class="row22">
+			<td class="column0 style3 s"></td>
+			<td class="column1 style54 s style05">@listNo_3)</td>
+			<td class="column4 style54 s style00"><div style="padding-left: 10px;">Currency Discrimination Counter Spare Parts</div></td>
 			<td class="column25 style54 s style05">@qty Units</td>
 			<td class="column30 style54 s style05"></td>
 			<td class="column36 style001 s">$ @amount</div>
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
-		  <tr id="prnDiv" style="display:@prnDiv" class="row22">
-			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05">@listNo_3)</td>
-			<td class="column4 style54 s style00"><div>Printer</div></td>
-			<td class="column25 style54 s style05">@prn_qty Units</td>
-			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td class="column36 style001 s">$ @prn_tot_amt
-			</td>
-			<td class="column47 style13 null"></td>
-		  </tr>
 		  <tr id="repairDiv" style="display:@repairDiv" class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05">@listNo_4)</td>
-			<td class="column4 style54 s style00"><div>Repair Parts</div></td>
+			<td class="column4 style54 s style00"><div style="padding-left: 10px;">Repair Parts</div></td>
 			<td class="column25 style54 s style05">@repr_qty Units</td>
 			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s">$ @repr_tot_amt
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
-		  <tr style="display:@eqpHwOptDiv" class="row22">
+		  <tr id="prnDiv" style="display:@frtChrgDiv" class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05">@listNo_5)</td>
-			<td class="column4 style54 s style00"><div style="line-height:20px;">@txt_opt_hw_atcd</div></td>
-			<td class="column25 style54 s style05"><div style="line-height:20px;">@opt_qty</div></td>
-			<td class="column30 style54 s style05"><div style="line-height:20px;"> @opt_unit_prc</div></td>
-			<td class="column36 style001 s"><div style="line-height:20px;"> @opt_amt</div>
+			<td class="column4 style54 s style00"><div style="padding-left: 10px;">Freight Charge</div></td>
+			<td class="column25 style54 s style05"></td>
+			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column36 style001 s">$ @frtchrg_amt
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
