@@ -255,20 +255,12 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column5 style18 n"><div id="unit_price" name="unit_price"></div></td>
 			<td class="column6 style19 f"><div id="amount" name="amount"></div></td>
 		  </tr>
-		  <tr class="row22">
-			<td class="column0 style14 null"></td>
+		  <tr class="row22" id="eqpHwOptDiv" style="display:none">
+			<td class="column0 style14 null">HW Option</td>
 			<td class="column1 style30 s" colspan=3><div id="txt_opt_hw_atcd" style="padding-left: 10px;line-height:50px;"></div></td>
 			<td class="column4 style33 null"><div id="opt_qty" style="line-height:50px;"></div></td>
 			<td class="column5 style19 null"><div id="opt_unit_prc" style="line-height:50px;"></div></td>
 			<td class="column6 style34 null"><div id="opt_amt" style="line-height:50px;"></div></td>
-		  </tr>
-		  <tr class="row12" id="prnDiv" style="display:none">
-			<td class="column0 style14 s"><div id="prn"></div></td>
-			<td class="column1 style15 s" colspan="3"><div id="prn_nm"></div>
-			</td>
-			<td class="column4 style17 n"><div id="prn_qty"></div></td>
-			<td class="column5 style18 n"></td>
-			<td class="column6 style19 f"><div id="prn_tot_amt"></td>
 		  </tr>
 		  <tr class="row18">
 			<td class="column0 style25 null"></td>
@@ -278,11 +270,26 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column6 style18 null"></td>
 		  </tr>
 		  <tr class="row19" id="repairDiv" style="display:none">
-			<td class="column0 style25 null"><div id="repair"></div></td>
-			<td class="column1 style30 s" colspan="3"></td>
+			<td class="column0 style25 null"></td>
+			<td class="column1 style26 s" colspan="3"><div style="padding-left: 10px;">Repair Parts</div></td>
 			<td class="column4 style28 n"><div id="repr_qty"></div></td>
 			<td class="column5 style18 n"></td>
 			<td class="column6 style19 f"><div id="repr_tot_amt"></div></td>
+		  </tr>
+		  <tr class="row18">
+			<td class="column0 style25 null"></td>
+			<td class="column1 style26 s" colspan="3"></td>
+			<td class="column4 style28 null"></td>
+			<td class="column5 style18 null"></td>
+			<td class="column6 style18 null"></td>
+		  </tr>
+		  <tr class="row12" id="frtChrgDiv" style="display:none">
+			<td class="column0 style14 s"></td>
+			<td class="column1 style26 s" colspan="3"><div style="padding-left: 10px;">Freight Charge</div>
+			</td>
+			<td class="column4 style17 n"></td>
+			<td class="column5 style18 n"></td>
+			<td class="column6 style19 f"><div id="frtchrg_amt"></td>
 		  </tr>
 		  <tr class="row18">
 			<td class="column0 style25 null"></td>
@@ -301,7 +308,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column0 style14 s">Addon
 			<select id="addon" name="addon" onchange="javascript:fn_verifyAddon(this.value);">
 				<option value="">select</option>
-				<!-- <option value="PRN">Printer</option> -->
+				<option value="FRT">Freight Charge</option>
 				<option value="RPR">Repair Parts</option>
 			</select>
 			</td>
@@ -669,20 +676,17 @@ if(isset($_REQUEST["edit_mode"])){
 		
 		if(invoiceInfo.repr_qty!=null){
 			repairDiv.style.display = "";
-	        $("#repair").html("Repair Parts");
 	        $("#repr_qty").html(invoiceInfo.repr_qty);
 	        $("#repr_tot_amt").html("USD " + invoiceInfo.repr_tot_amt);
 		}
 		
-		if(invoiceInfo.prn_qty!=null){
-			prnDiv.style.display = "";
-	        $("#prn").html("Printer");
-//	        $("#prn_nm").html("SP-58S");
-	        $("#prn_qty").html(invoiceInfo.prn_qty);
-	        $("#prn_tot_amt").html("USD " + invoiceInfo.prn_tot_amt);
+		if(invoiceInfo.frtchrg_amt!=null){
+			frtChrgDiv.style.display = "";
+	        $("#frtchrg_amt").html("USD " + invoiceInfo.frtchrg_amt);
 		}
 
 		if(eqpHwOptList!=null){
+			eqpHwOptDiv.style.display = "";
 			var opt_mdl_nm = "";
 			var txt_opt_hw_atcd = "";
 			var opt_unit_prc = "";
@@ -723,7 +727,13 @@ if(isset($_REQUEST["edit_mode"])){
 
 	function fn_verifyAddon(value){
 		if(value!=""){
-			$("#addon_qty").attr('disabled',false);
+			$("#addon_qty").val('');
+			$("#addon_tot_amt").val('');
+			if(value=="RPR"){
+				$("#addon_qty").attr('disabled',false);
+			}else{
+				$("#addon_qty").attr('disabled',true);
+			}
 			$("#addon_tot_amt").attr('disabled',false);
 		}else{
 			$("#addon_qty").val('');
@@ -735,7 +745,7 @@ if(isset($_REQUEST["edit_mode"])){
 
 	function fn_isValid(){
 		if($("#addon").val()!=""){
-			if($("#addon_qty").val()==""){
+			if($("#addon").val()!="FRT" && $("#addon_qty").val()==""){
 				alert("qty is required!");
 				$("#addon_qty").focus();
 				return false;
@@ -745,11 +755,13 @@ if(isset($_REQUEST["edit_mode"])){
 				$("#addon_tot_amt").focus();
 				return false;
 			}
+			/**
 			if($("#payment_atcd").val()==""){
 				alert("payment is required!");
 				$("#payment_atcd").focus();
 				return false;
 			}
+			*/
 		}
 		return true;
 	}

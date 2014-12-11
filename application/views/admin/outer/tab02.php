@@ -494,7 +494,15 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
-		  
+		  <tr id="eqpHwOptDiv" style="display:none" class="row22">
+			<td class="column0 style3 s"></td>
+			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
+			<td class="column4 style54 s style00"><div id="txt_opt_hw_atcd" style="padding-left: 10px;"></div></td>
+			<td class="column5 style54 s style05"><div id="opt_qty"></div></td>
+			<td class="column6 style54 s style05"><div id="opt_unit_prc"></div></td>
+			<td class="column6 style001 s"><div id="opt_amt"></div></td>
+			<td class="column47 style13 null"></td>
+		  </tr>
 		  <tr id="spareDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
@@ -502,17 +510,6 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column25 style54 s style05"><div id="qty" name="qty"></div></td>
 			<td class="column30 style54 s style05"></td>
 			<td class="column36 style001 s"><div id="amount" name="amount"></div>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</td>
-			<td class="column47 style13 null"></td>
-		  </tr>
-		  <tr id="prnDiv" style="display:none" class="row22">
-			<td class="column0 style3 s"></td>
-			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
-			<td class="column4 style54 s style00"><div id="prn" style="padding-left: 10px;"></div></td>
-			<td class="column25 style54 s style05"><div id="prn_qty"></td>
-			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td class="column36 style001 s"><div id="prn_tot_amt">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td class="column47 style13 null"></td>
@@ -528,13 +525,15 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
-		  <tr id="eqpHwOptDiv" style="display:none" class="row22">
+		  <tr id="frtChrgDiv" style="display:none" class="row22">
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"><input type=text id="listNo" name="listNo" value="" size=2 style="border-style: none;background-color: white;" disabled></td>
-			<td class="column4 style54 s style00"><div id="txt_opt_hw_atcd" style="padding-left: 10px;"></div></td>
-			<td class="column5 style54 s style05"><div id="opt_qty"></div></td>
-			<td class="column6 style54 s style05"><div id="opt_unit_prc"></div></td>
-			<td class="column6 style001 s"><div id="opt_amt"></div></td>
+			<td class="column4 style54 s style00"><div style="padding-left: 10px;">Freight Charge</div></td>
+			<td class="column25 style54 s style05"></td>
+			<td class="column30 style54 s style05">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="column36 style001 s"><div id="frtchrg_amt">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</td>
 			<td class="column47 style13 null"></td>
 		  </tr>
 		  <tr class="row22">
@@ -689,12 +688,9 @@ if(isset($_REQUEST["edit_mode"])){
 	        
 		}
 		
-		if(invoiceInfo.prn_qty!=null){
-			prnDiv.style.display = "";
-			$("#prn").html("Printer");
-//	        $("#prn_nm").html("SP-58S");
-	        $("#prn_qty").html(invoiceInfo.prn_qty + " Units");
-	        $("#prn_tot_amt").html("$ " + invoiceInfo.prn_tot_amt);
+		if(invoiceInfo.frtchrg_amt!=null){
+			frtChrgDiv.style.display = "";
+	        $("#frtchrg_amt").html("$ " + invoiceInfo.frtchrg_amt);
 		}
 		
 		if(invoiceInfo.repr_qty!=null){
@@ -732,7 +728,6 @@ if(isset($_REQUEST["edit_mode"])){
 		}
 		
 		tot_qty += eval(invoiceInfo.repr_qty);
-		tot_qty += eval(invoiceInfo.prn_qty);
 		$("#tot_qty").html(tot_qty + " Units");
 
 		var listNo = 0;
@@ -740,16 +735,16 @@ if(isset($_REQUEST["edit_mode"])){
 			if(i==0 && orderEqpList==null){
 				continue;
 			} 
-			if(i==1 && orderPartList==null){
+			if(i==1 && eqpHwOptList==null){
 				continue;
 			} 
-			if(i==2 && invoiceInfo.prn_qty==null){
+			if(i==2 && orderPartList==null){
 				continue;
 			} 
 			if(i==3 && invoiceInfo.repr_qty==null){
 				continue;
 			} 
-			if(i==4 && eqpHwOptList==null){
+			if(i==4 && invoiceInfo.frtchrg_amt==null){
 				continue;
 			} 
 			listNo++;

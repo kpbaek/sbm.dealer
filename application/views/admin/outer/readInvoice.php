@@ -23,12 +23,11 @@ function getPiMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@worker_eng_nm", $invoice['invoiceInfo']['worker_eng_nm'], $ctnt);
 	$ctnt = str_replace("@worker_team_duty", $invoice['invoiceInfo']['worker_team_duty'], $ctnt);
 
-	if($invoice['invoiceInfo']["prn_qty"]==null){
-		$ctnt = str_replace("@prnDiv", "none", $ctnt);
+	if($invoice['invoiceInfo']["frtchrg_amt"]==null){
+		$ctnt = str_replace("@frtChrgDiv", "none", $ctnt);
 	}else{
-		$ctnt = str_replace("@prnDiv", "", $ctnt);
-		$ctnt = str_replace("@prn_qty", $invoice['invoiceInfo']['prn_qty'], $ctnt);
-		$ctnt = str_replace("@prn_tot_amt", $invoice['invoiceInfo']['prn_tot_amt'], $ctnt);
+		$ctnt = str_replace("@frtChrgDiv", "", $ctnt);
+		$ctnt = str_replace("@frtchrg_amt", $invoice['invoiceInfo']['frtchrg_amt'], $ctnt);
 	}
 
 	if($invoice['invoiceInfo']["repr_qty"]==null){
@@ -168,12 +167,11 @@ function getCiMailCtnt($ctnt, $invoice){
 	}
 	
 	
-	if($invoice['invoiceInfo']["prn_qty"]==null){
-		$ctnt = str_replace("@prnDiv", "none", $ctnt);
+	if($invoice['invoiceInfo']["frtchrg_amt"]==null){
+		$ctnt = str_replace("@frtChrgDiv", "none", $ctnt);
 	}else{
-		$ctnt = str_replace("@prnDiv", "", $ctnt);
-		$ctnt = str_replace("@prn_qty", $invoice['invoiceInfo']['prn_qty'], $ctnt);
-		$ctnt = str_replace("@prn_tot_amt", $invoice['invoiceInfo']['prn_tot_amt'], $ctnt);
+		$ctnt = str_replace("@frtChrgDiv", "", $ctnt);
+		$ctnt = str_replace("@frtchrg_amt", $invoice['invoiceInfo']['frtchrg_amt'], $ctnt);
 	}
 
 	if($invoice['invoiceInfo']["repr_qty"]==null){
@@ -275,7 +273,6 @@ function getCiMailCtnt($ctnt, $invoice){
 	}
 	
 	$tot_qty += $invoice['invoiceInfo']['repr_qty'];
-	$tot_qty += $invoice['invoiceInfo']['prn_qty'];
 	$ctnt = str_replace("@tot_qty", $tot_qty, $ctnt);
 
 	
@@ -284,16 +281,16 @@ function getCiMailCtnt($ctnt, $invoice){
 		if($i_list==0 && $invoice['orderEqpList']==null){
 			continue;
 		}
-		if($i_list==1 && $invoice['orderPartList']==null){
+		if($i_list==1 && $invoice['eqpHwOptList']==null){
 			continue;
 		}
-		if($i_list==2 && $invoice['invoiceInfo']["prn_qty"]==null){
+		if($i_list==2 && $invoice['orderPartList']==null){
 			continue;
 		}
 		if($i_list==3 && $invoice['invoiceInfo']["repr_qty"]==null){
 			continue;
 		}
-		if($i_list==4 && $invoice['eqpHwOptList']==null){
+		if($i_list==4 && $invoice['invoiceInfo']["frtchrg_amt"]==null){
 			continue;
 		}
 		$listNo++;
@@ -306,12 +303,12 @@ function getCiMailCtnt($ctnt, $invoice){
 function readInvoice($pi_no){
 
 	$sql_invoice = "SELECT a.pi_no, a.cntry_atcd, a.dealer_seq, a.worker_seq, a.premium_rate, a.tot_amt, a.cnfm_yn, a.cnfm_dt, a.slip_sndmail_seq, a.wrk_tp_atcd";
-	$sql_invoice = $sql_invoice . ", b.prn_qty, b.prn_tot_amt, b.repr_qty, b.repr_tot_amt, b.ship_port_atcd, b.payment_atcd";
+	$sql_invoice = $sql_invoice . ", b.frtchrg_amt, b.repr_qty, b.repr_tot_amt, b.ship_port_atcd, b.payment_atcd";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00G0' and atcd = b.payment_atcd) inv_payment";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00F3' and atcd = b.ship_port_atcd) txt_ship_port_atcd";
 	$sql_invoice = $sql_invoice . ", b.destnt, b.validity, b.bank_atcd, b.invoice_dt, b.pi_sndmail_seq, b.ci_sndmail_seq";
 	$sql_invoice = $sql_invoice . ", b.csn_cmpy_nm, b.csn_addr, b.csn_tel, b.csn_fax, b.csn_attn";
-	$sql_invoice = $sql_invoice . ", ifnull(ifnull(b.prn_tot_amt,0) + ifnull(b.repr_tot_amt,0) + ifnull((select sum(opt_qty * opt_unit_prc) from om_ord_eqp_dtl where pi_no = a.pi_no), 0) + ifnull(b.tot_amt,0)";
+	$sql_invoice = $sql_invoice . ", ifnull(ifnull(b.frtchrg_amt,0) + ifnull(b.repr_tot_amt,0) + ifnull((select sum(opt_qty * opt_unit_prc) from om_ord_eqp_dtl where pi_no = a.pi_no), 0) + ifnull(b.tot_amt,0)";
 	$sql_invoice = $sql_invoice . " + (select ifnull(sum(amt),0) from om_ord_part where pi_no = a.pi_no),0) as inv_tot_amt";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) inv_bank";
 	$sql_invoice = $sql_invoice . ", (select atcd_dscrt from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) txt_bank_atcd_dscrt";
@@ -358,8 +355,7 @@ function readInvoice($pi_no){
 	
 	$invoice['invoiceInfo']['pi_no'] = $row['pi_no'];
 	$invoice['invoiceInfo']['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
-	$invoice['invoiceInfo']['prn_qty'] = $row['prn_qty'];
-	$invoice['invoiceInfo']['prn_tot_amt'] = $row['prn_tot_amt'];
+	$invoice['invoiceInfo']['frtchrg_amt'] = $row['frtchrg_amt'];
 	$invoice['invoiceInfo']['repr_qty'] = $row['repr_qty'];
 	$invoice['invoiceInfo']['repr_tot_amt'] = $row['repr_tot_amt'];
 	$invoice['invoiceInfo']['ship_port_atcd'] = $row['ship_port_atcd'];

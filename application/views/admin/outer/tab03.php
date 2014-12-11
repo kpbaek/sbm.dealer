@@ -906,23 +906,17 @@ if(isset($_REQUEST["edit_mode"])){
 			}
 		}
 		 		
-		if(invoiceInfo.prn_qty!=null || invoiceInfo.repr_qty!=null || eqpHwOptList!=null){
+		if(invoiceInfo.repr_qty!=null || eqpHwOptList!=null){
 			addonDiv.style.display = "";
 			var addon = "Addon - ";
-			if(invoiceInfo.prn_qty!=null){
-				addon += "Printer";
+			if(eqpHwOptList!=null){
+				addon += "HW Option";
 			}
-			if(invoiceInfo.prn_qty!=null && invoiceInfo.repr_qty!=null){
+			if(eqpHwOptList!=null || invoiceInfo.repr_qty!=null){
 				addon += ", ";
 			}
 			if(invoiceInfo.repr_qty!=null){
 				addon += "Repair Parts";
-			}
-			if(invoiceInfo.prn_qty!=null || invoiceInfo.repr_qty!=null){
-				addon += ", ";
-			}
-			if(eqpHwOptList!=null){
-				addon += "HW Option";
 			}
 			$("#addon_div").html(addon);
 		}
