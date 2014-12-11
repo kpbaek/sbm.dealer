@@ -242,9 +242,6 @@ CREATE TABLE `om_ord_eqp` (
   `payment_atcd` varchar(8) DEFAULT NULL COMMENT '지불속성코드',
   `incoterms_atcd` varchar(8) DEFAULT NULL COMMENT '무역조건 속성코드',
   `acct_no` varchar(20) DEFAULT NULL COMMENT 'account번호',
-  `srl_prn_cab_ox` char(1) DEFAULT NULL COMMENT '시리얼프린터케이블 OX구분',
-  `calibr_sheet_ox` char(1) DEFAULT NULL COMMENT 'Calibration Sheet OX구분',
-  `pc_cab_ox` char(1) DEFAULT NULL COMMENT 'PC케이블 OX구분',
   `remark` varchar(2000) DEFAULT NULL COMMENT '견해',
   `qty` int(6) unsigned DEFAULT NULL COMMENT '주문수량',
   `amt` decimal(13,2) unsigned DEFAULT NULL COMMENT '주문금액',
@@ -259,7 +256,7 @@ CREATE TABLE `om_ord_eqp` (
   KEY `om_ord_eqp_ibfk_2` (`mdl_cd`),
   CONSTRAINT `om_ord_eqp_ibfk_1` FOREIGN KEY (`pi_no`) REFERENCES `om_ord_inf` (`pi_no`),
   CONSTRAINT `om_ord_eqp_ibfk_2` FOREIGN KEY (`mdl_cd`) REFERENCES `om_mdl` (`mdl_cd`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='주문장비정보';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='주문장비정보';
 
 CREATE TABLE `om_ord_eqp_dtl` (
   `pi_no` varchar(8) NOT NULL COMMENT 'PI번호',
