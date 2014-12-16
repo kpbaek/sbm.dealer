@@ -145,8 +145,9 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 				<select id="rjt_pkt_tp_atcd" name="rjt_pkt_tp_atcd">
 				</select>
 			</td>
-			
-			<td colspan=5></td>
+			<td></td>
+			<td colspan=4>
+			</td>
 		  </tr>
 		  <tr class="row18">
 			<td class="style01" colspan=2>Power Cable</td>
@@ -162,8 +163,11 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			    </select>
     		</td>
 			<td class="style01">Other Options</td>
-			<td colspan=4>
-			    <div class="form-group">
+    		<td colspan=4>
+			    <div>
+			        LAN<input type=checkbox id="opt_hw_lan" name="opt_hw_lan">
+			    </div>
+				<div class="form-group">
 			        <select id="opt_hw_atcd" name="opt_hw_atcd[]" multiple="multiple" class="form-control" style="width: 280px">
 			        </select>
 			    </div>
@@ -474,13 +478,17 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
         if(eqpOrdDtlList!=null){
             for(var i=0; i < eqpOrdDtlList.length; i++){
                 if(eqpOrdDtlList[i]["opt_hw_atcd"]!=""){
-	            	selAr[selAr.length] = eqpOrdDtlList[i]["opt_hw_atcd"];
+                    if(eqpOrdDtlList[i]["opt_hw_atcd"]=="00A00001"){
+                        $('input:checkbox[id="opt_hw_lan"]').attr("checked", true);
+                    }
+                	selAr[selAr.length] = eqpOrdDtlList[i]["opt_hw_atcd"];
                 }
 			}
 		}
         getCodeMultiCombo("00A0", $('#opt_hw_atcd'), selAr);
-		
-		getCodeCombo("00L0", f.lcd_color_atcd, "00L00001", eqpOrdInfo.lcd_color_atcd);
+
+
+        getCodeCombo("00L0", f.lcd_color_atcd, "00L00001", eqpOrdInfo.lcd_color_atcd);
 		getCodeCombo("00M0", f.lcd_lang_atcd, "00M00001", eqpOrdInfo.lcd_lang_atcd);
 		getCodeCombo("00D0", f.rjt_pkt_tp_atcd, "00D00001", eqpOrdInfo.rjt_pkt_tp_atcd);
 /**

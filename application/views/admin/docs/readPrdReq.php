@@ -163,6 +163,7 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 	
 	
 	$opt_hw_tr = "";
+	$txt_opt = "";
 	$opt_hw_cnt = 1;
 	if($prdReq['eqpOrdDtlList']!=null){
 		foreach ($prdReq['eqpOrdDtlList'] as $row)
@@ -170,7 +171,13 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 			if($row["opt_hw_atcd"]!=""){
 				$opt_hw_tr = $opt_hw_tr . "<TR>";
 				$opt_hw_tr = $opt_hw_tr . "<TD class=\"style01\" width=140px>" .$row["txt_opt_hw_atcd"]. "</TD>";
-				$opt_hw_tr = $opt_hw_tr . "<TD align=center>O</TD></TR>";
+				if($row["opt_qty"]!=null){
+					$txt_opt = "O (". $row["opt_qty"]. " Qty)";
+				}else{
+					$txt_opt = "O";
+				}
+				$opt_hw_tr = $opt_hw_tr . "<TD align=center>" .$txt_opt. "</TD>";
+				$opt_hw_tr = $opt_hw_tr . "</TR>";
 				$opt_hw_cnt++;
 			}
 	

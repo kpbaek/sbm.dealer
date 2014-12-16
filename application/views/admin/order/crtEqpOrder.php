@@ -96,6 +96,11 @@ if(isset($_POST["remark"])){
 	$remark = $_POST["remark"];
 }
 
+$opt_hw_lan = "";
+if(isset($_POST["opt_hw_lan"])){
+	$opt_hw_atcd[sizeof($opt_hw_atcd)] = "00A00001";
+}
+
 
 $dealer_seq = $_POST["dealer_seq"];
 

@@ -50,6 +50,7 @@ function readEqpOrder($pi_no, $po_no){
 	$sql_dtl = $sql_dtl . " WHERE a.pi_no = b.pi_no";
 	$sql_dtl = $sql_dtl . " order by cd, atcd";
 	#$sql_dtl = $sql_dtl . " and cd = '0091'";
+	log_message('debug', $sql_dtl);
 	
 	$result2 = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
 	
@@ -102,6 +103,8 @@ function readEqpOrder($pi_no, $po_no){
 		$eqpOrder['eqpOrdDtlList'][$i]['opt_hw_atcd'] = $row2['opt_hw_atcd'];
 		$eqpOrder['eqpOrdDtlList'][$i]['pc_cab_atcd'] = $row2['pc_cab_atcd'];
 		$eqpOrder['eqpOrdDtlList'][$i]['txt_opt_hw_atcd'] = $row2['txt_opt_hw_atcd'];
+		$eqpOrder['eqpOrdDtlList'][$i]['opt_qty'] = $row2['opt_qty'];
+		$eqpOrder['eqpOrdDtlList'][$i]['opt_unit_prc'] = $row2['opt_unit_prc'];
 		#    echo $row['id'];
 		$i++;
 	}
