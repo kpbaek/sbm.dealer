@@ -1,3 +1,4 @@
+USE test;
 
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('0010','수신자구분','rcpnt_tp_atcd','Y',null,'2014-08-07 15:44:03','2014-08-08 11:58:23');
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('0020','국가','COUNTRY GROUP','Y',null,'2014-08-01 18:06:59','2014-08-14 15:39:20');
@@ -28,6 +29,7 @@ insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) v
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('00K0','CF DETECTOR','detector_atcd','Y',null,'2014-08-05 00:00:00','2014-08-08 12:00:52');
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('00L0','LCD Color','lcd_color_atcd','Y',null,'2014-08-04 17:22:45','2014-08-08 12:00:56');
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('00M0','LCD Language','lcd_lang_atcd','Y',null,'2014-08-04 00:00:00','2014-08-08 12:05:45');
+insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('00N0','Accessaries','acsr_atcd','Y',null,'2014-12-10 00:00:00','2014-12-10 15:19:33');
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('0100','비즈니스그룹','biz GROUP','Y',null,'2014-08-12 09:27:59','2014-08-14 16:41:09');
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('0110','비즈니스영역','biztp_atcd','Y','0100','2014-08-14 00:00:00','2014-08-14 16:40:23');
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('0120','주고객대상','maincust_atcd','Y','0100','2014-08-14 00:00:00','2014-08-14 16:40:28');
