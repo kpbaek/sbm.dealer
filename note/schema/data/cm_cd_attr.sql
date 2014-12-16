@@ -1,3 +1,4 @@
+USE test;
 
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100010','딜러',null,'Y','Y',null,'2014-08-07 15:44:34','2014-08-12 17:37:53',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100020','담당자',null,'Y','Y',null,'2014-08-07 00:00:00','2014-09-03 10:21:02',null);
@@ -483,16 +484,18 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0030','F','여성',null,'Y','Y',null,'2014-08-14 16:33:09','2014-09-15 11:23:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0030','M','남성',null,'Y','Y',null,'2014-08-14 16:32:34','2014-09-15 11:23:20',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0040','00400001','영문',null,'Y','Y',null,'2014-08-08 16:55:23','2014-08-14 16:44:12',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0050','00500001','CITI BANK INC','Commercial Bank Center-Gyeonggi Nambu
-2F, CITI Osan Bldg., 84 Seongho-daero
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0050','00500001','CITI BANK INC','Commercial Bank Center-Gyeonggi Nambu 2F, CITI Osan Bldg., 84 Seongho-daero
 Osan-si, Gyeonggi-do, 447-804, KOREA
 SWIFT Code: CITIKRSX
-Account No.: 558-00113-436-01','Y','Y',2,'2014-08-05 17:24:29','2014-11-28 13:57:45',null);
+Account No.: 558-00113-436-01','Y','Y',2,'2014-08-05 17:24:29','2014-12-04 15:00:10',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0050','00500002','HANABANK','GASAN-DONG BRANCH 
 550-1, GASAN-DONG, GEUMCHEON-GU, SEOUL, KOREA 
 SWIFT CODE: HNBNKRSE 
 Account No.: 332-910001-81938','Y','Y',3,'2014-08-05 17:25:08','2014-11-28 13:57:51',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0050','00500003','WOORI BANK','Guro Digital Sandan BR.','Y','Y',1,'2014-11-28 00:00:00','2014-11-28 00:00:00',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0050','00500003','WOORI BANK','Guro Digital Sandan BR.
+Address: Seoul, Guro-gu, Guro-dong, 222-12
+SWIFT CODE: HVBKKRSEXXX
+Account No.: 1081-100-633651','Y','Y',1,'2014-11-28 00:00:00','2014-12-04 15:17:49',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0060','00600FN0','재무회계팀',null,'Y','Y',3,'2014-08-12 00:00:00','2014-08-14 11:10:07',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0060','00600MF0','생산팀',null,'Y','Y',6,'2014-08-12 00:00:00','2014-08-14 11:10:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0060','00600MT0','생산기술팀',null,'Y','Y',7,'2014-08-12 00:00:00','2014-08-14 11:10:33',null);
@@ -536,8 +539,8 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0080','00800R30','선임연구원',null,'Y','Y',null,'2014-08-12 00:00:00','2014-08-12 16:06:52',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0080','00800R40','주임연구원',null,'Y','Y',null,'2014-08-12 00:00:00','2014-08-12 16:06:57',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0080','00800R50','연구원',null,'Y','Y',null,'2014-08-12 00:00:00','2014-08-12 00:00:00',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','AED','AED',null,'Y','Y',1,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','AFN','AFN',null,'Y','Y',2,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','AED','AED',null,'Y','Y',4,'2014-08-06 10:32:15','2014-12-11 15:17:30',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','AFN','AFN',null,'Y','Y',4,'2014-08-06 10:32:15','2014-12-11 15:17:33',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','AMD','AMD',null,'Y','Y',4,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','ANG','ANG',null,'Y','Y',5,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','AOA','AOA',null,'Y','Y',6,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
@@ -577,10 +580,10 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','EGP','EGP',null,'Y','Y',40,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','ERN','ERN',null,'Y','Y',41,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','ETB','ETB',null,'Y','Y',42,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','EUR','EUR',null,'Y','Y',43,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','EUR','EUR',null,'Y','Y',2,'2014-08-06 10:32:15','2014-12-11 15:11:14',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','FJD','FJD',null,'Y','Y',44,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','FKP','FKP',null,'Y','Y',45,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','GBP','GBP',null,'Y','Y',46,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','GBP','GBP',null,'Y','Y',3,'2014-08-06 10:32:15','2014-12-11 15:11:21',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','GEL','GEL',null,'Y','Y',47,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','GHS','GHS',null,'Y','Y',48,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','GIP','GIP',null,'Y','Y',49,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
@@ -676,7 +679,7 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','TZS','TZS',null,'Y','Y',139,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','UAH','UAH',null,'Y','Y',140,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','UGX','UGX',null,'Y','Y',141,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','USD','USD',null,'Y','Y',142,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','USD','USD',null,'Y','Y',1,'2014-08-06 10:32:15','2014-12-11 15:11:02',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','UYU','UYU',null,'Y','Y',143,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','UZS','UZS',null,'Y','Y',144,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','VEF','VEF',null,'Y','Y',145,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
@@ -698,8 +701,8 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','ZAR','ZAR',null,'Y','Y',161,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','ZMW','ZMW',null,'Y','Y',162,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0091','ZWL','ZWL',null,'Y','Y',163,'2014-08-06 10:32:15','2014-08-12 09:51:23',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','AED','AED',null,'Y','Y',1,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','AFN','AFN',null,'Y','Y',2,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','AED','AED',null,'Y','Y',4,'2014-08-06 10:40:39','2014-12-11 15:19:18',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','AFN','AFN',null,'Y','Y',4,'2014-08-06 10:40:39','2014-12-11 15:19:22',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','AMD','AMD',null,'Y','Y',4,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','ANG','ANG',null,'Y','Y',5,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','AOA','AOA',null,'Y','Y',6,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
@@ -739,10 +742,10 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','EGP','EGP',null,'Y','Y',40,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','ERN','ERN',null,'Y','Y',41,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','ETB','ETB',null,'Y','Y',42,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','EUR','EUR',null,'Y','Y',43,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','EUR','EUR',null,'Y','Y',2,'2014-08-06 10:40:39','2014-12-11 15:18:49',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','FJD','FJD',null,'Y','Y',44,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','FKP','FKP',null,'Y','Y',45,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','GBP','GBP',null,'Y','Y',46,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','GBP','GBP',null,'Y','Y',3,'2014-08-06 10:40:39','2014-12-11 15:18:54',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','GEL','GEL',null,'Y','Y',47,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','GHS','GHS',null,'Y','Y',48,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','GIP','GIP',null,'Y','Y',49,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
@@ -838,7 +841,7 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','TZS','TZS',null,'Y','Y',139,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','UAH','UAH',null,'Y','Y',140,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','UGX','UGX',null,'Y','Y',141,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','USD','USD',null,'Y','Y',142,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','USD','USD',null,'Y','Y',1,'2014-08-06 10:40:39','2014-12-11 15:18:41',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','UYU','UYU',null,'Y','Y',143,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','UZS','UZS',null,'Y','Y',144,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','VEF','VEF',null,'Y','Y',145,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
@@ -879,6 +882,7 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00E0','00E00004','110V 미국 향',null,'Y','Y',null,'2014-08-08 10:46:30','2014-08-08 10:46:30',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00E0','00E00005','220V (KOREA)',null,'Y','Y',null,'2014-08-08 10:46:41','2014-08-22 17:21:21',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00E0','00E00006','220V Israel향',null,'Y','Y',null,'2014-08-08 10:46:52','2014-08-08 10:46:52',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00E0','00E00007','남아프리카공화국',null,'Y','Y',null,'2014-12-09 00:00:00','2014-12-09 16:10:07',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00F0','00F00001','air',null,'Y','Y',1,'2014-08-06 09:19:50','2014-08-06 11:12:36',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00F0','00F00002','oean',null,'Y','Y',2,'2014-08-06 09:20:04','2014-08-06 11:12:37',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00F0','00F00003','courrier',null,'Y','Y',3,'2014-08-06 09:20:17','2014-08-06 11:12:38',null);
@@ -920,6 +924,9 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00M0','00M00002','French',null,'Y','Y',2,'2014-08-06 09:17:57','2014-08-06 11:14:05',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00M0','00M00003','Korean',null,'Y','Y',3,'2014-08-06 09:18:24','2014-08-06 11:14:06',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00M0','00M00004','Russian',null,'Y','Y',4,'2014-08-06 09:18:46','2014-08-06 11:14:07',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00N0','00N00010','Serial Printer Cable',null,'Y','Y',null,'2014-12-10 00:00:00','2014-12-10 15:21:27',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00N0','00N00020','Calibration Sheet',null,'Y','Y',null,'2014-12-10 00:00:00','2014-12-10 00:00:00',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00N0','00N00030','PC Cable',null,'Y','Y',null,'2014-12-10 00:00:00','2014-12-10 00:00:00',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0110','01000010','Bank',null,'Y','Y',1,'2014-08-06 00:00:00','2014-08-14 16:39:12',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0110','01000020','Cash centre',null,'Y','Y',2,'2014-08-06 00:00:00','2014-08-14 16:39:12',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0110','01000030','CIT',null,'Y','Y',3,'2014-08-06 00:00:00','2014-08-14 16:39:12',null);
