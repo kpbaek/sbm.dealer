@@ -106,8 +106,9 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="style01" colspan=2>Reject Pocket Type</td>
 			<td colspan=3>@txt_rjt_pkt_tp_atcd
 			</td>
-			
-			<td colspan=5></td>
+			<td></td>
+			<td colspan=4>
+			</td>
 		  </tr>
 		  <tr class="row18">
 			<td class="style01" colspan=2>Power Cable</td>
