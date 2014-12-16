@@ -366,8 +366,7 @@ CREATE TABLE `om_part_ship_req` (
 
 CREATE TABLE `om_invoice` (
   `pi_no` varchar(8) NOT NULL COMMENT 'PI번호',
-  `prn_qty` int(6) DEFAULT NULL COMMENT '프린터수량',
-  `prn_tot_amt` decimal(8,2) DEFAULT NULL COMMENT '프린터총금액',
+  `frtchrg_amt` decimal(8,2) DEFAULT NULL COMMENT '운송료',
   `repr_qty` int(6) unsigned DEFAULT NULL COMMENT '수리품수량',
   `repr_tot_amt` decimal(8,2) unsigned DEFAULT NULL COMMENT '수리품총금액',
   `ship_port_atcd` varchar(8) NOT NULL COMMENT '선적항속성코드',
