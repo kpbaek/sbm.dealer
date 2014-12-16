@@ -100,7 +100,7 @@ if($sndmail_atcd=="00700111"){
 	$sql_dtl = $sql_dtl . " WHERE a.pi_no = b.pi_no";
 	$sql_dtl = $sql_dtl . " AND a.po_no = b.po_no";
 	$sql_dtl = $sql_dtl . " AND a.pi_no = '" .$pi_no. "'";
-	$sql_dtl = $sql_dtl . "		AND a.po_no = " .$po_no;
+	$sql_dtl = $sql_dtl . "	AND a.po_no = " .$po_no;
 	$sql_dtl = $sql_dtl . ") a, om_ord_inf b";
 	$sql_dtl = $sql_dtl . " WHERE a.pi_no = b.pi_no";
 	#$sql_dtl = $sql_dtl . " and cd = '0091'";
@@ -110,6 +110,7 @@ if($sndmail_atcd=="00700111"){
 	$txt_currency_atcd = "";
 	$txt_serial_currency_atch = "";
 	$txt_opt_hw_atcd = "";
+	$txt_lan = "";
 	$i=0;
 	while($row2 = mysql_fetch_array($result2,MYSQL_ASSOC)) {
 		if(sizeof($row2['txt_currency_atcd'])>0){
@@ -119,10 +120,15 @@ if($sndmail_atcd=="00700111"){
 			$txt_serial_currency_atch = $txt_serial_currency_atch . $row2['txt_serial_currency_atch'] . " | ";
 		}
 		if(sizeof($row2['txt_opt_hw_atcd'])>0){
-			$txt_opt_hw_atcd = $txt_opt_hw_atcd . $row2['txt_opt_hw_atcd'] . " | ";
+//			if($row2['opt_hw_atcd']!="00A00001"){
+				$txt_opt_hw_atcd = $txt_opt_hw_atcd . $row2['txt_opt_hw_atcd'] . " | ";
+//			}else{
+//				$txt_lan = $row2['txt_opt_hw_atcd'];
+//			}
 		}
 		$i++;
 	}
+//	$ctnt = str_replace("@txt_lan", $txt_lan, $ctnt);
 	$ctnt = str_replace("@txt_currency_atch", $txt_currency_atcd, $ctnt);
 	$ctnt = str_replace("@txt_serial_currency_atch", $txt_serial_currency_atch, $ctnt);
 	$ctnt = str_replace("@txt_opt_hw_atcd", $txt_opt_hw_atcd, $ctnt);
