@@ -63,7 +63,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			<td width="10%"><input type="text" id="order_dt" name="order_dt" value="<?php echo date("Y-m-d")?>" size=18 style="border: 1" disabled></td>
 			<td width="10%"></td>
 			<td width="5%"></td>
-			<td width="15%" class="style01">Dest Country</td>
+			<td width="15%" class="style01">Destination Country</td>
 			<td width="10%" colspan=3>
 				<select id="cntry_atcd" name="cntry_atcd" style="width: 240px;">
 				</select>
@@ -127,6 +127,27 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			</td>
 		  </tr>
 		  <tr>
+			<td rowspan="2" class="style01" colspan=2>Currency Fitness</td>
+		  	<td colspan=8></td>
+		  </tr>
+		  <tr>
+			<td colspan=3>
+			    <div class="form-group">
+			        <select id="fitness" name="fitness[]" multiple="multiple" class="form-control" style="width: 250px">
+			        </select>
+			    </div>
+			</td>
+			<td class="style01">Serial Fitness</td>
+			<td>
+			</td>
+			<td colspan=3>
+			    <div class="form-group">
+			        <select id="srl_fitness" name="srl_fitness[]" multiple="multiple" class="form-control" style="width: 180px">
+			        </select>
+			    </div>
+			</td>
+		  </tr>
+		  <tr>
 			<td class="style01" colspan=2>LCD Color</td>
 			<td colspan=3>
 				<select id="lcd_color_atcd" name="lcd_color_atcd">
@@ -153,13 +174,6 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			<td class="style01" colspan=2>Power Cable</td>
 			<td colspan=3>
 			    <select style="width:200px" id="pwr_cab_atcd" name="pwr_cab_atcd">
-			    <!-- 
-			      <option value="00E00001" data-image="/images/common/dropdown/00E0/00E00001.png">220V UK 향</option>
-			      <option value="00E00002" data-image="/images/common/dropdown/00E0/00E00002.png">220V India 향</option>
-			      <option value="00E00003" data-image="/images/common/dropdown/00E0/00E00003.png" name="cd">230V 호주 향</option>
-			      <option value="00E00004"  data-image="/images/common/dropdown/00E0/00E00004.png">110V 미국 향</option>
-			      <option value="00E00005" data-image="/images/common/dropdown/00E0/00E00005.png" selected>220V (KOREA)</option>
-			      <option value="00E00006" data-image="/images/common/dropdown/00E0/00E00006.png">220V Israel향</option> -->
 			    </select>
     		</td>
 			<td class="style01">Other Options</td>
@@ -348,8 +362,10 @@ $("#serial_currency_atch").multipleSelect({
 
 $(function() {
     $('#currency_atch').change(function() {
-        console.log($(this).val());
-    }).multipleSelect({
+    	console.log($(this).val());
+    	fn_setFitness($("#fitness").multipleSelect("getSelects"));
+		fn_setSerialCurrency($("#serial_currency_atch").multipleSelect("getSelects"));		
+	}).multipleSelect({
         width: 280,
         multiple: true,
         multipleWidth: 55
@@ -359,12 +375,164 @@ $(function() {
 $(function() {
     $('#serial_currency_atch').change(function() {
         console.log($(this).val());
-    }).multipleSelect({
+    	fn_setSrlFitness($("#srl_fitness").multipleSelect("getSelects"));		
+	}).multipleSelect({
         width: 280,
         multiple: true,
         multipleWidth: 55
     });
 });
+
+$("#fitness").multipleSelect({
+    selectAll: false,
+    multiple: true,
+    multipleWidth: 55
+    //    ,multipleWidth: "70"
+});	
+
+
+$(function() {
+    $('#fitness').change(function() {
+    	console.log($(this).val());
+}).multipleSelect({
+        width: 280,
+        multiple: true,
+        multipleWidth: 55
+    });
+});
+
+
+
+$("#srl_fitness").multipleSelect({
+    selectAll: false,
+    multiple: true,
+    multipleWidth: 55
+    //    ,multipleWidth: "70"
+});	
+
+
+function fn_setSerialCurrency(selSerialCurrency){
+	var selCurrency = $("#currency_atch").multipleSelect("getSelects");
+//	var selSerialCurrency = $("#serial_currency_atch").multipleSelect("getSelects");
+	var serial_currency_atch = document.getElementById('serial_currency_atch');
+
+	for(var i=0; i<serial_currency_atch.length; i++){
+		var isExist = false;
+		for (var j = selCurrency.length; j--;){
+			if(serial_currency_atch.options[i].value == selCurrency[j]){
+				isExist = true;
+				break;
+			}
+		}
+		if(isExist==false){
+			serial_currency_atch.remove(i);	
+		}
+	}
+	$('#serial_currency_atch').multipleSelect("refresh");
+	for(var i=0; i<selCurrency.length; i++){
+		var opt = $("<option />", {
+            value: selCurrency[i],
+            text: selCurrency[i]
+        });
+		opt.prop("selected", false);
+
+		var isExist = false;
+		for (var j = serial_currency_atch.length; j--;){
+			if(selCurrency[i] == serial_currency_atch.options[j].value){
+				isExist = true;
+				break;
+			}
+		}
+		if(isExist==false){
+			$('#serial_currency_atch').append(opt);
+		}
+	}
+	$('#serial_currency_atch').multipleSelect("refresh");
+	$('#serial_currency_atch').multipleSelect("setSelects", selSerialCurrency);
+
+}
+
+function fn_setFitness(selFitness){
+	var selCurrency = $("#currency_atch").multipleSelect("getSelects");
+//	var selFitness = $("#fitness").multipleSelect("getSelects");
+	var selAr = selCurrency.concat(selFitness).sort();
+	var fitness = document.getElementById('fitness');
+
+	for(var i=0; i<fitness.length; i++){
+		var isExist = false;
+		for (var j = selCurrency.length; j--;){
+			if(fitness.options[i].value == selCurrency[j]){
+				isExist = true;
+				break;
+			}
+		}
+		if(isExist==false){
+			fitness.remove(i);	
+		}
+	}
+	$('#fitness').multipleSelect("refresh");
+	for(var i=0; i<selCurrency.length; i++){
+		var opt = $("<option />", {
+            value: selCurrency[i],
+            text: selCurrency[i]
+        });
+		opt.prop("selected", false);
+
+		var isExist = false;
+		for (var j = fitness.length; j--;){
+			if(selCurrency[i] == fitness.options[j].value){
+				isExist = true;
+				break;
+			}
+		}
+		if(isExist==false){
+			$('#fitness').append(opt);
+		}
+	}
+	$('#fitness').multipleSelect("refresh");
+	$('#fitness').multipleSelect("setSelects", selFitness);
+
+}
+
+function fn_setSrlFitness(selSrlFitness){
+	var selSerialCurrency = $("#serial_currency_atch").multipleSelect("getSelects");
+	var srl_fitness = document.getElementById('srl_fitness');
+
+	for(var i=0; i<srl_fitness.length; i++){
+		var isExist = false;
+		for (var j = selSerialCurrency.length; j--;){
+			if(srl_fitness.options[i].value == selSerialCurrency[j]){
+				isExist = true;
+				break;
+			}
+		}
+		if(isExist==false){
+			srl_fitness.remove(i);	
+		}
+	}
+	$('#srl_fitness').multipleSelect("refresh");
+	for(var i=0; i<selSerialCurrency.length; i++){
+		var opt = $("<option />", {
+            value: selSerialCurrency[i],
+            text: selSerialCurrency[i]
+        });
+		opt.prop("selected", false);
+
+		var isExist = false;
+		for (var j = srl_fitness.length; j--;){
+			if(selSerialCurrency[i] == srl_fitness.options[j].value){
+				isExist = true;
+				break;
+			}
+		}
+		if(isExist==false){
+			$('#srl_fitness').append(opt);
+		}
+	}
+	$('#srl_fitness').multipleSelect("refresh");
+	$('#srl_fitness').multipleSelect("setSelects", selSrlFitness);
+
+}
 
 $(function() {
     $('#opt_hw_atcd').change(function() {
@@ -398,8 +566,8 @@ function initForm() {
 		
 		var selAr =  ["USD","EUR"];
 		getCodeMultiCombo("0091", $('#currency_atch'), selAr);
-		
-		getCodeMultiCombo("0092", $('#serial_currency_atch'));
+
+//		getCodeMultiCombo("0092", $('#serial_currency_atch'));
         $("#serial_currency_atch").multipleSelect("disable");
 		
 		getCodeMultiCombo("00A0", $('#opt_hw_atcd'), selAr);
@@ -453,39 +621,41 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		getCodeCombo("00B0", f.srl_atcd, eqpOrdInfo.srl_atcd);
 
 		
-    	var selAr =  [];
+    	var selCurrency =  [];
         if(eqpOrdDtlList!=null){
             for(var i=0; i < eqpOrdDtlList.length; i++){
                 if(eqpOrdDtlList[i]["currency_atch"]!=""){
-	            	selAr[selAr.length] = eqpOrdDtlList[i]["currency_atch"];
+                	selCurrency[selCurrency.length] = eqpOrdDtlList[i]["currency_atch"];
                 }
 			}
 		}
-		getCodeMultiCombo("0091", $('#currency_atch'), selAr);
+		getCodeMultiCombo("0091", $('#currency_atch'), selCurrency);
 		
-    	selAr =  [];
+		var selSerialCurrency =  [];
         if(eqpOrdDtlList!=null){
             for(var i=0; i < eqpOrdDtlList.length; i++){
                 if(eqpOrdDtlList[i]["serial_currency_atch"]!=""){
-	            	selAr[selAr.length] = eqpOrdDtlList[i]["serial_currency_atch"];
+                	selSerialCurrency[selSerialCurrency.length] = eqpOrdDtlList[i]["serial_currency_atch"];
                 }
 			}
 		}
-		getCodeMultiCombo("0092", $('#serial_currency_atch'), selAr);
-
-        
-    	selAr =  [];
+//		getCodeMultiCombo("0092", $('#serial_currency_atch'), selSerialCurrency);
+		fn_setSerialCurrency(selSerialCurrency);
+		
+    	fn_setSrlFitness(selSerialCurrency);		
+		
+    	var selOptHw =  [];
         if(eqpOrdDtlList!=null){
             for(var i=0; i < eqpOrdDtlList.length; i++){
                 if(eqpOrdDtlList[i]["opt_hw_atcd"]!=""){
                     if(eqpOrdDtlList[i]["opt_hw_atcd"]=="00A00001"){
                         $('input:checkbox[id="opt_hw_lan"]').attr("checked", true);
                     }
-                	selAr[selAr.length] = eqpOrdDtlList[i]["opt_hw_atcd"];
+                    selOptHw[selOptHw.length] = eqpOrdDtlList[i]["opt_hw_atcd"];
                 }
 			}
 		}
-        getCodeMultiCombo("00A0", $('#opt_hw_atcd'), selAr);
+        getCodeMultiCombo("00A0", $('#opt_hw_atcd'), selOptHw);
 
 
         getCodeCombo("00L0", f.lcd_color_atcd, "00L00001", eqpOrdInfo.lcd_color_atcd);
