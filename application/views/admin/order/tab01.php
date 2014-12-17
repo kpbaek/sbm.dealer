@@ -363,8 +363,8 @@ $("#serial_currency_atch").multipleSelect({
 $(function() {
     $('#currency_atch').change(function() {
     	console.log($(this).val());
-    	fn_setFitness($("#fitness").multipleSelect("getSelects"));
-		fn_setSerialCurrency($("#serial_currency_atch").multipleSelect("getSelects"));
+    	fn_setFitness();
+		fn_setSerialCurrency();
 	}).multipleSelect({
         width: 280,
         multiple: true,
@@ -375,7 +375,7 @@ $(function() {
 $(function() {
     $('#serial_currency_atch').change(function() {
         console.log($(this).val());
-    	fn_setSrlFitness($("#srl_fitness").multipleSelect("getSelects"));		
+    	fn_setSrlFitness();		
 	}).multipleSelect({
         width: 280,
         multiple: true,
@@ -411,9 +411,9 @@ $("#srl_fitness").multipleSelect({
 });	
 
 
-function fn_setSerialCurrency(selSerialCurrency){
+function fn_setSerialCurrency(){
 	var selCurrency = $("#currency_atch").multipleSelect("getSelects");
-//	var selSerialCurrency = $("#serial_currency_atch").multipleSelect("getSelects");
+	var selSerialCurrency = $("#serial_currency_atch").multipleSelect("getSelects");
 	var serial_currency_atch = document.getElementById('serial_currency_atch');
 
 	for(var i=0; i<serial_currency_atch.length; i++){
@@ -452,9 +452,9 @@ function fn_setSerialCurrency(selSerialCurrency){
 
 }
 
-function fn_setFitness(selFitness){
+function fn_setFitness(){
 	var selCurrency = $("#currency_atch").multipleSelect("getSelects");
-//	var selFitness = $("#fitness").multipleSelect("getSelects");
+	var selFitness = $("#fitness").multipleSelect("getSelects");
 	var selAr = selCurrency.concat(selFitness).sort();
 	var fitness = document.getElementById('fitness');
 
@@ -494,8 +494,9 @@ function fn_setFitness(selFitness){
 
 }
 
-function fn_setSrlFitness(selSrlFitness){
+function fn_setSrlFitness(){
 	var selSerialCurrency = $("#serial_currency_atch").multipleSelect("getSelects");
+	var selSrlFitness = $("#srl_fitness").multipleSelect("getSelects")
 	var srl_fitness = document.getElementById('srl_fitness');
 
 	for(var i=0; i<srl_fitness.length; i++){
@@ -632,7 +633,6 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 			}
 		}
 		getCodeMultiCombo("0091", $('#currency_atch'), selCurrency);
-//		getListMultiCombo(selCurrency, $('#fitness'), selCurrency);
 		getListMultiCombo(listSelCurrency, $('#fitness'), selCurrency);
 		
 		var selSerialCurrency =  [];
@@ -646,9 +646,7 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 			}
 		}
 //		getCodeMultiCombo("0092", $('#serial_currency_atch'), selSerialCurrency);
-//		getListMultiCombo(selCurrency, $('#serial_currency_atch'), selSerialCurrency);
 		getListMultiCombo(listSelSerialCurrency, $('#serial_currency_atch'), selSerialCurrency);
-//		getListMultiCombo(selSerialCurrency, $('#srl_fitness'), selSerialCurrency);
 		getListMultiCombo(listSelSerialCurrency, $('#srl_fitness'), selSerialCurrency);
 
     	var selOptHw =  [];
@@ -681,20 +679,6 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		getCodeImgCombo("00E0", f.pwr_cab_atcd, eqpOrdInfo.pwr_cab_atcd);
 //		$("#pwr_cab_atcd").msDropdown({roundedBorder:false});
 
-}
-
-function getListMultiCombo(listOpt, selObj, selAr) {
-
-    for(var i=0; i<listOpt.length; i++){
-    	var opt = $("<option />", {
-        	value: listOpt[i][0],
-        	text: listOpt[i][1]
-    	});
-    	opt.prop("selected", false);
-    	selObj.append(opt);
-	}
-	selObj.multipleSelect("refresh");
-	selObj.multipleSelect("setSelects", selAr);
 }
 
 
