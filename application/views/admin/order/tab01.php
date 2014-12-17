@@ -364,7 +364,7 @@ $(function() {
     $('#currency_atch').change(function() {
     	console.log($(this).val());
     	fn_setFitness($("#fitness").multipleSelect("getSelects"));
-		fn_setSerialCurrency($("#serial_currency_atch").multipleSelect("getSelects"));		
+		fn_setSerialCurrency($("#serial_currency_atch").multipleSelect("getSelects"));
 	}).multipleSelect({
         width: 280,
         multiple: true,
@@ -622,28 +622,35 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 
 		
     	var selCurrency =  [];
+    	var listSelCurrency =  [];
         if(eqpOrdDtlList!=null){
             for(var i=0; i < eqpOrdDtlList.length; i++){
                 if(eqpOrdDtlList[i]["currency_atch"]!=""){
                 	selCurrency[selCurrency.length] = eqpOrdDtlList[i]["currency_atch"];
+                	listSelCurrency[listSelCurrency.length] = [eqpOrdDtlList[i]["currency_atch"], eqpOrdDtlList[i]["currency_atch"]];
                 }
 			}
 		}
 		getCodeMultiCombo("0091", $('#currency_atch'), selCurrency);
+//		getListMultiCombo(selCurrency, $('#fitness'), selCurrency);
+		getListMultiCombo(listSelCurrency, $('#fitness'), selCurrency);
 		
 		var selSerialCurrency =  [];
+		var listSelSerialCurrency =  [];
         if(eqpOrdDtlList!=null){
             for(var i=0; i < eqpOrdDtlList.length; i++){
                 if(eqpOrdDtlList[i]["serial_currency_atch"]!=""){
                 	selSerialCurrency[selSerialCurrency.length] = eqpOrdDtlList[i]["serial_currency_atch"];
+                	listSelSerialCurrency[listSelSerialCurrency.length] = [eqpOrdDtlList[i]["serial_currency_atch"], eqpOrdDtlList[i]["serial_currency_atch"]];
                 }
 			}
 		}
 //		getCodeMultiCombo("0092", $('#serial_currency_atch'), selSerialCurrency);
-		fn_setSerialCurrency(selSerialCurrency);
-		
-    	fn_setSrlFitness(selSerialCurrency);		
-		
+//		getListMultiCombo(selCurrency, $('#serial_currency_atch'), selSerialCurrency);
+		getListMultiCombo(listSelSerialCurrency, $('#serial_currency_atch'), selSerialCurrency);
+//		getListMultiCombo(selSerialCurrency, $('#srl_fitness'), selSerialCurrency);
+		getListMultiCombo(listSelSerialCurrency, $('#srl_fitness'), selSerialCurrency);
+
     	var selOptHw =  [];
         if(eqpOrdDtlList!=null){
             for(var i=0; i < eqpOrdDtlList.length; i++){
@@ -675,6 +682,21 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 //		$("#pwr_cab_atcd").msDropdown({roundedBorder:false});
 
 }
+
+function getListMultiCombo(listOpt, selObj, selAr) {
+
+    for(var i=0; i<listOpt.length; i++){
+    	var opt = $("<option />", {
+        	value: listOpt[i][0],
+        	text: listOpt[i][1]
+    	});
+    	opt.prop("selected", false);
+    	selObj.append(opt);
+	}
+	selObj.multipleSelect("refresh");
+	selObj.multipleSelect("setSelects", selAr);
+}
+
 
 function setMdlCtrl(value){
 	var f = document.addForm;
