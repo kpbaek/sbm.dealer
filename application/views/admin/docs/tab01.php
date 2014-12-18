@@ -730,23 +730,25 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	for(var i=0; i < eqpOrdDtlList.length; i++){
 		if(eqpOrdDtlList[i].currency_atch!=""){
 			c1Ar[c1Ar.length] = eqpOrdDtlList[i]["currency_atch"];
-			$("#cf1").append("<select id='fitness' name='fitness[]' style='width:41px'></select>");
+//			$("#cf1").append("<select id='fitness' name='fitness[]' style='width:41px;'></select>");
+			$("#cf1").append("<input type='text' id='fitness' name='fitness[]' style='width:35px;' class='inputBox' readonly>");
 		}
 		if(eqpOrdDtlList[i].serial_currency_atch!=""){
 			srl_cAr[srl_cAr.length] = eqpOrdDtlList[i]["serial_currency_atch"];
-			$("#srl_cf").append("<select id='srl_fitness' name='srl_fitness[]' style='width:41px'></select>");
+//			$("#srl_cf").append("<select id='srl_fitness' name='srl_fitness[]' style='width:41px;'></select>");
+			$("#srl_cf").append("<input type='text' id='srl_fitness' name='srl_fitness[]' style='width:35px;' class='inputBox' readonly>");
 		}
 	}
 	if(c1Ar.length){
 		if(c1Ar.length > 1){
 			for(var i=0; i < f.fitness.length; i++){
 				$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px;' class='inputBox' value='" + c1Ar[i] + "' readonly>");
-				getOXCombo(f.fitness[i], "X");
+//				getOXCombo(f.fitness[i], "X");
 				$("#c1_f1").append(f.fitness[i]);
 			}
 		}else{
 			$("#c1").append("<input type=text id='currency_atch' name='currency_atch[]' style='width:35px;' class='inputBox' value='" + c1Ar[0] + "' readonly>");
-			getOXCombo(f.fitness, "X");
+//			getOXCombo(f.fitness, "X");
 			$("#c1_f1").append(f.fitness);
 		}
 	}
@@ -754,67 +756,115 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 		if(srl_cAr.length > 1){
 			for(var i=0; i < f.srl_fitness.length; i++){
 				$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px;' class='inputBox' value='" + srl_cAr[i] + "' readonly>");
-				getOXCombo(f.srl_fitness[i], "X");
+//				getOXCombo(f.srl_fitness[i], "X");
 				$("#srl_f").append(f.srl_fitness[i]);
 			}
 		}else{
 			$("#srl_c").append("<input type=text id='serial_currency_atch' name='serial_currency_atch[]' style='width:35px;' class='inputBox' value='" + srl_cAr[0] + "' readonly>");
-			getOXCombo(f.srl_fitness, "X");
+//			getOXCombo(f.srl_fitness, "X");
 			$("#srl_f").append(f.srl_fitness);
 		}
 	}
-	
-	// fitness
-	var currencyAr = [];
-	var fitnessAr = [];
-	var srlCurrencyAr = [];
-	var srlFitnessAr = [];
-	if(prdReqDtlList!=null){
-		for(var i=0; i < prdReqDtlList.length; i++){
-			if(prdReqDtlList[i].currency_atch!=""){
-				currencyAr[currencyAr.length] = prdReqDtlList[i].currency_atch;
-				fitnessAr[fitnessAr.length] = prdReqDtlList[i].fitness;
-	/**			
-				$("#cf1").append(prdReqDtlList[i].currency_atch);
-				$("#cf1").append("(");
-				$("#cf1").append(prdReqDtlList[i].fitness);
-				$("#cf1").append(")");
-				$("#cf1").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-	*/			
-			}
-			if(prdReqDtlList[i].serial_currency_atch!=""){
-				srlCurrencyAr[srlCurrencyAr.length] = prdReqDtlList[i].serial_currency_atch;
-				srlFitnessAr[srlFitnessAr.length] = prdReqDtlList[i].srl_fitness;
-				/**			
-				$("#srl_cf").append(prdReqDtlList[i].serial_currency_atch);
-				$("#srl_cf").append("(");
-				$("#srl_cf").append(prdReqDtlList[i].srl_fitness);
-				$("#srl_cf").append(")");
-				$("#srl_cf").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-				*/			
-			}
-		}
 
-		if(f.currency_atch.length){
-			for(var i=0; i < f.currency_atch.length; i++){
-				if(currencyAr[i]==f.currency_atch[i].value){
-					getOXCombo(f.fitness[i], fitnessAr[i]);
+	if(false){
+		// read fitness from PrdReqDtlList - not used
+		var currencyAr = [];
+		var fitnessAr = [];
+		var srlCurrencyAr = [];
+		var srlFitnessAr = [];
+		if(prdReqDtlList!=null){
+			for(var i=0; i < prdReqDtlList.length; i++){
+				if(prdReqDtlList[i].currency_atch!=""){
+					currencyAr[currencyAr.length] = prdReqDtlList[i].currency_atch;
+					fitnessAr[fitnessAr.length] = prdReqDtlList[i].fitness;
+		/**			
+					$("#cf1").append(prdReqDtlList[i].currency_atch);
+					$("#cf1").append("(");
+					$("#cf1").append(prdReqDtlList[i].fitness);
+					$("#cf1").append(")");
+					$("#cf1").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+		*/			
+				}
+				if(prdReqDtlList[i].serial_currency_atch!=""){
+					srlCurrencyAr[srlCurrencyAr.length] = prdReqDtlList[i].serial_currency_atch;
+					srlFitnessAr[srlFitnessAr.length] = prdReqDtlList[i].srl_fitness;
+					/**			
+					$("#srl_cf").append(prdReqDtlList[i].serial_currency_atch);
+					$("#srl_cf").append("(");
+					$("#srl_cf").append(prdReqDtlList[i].srl_fitness);
+					$("#srl_cf").append(")");
+					$("#srl_cf").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+					*/			
 				}
 			}
-		}else{
-			getOXCombo(f.fitness, fitnessAr[0]);
-		}
-		if(f.serial_currency_atch){
-			if(f.serial_currency_atch.length){
-				for(var i=0; i < f.serial_currency_atch.length; i++){
-					if(srlCurrencyAr[i]==f.serial_currency_atch[i].value){
-						getOXCombo(f.srl_fitness[i], srlFitnessAr[i]);
+	
+			if(f.currency_atch.length){
+				for(var i=0; i < f.currency_atch.length; i++){
+					if(currencyAr[i]==f.currency_atch[i].value){
+						getOXCombo(f.fitness[i], fitnessAr[i]);
 					}
 				}
 			}else{
-				getOXCombo(f.srl_fitness, srlFitnessAr[0]);
+				getOXCombo(f.fitness, fitnessAr[0]);
+			}
+			if(f.serial_currency_atch){
+				if(f.serial_currency_atch.length){
+					for(var i=0; i < f.serial_currency_atch.length; i++){
+						if(srlCurrencyAr[i]==f.serial_currency_atch[i].value){
+							getOXCombo(f.srl_fitness[i], srlFitnessAr[i]);
+						}
+					}
+				}else{
+					getOXCombo(f.srl_fitness, srlFitnessAr[0]);
+				}
 			}
 		}
+		
+	}else{ 
+		// read fitness from Order
+		var currencyAr = [];
+		var fitnessAr = [];
+		var srlCurrencyAr = [];
+		var srlFitnessAr = [];
+		if(eqpOrdDtlList!=null){
+			for(var i=0; i < eqpOrdDtlList.length; i++){
+				if(eqpOrdDtlList[i].currency_atch!=""){
+					currencyAr[currencyAr.length] = eqpOrdDtlList[i].currency_atch;
+					fitnessAr[fitnessAr.length] = eqpOrdDtlList[i].fitness_ox;
+				}
+				if(eqpOrdDtlList[i].serial_currency_atch!=""){
+					srlCurrencyAr[srlCurrencyAr.length] = eqpOrdDtlList[i].serial_currency_atch;
+					srlFitnessAr[srlFitnessAr.length] = eqpOrdDtlList[i].srl_fitness_ox;
+				}
+			}
+	
+			if(f.currency_atch.length){
+				for(var i=0; i < f.currency_atch.length; i++){
+					if(currencyAr[i]==f.currency_atch[i].value){
+//						getOXCombo(f.fitness[i], fitnessAr[i]);
+						f.fitness[i].value = fitnessAr[i];
+					}
+				}
+			}else{
+//				getOXCombo(f.fitness, fitnessAr[0]);
+				f.fitness.value = fitnessAr[0];
+			}
+			
+			if(f.serial_currency_atch){
+				if(f.serial_currency_atch.length){
+					for(var i=0; i < f.serial_currency_atch.length; i++){
+						if(srlCurrencyAr[i]==f.serial_currency_atch[i].value){
+//							getOXCombo(f.srl_fitness[i], srlFitnessAr[i]);
+							f.srl_fitness[i].value = srlFitnessAr[i];
+						}
+					}
+				}else{
+//					getOXCombo(f.srl_fitness, srlFitnessAr[0]);
+					f.srl_fitness.value = srlFitnessAr[0];
+				}
+			}
+		}
+		
 	}
 	
 
