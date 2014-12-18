@@ -26,6 +26,11 @@ if(isset($_POST["currency_atch"])){
 	$currency_atch = $_POST["currency_atch"];
 }
 
+$fitness = null;
+if(isset($_POST["fitness"])){
+	$fitness = $_POST["fitness"];
+}
+
 $srl_atcd = "";
 if(isset($_POST["srl_atcd"])){
 	$srl_atcd = $_POST["srl_atcd"];
@@ -34,6 +39,11 @@ if(isset($_POST["srl_atcd"])){
 $serial_currency_atch = null;
 if(isset($_POST["serial_currency_atch"])){
 	$serial_currency_atch = $_POST["serial_currency_atch"];
+}
+
+$srl_fitness = null;
+if(isset($_POST["srl_fitness"])){
+	$srl_fitness = $_POST["srl_fitness"];
 }
 
 $lcd_color_atcd = "";
@@ -172,9 +182,13 @@ if($po_no==""){
 	
 	for($i_cur=0; $i_cur < sizeof($currency_atch); $i_cur++)
 	{
+		$atcd_ox = "X";
+		if(in_array($currency_atch[$i_cur], $fitness)){
+			$atcd_ox = "O";
+		}
 		$sql_dtl = "INSERT INTO om_ord_eqp_dtl";
-		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
-		$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '0091', '" .$currency_atch[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+		$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '0091', '" .$currency_atch[$i_cur]. "','" .$atcd_ox. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #			echo $sql_dtl;
 		$result4 = $this->db->query($sql_dtl);
 		$qryInfo['qryInfo']['insEqpDtl'][$i_cur]['sql4'] = $sql_dtl;
@@ -183,9 +197,13 @@ if($po_no==""){
 	
 	for($i_cur=0; $i_cur < sizeof($serial_currency_atch); $i_cur++)
 	{
+		$atcd_ox = "X";
+		if(in_array($serial_currency_atch[$i_cur], $srl_fitness)){
+			$atcd_ox = "O";
+		}
 		$sql_dtl = "INSERT INTO om_ord_eqp_dtl";
-		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
-		$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '0092', '" .$serial_currency_atch[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+		$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '0092', '" .$serial_currency_atch[$i_cur]. "','" .$atcd_ox. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #			echo $sql_dtl;
 		$result5 = $this->db->query($sql_dtl);
 		$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['sql5'] = $sql_dtl;
@@ -273,9 +291,13 @@ if($po_no==""){
 			
 			for($i_cur=0; $i_cur < sizeof($currency_atch); $i_cur++)
 			{
+				$atcd_ox = "X";
+				if(in_array($currency_atch[$i_cur], $fitness)){
+					$atcd_ox = "O";
+				}
 				$sql_dtl = "INSERT INTO om_ord_eqp_dtl";
-				$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
-				$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$po_no. ", '0091', '" .$currency_atch[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+				$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+				$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$po_no. ", '0091', '" .$currency_atch[$i_cur]. "','" .$atcd_ox. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 		#			echo $sql_dtl;
 				$result4 = $this->db->query($sql_dtl);
 				$qryInfo['qryInfo']['insEqpDtl'][$i_cur]['sql4'] = $sql_dtl;
@@ -284,9 +306,13 @@ if($po_no==""){
 			
 			for($i_cur=0; $i_cur < sizeof($serial_currency_atch); $i_cur++)
 			{
+				$atcd_ox = "X";
+				if(in_array($serial_currency_atch[$i_cur], $srl_fitness)){
+					$atcd_ox = "O";
+				}
 				$sql_dtl = "INSERT INTO om_ord_eqp_dtl";
-				$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
-				$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$po_no. ", '0092', '" .$serial_currency_atch[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+				$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
+				$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$po_no. ", '0092', '" .$serial_currency_atch[$i_cur]. "','" .$atcd_ox. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 		#			echo $sql_dtl;
 				$result5 = $this->db->query($sql_dtl);
 				$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['sql5'] = $sql_dtl;
