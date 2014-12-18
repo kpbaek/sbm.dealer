@@ -38,7 +38,11 @@ function readEqpOrder($pi_no, $po_no){
 	$sql_dtl = $sql_dtl . "(";
 	$sql_dtl = $sql_dtl . " SELECT b.*";
 	$sql_dtl = $sql_dtl . ",(case when b.cd='0091' then b.atcd else '' end) currency_atch";
+	$sql_dtl = $sql_dtl . ",(CASE WHEN b.cd='0091' AND b.atcd_ox='O' THEN b.atcd ELSE '' END) fitness";
+	$sql_dtl = $sql_dtl . ",(CASE WHEN b.cd='0091' THEN b.atcd_ox ELSE '' END) fitness_ox";
 	$sql_dtl = $sql_dtl . ",(case when b.cd='0092' then b.atcd else '' end) serial_currency_atch";
+	$sql_dtl = $sql_dtl . ",(CASE WHEN b.cd='0092' AND b.atcd_ox='O' THEN b.atcd ELSE '' END) srl_fitness";
+	$sql_dtl = $sql_dtl . ",(CASE WHEN b.cd='0092' THEN b.atcd_ox ELSE '' END) srl_fitness_ox";
 	$sql_dtl = $sql_dtl . ",(case when b.cd='00A0' then b.atcd else '' end) opt_hw_atcd";
 	$sql_dtl = $sql_dtl . ",(case when b.cd='00C0' then b.atcd else '' end) pc_cab_atcd";
 	$sql_dtl = $sql_dtl . " FROM om_ord_eqp a, om_ord_eqp_dtl b";
@@ -99,7 +103,11 @@ function readEqpOrder($pi_no, $po_no){
 	$i=0;
 	while($row2 = mysql_fetch_array($result2,MYSQL_ASSOC)) {
 		$eqpOrder['eqpOrdDtlList'][$i]['currency_atch'] = $row2['currency_atch'];
+		$eqpOrder['eqpOrdDtlList'][$i]['fitness_ox'] = $row2['fitness_ox'];
+		$eqpOrder['eqpOrdDtlList'][$i]['fitness'] = $row2['fitness'];
 		$eqpOrder['eqpOrdDtlList'][$i]['serial_currency_atch'] = $row2['serial_currency_atch'];
+		$eqpOrder['eqpOrdDtlList'][$i]['srl_fitness_ox'] = $row2['srl_fitness_ox'];
+		$eqpOrder['eqpOrdDtlList'][$i]['srl_fitness'] = $row2['srl_fitness'];
 		$eqpOrder['eqpOrdDtlList'][$i]['opt_hw_atcd'] = $row2['opt_hw_atcd'];
 		$eqpOrder['eqpOrdDtlList'][$i]['pc_cab_atcd'] = $row2['pc_cab_atcd'];
 		$eqpOrder['eqpOrdDtlList'][$i]['txt_opt_hw_atcd'] = $row2['txt_opt_hw_atcd'];
