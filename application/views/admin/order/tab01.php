@@ -575,7 +575,7 @@ function initForm() {
 		
 		getCodeCombo("00L0", f.lcd_color_atcd, "00L00001");
 		getCodeCombo("00M0", f.lcd_lang_atcd, "00M00001");
-		getCodeCombo("00D0", f.rjt_pkt_tp_atcd, "00D00001");
+		getCodeCombo("00D0", f.rjt_pkt_tp_atcd, "00D00002");
 /**
 		getOXCombo(f.srl_prn_cab_ox, "X");
 		getOXCombo(f.calibr_sheet_ox, "X");
@@ -692,7 +692,16 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 
 function setMdlCtrl(value){
 	var f = document.addForm;
-
+	if(!(value == "2000" || value == "3000" || value == "5000")){
+	    $("#fitness").multipleSelect("uncheckAll");
+		$('#fitness').multipleSelect("disable");
+	    $("#srl_fitness").multipleSelect("uncheckAll");
+		$('#srl_fitness').multipleSelect("disable");
+	}else{
+		$('#fitness').multipleSelect("enable");
+		$('#srl_fitness').multipleSelect("enable");
+	}
+	
 	if(value == "3000"){
 		$('#rjt_pkt_tp_atcd').val("00D00001");
 		$('#rjt_pkt_tp_atcd').attr('disabled',false);
