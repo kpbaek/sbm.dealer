@@ -88,6 +88,7 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 	$sql_dtl = $sql_dtl . " WHERE a.pi_no = b.pi_no";
 	$sql_dtl = $sql_dtl . " order by cd, atcd";
 #	echo $sql_dtl;
+	log_message('debug', $sql_dtl);
 	
 	$result2 = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
 	
@@ -205,6 +206,7 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 
 		$currency_atch = "";
 		$fitness = "";
+		/**
 		if($prdReq['prdReqDtlList']!=null){
 			foreach ($prdReq['prdReqDtlList'] as $row)
 			{
@@ -214,18 +216,39 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 				}
 			}
 		}
+		*/
+		if($prdReq['eqpOrdDtlList']!=null){
+			foreach ($prdReq['eqpOrdDtlList'] as $row)
+			{
+				if($row["currency_atch"]!=""){
+					$currency_atch = $currency_atch. "<input type=text value='" . $row["currency_atch"] . "' size=3 class='inputBox' readonly>";
+					$fitness = $fitness. "<input type=text value='" . $row["fitness_ox"] . "' size=3 class='inputBox'  readonly>";
+				}
+			}
+		}
 		$ctnt = str_replace("@currency_atch", $currency_atch, $ctnt);
 		$ctnt = str_replace("@fitness", $fitness, $ctnt);
 		
 		
 		$serial_currency_atch = "";
 		$srl_fitness = "";
+		/**
 		if($prdReq['prdReqDtlList']!=null){
 			foreach ($prdReq['prdReqDtlList'] as $row)
 			{
 				if($row["serial_currency_atch"]!=""){
 					$serial_currency_atch = $serial_currency_atch. "<input type=text value='" . $row["serial_currency_atch"]. "' size=3 class='inputBox'  readonly>";
 					$srl_fitness = $srl_fitness. "<input type=text value='" . $row["srl_fitness"]. "' size=3 class='inputBox' readonly>";
+				}
+			}
+		}
+		*/
+		if($prdReq['eqpOrdDtlList']!=null){
+			foreach ($prdReq['eqpOrdDtlList'] as $row)
+			{
+				if($row["serial_currency_atch"]!=""){
+					$serial_currency_atch = $serial_currency_atch. "<input type=text value='" . $row["serial_currency_atch"]. "' size=3 class='inputBox'  readonly>";
+					$srl_fitness = $srl_fitness. "<input type=text value='" . $row["srl_fitness_ox"]. "' size=3 class='inputBox' readonly>";
 				}
 			}
 		}
