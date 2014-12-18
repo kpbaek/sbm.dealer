@@ -760,7 +760,7 @@ function setSerialCurrencyCombo(value){
 
 function fn_isValid(){
 	if(!$("#cntry_atcd").val()){
-		alert("Dest Country is required!");
+		alert("Destination Country is required!");
 		$("#cntry_atcd").focus();
 		return false;
 	}else if(!$("#mdl_cd").val()){

@@ -84,6 +84,7 @@ function readEqpOrder($pi_no, $po_no){
 	#$eqpOrder['eqpOrdInfo']['serial_currency_atch'] = $row['serial_currency_atch'];
 	#$eqpOrder['eqpOrdInfo']['opt_hw_atcd'] = $row['opt_hw_atcd'];
 	$eqpOrder['eqpOrdInfo']['srl_atcd'] = $row['srl_atcd'];
+	$eqpOrder['eqpOrdInfo']['txt_srl_atcd'] = $row['txt_srl_atcd'];
 	$eqpOrder['eqpOrdInfo']['rjt_pkt_tp_atcd'] = $row['rjt_pkt_tp_atcd'];
 	$eqpOrder['eqpOrdInfo']['pwr_cab_atcd'] = $row['pwr_cab_atcd'];
 	$eqpOrder['eqpOrdInfo']['shipped_by_atcd'] = $row['shipped_by_atcd'];
@@ -92,8 +93,13 @@ function readEqpOrder($pi_no, $po_no){
 	$eqpOrder['eqpOrdInfo']['incoterms_atcd'] = $row['incoterms_atcd'];
 	$eqpOrder['eqpOrdInfo']['lcd_color_atcd'] = $row['lcd_color_atcd'];
 	$eqpOrder['eqpOrdInfo']['lcd_lang_atcd'] = $row['lcd_lang_atcd'];
-	$eqpOrder['eqpOrdInfo']['txt_lcd_lang_atcd'] = $row['txt_lcd_lang_atcd'];
 	$eqpOrder['eqpOrdInfo']['txt_lcd_color_atcd'] = $row['txt_lcd_color_atcd'];
+	$eqpOrder['eqpOrdInfo']['txt_lcd_lang_atcd'] = $row['txt_lcd_lang_atcd'];
+	$eqpOrder['eqpOrdInfo']['txt_rjt_pkt_tp_atcd'] = $row['txt_rjt_pkt_tp_atcd'];
+	$eqpOrder['eqpOrdInfo']['txt_shipped_by_atcd'] = $row['txt_shipped_by_atcd'];
+	$eqpOrder['eqpOrdInfo']['txt_courier_atcd'] = $row['txt_courier_atcd'];
+	$eqpOrder['eqpOrdInfo']['txt_payment_atcd'] = $row['txt_payment_atcd'];
+	$eqpOrder['eqpOrdInfo']['txt_incoterms_atcd'] = $row['txt_incoterms_atcd'];
 	
 	$eqpOrder['eqpOrdInfo']['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
 	$eqpOrder['eqpOrdInfo']['txt_cntry_atcd'] = $row['txt_cntry_atcd'];
@@ -113,6 +119,8 @@ function readEqpOrder($pi_no, $po_no){
 		$eqpOrder['eqpOrdDtlList'][$i]['txt_opt_hw_atcd'] = $row2['txt_opt_hw_atcd'];
 		$eqpOrder['eqpOrdDtlList'][$i]['opt_qty'] = $row2['opt_qty'];
 		$eqpOrder['eqpOrdDtlList'][$i]['opt_unit_prc'] = $row2['opt_unit_prc'];
+		$eqpOrder['eqpOrdDtlList'][$i]['txt_currency_atcd'] = $row2['txt_currency_atcd'];
+		$eqpOrder['eqpOrdDtlList'][$i]['txt_serial_currency_atch'] = $row2['txt_serial_currency_atch'];
 		#    echo $row['id'];
 		$i++;
 	}
@@ -120,5 +128,77 @@ function readEqpOrder($pi_no, $po_no){
 		$eqpOrder['eqpOrdDtlList']=null;
 	}	
 	return $eqpOrder;
+}
+
+function getEqpOrderMailCtnt($ctnt, $eqpOrder){
+	
+	$ctnt = str_replace("@pi_no", $eqpOrder['eqpOrdInfo']['pi_no'], $ctnt);
+	$ctnt = str_replace("@txt_cntry_atcd", $eqpOrder['eqpOrdInfo']['txt_cntry_atcd'], $ctnt);
+	$ctnt = str_replace("@cmpy_nm", $eqpOrder['eqpOrdInfo']['cmpy_nm'], $ctnt);
+	$ctnt = str_replace("@txt_mdl_cd", $eqpOrder['eqpOrdInfo']['mdl_nm'], $ctnt);
+	$ctnt = str_replace("@po_no", $eqpOrder['eqpOrdInfo']['po_no'], $ctnt);
+	$ctnt = str_replace("@qty", $eqpOrder['eqpOrdInfo']['qty'], $ctnt);
+	$ctnt = str_replace("@txt_srl_atcd", $eqpOrder['eqpOrdInfo']['txt_srl_atcd'], $ctnt);
+	$ctnt = str_replace("@txt_lcd_color_atcd", $eqpOrder['eqpOrdInfo']['txt_lcd_color_atcd'], $ctnt);
+	$ctnt = str_replace("@txt_lcd_lang_atcd", $eqpOrder['eqpOrdInfo']['txt_lcd_lang_atcd'], $ctnt);
+	$ctnt = str_replace("@txt_rjt_pkt_tp_atcd", $eqpOrder['eqpOrdInfo']['txt_rjt_pkt_tp_atcd'], $ctnt);
+	$ctnt = str_replace("@txt_pwr_cab_atcd", $eqpOrder['eqpOrdInfo']['txt_pwr_cab_atcd'], $ctnt);
+	$ctnt = str_replace("@txt_shipped_by_atcd", $eqpOrder['eqpOrdInfo']['txt_shipped_by_atcd'], $ctnt);
+	$ctnt = str_replace("@txt_courier_atcd", $eqpOrder['eqpOrdInfo']['txt_courier_atcd'], $ctnt);
+	$ctnt = str_replace("@acct_no", $eqpOrder['eqpOrdInfo']['acct_no'], $ctnt);
+	$ctnt = str_replace("@delivery_dt", $eqpOrder['eqpOrdInfo']['delivery_dt'], $ctnt);
+	$ctnt = str_replace("@txt_payment_atcd", $eqpOrder['eqpOrdInfo']['txt_payment_atcd'], $ctnt);
+	$ctnt = str_replace("@txt_incoterms_atcd", $eqpOrder['eqpOrdInfo']['txt_incoterms_atcd'], $ctnt);
+	$ctnt = str_replace("@remark", str_replace("\n","<br>",$eqpOrder['eqpOrdInfo']['remark']), $ctnt);
+#	$ctnt = str_replace("@order_dt", $row['order_dt'], $ctnt);
+	
+	if($eqpOrder['eqpOrdInfo']['mdl_cd'] == "2000" || $eqpOrder['eqpOrdInfo']['mdl_cd'] == "3000" || $eqpOrder['eqpOrdInfo']['mdl_cd'] == "5000"){
+		$ctnt = str_replace("@fitnessDiv", "", $ctnt);
+	}else{
+		$ctnt = str_replace("@fitnessDiv", "none", $ctnt);
+	}
+	
+	
+	$txt_currency_atcd = "";
+	$fitness = "";
+	$txt_serial_currency_atch = "";
+	$srl_fitness = "";
+	$txt_opt_hw_atcd = "";
+	$txt_lan = "";
+	$i=0;
+	if($eqpOrder['eqpOrdDtlList']!=null){
+		foreach ($eqpOrder['eqpOrdDtlList'] as $row)
+		{
+			if(sizeof($row['txt_currency_atcd'])>0){
+				$txt_currency_atcd = $txt_currency_atcd . $row['txt_currency_atcd']. " | " ;
+			}
+			if($row['fitness']!=""){
+				$fitness = $fitness . $row['fitness']. " | " ;
+			}
+			if(sizeof($row['txt_serial_currency_atch'])>0){
+				$txt_serial_currency_atch = $txt_serial_currency_atch . $row['txt_serial_currency_atch'] . " | ";
+			}
+			if($row['srl_fitness']!=""){
+				$srl_fitness = $srl_fitness . $row['srl_fitness'] . " | ";
+			}
+			if(sizeof($row['txt_opt_hw_atcd'])>0){
+				//			if($row2['opt_hw_atcd']!="00A00001"){
+				$txt_opt_hw_atcd = $txt_opt_hw_atcd . $row['txt_opt_hw_atcd'] . " | ";
+				//			}else{
+				//				$txt_lan = $row2['txt_opt_hw_atcd'];
+				//			}
+			}
+			$i++;
+		}
+	}
+	
+	//	$ctnt = str_replace("@txt_lan", $txt_lan, $ctnt);
+	$ctnt = str_replace("@txt_currency_atch", $txt_currency_atcd, $ctnt);
+	$ctnt = str_replace("@fitness", $fitness, $ctnt);
+	$ctnt = str_replace("@txt_serial_currency_atch", $txt_serial_currency_atch, $ctnt);
+	$ctnt = str_replace("@srl_fitness", $srl_fitness, $ctnt);
+	$ctnt = str_replace("@txt_opt_hw_atcd", $txt_opt_hw_atcd, $ctnt);
+	
+	return $ctnt;
 }
 ?>
