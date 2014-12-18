@@ -54,7 +54,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td width="15%" class="style01" colspan=2>Date</td>
 			<td width="20%" colspan=2>@order_dt</td>
 			<td width="10%"></td>
-			<td width="15%" class="style01">Dest Country</td>
+			<td width="15%" class="style01">Destination Country</td>
 			<td width="10%" colspan=3>@txt_cntry_atcd	
 			</td>
 			<td width="5%"></td>
@@ -91,6 +91,16 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="style01">@txt_srl_atcd
 			</td>
 			<td colspan=3>@txt_serial_currency_atch
+			</td>
+		  </tr>
+		  <tr style="display:@fitnessDiv">
+			<td class="style01" colspan=2>Currency Fitness</td>
+		  	<td colspan=3>@fitness
+			</td>
+			<td class="style01">Serial Fitness</td>
+			<td class="style01">
+			</td>
+			<td colspan=3>@srl_fitness
 			</td>
 		  </tr>
 		  <tr>
