@@ -657,6 +657,17 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		getListMultiCombo(listSelSerialCurrency, $('#serial_currency_atch'), selSerialCurrency);
 		getListMultiCombo(listSelSerialCurrency, $('#srl_fitness'), selSrlFitness);
 
+
+		if(!(eqpOrdInfo.mdl_cd=="2000" || eqpOrdInfo.mdl_cd=="3000" || eqpOrdInfo.mdl_cd=="5000")){
+			setMdlCtrl(eqpOrdInfo.mdl_cd);
+/**
+			$("#fitness").multipleSelect("uncheckAll");
+			$('#fitness').multipleSelect("disable");
+		    $("#srl_fitness").multipleSelect("uncheckAll");
+			$('#srl_fitness').multipleSelect("disable");
+*/			
+		}
+		
     	var selOptHw =  [];
         if(eqpOrdDtlList!=null){
             for(var i=0; i < eqpOrdDtlList.length; i++){
@@ -753,8 +764,11 @@ function setSerialCurrencyCombo(value){
 	if(value == ""){
         $("#serial_currency_atch").multipleSelect("uncheckAll");
         $("#serial_currency_atch").multipleSelect("disable");
+	    $("#srl_fitness").multipleSelect("uncheckAll");
+		$('#srl_fitness').multipleSelect("disable");
 	}else{
         $("#serial_currency_atch").multipleSelect("enable");
+		$('#srl_fitness').multipleSelect("enable");
 	}
 }
 
