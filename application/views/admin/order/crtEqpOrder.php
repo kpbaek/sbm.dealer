@@ -183,8 +183,10 @@ if($po_no==""){
 	for($i_cur=0; $i_cur < sizeof($currency_atch); $i_cur++)
 	{
 		$atcd_ox = "X";
-		if(in_array($currency_atch[$i_cur], $fitness)){
-			$atcd_ox = "O";
+		if($fitness!=null){
+			if(in_array($currency_atch[$i_cur], $fitness)){
+				$atcd_ox = "O";
+			}
 		}
 		$sql_dtl = "INSERT INTO om_ord_eqp_dtl";
 		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
@@ -198,13 +200,17 @@ if($po_no==""){
 	for($i_cur=0; $i_cur < sizeof($serial_currency_atch); $i_cur++)
 	{
 		$atcd_ox = "X";
-		if(in_array($serial_currency_atch[$i_cur], $srl_fitness)){
-			$atcd_ox = "O";
+		if ($srl_fitness!=null) {
+			if(in_array($serial_currency_atch[$i_cur], $srl_fitness)){
+				$atcd_ox = "O";
+			}
 		}
 		$sql_dtl = "INSERT INTO om_ord_eqp_dtl";
 		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
 		$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '0092', '" .$serial_currency_atch[$i_cur]. "','" .$atcd_ox. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #			echo $sql_dtl;
+		log_message('debug', $sql_dtl);
+		
 		$result5 = $this->db->query($sql_dtl);
 		$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['sql5'] = $sql_dtl;
 		$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['result5'] = $result5;
@@ -216,6 +222,8 @@ if($po_no==""){
 		$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, crt_dt, crt_uid) ";
 		$sql_dtl = $sql_dtl . " VALUES ('" .$new_pi_no. "', LAST_INSERT_ID(), '00A0', '" .$opt_hw_atcd[$i_cur]. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #			echo $sql_dtl;
+		log_message('debug', $sql_dtl);
+		
 		$result6 = $this->db->query($sql_dtl);
 		$qryInfo['qryInfo']['insEqpDtl3'][$i_cur]['sql6'] = $sql_dtl;
 		$qryInfo['qryInfo']['insEqpDtl3'][$i_cur]['result6'] = $result6;
@@ -292,13 +300,17 @@ if($po_no==""){
 			for($i_cur=0; $i_cur < sizeof($currency_atch); $i_cur++)
 			{
 				$atcd_ox = "X";
-				if(in_array($currency_atch[$i_cur], $fitness)){
-					$atcd_ox = "O";
+				if($fitness!=null){
+					if(in_array($currency_atch[$i_cur], $fitness)){
+						$atcd_ox = "O";
+					}
 				}
 				$sql_dtl = "INSERT INTO om_ord_eqp_dtl";
 				$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
 				$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$po_no. ", '0091', '" .$currency_atch[$i_cur]. "','" .$atcd_ox. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 		#			echo $sql_dtl;
+				log_message('debug', $sql_dtl);
+				
 				$result4 = $this->db->query($sql_dtl);
 				$qryInfo['qryInfo']['insEqpDtl'][$i_cur]['sql4'] = $sql_dtl;
 				$qryInfo['qryInfo']['insEqpDtl'][$i_cur]['result4'] = $result4;
@@ -307,13 +319,17 @@ if($po_no==""){
 			for($i_cur=0; $i_cur < sizeof($serial_currency_atch); $i_cur++)
 			{
 				$atcd_ox = "X";
-				if(in_array($serial_currency_atch[$i_cur], $srl_fitness)){
-					$atcd_ox = "O";
+				if($srl_fitness!=null){
+					if(in_array($serial_currency_atch[$i_cur], $srl_fitness)){
+						$atcd_ox = "O";
+					}
 				}
 				$sql_dtl = "INSERT INTO om_ord_eqp_dtl";
 				$sql_dtl = $sql_dtl . " (pi_no, po_no, cd, atcd, atcd_ox, crt_dt, crt_uid) ";
 				$sql_dtl = $sql_dtl . " VALUES ('" .$pi_no. "', " .$po_no. ", '0092', '" .$serial_currency_atch[$i_cur]. "','" .$atcd_ox. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 		#			echo $sql_dtl;
+				log_message('debug', $sql_dtl);
+				
 				$result5 = $this->db->query($sql_dtl);
 				$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['sql5'] = $sql_dtl;
 				$qryInfo['qryInfo']['insEqpDtl2'][$i_cur]['result5'] = $result5;
