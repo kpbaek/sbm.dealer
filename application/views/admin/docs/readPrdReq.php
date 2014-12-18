@@ -132,6 +132,13 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 	$ctnt = str_replace("@s-ocr_ox", "X", $ctnt);
 	$ctnt = str_replace("@srl_ox", "X", $ctnt);
 
+	
+	if($prdReq['eqpOrdInfo']['mdl_cd'] == "2000" || $prdReq['eqpOrdInfo']['mdl_cd'] == "3000" || $prdReq['eqpOrdInfo']['mdl_cd'] == "5000"){
+		$ctnt = str_replace("@fitnessDiv", "", $ctnt);
+	}else{
+		$ctnt = str_replace("@fitnessDiv", "none", $ctnt);
+	}
+	
 	if($prdReq['eqpOrdInfo']['mdl_cd'] == "3000"){
 		$ctnt = str_replace("@dispenser_div", "none", $ctnt);
 	}

@@ -153,7 +153,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan=15><div id="c1" width=5%></div></td>
 			<td width=5% class="style01">기타</td>
 		  </tr>
-		  <tr>
+		  <tr id="fitnessDiv" style="display:none">
 			<td colspan="3" class="style01">Fitness</td>
 			<td colspan=15><div id="c1_f1" width=5%></div></td>
 			<td width=5%></td>
@@ -176,7 +176,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan=2 align=center><div id="srl_ox">X</div></td>
 			<td colspan=2 align=center><div id="p-ocr_ox">X</div></td>
 			<td colspan=2 align=center><div id="s-ocr_ox">X</div></td>
-			<td colspan=9 align=left><div id="srl_f" width=5%></div></td>
+			<td colspan=9 align=left><div id="srl_f" style="display: none" width=5%></div></td>
 			<TD></TD>
 		  </tr>
 		  <tr style="display:none">
@@ -702,6 +702,10 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 
 
 	
+	if(eqpOrdInfo.mdl_cd == "2000" || eqpOrdInfo.mdl_cd == "3000" || eqpOrdInfo.mdl_cd == "5000"){ 
+		fitnessDiv.style.display = "";
+		srl_f.style.display = "";
+	}
 	if(eqpOrdInfo.mdl_cd == "3000"){ 
 		dispenser_div.style.display = "none";
 		$('#dispenser_ox').attr('disabled',true);

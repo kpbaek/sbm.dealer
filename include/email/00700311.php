@@ -93,7 +93,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan=15><div id="c1">@currency_atch</div></td>
 			<td width=5% class="style01">기타</td>
 		  </tr>
-		  <tr>
+		  <tr style="display:@fitnessDiv">
 			<td colspan="3" class="style01">Fitness</td>
 			<td colspan=15><div id="c1_f1">@fitness</div></td>
 			<td width=5%></td>
@@ -110,7 +110,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan=2 align=center><div id="srl_ox">@srl_ox</div></td>
 			<td colspan=2 align=center><div id="p-ocr_ox">@p-ocr_ox</div></td>
 			<td colspan=2 align=center><div id="s-ocr_ox">@s-ocr_ox</div></td>
-			<td colspan=9 align=left><div id="srl_f">@srl_f</div></td>
+			<td colspan=9 align=left><div id="srl_f" style="display:@fitnessDiv">@srl_f</div></td>
 			<td></td>
 		  </tr>
 		  <tr>
