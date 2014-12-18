@@ -249,6 +249,20 @@
 		});
 	}
 
+	function getListMultiCombo(listOpt, selObj, selAr) {
+
+	    for(var i=0; i<listOpt.length; i++){
+	    	var opt = $("<option />", {
+	        	value: listOpt[i][0],
+	        	text: listOpt[i][1]
+	    	});
+	    	opt.prop("selected", false);
+	    	selObj.append(opt);
+		}
+		selObj.multipleSelect("refresh");
+		selObj.multipleSelect("setSelects", selAr);
+	}
+
 	function fncOnlyNumber(selObj){
 		var value = selObj.value.match('/[^0-9]/g');
 		if(value==null){
