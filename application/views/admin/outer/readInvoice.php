@@ -73,7 +73,8 @@ function getPiMailCtnt($ctnt, $invoice){
 		$eqp_amt = "";
 		$dscrt = "";
 		$courier = "";
-		$currency = "";
+		$serial = "";
+		
 		foreach($invoice['orderEqpList'] as $orderEqpList) {
 			$mdl_nm .= $orderEqpList['mdl_nm'] . "<br>";
 			$eqp_qty .= $orderEqpList['eqp_qty'] . "<br>";
@@ -95,9 +96,9 @@ function getPiMailCtnt($ctnt, $invoice){
 			}
 			$dscrt .= "<BR>";
 			if($orderEqpList['txt_srl_atcd']!=null){
-				$currency .= " only " . $orderEqpList['txt_srl_atcd'] . " for " + $orderEqpList['serial_currency'];
+				$serial = " only " . $orderEqpList['txt_srl_atcd'] . " for " . $orderEqpList['serial_currency'];
 			}
-			$dscrt .= "For " . $orderEqpList['currency'] . "<p>";
+			$dscrt .= "For " . $orderEqpList['currency'] . $serial. "<p>";
 		}
 		$ctnt = str_replace("@mdl_nm", $mdl_nm, $ctnt);
 		$ctnt = str_replace("@eqp_qty", $eqp_qty, $ctnt);

@@ -759,16 +759,19 @@ function setOrderInfo(pi_no){
 	setDealerCntryCombo(pi_no);
 }
 
-function setSerialCurrencyCombo(value){
+function setSerialCurrencyCombo(srl_atcd){
 	var f = document.addForm;
-	if(value == ""){
+	if(srl_atcd == ""){
         $("#serial_currency_atch").multipleSelect("uncheckAll");
         $("#serial_currency_atch").multipleSelect("disable");
 	    $("#srl_fitness").multipleSelect("uncheckAll");
 		$('#srl_fitness').multipleSelect("disable");
 	}else{
         $("#serial_currency_atch").multipleSelect("enable");
-		$('#srl_fitness').multipleSelect("enable");
+        var mdl_cd = $("mdl_cd").val();
+    	if(mdl_cd == "2000" || mdl_cd == "3000" || mdl_cd == "5000"){
+        	$('#srl_fitness').multipleSelect("enable");
+    	}
 	}
 }
 
