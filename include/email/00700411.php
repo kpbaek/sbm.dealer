@@ -376,7 +376,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style3 s"></td>
 			<td class="column1 style54 s style05"></td>
 			<td class="column4 style66 s style05">TOTAL :</td>
-			<td class="column25 style001 s"><div>@tot_qty Units</div></td>
+			<td class="column25 style001 s"><div>@tot_qty</div></td>
 			<td class="column30 style001 s">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td class="column36 style001 s">$ @tot_amt
 			</td>

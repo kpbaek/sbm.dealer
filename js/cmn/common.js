@@ -888,5 +888,30 @@
 		}
 		aro_name.focus();
 	}
+
+	function fnc_commify(n) {
+		var reg = /(^[+-]?\d+)(\d{3})/; // 정규식
+		n += ''; // 숫자를 문자열로 변환
 	
+		while (reg.test(n)) {
+			n = n.replace(reg, '$1' + ',' + '$2');
+		}
+		return n;
+	}
+	
+	$.fn.addPriceComma = function(value) {
+// var input = String(this);
+		var input = value;
+		var output = "";
+
+		for ( var i = input.length; i >= 0; i--) {
+
+			if ((input.length - i) % 3 == 1 && output.length != 0 && input.charAt(i) != "-") {
+				output = "," + output;
+			}
+			output = input.charAt(i) + output;
+		}
+		return output;
+	}
+
 		

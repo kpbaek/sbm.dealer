@@ -10,7 +10,6 @@ function getPiMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@csn_cmpy_nm", $invoice['invoiceInfo']['csn_cmpy_nm'], $ctnt);
 	$ctnt = str_replace("@csn_attn", $invoice['invoiceInfo']['csn_attn'], $ctnt);
 	$ctnt = str_replace("@repr_qty", $invoice['invoiceInfo']['repr_qty'], $ctnt);
-	$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
 	$ctnt = str_replace("@destnt", $invoice['invoiceInfo']['destnt'], $ctnt);
 	$ctnt = str_replace("@cntry", $invoice['invoiceInfo']['cntry'], $ctnt);
 	$ctnt = str_replace("@txt_ship_port_atcd", $invoice['invoiceInfo']['txt_ship_port_atcd'], $ctnt);
@@ -27,7 +26,7 @@ function getPiMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@frtChrgDiv", "none", $ctnt);
 	}else{
 		$ctnt = str_replace("@frtChrgDiv", "", $ctnt);
-		$ctnt = str_replace("@frtchrg_amt", $invoice['invoiceInfo']['frtchrg_amt'], $ctnt);
+		$ctnt = str_replace("@frtchrg_amt", $invoice['invoiceInfo']['txt_frtchrg_amt'], $ctnt);
 	}
 
 	if($invoice['invoiceInfo']["repr_qty"]==null){
@@ -35,11 +34,12 @@ function getPiMailCtnt($ctnt, $invoice){
 	}else{
 		$ctnt = str_replace("@repairDiv", "", $ctnt);
 		$ctnt = str_replace("@repr_qty", $invoice['invoiceInfo']['repr_qty'], $ctnt);
-		$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
+		$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['txt_repr_tot_amt'], $ctnt);
 	}
 
+	$isNone_EqpHwOptList = false;
 	if($invoice['eqpHwOptList']==null){
-		$ctnt = str_replace("@eqpHwOptDiv", "none", $ctnt);
+		$isNone_EqpHwOptList = true;
 	}else{
 		$txt_opt_hw_atcd = "";
 		$opt_unit_prc = "";
@@ -48,9 +48,9 @@ function getPiMailCtnt($ctnt, $invoice){
 		foreach($invoice['eqpHwOptList'] as $eqpHwOptList) {
 			if($eqpHwOptList['opt_qty'] > 0){
 				$txt_opt_hw_atcd .= $eqpHwOptList['txt_opt_hw_atcd'] . "(" .$eqpHwOptList['opt_mdl_nm']. ")<br>";
-				$opt_unit_prc .= "USD " .$eqpHwOptList['opt_unit_prc'] . "<br>";
+				$opt_unit_prc .= "USD " .$eqpHwOptList['txt_opt_unit_prc'] . "<br>";
 				$opt_qty .= $eqpHwOptList['opt_qty'] . "<br>";
-				$opt_amt .= "USD " .$eqpHwOptList['opt_amt'] . "<br>";
+				$opt_amt .= "USD " .$eqpHwOptList['txt_opt_amt'] . "<br>";
 			}
 		}
 		$ctnt = str_replace("@txt_opt_hw_atcd", $txt_opt_hw_atcd, $ctnt);
@@ -58,10 +58,12 @@ function getPiMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@opt_qty", $opt_qty, $ctnt);
 		$ctnt = str_replace("@opt_amt", $opt_amt, $ctnt);
 	}
+	if($isNone_EqpHwOptList){
+		$ctnt = str_replace("@eqpHwOptDiv", "none", $ctnt);
+	}
 
 
-
-	$tot_amt = $invoice['invoiceInfo']['inv_tot_amt'];
+	$tot_amt = $invoice['invoiceInfo']['txt_inv_tot_amt'];
 	if($invoice['orderEqpList']==null){
 		$ctnt = str_replace("@eqpDiv", "none", $ctnt);
 		$ctnt = str_replace("@eqpListDiv", "none", $ctnt);
@@ -70,7 +72,7 @@ function getPiMailCtnt($ctnt, $invoice){
 
 		$mdl_nm = "";
 		$eqp_qty = "";
-		$eqp_amt = "";
+		$txt_amt = "";
 		$dscrt = "";
 		$courier = "";
 		$serial = "";
@@ -78,7 +80,7 @@ function getPiMailCtnt($ctnt, $invoice){
 		foreach($invoice['orderEqpList'] as $orderEqpList) {
 			$mdl_nm .= $orderEqpList['mdl_nm'] . "<br>";
 			$eqp_qty .= $orderEqpList['eqp_qty'] . "<br>";
-			$eqp_amt .= "USD " . $orderEqpList['amt'] . "<br>";
+			$txt_amt .= "USD " . $orderEqpList['txt_amt'] . "<br>";
 			$dscrt .= "P/O NO:" . $orderEqpList['po_no'];
 			if($orderEqpList['txt_incoterms_atcd']!=null){
 				$dscrt .= " , " . "Incoterms:" . $orderEqpList['txt_incoterms_atcd'];
@@ -102,9 +104,8 @@ function getPiMailCtnt($ctnt, $invoice){
 		}
 		$ctnt = str_replace("@mdl_nm", $mdl_nm, $ctnt);
 		$ctnt = str_replace("@eqp_qty", $eqp_qty, $ctnt);
-		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
+		$ctnt = str_replace("@eqp_amt", $txt_amt, $ctnt);
 		$ctnt = str_replace("@dscrt", $dscrt, $ctnt);
-		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
 
 		if($invoice['invoiceInfo']['discount'] > 0){
 			$tot_amt .= "<br>(Eqp.DC:-" . $invoice['invoiceInfo']['discount'] . ")";
@@ -149,7 +150,6 @@ function getCiMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@csn_cmpy_nm", $invoice['invoiceInfo']['csn_cmpy_nm'], $ctnt);
 	$ctnt = str_replace("@csn_attn", $invoice['invoiceInfo']['csn_attn'], $ctnt);
 	$ctnt = str_replace("@repr_qty", $invoice['invoiceInfo']['repr_qty'], $ctnt);
-	$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
 	$ctnt = str_replace("@destnt", $invoice['invoiceInfo']['destnt'], $ctnt);
 	$ctnt = str_replace("@cntry", $invoice['invoiceInfo']['cntry'], $ctnt);
 	$ctnt = str_replace("@txt_ship_port_atcd", $invoice['invoiceInfo']['txt_ship_port_atcd'], $ctnt);
@@ -172,7 +172,7 @@ function getCiMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@frtChrgDiv", "none", $ctnt);
 	}else{
 		$ctnt = str_replace("@frtChrgDiv", "", $ctnt);
-		$ctnt = str_replace("@frtchrg_amt", $invoice['invoiceInfo']['frtchrg_amt'], $ctnt);
+		$ctnt = str_replace("@frtchrg_amt", $invoice['invoiceInfo']['txt_frtchrg_amt'], $ctnt);
 	}
 
 	if($invoice['invoiceInfo']["repr_qty"]==null){
@@ -180,11 +180,12 @@ function getCiMailCtnt($ctnt, $invoice){
 	}else{
 		$ctnt = str_replace("@repairDiv", "", $ctnt);
 		$ctnt = str_replace("@repr_qty", $invoice['invoiceInfo']['repr_qty'], $ctnt);
-		$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['repr_tot_amt'], $ctnt);
+		$ctnt = str_replace("@repr_tot_amt", $invoice['invoiceInfo']['txt_repr_tot_amt'], $ctnt);
 	}
-		
+
+	$isNone_EqpHwOptList = false;
 	if($invoice['eqpHwOptList']==null){
-		$ctnt = str_replace("@eqpHwOptDiv", "none", $ctnt);
+		$isNone_EqpHwOptList = true;
 	}else{
 		$txt_opt_hw_atcd = "";
 		$opt_unit_prc = "";
@@ -193,15 +194,18 @@ function getCiMailCtnt($ctnt, $invoice){
 		foreach($invoice['eqpHwOptList'] as $eqpHwOptList) {
 			if($eqpHwOptList['opt_qty'] > 0){
 				$txt_opt_hw_atcd .= $eqpHwOptList['txt_opt_hw_atcd'] . "(" .$eqpHwOptList['opt_mdl_nm']. ")<br>";
-				$opt_unit_prc .= "$ " .$eqpHwOptList['opt_unit_prc'] . "<br>";
+				$opt_unit_prc .= "$ " .$eqpHwOptList['txt_opt_unit_prc'] . "<br>";
 				$opt_qty .= $eqpHwOptList['opt_qty'] . " Units<br>";
-				$opt_amt .= "$ " .$eqpHwOptList['opt_amt'] . "<br>";
+				$opt_amt .= "$ " .$eqpHwOptList['txt_opt_amt'] . "<br>";
 			}
 		}
 		$ctnt = str_replace("@txt_opt_hw_atcd", $txt_opt_hw_atcd, $ctnt);
 		$ctnt = str_replace("@opt_unit_prc", $opt_unit_prc, $ctnt);
 		$ctnt = str_replace("@opt_qty", $opt_qty, $ctnt);
 		$ctnt = str_replace("@opt_amt", $opt_amt, $ctnt);
+	}
+	if($isNone_EqpHwOptList){
+		$ctnt = str_replace("@eqpHwOptDiv", "none", $ctnt);
 	}
 	
 	$ctnt = str_replace("@csn_addr", $invoice['invoiceInfo']['csn_addr'], $ctnt);
@@ -211,7 +215,7 @@ function getCiMailCtnt($ctnt, $invoice){
 	
 	
 	$tot_qty = 0;
-	$tot_amt = $invoice['invoiceInfo']['inv_tot_amt'];
+	$tot_amt = $invoice['invoiceInfo']['txt_inv_tot_amt'];
 	if($invoice['orderEqpList']==null){
 		$ctnt = str_replace("@eqpDiv", "none", $ctnt);
 	}else{
@@ -219,7 +223,7 @@ function getCiMailCtnt($ctnt, $invoice){
 	
 		$mdl_nm = "";
 		$eqp_qty = "";
-		$eqp_amt = "";
+		$txt_amt = "";
 		$dscrt = "";
 		$courier = "";
 		$currency = "";
@@ -227,7 +231,7 @@ function getCiMailCtnt($ctnt, $invoice){
 			$mdl_nm .= $orderEqpList['mdl_nm'] . "  Currency Discrimination Counter<br>";
 			$eqp_qty .= $orderEqpList['eqp_qty'] . " Units<br>";
 			$tot_qty += $orderEqpList['eqp_qty'];
-			$eqp_amt .= "$ " . $orderEqpList['amt'] . "<br>";
+			$txt_amt .= "$ " . $orderEqpList['txt_amt'] . "<br>";
 			$dscrt .= "P/O NO:" . $orderEqpList['po_no'];
 			if($orderEqpList['txt_incoterms_atcd']!=null){
 				$dscrt .= " , " . "Incoterms:" . $orderEqpList['txt_incoterms_atcd'];
@@ -247,9 +251,9 @@ function getCiMailCtnt($ctnt, $invoice){
 		}
 		$ctnt = str_replace("@mdl_nm", $mdl_nm, $ctnt);
 		$ctnt = str_replace("@eqp_qty", $eqp_qty, $ctnt);
-		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
+		$ctnt = str_replace("@eqp_amt", $txt_amt, $ctnt);
 		$ctnt = str_replace("@dscrt", $dscrt, $ctnt);
-		$ctnt = str_replace("@eqp_amt", $eqp_amt, $ctnt);
+		$ctnt = str_replace("@eqp_amt", $txt_amt, $ctnt);
 	
 		if($invoice['invoiceInfo']['discount'] > 0){
 			$tot_amt .= "<br>(Eqp.DC: $ -" . $invoice['invoiceInfo']['discount'] . ")";
@@ -274,7 +278,8 @@ function getCiMailCtnt($ctnt, $invoice){
 	}
 	
 	$tot_qty += $invoice['invoiceInfo']['repr_qty'];
-	$ctnt = str_replace("@tot_qty", $tot_qty, $ctnt);
+//	$ctnt = str_replace("@tot_qty", $tot_qty, $ctnt);
+	$ctnt = str_replace("@tot_qty", "", $ctnt);
 
 	
 	$listNo = 0;
@@ -282,7 +287,7 @@ function getCiMailCtnt($ctnt, $invoice){
 		if($i_list==0 && $invoice['orderEqpList']==null){
 			continue;
 		}
-		if($i_list==1 && $invoice['eqpHwOptList']==null){
+		if($i_list==1 && $isNone_EqpHwOptList){
 			continue;
 		}
 		if($i_list==2 && $invoice['orderPartList']==null){
@@ -302,8 +307,9 @@ function getCiMailCtnt($ctnt, $invoice){
 }
 
 function readInvoice($pi_no){
-
-	$sql_invoice = "SELECT a.pi_no, a.cntry_atcd, a.dealer_seq, a.worker_seq, a.premium_rate, a.tot_amt, a.cnfm_yn, a.cnfm_dt, a.slip_sndmail_seq, a.wrk_tp_atcd";
+	$sql_invoice = " SELECT a.*, FORMAT(a.discount,2) txt_discount, FORMAT(a.inv_tot_amt,2) txt_inv_tot_amt";
+	$sql_invoice = $sql_invoice . " FROM (";
+	$sql_invoice = $sql_invoice . "SELECT a.pi_no, a.cntry_atcd, a.dealer_seq, a.worker_seq, a.premium_rate, a.tot_amt, a.cnfm_yn, a.cnfm_dt, a.slip_sndmail_seq, a.wrk_tp_atcd";
 	$sql_invoice = $sql_invoice . ", b.frtchrg_amt, b.repr_qty, b.repr_tot_amt, b.ship_port_atcd, b.payment_atcd";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00G0' and atcd = b.payment_atcd) inv_payment";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00F3' and atcd = b.ship_port_atcd) txt_ship_port_atcd";
@@ -328,6 +334,8 @@ function readInvoice($pi_no){
 	$sql_invoice = $sql_invoice . " ,(select round( ifnull(sum(amt),0) * ifnull(a.premium_rate,0) / 100 ) from om_ord_eqp where pi_no=a.pi_no) discount";
 	$sql_invoice = $sql_invoice . ", d.dealer_nm";
 	$sql_invoice = $sql_invoice . " ,(select atcd_nm from cm_cd_attr where cd = 'US30' and atcd = (select gender_atcd from om_user where uid = d.dealer_uid)) as gender_nm";
+	$sql_invoice = $sql_invoice . ", FORMAT(b.repr_tot_amt,2) txt_repr_tot_amt";
+	$sql_invoice = $sql_invoice . ", FORMAT(b.frtchrg_amt,2) txt_frtchrg_amt";
 	$sql_invoice = $sql_invoice . " FROM (";
 	$sql_invoice = $sql_invoice . " SELECT a.*";
 	$sql_invoice = $sql_invoice . " FROM om_ord_inf a";
@@ -339,7 +347,8 @@ function readInvoice($pi_no){
 	$sql_invoice = $sql_invoice . "		on a.dealer_seq = d.dealer_seq";
 	$sql_invoice = $sql_invoice . "		left outer join om_worker w";
 	$sql_invoice = $sql_invoice . "		on a.worker_seq = w.worker_seq";
-			
+	$sql_invoice = $sql_invoice . " ) a";
+	
 	#$sql_invoice = "SELECT a.*";
 	#$sql_invoice = $sql_invoice . ", DATE_FORMAT(a.validity, '%Y-%m-%d') validity_dt";
 	#$sql_invoice = $sql_invoice . ", DATE_FORMAT(a.invoice_dt, '%d %b., %Y') txt_invoice_dt";
@@ -349,7 +358,7 @@ function readInvoice($pi_no){
 	#$sql_invoice = $sql_invoice . "  WHERE a.pi_no = b.pi_no";
 	#$sql_invoice = $sql_invoice . "  AND a.pi_no = '" .$pi_no. "'";
 #	echo $sql_invoice;
-#	log_message('debug', $sql_invoice);
+	log_message('debug', $sql_invoice);
 	
 	$result = mysql_query( $sql_invoice ) or die("Couldn t execute query.".mysql_error());
 	$row = mysql_fetch_array($result,MYSQL_ASSOC);
@@ -357,8 +366,10 @@ function readInvoice($pi_no){
 	$invoice['invoiceInfo']['pi_no'] = $row['pi_no'];
 	$invoice['invoiceInfo']['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
 	$invoice['invoiceInfo']['frtchrg_amt'] = $row['frtchrg_amt'];
+	$invoice['invoiceInfo']['txt_frtchrg_amt'] = $row['txt_frtchrg_amt'];
 	$invoice['invoiceInfo']['repr_qty'] = $row['repr_qty'];
 	$invoice['invoiceInfo']['repr_tot_amt'] = $row['repr_tot_amt'];
+	$invoice['invoiceInfo']['txt_repr_tot_amt'] = $row['txt_repr_tot_amt'];
 	$invoice['invoiceInfo']['ship_port_atcd'] = $row['ship_port_atcd'];
 	$invoice['invoiceInfo']['payment_atcd'] = $row['payment_atcd'];
 	$invoice['invoiceInfo']['txt_ship_port_atcd'] = $row['txt_ship_port_atcd'];
@@ -366,6 +377,10 @@ function readInvoice($pi_no){
 	#$invoice['invoiceInfo']['tot_qty'] = $row['tot_qty'];
 	$invoice['invoiceInfo']['tot_amt'] = $row['tot_amt'];
 	$invoice['invoiceInfo']['inv_tot_amt'] = $row['inv_tot_amt'];
+	$invoice['invoiceInfo']['txt_inv_tot_amt'] = $row['txt_inv_tot_amt'];
+
+//	$invoice['invoiceInfo']['txt_inv_tot_amt'] = money_format("%.2n", $number);
+	
 	$invoice['invoiceInfo']['inv_bank'] = $row['inv_bank'];
 	$invoice['invoiceInfo']['txt_bank_atcd_dscrt'] = $row['txt_bank_atcd_dscrt'];
 	$invoice['invoiceInfo']['dealer_bank'] = $row['dealer_bank'];
@@ -390,6 +405,7 @@ function readInvoice($pi_no){
 	$invoice['invoiceInfo']['cntry'] = $row['cntry'];
 	$invoice['invoiceInfo']['premium_rate'] = $row['premium_rate'];
 	$invoice['invoiceInfo']['discount'] = $row['discount'];
+	$invoice['invoiceInfo']['txt_discount'] = $row['txt_discount'];
 	$invoice['invoiceInfo']['buyer'] = $row['dealer_nm'];
 	if($row['gender_nm']!=null){
 		$invoice['invoiceInfo']['buyer'] = $row['gender_nm'] . " " . $row['dealer_nm'];
@@ -411,6 +427,7 @@ function readInvoice($pi_no){
 	$sql_eqp = $sql_eqp . ", m.mdl_nm";
 	$sql_eqp = $sql_eqp . ", ifnull(round(m.net_wgt,1),0) as net_wgt";
 	$sql_eqp = $sql_eqp . ", ifnull(round(m.gross_wgt,1),0) as gross_wgt";
+	$sql_eqp = $sql_eqp . ", FORMAT(a.amt,2) as txt_amt";
 	$sql_eqp = $sql_eqp . " FROM";
 	$sql_eqp = $sql_eqp . " (";
 	$sql_eqp = $sql_eqp . " SELECT a.*, b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt, b.wrk_tp_atcd, b.udt_dt as order_dt";
@@ -433,6 +450,7 @@ function readInvoice($pi_no){
 		$invoice['orderEqpList'][$i]['po_no'] = $row['po_no'];
 		$invoice['orderEqpList'][$i]['eqp_qty'] = $row['qty'];
 		$invoice['orderEqpList'][$i]['amt'] = $row['amt'];
+		$invoice['orderEqpList'][$i]['txt_amt'] = $row['txt_amt'];
 		$invoice['orderEqpList'][$i]['txt_srl_atcd'] = $row['txt_srl_atcd'];
 		$invoice['orderEqpList'][$i]['delivery_dt'] = $row['delivery_dt'];
 		$invoice['orderEqpList'][$i]['txt_incoterms_atcd'] = $row['txt_incoterms_atcd'];
@@ -521,6 +539,8 @@ function readInvoice($pi_no){
 	$sql_eqp_opt = "SELECT a.*";
 	$sql_eqp_opt = $sql_eqp_opt . ",(select mdl_nm from om_mdl where mdl_cd = a.mdl_cd) opt_mdl_nm";
 	$sql_eqp_opt = $sql_eqp_opt . ",(opt_qty * opt_unit_prc) opt_amt";
+	$sql_eqp_opt = $sql_eqp_opt . ",FORMAT((opt_qty * opt_unit_prc),2) txt_opt_amt";
+	$sql_eqp_opt = $sql_eqp_opt . ",FORMAT(opt_unit_prc,2) txt_opt_unit_prc";
 	$sql_eqp_opt = $sql_eqp_opt . ",(SELECT atcd_nm FROM cm_cd_attr WHERE cd = '00A0' AND atcd = a.atcd) txt_opt_hw_atcd";
 	$sql_eqp_opt = $sql_eqp_opt . " FROM (SELECT a.mdl_cd, b.pi_no, b.po_no, ifnull(b.opt_qty,0) opt_qty, ifnull(b.opt_unit_prc,0) opt_unit_prc, b.atcd";
 	$sql_eqp_opt = $sql_eqp_opt . "       FROM om_ord_eqp a, om_ord_eqp_dtl b";
@@ -538,7 +558,9 @@ function readInvoice($pi_no){
 		$invoice['eqpHwOptList'][$i]['po_no'] = $row['po_no'];
 		$invoice['eqpHwOptList'][$i]['opt_qty'] = $row['opt_qty'];
 		$invoice['eqpHwOptList'][$i]['opt_unit_prc'] = $row['opt_unit_prc'];
+		$invoice['eqpHwOptList'][$i]['txt_opt_unit_prc'] = $row['txt_opt_unit_prc'];
 		$invoice['eqpHwOptList'][$i]['opt_amt'] = $row['opt_amt'];
+		$invoice['eqpHwOptList'][$i]['txt_opt_amt'] = $row['txt_opt_amt'];
 		$invoice['eqpHwOptList'][$i]['atcd'] = $row['atcd'];
 		$invoice['eqpHwOptList'][$i]['txt_opt_hw_atcd'] = $row['txt_opt_hw_atcd'];
 		#    echo $row['id'];

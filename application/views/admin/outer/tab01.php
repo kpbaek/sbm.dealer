@@ -664,7 +664,7 @@ if(isset($_REQUEST["edit_mode"])){
 				spare_parts += targetInfo.mdl_nm + " " + targetInfo.part_nm + "<p>";
 				qty += targetInfo.qty + "<p>";
 				unit_price += "USD " + targetInfo.unit_price + "<p>";
-				amount += "USD " + targetInfo.amount + "<p>";
+				amount += "USD " + fnc_commify(targetInfo.amount) + "<p>";
 	        })
 	        $("#partsDiv").html("spare_parts");
 	        $("#spare_parts").html(spare_parts);
@@ -677,12 +677,12 @@ if(isset($_REQUEST["edit_mode"])){
 		if(invoiceInfo.repr_qty!=null){
 			repairDiv.style.display = "";
 	        $("#repr_qty").html(invoiceInfo.repr_qty);
-	        $("#repr_tot_amt").html("USD " + invoiceInfo.repr_tot_amt);
+	        $("#repr_tot_amt").html("USD " + fnc_commify(invoiceInfo.repr_tot_amt));
 		}
 		
 		if(invoiceInfo.frtchrg_amt!=null){
 			frtChrgDiv.style.display = "";
-	        $("#frtchrg_amt").html("USD " + invoiceInfo.frtchrg_amt);
+	        $("#frtchrg_amt").html("USD " + fnc_commify(invoiceInfo.frtchrg_amt));
 		}
 
 		if(eqpHwOptList!=null){
@@ -708,11 +708,10 @@ if(isset($_REQUEST["edit_mode"])){
 		}
 				
 				
-		
-        $("#tot_amt").html("USD " + invoiceInfo.inv_tot_amt);
+        $("#tot_amt").html("USD " + fnc_commify(invoiceInfo.inv_tot_amt));
 		if(orderEqpList!=null){
 			if(invoiceInfo.discount > 0){
-				$("#tot_amt").append("<br>(Eqp.DC:-" + invoiceInfo.discount + ")");
+				$("#tot_amt").append("<br>(Eqp.DC:-" + fnc_commify(invoiceInfo.discount) + ")");
 			}
 		}
 		if(invoiceInfo.wrk_tp_atcd<"00700410"){  // INVOICE 발송(00700410)
