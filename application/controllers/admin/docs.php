@@ -79,6 +79,11 @@ class Docs extends CI_Controller {
 		$this->load->view('/admin/docs/savePartReq');
 	}
 	
+	public function saveSlip()
+	{
+		$this->load->view('/admin/docs/saveSlip');
+	}
+	
 }
 
 /* End of file welcome.php */
