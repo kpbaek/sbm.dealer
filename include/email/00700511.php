@@ -94,7 +94,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 </style>
 
 
-	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0" style="width: 210mm;border-top: 3px;">
+	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0" style="width: 210mm;border-top: 3px;" align=center>
 		<col class="col0">
 		<col class="col1">
 		<col class="col2">
@@ -208,7 +208,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		  <tr class="row10">
 			<td class="column0 style4 null"></td>
 			<td class="column1 style60 s style61" colspan="2">총 수량</td>
-			<td class="column3 style9 f">@tot_qty</td>
+			<td class="column3 style9 f">@tot_dlv</td>
 			<td class="column4 style62 null style64" colspan="4"></td>
 			<td class="column8 style6 null"></td>
 			<td class="column9">&nbsp;</td>
@@ -471,7 +471,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		  <tr class="row25">
 			<td class="column0 style29 null"></td>
 			<td class="column1 style15 null"></td>
-			<td class="column2 style35 s" colspan=6>상기  본인은  ㈜에스비엠의  Banking  Machine(@tot_qty) Carton을  인수 하였음을 확인합니다.</td>
+			<td class="column2 style35 s" colspan=6>상기  본인은  ㈜에스비엠의  Banking  Machine(@tot_dlv) Carton을  인수 하였음을 확인합니다.</td>
 			<td class="column8 style31 null"></td>
 			<td class="column9">&nbsp;</td>
 			<td class="column10">&nbsp;</td>
