@@ -323,6 +323,8 @@ CREATE TABLE `om_prd_req` (
   `manual_lang_atcd` varchar(8) DEFAULT NULL COMMENT '메뉴얼언어속성코드',
   `extra` varchar(500) DEFAULT NULL COMMENT '특이사항',
   `sndmail_seq` int(11) DEFAULT NULL COMMENT '발송메일순번',
+  `cnt_dlv` int(11) DEFAULT NULL COMMENT '출고수량',
+  `note` varchar(200) DEFAULT NULL COMMENT '비고',
   `crt_dt` datetime NOT NULL COMMENT '생성일시',
   `udt_dt` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시(작성일)',
   `crt_uid` varchar(50) NOT NULL COMMENT '생성자ID',
