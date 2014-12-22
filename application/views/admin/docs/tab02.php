@@ -103,20 +103,31 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 </style>
 
 
-<div id="resultDiv" style="display:none" align=center>
-</div>
-
 <div id="error"></div>
+
+<div id="resultDiv" style="display:none">
+	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
+	<tr>
+		<td colspan=10 align=right>
+		<input type="button" id="btnEdit" name="btnEdit" value="edit" onclick="javascript:fn_edit();"/>
+		<input type="button" id="btnMail" name="btnMail" value="send mail" onclick="javascript:fn_sendMail();"/>
+		</td>
+	</tr>
+	</table>
+	<p>
+</div>
 
 <div id="saveFormDiv">	
 <form id="saveForm" name="saveForm" method="post">
 <input type=hidden id="pi_no" name="pi_no">
 <input type=hidden id="ci_sndmail_seq" name="ci_sndmail_seq">
+<input type=hidden id="edit_mode" name="edit_mode">
 
 	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
 	<tr>
 		<td colspan=10 align=right>
-		<input type="button" id="btnMail" name="btnMail" value="send mail" onclick="javascript:fn_sendMail();"/>
+		<input type="button" id="btnSave" name="btnSave" value="save" onclick="javascript:fn_save();"/>
+		<input type="button" id="btnSend" name="btnSend" value="send" onclick="javascript:fn_readMail();"/>
 		</td>
 	  </tr>
 	</table>
@@ -194,8 +205,8 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 			<td class="column3 style9 s">출고수량</td>
 			<td class="column4 style9 s">PI NO</td>
 			<td class="column5 style9 s">생산의뢰서 NO. </td>
-			<td class="column6 style9 s" width=140px>생산의뢰서 잔량</td>
-			<td class="column7 style9 s" width=100px>비고</td>
+			<td class="column6 style9 s" width=120px>생산의뢰서 잔량</td>
+			<td class="column7 style9 s" width=120px>비고</td>
 			<td class="column8 style6 null"></td>
 			<td class="column9">&nbsp;</td>
 			<td class="column10">&nbsp;</td>
@@ -220,7 +231,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		  <tr class="row10">
 			<td class="column0 style4 null"></td>
 			<td class="column1 style60 s style61" colspan="2">총 수량</td>
-			<td class="column3 style9 f"><div id="tot_qty"></div></td>
+			<td class="column3 style9 f"><div id="tot_dlv"></div><div id="tot_qty"></div></td>
 			<td class="column4 style62 null style64" colspan="4"></td>
 			<td class="column8 style6 null"></td>
 			<td class="column9">&nbsp;</td>
@@ -609,16 +620,59 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		td_2.setAttribute('class','style10 null');
 	    td_3.appendChild(document.createTextNode(slipPrdInfo.mdl_nm));
 		td_3.setAttribute('class','style10 null');
-	    td_4.appendChild(document.createTextNode(slipPrdInfo.qty));
+
+		var swm_no = document.createElement("input");
+		swm_no.type = "hidden";
+		swm_no.id = "swm_no";
+		swm_no.name = "swm_no[]";
+		swm_no.value = slipPrdInfo.swm_no;
+	    td_4.appendChild(swm_no);
+		
+		var cnt_rest = document.createElement("input");
+		cnt_rest.id = "cnt_rest";
+		cnt_rest.name = "cnt_rest[]";
+		cnt_rest.value = slipPrdInfo.cnt_rest;
+		cnt_rest.size=4;
+		cnt_rest.maxLength = 4;
+		cnt_rest.readOnly = true;
+		
+		var cnt_dlv = document.createElement("input");
+		cnt_dlv.id = "cnt_dlv";
+		cnt_dlv.name = "cnt_dlv[]";
+		cnt_dlv.value = slipPrdInfo.cnt_dlv;
+		cnt_dlv.size=4;
+//		cnt_dlv.style.imeMode = "disabled";
+		cnt_dlv.maxLength = 4;
+		cnt_dlv.onkeyup = function(){fncOnlyNumber(cnt_dlv);cnt_rest.value = (slipPrdInfo.qty - cnt_dlv.value);};
+		
+	    td_4.appendChild(cnt_dlv);
+//	    td_4.appendChild(document.createTextNode("/" + slipPrdInfo.qty));
 		td_4.setAttribute('class','style10 null');
 	    td_5.appendChild(document.createTextNode(slipPrdInfo.txt_pi_no));
 		td_5.setAttribute('class','style10 null');
 //	    td_6.appendChild(document.createTextNode(slipPrdInfo.txt_swm_no));
-	    td_6.innerHTML = "<a href='javascript:fn_viewSndMail(" + slipPrdInfo.prd_sndmail_seq + ")'>" + slipPrdInfo.txt_swm_no + "</a>";
+
+		var txt_swm_no = "";
+		if(slipPrdInfo.prd_sndmail_seq!=null){
+			txt_swm_no = "<a href='javascript:fn_viewSndMail(" + slipPrdInfo.prd_sndmail_seq + ")'>" + slipPrdInfo.txt_swm_no + "</a>";
+		}
+	    td_6.innerHTML = txt_swm_no;
 		td_6.setAttribute('class','style10 null');
-	    td_7.appendChild(document.createTextNode(""));
+
+		td_7.appendChild(cnt_rest);
 		td_7.setAttribute('class','style10 null');
-	    td_8.appendChild(document.createTextNode(""));
+			
+		var note = document.createElement("textarea");
+		note.id = "note";
+		note.name = "note[]";
+		if(slipPrdInfo.note!=null){
+			note.value = slipPrdInfo.note;
+		}
+		note.rows=3;
+		note.cols=15;
+		note.onkeyup=function(){fnc_chk_byte(note,100);};
+		note.style.overflow="hidden";
+	    td_8.appendChild(note);
 		td_8.setAttribute('class','style10 null');
 	    td_9.appendChild(document.createTextNode(""));
 		td_9.setAttribute('class','style6 null');
@@ -644,7 +698,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 
 	    td_1.appendChild(document.createTextNode(slipPrdInfo.mdl_nm));
 	    td_2.appendChild(document.createTextNode(""));
-	    td_3.appendChild(document.createTextNode(slipPrdInfo.qty + " 대"));
+	    td_3.appendChild(document.createTextNode(slipPrdInfo.cnt_dlv + " 대"));
 		row.appendChild(td_1);
 	    row.appendChild(td_2);
 	    row.appendChild(td_3);
@@ -660,23 +714,21 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 //			$('#btnMail').attr('disabled',true);
 		}
 		var tot_qty = 0;
+		var tot_dlv = 0;
 		var cert_mdl_nm = "";
 		for(var i=0; i < slipPrdList.length; i++){
 			var targetInfo = slipPrdList[i];
 			fn_addMdlListRow('mdl_list_div', targetInfo);
 			fn_addCertMdlListRow('cert_mdl_list', targetInfo);
 			tot_qty += eval(targetInfo.qty);
+			tot_dlv += eval(targetInfo.cnt_dlv);
 		}
 		
-		$("#tot_qty").html(tot_qty);
-		$("#cartons").val(tot_qty);
+		$("#tot_qty").html(tot_dlv);
+		$("#cartons").val(tot_dlv);
 
 	}
 
-	function fn_readPiMail(){
-    	location.replace("/index.php/admin/outer/tab01?edit_mode=0&pi_no=" + $("#pi_no").val());
-	}
-	
 	function fn_readMail(){
 		var params = {"sndmail_atcd":"00700511", "pi_no":$("#pi_no").val()};  
 	
@@ -699,27 +751,84 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 	}
 	
 	function fn_isValid(){
-		if($("#csn_addr").val()==""){
-			alert("Consignee Address. is required!");
-			$("#csn_addr").focus();
-			return false;
-		}
-		if($("#csn_tel").val()==""){
-			alert("Consignee Tel. is required!");
-			$("#csn_tel").focus();
-			return false;
-		}
-		if($("#csn_fax").val()==""){
-			alert("Consignee Fax. is required!");
-			$("#csn_fax").focus();
-			return false;
-		}
-		if($("#csn_attn").val()==""){
-			alert("Consignee Attn. is required!");
-			$("#csn_attn").focus();
-			return false;
+		var f = document.saveForm;
+		for(var i=0; i < f.cnt_rest.length; i++){
+			if(f.cnt_dlv[i].value.trim() == ""){
+				alert("출고수량 is required!");
+				f.cnt_dlv[i].focus();
+				return false;
+			}
+			if(f.cnt_rest[i].value < 0){
+				alert("출고수량이 초과하였습니다.(잔량 < 0)!");
+				f.cnt_dlv[i].focus();
+				return false;
+			}
 		}
 		return true;
+	}
+
+	function fn_edit(){
+    	location.replace("/index.php/admin/docs/tab02?edit_mode=1&pi_no=" + $("#pi_no").val());
+	}
+	
+	function fn_save() {
+		var f = document.saveForm;
+		
+		if(!fn_isValid()){
+			return;
+		}
+		f.action = "/index.php/admin/docs/saveSlip";
+
+		$('#btnSave').attr('disabled',true);
+		$('#btnSend').attr('disabled',true);
+
+//		f.submit();
+//		return;
+		var options = {
+					type:"POST",
+					dataType:"json",
+			        beforeSubmit: function(formData, jqForm, options) {
+//			        	$("#resultDiv").html('<b>this order is sending...</b>');
+					},
+			        success: function(result, statusText, xhr, $form) {
+			            if(statusText == 'success'){
+				            var todo = result.qryInfo.todo;	  
+				            if(todo == "Y"){
+					            var qryInfo = result.qryInfo;
+			    				if(qryInfo.udtSlip){
+				    				var qryList = qryInfo.udtSlip;	            	
+				    				$.each(qryList, function(key){ 
+					        			var targetInfo = qryList[key];
+					    				if(targetInfo.result2==false)
+					    		        {
+					    					$("#error").html("<span style='color:#cc0000'>Error:</span> Sql2 Error!. " + qryInfo.sql2);
+					            			return;
+										}else{
+//					    		        	alert(targetInfo.result2 + ":" + targetInfo.sql2);
+					    				}
+						     		}); 
+								}
+				            }else if(todo == "N"){
+					            var txt_wrk_tp_atcd = result.qryInfo.txt_wrk_tp_atcd;
+					            if(cnfm_yn == "Y"){
+						            alert("already confirmed!(" + txt_wrk_tp_atcd + ")");
+						            return;
+					            }	  
+							}          	
+					    	$('#btnSave').attr('disabled',false);
+					    	$('#btnSend').attr('disabled',false);
+					    	alert("success!");
+					    	fn_send();
+			            }
+					},
+			        /* ajax options omitted */
+			        error:function(){
+			        	$('#error').shake();
+						$("#error").html("<span style='color:#cc0000'>Error:</span> Sql Error!. ");
+					}
+					
+			    };
+		$("#saveForm").ajaxSubmit(options);
 	}
 	
 </script>

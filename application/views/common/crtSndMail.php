@@ -358,7 +358,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	}else if($wrk_tp_atcd == "00700510"){ // 출고전표
 		$sql4 = "UPDATE om_ord_inf";
 		$sql4 = $sql4 . " SET slip_sndmail_seq = " .$sendmail_seq;
-		$sql4 = $sql4 . " , wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
+//		$sql4 = $sql4 . " , wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
 		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
 				
 //		$result4 = mysql_query($sql4);

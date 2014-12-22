@@ -81,7 +81,7 @@ function getPackingMailCtnt($ctnt, $invoice){
 		if($invoice['eqpHwOptList']!=null){
 			$addon .= "HW Option";
 		}
-		if($invoice['invoiceInfo']['eqpHwOptList']!=null){
+		if($invoice['eqpHwOptList']!=null && $invoice['invoiceInfo']['repr_qty']!=null){
 			$addon .= ", ";
 		}
 		if($invoice['invoiceInfo']['repr_qty']!=null){

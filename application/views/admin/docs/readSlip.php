@@ -13,6 +13,7 @@ function readSlip($pi_no){
 	$sql = $sql . ", a.sndmail_seq as prd_sndmail_seq";
 	$sql = $sql . ", concat('SWM', '-', a.swm_no,'-',a.sndmail_seq) txt_swm_no";
 	$sql = $sql . ", concat(a.pi_no, '-', i.pi_sndmail_seq) txt_pi_no";
+	$sql = $sql . ", (ifnull(e.qty,0) - ifnull(a.cnt_dlv, 0)) cnt_rest";
 	$sql = $sql . " FROM (SELECT a.*,";
 	$sql = $sql . "b.cntry_atcd,";
 	$sql = $sql . "b.dealer_seq,";
@@ -33,6 +34,8 @@ function readSlip($pi_no){
 	$sql = $sql . " on a.pi_no = i.pi_no";
 	$sql = $sql . " ) a";
 #	echo $sql . "<br>";
+	log_message('debug', $sql);
+	
 	$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 	
 	$cert_mdl_nm = "";
@@ -51,6 +54,9 @@ function readSlip($pi_no){
 		$slip['slipPrdList'][$i]['txt_udt_dt'] = $row['txt_udt_dt'];
 		$slip['slipPrdList'][$i]['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
 		$slip['slipPrdList'][$i]['slip_sndmail_seq'] = $row['slip_sndmail_seq'];
+		$slip['slipPrdList'][$i]['note'] = $row['note'];
+		$slip['slipPrdList'][$i]['cnt_dlv'] = $row['cnt_dlv'];
+		$slip['slipPrdList'][$i]['cnt_rest'] = $row['cnt_rest'];
 		$cert_mdl_nm += $row['mdl_nm'];
 		$cert_mdl_nm += ",";
 		$i++;
@@ -77,6 +83,7 @@ function readSlip($pi_no){
 	$sql_ord = $sql_ord . "		on a.dealer_seq = d.dealer_seq";
 	$sql_ord = $sql_ord . " ) a";
 #	echo $sql_ord . "<br>";
+	log_message('debug', $sql_ord);
 	
 	$result2 = mysql_query( $sql_ord ) or die("Couldn t execute query.".mysql_error());
 	
@@ -100,6 +107,7 @@ function getSlipMailCtnt($ctnt, $slip){
 	$mdl_list_tr = "";
 	$cert_mdl_list_tr = "";
 	$tot_qty = 0;
+	$tot_dlv = 0;
 	if($slip['slipPrdList']!=null){
 		foreach ($slip['slipPrdList'] as $row)
 		{
@@ -107,11 +115,11 @@ function getSlipMailCtnt($ctnt, $slip){
 			$mdl_list_tr .= "<td class='column0 style4 null'></td>";
 			$mdl_list_tr .= "<td class='column1 style9 n'>" .$row["num"]. "</td>";
 			$mdl_list_tr .= "<td class='column2 style10 s'>" .$row["mdl_nm"]. "</td>";
-			$mdl_list_tr .= "<td class='column3 style9 n'>" .$row["qty"]. "</td>";
+			$mdl_list_tr .= "<td class='column3 style9 n'>" .$row["cnt_dlv"]. "</td>";
 			$mdl_list_tr .= "<td class='column4 style11 n'>" .$row["txt_pi_no"]. "</td>";
 			$mdl_list_tr .= "<td class='column5 style12 n'>" .$row["txt_swm_no"]. "</td>";
-			$mdl_list_tr .= "<td class='column6 style13 n'></td>";
-			$mdl_list_tr .= "<td class='column7 style14 null'></td>";
+			$mdl_list_tr .= "<td class='column6 style13 n'>" .$row["cnt_rest"]. "</td>";
+			$mdl_list_tr .= "<td class='column7 style14 null'>" .$row["note"]. "</td>";
 			$mdl_list_tr .= "<td class='column8 style6 null'></td>";
 			$mdl_list_tr .= "<td class='column9'></td>";
 			$mdl_list_tr .= "<td class='column9'></td>";
@@ -121,12 +129,14 @@ function getSlipMailCtnt($ctnt, $slip){
 			$cert_mdl_list_tr .= "<tr>";
 			$cert_mdl_list_tr .= "<td>" .$row["mdl_nm"]. "</td>";
 			$cert_mdl_list_tr .= "<td width=30px></td>";
-			$cert_mdl_list_tr .= "<td>" .$row["qty"]. " 대</td>";
+			$cert_mdl_list_tr .= "<td>" .$row["cnt_dlv"]. " 대</td>";
 			$cert_mdl_list_tr .= "</tr>";
 			$tot_qty += $row["qty"];
+			$tot_dlv += $row["cnt_dlv"];
 		}
 	}
 	$ctnt = str_replace("@tot_qty", $tot_qty, $ctnt);
+	$ctnt = str_replace("@tot_dlv", $tot_dlv, $ctnt);
 	$ctnt = str_replace("@mdl_list_tr", $mdl_list_tr, $ctnt);
 	$ctnt = str_replace("@cert_mdl_list_tr", $cert_mdl_list_tr, $ctnt);
 	return $ctnt;
