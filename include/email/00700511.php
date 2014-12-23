@@ -169,8 +169,8 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 			<td class="column3 style9 s">출고수량</td>
 			<td class="column4 style9 s">PI NO</td>
 			<td class="column5 style9 s">생산의뢰서 NO. </td>
-			<td class="column6 style9 s" width=140px>생산의뢰서 잔량</td>
-			<td class="column7 style9 s" width=100px>비고</td>
+			<td class="column6 style9 s" width=120px>생산의뢰서 잔량</td>
+			<td class="column7 style9 s" width=120px>비고</td>
 			<td class="column8 style6 null"></td>
 			<td class="column9">&nbsp;</td>
 			<td class="column10">&nbsp;</td>
@@ -179,27 +179,13 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		  @mdl_list_tr
 		  <tr class="row8">
 			<td class="column0 style4 null"></td>
-			<td class="column1 style9 n">3</td>
+			<td class="column1 style9 n"></td>
 			<td class="column2 style10 null"></td>
 			<td class="column3 style9 null"></td>
 			<td class="column4 style11 null"></td>
 			<td class="column5 style13 null"></td>
 			<td class="column6 style13 null"></td>
 			<td class="column7 style14 null"></td>
-			<td class="column8 style6 null"></td>
-			<td class="column9">&nbsp;</td>
-			<td class="column10">&nbsp;</td>
-			<td class="column11">&nbsp;</td>
-		  </tr>
-		  <tr class="row9">
-			<td class="column0 style4 null"></td>
-			<td class="column1 style9 n">4</td>
-			<td class="column2 style10 null"></td>
-			<td class="column3 style9 null"></td>
-			<td class="column4 style11 null"></td>
-			<td class="column5 style13 null"></td>
-			<td class="column6 style13 null"></td>
-			<td class="column7 style9 null"></td>
 			<td class="column8 style6 null"></td>
 			<td class="column9">&nbsp;</td>
 			<td class="column10">&nbsp;</td>

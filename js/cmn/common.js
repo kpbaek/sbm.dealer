@@ -420,6 +420,7 @@
     				fncDisplayDiv(saveFormDiv, false);
 //    				$("#resultDiv").html("<b>The Packing is completed! We sent you packing information mail.</b><p>"); 
     				$("#resultDiv").append(qryInfo.ctnt);
+    				$('#btnExcel').attr('disabled',false);
     				alert("success!");
     			}
     		},
