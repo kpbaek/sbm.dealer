@@ -66,20 +66,22 @@ function readSlip($pi_no){
 	}
 		
 	$sql_ord = "select a.*";
-	$sql_ord = $sql_ord . ",(case when a.slip_sndmail_seq is null then a.pi_no";
-	$sql_ord = $sql_ord . " else concat(a.pi_no, '-', a.slip_sndmail_seq) end) txt_slip_no";
+	$sql_ord = $sql_ord . ",a.pi_no txt_slip_no";
+	$sql_ord = $sql_ord . ",if((sum_eqp_qty = sum_cnt_dlv),'N','Y') rest_yn";
 	$sql_ord = $sql_ord . " from";
 	$sql_ord = $sql_ord . " (";
 	$sql_ord = $sql_ord . " SELECT a.pi_no, a.cntry_atcd, a.dealer_seq, a.worker_seq, a.tot_amt, a.slip_sndmail_seq, a.wrk_tp_atcd";
 	$sql_ord = $sql_ord . ",(SELECT atcd_nm FROM cm_cd_attr WHERE cd = '0022' AND atcd = a.cntry_atcd) cntry";
 	$sql_ord = $sql_ord . ",(SELECT ci_sndmail_seq FROM om_invoice WHERE pi_no = a.pi_no) ci_sndmail_seq";
 	$sql_ord = $sql_ord . ",d.dealer_nm as buyer";
+	$sql_ord = $sql_ord . ",(select sum(qty) from om_ord_eqp where pi_no = a.pi_no) sum_eqp_qty";
+	$sql_ord = $sql_ord . ",(select sum(cnt_dlv) from om_prd_req where pi_no = a.pi_no) sum_cnt_dlv";
 	$sql_ord = $sql_ord . " FROM (";
 	$sql_ord = $sql_ord . " SELECT a.*";
 	$sql_ord = $sql_ord . " FROM om_ord_inf a";
 	$sql_ord = $sql_ord . " where a.pi_no = '" .$pi_no. "'";
 	$sql_ord = $sql_ord . "		) a";
-	$sql_ord = $sql_ord . "		left outer join om_dealer d";
+	$sql_ord = $sql_ord . "		join om_dealer d";
 	$sql_ord = $sql_ord . "		on a.dealer_seq = d.dealer_seq";
 	$sql_ord = $sql_ord . " ) a";
 #	echo $sql_ord . "<br>";
@@ -94,6 +96,7 @@ function readSlip($pi_no){
 	$slip['slipInfo']['buyer'] = $row2['buyer'];
 	$slip['slipInfo']['ci_sndmail_seq'] = $row2['ci_sndmail_seq'];
 	$slip['slipInfo']['slip_sndmail_seq'] = $row2['slip_sndmail_seq'];
+	$slip['slipInfo']['rest_yn'] = $row2['rest_yn'];
 		
 	return $slip;
 }

@@ -231,7 +231,8 @@ if($sndmail_atcd=="00700111"){
 	
 	$slip = readSlip($pi_no);
 	$ctnt = getSlipMailCtnt($ctnt, $slip);
-		
+	$ctnt = str_replace("@slip_sndmail_seq", "", $ctnt);
+	
 }else if($sndmail_atcd=="00700611"){  // Packing List
 	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
 	$invoice = readInvoice($pi_no);

@@ -132,7 +132,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		  </tr>
 		  <tr class="row2">
 			<td class="column0 style4 null"></td>
-			<td class="column1 style58 f style58" colspan="3" style="text-decoration:underline;">청구 번호 : @txt_slip_no</td>
+			<td class="column1 style58 f style58" colspan="3" style="text-decoration:underline;">청구 번호 : @txt_slip_no@slip_sndmail_seq</td>
 			<td class="column6 style59 f style59" colspan="2" style="text-decoration:underline;">출고 일자: &nbsp;@txt_slip_dt</td>
 			<td class="column8 style6 null"></td>
 		  </tr>

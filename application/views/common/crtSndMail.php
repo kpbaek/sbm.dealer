@@ -140,18 +140,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		}
 		$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0071' and atcd = '" .$sndmail_atcd. "'), '', now(), '".$_SESSION['ss_user']['uid']."')";
 	}else{	// worker
-		if($wrk_tp_atcd == "00700210" or $wrk_tp_atcd=="00700410"){ // PI, CI
-			
-			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
-				
-			if($sndmail_atcd=="00700211"){ // PI
-				$invoice = readInvoice($pi_no);
-				$ctnt = getPiMailCtnt($ctnt, $invoice);
-			}else if($sndmail_atcd=="00700411"){  // CI
-				$invoice = readInvoice($pi_no);
-				$ctnt = getCiMailCtnt($ctnt, $invoice);
-			}
-		}else if($wrk_tp_atcd == "00700310" && $sndmail_atcd=="00700311"){ // 생산의뢰서
+		if($wrk_tp_atcd == "00700310" && $sndmail_atcd=="00700311"){ // 생산의뢰서
 			$po_no = "";
 			if(isset($_REQUEST["po_no"])){
 				$po_no = $_REQUEST["po_no"];
@@ -177,12 +166,6 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			
 			$ctnt = getPartReqMailCtnt($ctnt, $partReq);
 							
-		}else if($wrk_tp_atcd == "00700510"){ // 출고전표
-			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/docs/readSlip.php");
-			
-			$slip = readSlip($pi_no);
-			$ctnt = getSlipMailCtnt($ctnt, $slip);
-
 		}else if($wrk_tp_atcd=="00700610"){  // Packing List
 			include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");
 			$invoice = readInvoice($pi_no);
@@ -217,14 +200,29 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	$order_dt = mysql_result($result_1,0,"order_dt");
 	$qryInfo['qryInfo']['sndmail_seq'] = $sendmail_seq;
 
-	if($sndmail_atcd=="00700211"){ // PI
-		$ctnt = str_replace("@pi_sndmail_seq", "-" . $sendmail_seq, $ctnt);
-	}else if($sndmail_atcd=="00700411"){  // CI
-		$ctnt = str_replace("@ci_sndmail_seq", "-" . $sendmail_seq, $ctnt);
+	if($wrk_tp_atcd == "00700210" or $wrk_tp_atcd=="00700410"){ // PI, CI
+		include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");			
+		if($sndmail_atcd=="00700211"){ // PI
+			$invoice = readInvoice($pi_no);
+			$ctnt = getPiMailCtnt($ctnt, $invoice);
+			$ctnt = str_replace("@pi_sndmail_seq", "-" . $sendmail_seq, $ctnt);
+		}else if($sndmail_atcd=="00700411"){  // CI
+			$invoice = readInvoice($pi_no);
+			$ctnt = getCiMailCtnt($ctnt, $invoice);
+			$ctnt = str_replace("@ci_sndmail_seq", "-" . $sendmail_seq, $ctnt);
+		}		
+	}else if($wrk_tp_atcd == "00700510"){ // 출고전표
+		include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/docs/readSlip.php");
+			
+		$slip = readSlip($pi_no);
+		$ctnt = getSlipMailCtnt($ctnt, $slip);
+		$ctnt = str_replace("@slip_sndmail_seq", "-" . $sendmail_seq, $ctnt);
 	}else if($sndmail_atcd=="00700111" or $sndmail_atcd=="00700112"){  // order
 		$ctnt = str_replace("@order_dt", $order_dt, $ctnt);
 	}
 	$ctnt = str_replace("@sendmail_seq", $sendmail_seq, $ctnt);
+	
+	
 	$qryInfo['qryInfo']['ctnt'] = $ctnt;
 	
 	
@@ -358,7 +356,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	}else if($wrk_tp_atcd == "00700510"){ // 출고전표
 		$sql4 = "UPDATE om_ord_inf";
 		$sql4 = $sql4 . " SET slip_sndmail_seq = " .$sendmail_seq;
-//		$sql4 = $sql4 . " , wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
+		$sql4 = $sql4 . " , wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
 		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
 				
 //		$result4 = mysql_query($sql4);

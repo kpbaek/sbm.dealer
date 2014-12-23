@@ -122,6 +122,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 <input type=hidden id="pi_no" name="pi_no">
 <input type=hidden id="ci_sndmail_seq" name="ci_sndmail_seq">
 <input type=hidden id="edit_mode" name="edit_mode">
+<input type=hidden id="rest_yn" name="rest_yn">
 
 	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
 	<tr>
@@ -709,10 +710,15 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 
         $("#ci_sndmail_seq").val(slipInfo.ci_sndmail_seq);
 		$("#txt_slip_no").html("청구 번호 : " + "<a href='javascript:fn_viewSndMail(" + $("#ci_sndmail_seq").val() + ");'>SWD-" + slipInfo.txt_slip_no + "</a>");
-		$("#buyer_slip").html("Buyer: " + slipInfo.buyer);
 		if(slipInfo.slip_sndmail_seq!=null){
-//			$('#btnMail').attr('disabled',true);
+			$("#txt_slip_no").append("-" + (slipInfo.slip_sndmail_seq));
 		}
+		if(slipInfo.wrk_tp_atcd>="00700510"){
+			$('#btnSave').attr('disabled',true);
+			$('#btnMail').attr('disabled',true);
+		}
+		$("#buyer_slip").html("Buyer: " + slipInfo.buyer);
+		$("#rest_yn").val(slipInfo.rest_yn);
 		var tot_qty = 0;
 		var tot_dlv = 0;
 		var cert_mdl_nm = "";
@@ -742,6 +748,12 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 	}
 
 	function fn_sendMail(){
+		if($("#rest_yn").val()=="Y"){
+			alert("ci의 생산의뢰서 전량이 출고되어야 합니다.");
+			$('#btnMail').attr('disabled',true);
+			return;
+		}
+		
 		if(confirm("담장자에게 메일이 발송됩니다. 계속하시겠습니까?")){
 			var params = {"wrk_tp_atcd": "00700510","sndmail_atcd":"00700511", "pi_no":$("#pi_no").val()};  
 			fncCrtSlipSndMail(params);
@@ -818,7 +830,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 					    	$('#btnSave').attr('disabled',false);
 					    	$('#btnSend').attr('disabled',false);
 					    	alert("success!");
-					    	fn_send();
+					    	fn_edit();
 			            }
 					},
 			        /* ajax options omitted */

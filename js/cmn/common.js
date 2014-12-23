@@ -734,8 +734,8 @@
     				return false;
     			}else{
 //		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
-//    				$("#resultDiv").html(qryInfo.ctnt);
-//   				fncDisplayDiv(resultDiv, true);
+    				$("#resultDiv").html(qryInfo.ctnt);
+    				fncDisplayDiv(resultDiv, true);
     				fncSndMail(qryInfo.sndmail_seq);
     				alert("success!");
     			}
