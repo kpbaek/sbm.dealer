@@ -66,8 +66,8 @@ function readSlip($pi_no){
 	}
 		
 	$sql_ord = "select a.*";
-	$sql_ord = $sql_ord . ",(case when a.ci_sndmail_seq is null then a.pi_no";
-	$sql_ord = $sql_ord . " else concat(a.pi_no, '-', ci_sndmail_seq) end) txt_slip_no";
+	$sql_ord = $sql_ord . ",(case when a.slip_sndmail_seq is null then a.pi_no";
+	$sql_ord = $sql_ord . " else concat(a.pi_no, '-', a.slip_sndmail_seq) end) txt_slip_no";
 	$sql_ord = $sql_ord . " from";
 	$sql_ord = $sql_ord . " (";
 	$sql_ord = $sql_ord . " SELECT a.pi_no, a.cntry_atcd, a.dealer_seq, a.worker_seq, a.tot_amt, a.slip_sndmail_seq, a.wrk_tp_atcd";
