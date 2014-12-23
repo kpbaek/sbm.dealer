@@ -37,7 +37,7 @@
 body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margin: 0.75in; }
 </style>
 
-	<table border="3" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0">
+	<table border="3" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0" align=center>
 		<col class="col0">
 		<col class="col1">
 		<col class="col2">
@@ -73,7 +73,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan="2" width=10% class="style01">P/I NO. </td>
 			<td colspan="4" class="style03">PI-@pi_no</td>
 			<td colspan="1" class="style06">작성일</td>
-			<td colspan="4" width=10%>@txt_udt_dt</td>
+			<td colspan="4" width=15% align=center>@txt_udt_dt</td>
 		  </tr>
 		  <tr>
 			<td colspan="3" width=10% class="style01">바이어</td>
@@ -373,7 +373,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 
 		  </table>
 		  
-		<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;">
+		<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
 			  <tbody>
 			  <tr style="border:0px;">
 				<td width=20% class="style00">SBM-영업-P-701-05</td>
