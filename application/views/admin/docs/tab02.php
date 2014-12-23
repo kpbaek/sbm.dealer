@@ -168,7 +168,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		  </tr>
 		  <tr class="row2">
 			<td class="column0 style4 null"></td>
-			<td class="column1 style58 f style58" colspan="5" style="text-decoration:underline;"><div id="txt_pi_no"></div></td>
+			<td class="column1 style58 f style58" colspan="5" style="text-decoration:underline;"><div id="txt_slip_no"></div></td>
 			<td class="column6 style59 f style59" colspan="2" style="text-decoration:underline;">출고 일자: &nbsp;<?php echo date("Y-m-d")?></td>
 			<td class="column8 style6 null"></td>
 		  </tr>
@@ -708,7 +708,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 	function editForm(slipInfo, slipPrdList) {
 
         $("#ci_sndmail_seq").val(slipInfo.ci_sndmail_seq);
-		$("#txt_pi_no").html("청구 번호 : " + "<a href='javascript:fn_viewSndMail(" + $("#ci_sndmail_seq").val() + ");'>SWD-" + slipInfo.txt_pi_no + "</a>");
+		$("#txt_slip_no").html("청구 번호 : " + "<a href='javascript:fn_viewSndMail(" + $("#ci_sndmail_seq").val() + ");'>SWD-" + slipInfo.txt_slip_no + "</a>");
 		$("#buyer_slip").html("Buyer: " + slipInfo.buyer);
 		if(slipInfo.slip_sndmail_seq!=null){
 //			$('#btnMail').attr('disabled',true);

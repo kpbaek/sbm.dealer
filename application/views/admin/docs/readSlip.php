@@ -12,7 +12,7 @@ function readSlip($pi_no){
 	$sql = $sql . ", i.pi_sndmail_seq";
 	$sql = $sql . ", a.sndmail_seq as prd_sndmail_seq";
 	$sql = $sql . ", concat('SWM', '-', a.swm_no,'-',a.sndmail_seq) txt_swm_no";
-	$sql = $sql . ", concat(a.pi_no, '-', i.	ci_sndmail_seq) txt_pi_no";
+	$sql = $sql . ", a.pi_no txt_pi_no";
 	$sql = $sql . ", (ifnull(e.qty,0) - ifnull(a.cnt_dlv, 0)) cnt_rest";
 	$sql = $sql . " FROM (SELECT a.*,";
 	$sql = $sql . "b.cntry_atcd,";
@@ -67,7 +67,7 @@ function readSlip($pi_no){
 		
 	$sql_ord = "select a.*";
 	$sql_ord = $sql_ord . ",(case when a.ci_sndmail_seq is null then a.pi_no";
-	$sql_ord = $sql_ord . " else concat(a.pi_no, '-', ci_sndmail_seq) end) txt_pi_no";
+	$sql_ord = $sql_ord . " else concat(a.pi_no, '-', ci_sndmail_seq) end) txt_slip_no";
 	$sql_ord = $sql_ord . " from";
 	$sql_ord = $sql_ord . " (";
 	$sql_ord = $sql_ord . " SELECT a.pi_no, a.cntry_atcd, a.dealer_seq, a.worker_seq, a.tot_amt, a.slip_sndmail_seq, a.wrk_tp_atcd";
@@ -89,7 +89,7 @@ function readSlip($pi_no){
 	
 	$row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
 
-	$slip['slipInfo']['txt_pi_no'] = $row2['txt_pi_no'];
+	$slip['slipInfo']['txt_slip_no'] = $row2['txt_slip_no'];
 	$slip['slipInfo']['wrk_tp_atcd'] = $row2['wrk_tp_atcd'];
 	$slip['slipInfo']['buyer'] = $row2['buyer'];
 	$slip['slipInfo']['ci_sndmail_seq'] = $row2['ci_sndmail_seq'];
@@ -99,7 +99,7 @@ function readSlip($pi_no){
 }
 
 function getSlipMailCtnt($ctnt, $slip){
-	$ctnt = str_replace("@txt_pi_no", $slip['slipInfo']["txt_pi_no"], $ctnt);
+	$ctnt = str_replace("@txt_slip_no", $slip['slipInfo']["txt_slip_no"], $ctnt);
 	$ctnt = str_replace("@buyer_slip", $slip['slipInfo']["buyer"], $ctnt);
 	$ctnt = str_replace("@txt_slip_dt", date("Y-m-d"), $ctnt);
 	$ctnt = str_replace("@txt_cert_dt", date("Y년 m월 d일"), $ctnt);
