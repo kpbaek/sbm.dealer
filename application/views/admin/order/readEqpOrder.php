@@ -149,7 +149,7 @@ function getEqpOrderMailCtnt($ctnt, $eqpOrder){
 	$ctnt = str_replace("@delivery_dt", $eqpOrder['eqpOrdInfo']['delivery_dt'], $ctnt);
 	$ctnt = str_replace("@txt_payment_atcd", $eqpOrder['eqpOrdInfo']['txt_payment_atcd'], $ctnt);
 	$ctnt = str_replace("@txt_incoterms_atcd", $eqpOrder['eqpOrdInfo']['txt_incoterms_atcd'], $ctnt);
-	$ctnt = str_replace("@remark", str_replace("\n","<br>",$eqpOrder['eqpOrdInfo']['remark']), $ctnt);
+	$ctnt = str_replace("@remark", str_replace("\n","<br>",htmlspecialchars($eqpOrder['eqpOrdInfo']['remark'])), $ctnt);
 #	$ctnt = str_replace("@order_dt", $row['order_dt'], $ctnt);
 	
 	if($eqpOrder['eqpOrdInfo']['mdl_cd'] == "2000" || $eqpOrder['eqpOrdInfo']['mdl_cd'] == "3000" || $eqpOrder['eqpOrdInfo']['mdl_cd'] == "5000"){

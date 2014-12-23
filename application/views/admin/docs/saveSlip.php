@@ -45,12 +45,6 @@ if($result!=null){
 	
 	for($i_swm=0; $i_swm < sizeof($swm_no); $i_swm++)
 	{
-		if(sizeof($swm_no)==1){
-			$target_swm_no = $swm_no;
-		}else{
-			$target_swm_no = $swm_no[$i_swm];
-		}
-			
 		$sql_slip = " UPDATE om_prd_req set note = '" .$note[$i_swm]. "'";
 		$sql_slip = $sql_slip . ", cnt_dlv = " .$cnt_dlv[$i_swm];
 		$sql_slip = $sql_slip . ", udt_uid = '" .$_SESSION['ss_user']['uid']. "'";

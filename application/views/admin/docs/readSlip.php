@@ -12,7 +12,7 @@ function readSlip($pi_no){
 	$sql = $sql . ", i.pi_sndmail_seq";
 	$sql = $sql . ", a.sndmail_seq as prd_sndmail_seq";
 	$sql = $sql . ", concat('SWM', '-', a.swm_no,'-',a.sndmail_seq) txt_swm_no";
-	$sql = $sql . ", concat(a.pi_no, '-', i.pi_sndmail_seq) txt_pi_no";
+	$sql = $sql . ", concat(a.pi_no, '-', i.	ci_sndmail_seq) txt_pi_no";
 	$sql = $sql . ", (ifnull(e.qty,0) - ifnull(a.cnt_dlv, 0)) cnt_rest";
 	$sql = $sql . " FROM (SELECT a.*,";
 	$sql = $sql . "b.cntry_atcd,";
@@ -119,7 +119,7 @@ function getSlipMailCtnt($ctnt, $slip){
 			$mdl_list_tr .= "<td class='column4 style11 n'>" .$row["txt_pi_no"]. "</td>";
 			$mdl_list_tr .= "<td class='column5 style12 n'>" .$row["txt_swm_no"]. "</td>";
 			$mdl_list_tr .= "<td class='column6 style13 n'>" .$row["cnt_rest"]. "</td>";
-			$mdl_list_tr .= "<td class='column7 style14 null'>" .$row["note"]. "</td>";
+			$mdl_list_tr .= "<td class='column7 style14 null'>" .str_replace("\n","<br>",htmlspecialchars($row['note'])). "</td>";
 			$mdl_list_tr .= "<td class='column8 style6 null'></td>";
 			$mdl_list_tr .= "<td class='column9'></td>";
 			$mdl_list_tr .= "<td class='column9'></td>";

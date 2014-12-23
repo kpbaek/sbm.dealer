@@ -64,7 +64,7 @@ function getPartReqMailCtnt($ctnt, $partReq){
 			$part_list_tr = $part_list_tr . "<td class='column5 style20 s'>" .$row["part_cd"]. "</td>";
 			$part_list_tr = $part_list_tr . "<td class='column6 style21 s'>" .$row["part_nm"]. "</td>";
 			$part_list_tr = $part_list_tr . "<td class='column7 style22 n'>" .$row["qty"]. "</td>";
-			$part_list_tr = $part_list_tr . "<td class='style21 s style120'>" .$row["remark"]. "</td>";
+			$part_list_tr = $part_list_tr . "<td class='style21 s style120'>" .htmlspecialchars($row["remark"]). "</td>";
 			$part_list_tr = $part_list_tr . "<td></td></TR>";
 		}
 	}

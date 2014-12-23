@@ -470,6 +470,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 	<tr>
 		<td colspan=10 align=right>
 		<input type="button" id="btnEdit" name="btnEdit" value="edit" onclick="javascript:fn_edit();"/>
+		<input type="button" id="btnExcel" name="btnExcel" value="Excel" onclick="javascript:fn_excelDown();" disabled/>
 		<input type="button" id="btnMail" name="btnMail" value="send mail" onclick="javascript:fn_sendMail();"/>
 		</td>
 	</tr>
@@ -940,7 +941,13 @@ if(isset($_REQUEST["edit_mode"])){
 			if(packingInfo.sndmail_seq!=null){
 				$('#btnSave').attr('disabled',true);
 			}
-		    
+			if(invoiceInfo.wrk_tp_atcd=="00700610"){
+				$('#btnEdit').attr('disabled',true);
+				$('#btnMail').attr('disabled',true);
+				$('#btnExcel').attr('disabled',false);
+			}else{
+				$('#btnExcel').attr('disabled',true);
+			}
 		}else{
 			$("#tot_cartons").html(tot_cartons + " Cartons");
 			$('#btnSend').attr('disabled',true);
@@ -969,11 +976,17 @@ if(isset($_REQUEST["edit_mode"])){
 
 	function fn_sendMail(){
 		if(confirm("딜러에게 메일이 발송됩니다. 계속하시겠습니까?")){
+			$('#btnMail').attr('disabled',true);
 			var params = {"wrk_tp_atcd": "00700610","sndmail_atcd":"00700611", "pi_no":$("#pi_no").val()};  
 			fncCrtPackingSndMail(params);
 		}else{
 			return;
 		}
+	}
+
+	function fn_excelDown(){
+		var params = {"sndmail_atcd":"00700611", "pi_no":$("#pi_no").val()};  
+		location.href="/index.php/common/main/htmlToExcel?pi_no=" + $("#pi_no").val() + "&sndmail_atcd=00700611";
 	}
 	
 	function fn_isValid(){
