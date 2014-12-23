@@ -210,7 +210,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column23 style14 null">6F, Hyunwoo Bld, 206, Anyang-Dong</td>
 			<td class="column23 style11 null"></td>
 			<td class="column24 style1 s">Invoice No :</td>
-			<td class="column31 style217 n style217" width=90px><div>SWI-@txt_invoice_no</div></td>
+			<td class="column31 style217 n style217" width=90px><div>SWI-@txt_invoice_no@ci_sndmail_seq</div></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">

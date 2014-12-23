@@ -200,7 +200,8 @@ if($sndmail_atcd=="00700111"){
 	$invoice = readInvoice($pi_no);
 	
 	$ctnt = getCiMailCtnt($ctnt, $invoice);
-		
+	$ctnt = str_replace("@ci_sndmail_seq", "", $ctnt);
+	
 }else if($sndmail_atcd=="00700311"){  // 생산의뢰서
 	$po_no = "";
 	if(isset($_REQUEST["po_no"])){
