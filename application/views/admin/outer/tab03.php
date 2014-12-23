@@ -836,7 +836,7 @@ if(isset($_REQUEST["edit_mode"])){
 		var f = document.saveForm;
 
 		$("#ci_sndmail_seq").val(invoiceInfo.ci_sndmail_seq);
-		$("#txt_pi_no").html("PI-" + invoiceInfo.pi_no + "-" + invoiceInfo.ci_sndmail_seq);
+		$("#txt_pi_no").html("PI-" + invoiceInfo.pi_no + "-" + invoiceInfo.pi_sndmail_seq);
 
 		var buyer = "SAME AS CONSIGNEE";
 		if(invoiceInfo.buyer!=invoiceInfo.csn_attn){

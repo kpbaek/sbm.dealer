@@ -155,12 +155,7 @@ function getCiMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@txt_ship_port_atcd", $invoice['invoiceInfo']['txt_ship_port_atcd'], $ctnt);
 	$ctnt = str_replace("@inv_payment", $invoice['invoiceInfo']['inv_payment'], $ctnt);
 	
-	if($invoice['invoiceInfo']['ci_sndmail_seq']!=null){
-		$ctnt = str_replace("@txt_invoice_no", $invoice['invoiceInfo']['pi_no']. "-" . $invoice['invoiceInfo']['ci_sndmail_seq'], $ctnt);
-	}else{
-		$ctnt = str_replace("@txt_invoice_no", $invoice['invoiceInfo']['pi_no'], $ctnt);
-	}
-
+	$ctnt = str_replace("@txt_invoice_no", $invoice['invoiceInfo']['pi_no'], $ctnt);
 	if($invoice['invoiceInfo']['buyer']!=$invoice['invoiceInfo']['csn_attn']){
 		$ctnt = str_replace("@buyer", $invoice['invoiceInfo']['buyer'], $ctnt);
 	}else{

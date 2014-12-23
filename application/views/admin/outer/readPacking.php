@@ -2,7 +2,7 @@
 function getPackingMailCtnt($ctnt, $invoice){
 
 	$ctnt = str_replace("@txt_invoice_dt", $invoice['invoiceInfo']['txt_invoice_dt'], $ctnt);
-	$ctnt = str_replace("@txt_pi_no", $invoice['invoiceInfo']['pi_no']. "-" . $invoice['invoiceInfo']['ci_sndmail_seq'], $ctnt);
+	$ctnt = str_replace("@txt_pi_no", $invoice['invoiceInfo']['pi_no']. "-" . $invoice['invoiceInfo']['pi_sndmail_seq'], $ctnt);
 	$ctnt = str_replace("@csn_cmpy_nm", $invoice['invoiceInfo']['csn_cmpy_nm'], $ctnt);
 	$ctnt = str_replace("@csn_attn", $invoice['invoiceInfo']['csn_attn'], $ctnt);
 	$ctnt = str_replace("@destnt", $invoice['invoiceInfo']['destnt'], $ctnt);
