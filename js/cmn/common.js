@@ -421,7 +421,7 @@
 //    				$("#resultDiv").html("<b>The Packing is completed! We sent you packing information mail.</b><p>"); 
     				$("#resultDiv").append(qryInfo.ctnt);
     				$('#btnExcel').attr('disabled',false);
-    				alert("success!");
+    				alert("success!\n운송사에는 Excel을 다운로드하여 별도로 송부하시기 바랍니다.");
     			}
     		},
     		error:function(){
