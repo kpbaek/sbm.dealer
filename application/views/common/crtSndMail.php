@@ -126,10 +126,10 @@ if($sndmail_atcd=="00700111"){
 if(isSet($_REQUEST['wrk_tp_atcd'])){
 	
 	$sql = "INSERT INTO om_sndmail";
-	$sql = $sql . "(wrk_tp_atcd, sndmail_atcd, auth_grp_cd, sender_email, sender_eng_nm, title, ctnt, crt_dt, crt_uid) ";
+	$sql = $sql . "(pi_no, wrk_tp_atcd, sndmail_atcd, auth_grp_cd, sender_email, sender_eng_nm, title, ctnt, crt_dt, crt_uid) ";
 	if($wrk_tp_atcd == "00700110"){ // order - dealer
 		
-		$sql = $sql . "VALUES ('" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "'";
+		$sql = $sql . "VALUES ('" .$pi_no. "','" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "'";
 		$sql = $sql . ", '" .$_SESSION['ss_user']['usr_email']. "'";
 		if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 			$sql = $sql . ", (SELECT dealer_nm FROM om_dealer";
@@ -176,7 +176,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		}
 		$ctnt = str_replace("@base_url", SBM_DOMAIN, $ctnt);
 		
-		$sql = $sql . "VALUES ('" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "'";
+		$sql = $sql . "VALUES ('" .$pi_no. "','" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "'";
 		$sql = $sql . ", (SELECT w_email FROM om_worker";
 		$sql = $sql . "   WHERE team_atcd='" .$_SESSION['ss_user']['team_atcd']. "' AND worker_uid='" .$_SESSION['ss_user']['uid']. "')";
 		$sql = $sql . ", (SELECT eng_nm FROM om_worker";
