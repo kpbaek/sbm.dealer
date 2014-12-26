@@ -197,6 +197,22 @@
 		});
 	}
 	
+	function getRcpntDocsCombo(selObj, sVal) {
+		var opt = "";
+		var targetUrl = '/index.php/common/user/listRcpntDocs';
+		$.getJSON(targetUrl, function(result){
+			deleteOptionElements(selObj);
+			addOptionElement(selObj, "", "select");
+			for(var i=0; i<result['cdAttr'].length; i++){
+				var value = result['cdAttr'][i]['value'];
+				addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+				if(value == sVal){
+					selObj.selectedIndex = (i+1);
+				}
+			}
+		});
+	}
+	
 	function getOrderPiCombo(dealer_seq, selObj, sVal) {
 		var opt = "";
 		var targetUrl = '/index.php/common/user/listOrderPiNo?dealer_seq=' + dealer_seq;
