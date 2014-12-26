@@ -14,7 +14,7 @@ if(isSet($_REQUEST['uid']) && isSet($_REQUEST['pswd'])){
 	$pswd = mysql_real_escape_string($pswd);
 	
 	$sql = "SELECT uid, auth_grp_cd, perms_cd, usr_nm, usr_email, gender_atcd, nation_atcd, active_yn" ;
-	$sql = $sql . ",(case when auth_grp_cd in ('SA','WD','WA') then (select team_atcd from om_worker where worker_uid = a.uid) end) team_atcd";
+	$sql = $sql . ",(case when auth_grp_cd in ('SA','WD','WA','US') then (select team_atcd from om_worker where worker_uid = a.uid) end) team_atcd";
 	$sql = $sql . " FROM om_user a";
 	$sql = $sql . " WHERE uid='" .$uid. "' and pswd='" .$pswd. "'";
 	if($auth=="UD"){
