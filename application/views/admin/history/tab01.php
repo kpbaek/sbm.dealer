@@ -38,8 +38,11 @@
 <div id="searchDiv" style="display:;text-align:right">
 <form name="searchForm">
 <input type="text" name="page" style="display: none">
+문서구분
+<select id="sch_sndmail_atcd" name="sndmail_atcd" style="width: 120px;">
+</select>
 pi_no
-<input type="text" id="sch_pi_no" name="sch_pi_no" style="width: 120px;">
+<input type="text" id="sch_pi_no" name="sch_pi_no" style="width: 80px;ime-mode:disabled" maxlength=8>
 <input type="button" id="btnSearch" value="Search" onclick="javascript:gridReload();"/>
 </form>
 </div>
@@ -49,7 +52,7 @@ pi_no
 <div id="pager"></div>
 </div>
 <div id="resultDiv">
-<iframe id="ifMail" name="ifMail" src="about:blank" scrolling="yes" marginheight="0" marginwidth="0" frameborder="1" width="100%" height=600></iframe>
+<iframe id="ifMail" name="ifMail" src="about:blank" scrolling="yes" marginheight="0" marginwidth="20px" frameborder="1" width="99%" height=600></iframe>
 </div>
 
 <div id="postdata"></div>
@@ -68,14 +71,14 @@ jQuery().ready(function () {
 //	   		{name:'id', index:'id', width:55,hidden:true,search:true}, 
 	   		{name:'c_sndmail_seq',index:'sndmail_seq', width:70, search:true,hidden:true,sortable:true},		
 	   		{name:'sndmail_atcd',index:'sndmail_atcd', width:70, search:true,hidden:true,sortable:true},		
-	   		{name:'pi_no', index:'pi_no', width:80,hidden:false,search:true,sortable:true}, 
-	        {name:'dealer_nm',index:'dealer_nm', width:80, align:"right",search:true,sortable:true},
-	   		{name:'cntry_nm',index:'cntry_nm', width:100,search:true,sortable:true},
-	   		{name:'txt_wrk_tp_atcd',index:'txt_wrk_tp_atcd', width:70, align:"right",search:true,sortable:true},
-	   		{name:'worker_nm',index:'worker_nm', width:70,search:true,sortable:true},
-	   		{name:'sender_eng_nm',index:'sender_eng_nm', width:70, align:"right",search:true,sortable:true},		
-	   		{name:'snd_dt',index:'snd_dt', width:90, search:true,hidden:false,sortable:true},		
-	   		{name:'sndmail_seq',index:'sndmail_seq', width:70, search:true,hidden:false,sortable:true}		
+	   		{name:'pi_no', index:'pi_no', width:70, align:"center",hidden:false,search:true,sortable:true}, 
+	        {name:'dealer_nm',index:'dealer_nm', width:100, align:"left",search:true,sortable:true},
+	   		{name:'cntry_nm',index:'cntry_nm', width:100, align:"left",search:true,sortable:true},
+	   		{name:'txt_wrk_tp_atcd',index:'txt_wrk_tp_atcd', width:80, align:"left",search:true,sortable:true},
+	   		{name:'worker_nm',index:'worker_nm', width:60, align:"left",search:true,sortable:true},
+	   		{name:'sender_eng_nm',index:'sender_eng_nm', width:90, align:"left",search:true,sortable:true},		
+	   		{name:'snd_dt',index:'snd_dt', width:90, align:"center", search:true,hidden:false,sortable:true},		
+	   		{name:'sndmail_seq',index:'sndmail_seq', width:50, align:"right", search:true,hidden:false,sortable:true}		
 		],
         onSelectRow: function(id) {
             var chk_data = jQuery(list).jqGrid('getRowData',id);
@@ -123,11 +126,12 @@ jQuery().ready(function () {
 	});		
 	$("#t_list").append(searchDiv);
 	
-//	initForm();
+	initForm();
 });
 
 function initForm() {
 	var f = document.searchForm;
+	getRcpntDocsCombo(f.sch_sndmail_atcd, "");
 }
 
 function fn_readMail(sndmail_atcd, pi_no){
@@ -141,8 +145,9 @@ function fn_readMail(sndmail_atcd, pi_no){
 function gridReload() {
 	var targetUrl = "/index.php/admin/history/listSndMail";
 	var page = document.searchForm.page.value;
+	var sch_sndmail_atcd = document.searchForm.sch_sndmail_atcd.value;
 	var sch_pi_no = document.searchForm.sch_pi_no.value;
-    $("#list").jqGrid('setPostData', {test:'aa',sch_pi_no:sch_pi_no});
+    $("#list").jqGrid('setPostData', {sch_sndmail_atcd:sch_sndmail_atcd,sch_pi_no:sch_pi_no});
 	jQuery("#list").jqGrid('setGridParam', {url:targetUrl,page:'1'}).trigger("reloadGrid");
 //	$("#resultDiv").style.display = "none";
 //	printPostData();

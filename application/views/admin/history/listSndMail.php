@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $sidx = "pi_no"; // get index row - i.e. user click to sort
 if(isset($_REQUEST["sidx"])){
 	$sidx = $_REQUEST["sidx"];
@@ -16,6 +18,11 @@ if(isset($_REQUEST["rows"])){
 	$limit = $_REQUEST["rows"];
 }
 //search param
+$sch_sndmail_atcd = "";
+if(isset($_REQUEST["sch_sndmail_atcd"])){
+	$sch_sndmail_atcd = trim($_REQUEST["sch_sndmail_atcd"]);
+}
+
 $sch_pi_no = "";
 if(isset($_REQUEST["sch_pi_no"])){
 	$sch_pi_no = trim($_REQUEST["sch_pi_no"]);
@@ -23,6 +30,28 @@ if(isset($_REQUEST["sch_pi_no"])){
 
 $sql_cnt = "SELECT COUNT(*) AS count FROM om_sndmail ";
 $sql_cnt = $sql_cnt . " WHERE pi_no is not null";
+
+$sql_sch = "";
+if(!($_SESSION['ss_user']['auth_grp_cd']=="SA" || $_SESSION['ss_user']['auth_grp_cd']=="WD" || $_SESSION['ss_user']['team_atcd']=="00600SL0")){  // if not SA and 기술영업팀
+	$sql_sch = $sql_sch. " and sndmail_atcd in (''";
+	if($_SESSION['ss_user']['team_atcd']=="00600MF0"){  // 생산팀(00600MF0)
+		$sql_sch = $sql_sch . ",'00700311','00700511'"; // 생산의뢰서, 출고전표 열람 가능
+	}else if($_SESSION['ss_user']['team_atcd']=="00600QC0"){ //품질팀( 00600QC0)
+		$sql_sch = $sql_sch . ",'00700311','00700511', '00700321'"; // 생산의뢰서, 출고전표, 부품출고의뢰서 열람 가능
+	}else if($_SESSION['ss_user']['team_atcd']=="0060RSW1" || $_SESSION['ss_user']['team_atcd']=="0060RSW2"){ // SW1팀, SW2팀
+		$sql_sch = $sql_sch . ",'00700311'"; // 생산의뢰서 열람 가능
+	}else if($_SESSION['ss_user']['team_atcd']=="00600PC0"){ // 구매자재팀
+		$sql_sch = $sql_sch . ",'00700321'"; // 부품출고의뢰서 열람 가능
+	}else if($_SESSION['ss_user']['team_atcd']=="00600FN0"){ // 재무회계팀
+		$sql_sch = $sql_sch . ",'00700211','00700411'"; // PI, CI 열람 가능
+	}
+	$sql_sch = $sql_sch . " )";
+}	
+
+$sql_cnt = $sql_cnt . $sql_sch;
+if($sch_sndmail_atcd!=""){
+	$sql_cnt = $sql_cnt . " AND sndmail_atcd = '" .$sch_sndmail_atcd. "'";
+}
 if($sch_pi_no!=""){
 	$sql_cnt = $sql_cnt . " AND pi_no = '" .$sch_pi_no. "'";
 }
@@ -41,7 +70,7 @@ if ($page > $total_pages) $page=$total_pages;
 $start = $limit*$page - $limit; // do not put $limit*($page - 1)
 
 $sql = "SELECT a.*";
-$sql = $sql . ", date_format(a.crt_dt,'%Y/%m/%d') snd_dt";
+$sql = $sql . ", a.crt_dt snd_dt";
 $sql = $sql . " FROM";
 $sql = $sql . "(SELECT a.pi_no";
 $sql = $sql . "  , (select dealer_nm from om_dealer where dealer_seq = b.dealer_seq) dealer_nm";
@@ -55,11 +84,16 @@ $sql = $sql . "(";
 $sql = $sql . "  SELECT sndmail_seq, pi_no, wrk_tp_atcd, sndmail_atcd, auth_grp_cd, sender_email, sender_eng_nm, title, ctnt, crt_dt, crt_uid ";
 $sql = $sql . "  FROM om_sndmail a";
 $sql = $sql . "  WHERE pi_no is not null";
+$sql = $sql . $sql_sch;
 $sql = $sql . ") a left outer join om_ord_inf b";
 $sql = $sql . " on a.pi_no = b.pi_no";
 $sql = $sql . " order by sndmail_seq desc";
 $sql = $sql . ") a";
 $sql = $sql . " WHERE 1=1";
+
+if($sch_sndmail_atcd!=""){
+	$sql = $sql . " AND sndmail_atcd = '" .$sch_sndmail_atcd. "'";
+}
 if($sch_pi_no!=""){
 	$sql = $sql . " and pi_no = '" .$sch_pi_no. "'";
 }
