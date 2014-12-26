@@ -42,19 +42,10 @@ if (isset($_SESSION['ss_user']['uid'])){
 <?php
 	if($_SESSION['ss_user']['auth_grp_cd']!="UD"){
 ?> 
-					<li><span class="folder">사내문서</span>
+					<li><span class="folder">발송내역</span>
 						<ul>
-							<li><span class="file"><a href="/index.php/admin/docs?doctabs=0">생산의뢰서</a></span></li>
-							<li><span class="file"><a href="/index.php/admin/docs?doctabs=1">출고전표</a></span></li>
-							<li><span class="file"><a href="/index.php/admin/docs?doctabs=2">부품출고의뢰서</a></span></li>
+							<li><span class="file"><a href="/index.php/admin/history?historytabs=0">발송문서조회</a></span></li>
 							</ul>
-					</li>
-					<li><span class="folder">외부발송문서</span>
-						<ul>
-							<li><span class="file"><a href="/index.php/admin/outer?outertabs=0">Proforma Invoice</a></span></li>
-							<li><span class="file"><a href="/index.php/admin/outer?outertabs=1">Invoice</a></span></li>
-							<li><span class="file"><a href="/index.php/admin/outer?outertabs=2">Packing List</a></span></li>
-						</ul>
 					</li>
 <?php 
 	}
