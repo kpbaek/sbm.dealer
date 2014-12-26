@@ -6,7 +6,7 @@ if (isset($_SESSION['ss_user']['uid'])){
 			<li><span class="folder">수주관리</span>
 				<ul>
 <?php
-	if($_SESSION['ss_user']['auth_grp_cd']!="UD"){
+	if($_SESSION['ss_user']['auth_grp_cd']=="SA" || $_SESSION['ss_user']['team_atcd']=="00600SL0"){
 ?> 
 					<li><span class="folder">신청서</span>
 						<ul>
@@ -22,24 +22,26 @@ if (isset($_SESSION['ss_user']['uid'])){
 					</li>
 <?php 
 	}
+	if($_SESSION['ss_user']['auth_grp_cd']=="UD" || $_SESSION['ss_user']['auth_grp_cd']=="SA" || $_SESSION['ss_user']['team_atcd']=="00600SL0"){
 ?>
 					<li><span class="folder">주문서</span>
 						<ul>
 <?php
-	if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
+		if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 ?> 
 							<li><span class="file"><a href="/index.php/admin/order?ordertabs=0">장비</a></span></li>
 							<li><span class="file"><a href="/index.php/admin/order?ordertabs=1">부품</a></span></li>
 <?php 
-	}else{
+		}else{
 ?> 
 							<li><span class="file"><a href="/index.php/admin/order?ordertabs=2">주문내역</a></span></li>
 <?php 
-	}
+		}
 ?>
 							</ul>
 					</li>
 <?php
+	}
 	if($_SESSION['ss_user']['auth_grp_cd']!="UD"){
 ?> 
 					<li><span class="folder">발송내역</span>
