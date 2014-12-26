@@ -62,4 +62,9 @@ class User extends CI_Controller {
 		$this->load->view('/common/user/listOrderPayment');
 	}
 	
+	public function listRcpntDocs()
+	{
+		$this->load->view('/common/user/listRcpntDocs');
+	}
+	
 }
