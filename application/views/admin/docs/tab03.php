@@ -600,6 +600,7 @@ function editForm(partOrdInfo, partOrdDtlList, partReqInfo) {
 		$("#udt_dt_div").html(partReqInfo.txt_udt_dt);
 		$('#ctnt').val(partReqInfo.ctnt);
 		if(partReqInfo.send_yn=="Y"){
+			$("#swp_no_div").append("-" + partReqInfo.sndmail_seq);
 			$("#btnSave").attr("disabled",true);
 			$("#btnEdit").attr("disabled",true);
 			$("#btnMail").attr("disabled",true);

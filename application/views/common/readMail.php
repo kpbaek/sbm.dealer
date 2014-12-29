@@ -225,6 +225,7 @@ if($sndmail_atcd=="00700111"){
 	$partReq = readPartReq($partReq, $pi_no, $swp_no);
 	
 	$ctnt = getPartReqMailCtnt($ctnt, $partReq);
+	$ctnt = str_replace("-@sendmail_seq", "", $ctnt);
 	
 }else if($sndmail_atcd=="00700511"){  // 출고전표
 	include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/docs/readSlip.php");

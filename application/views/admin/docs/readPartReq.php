@@ -25,6 +25,7 @@ function readPartReq($partReq, $pi_no, $swp_no){
 		$partReq['partReqInfo']['txt_ship_dt'] = $row['txt_ship_dt'];
 		$partReq['partReqInfo']['txt_udt_dt'] = $row['txt_udt_dt'];
 		$partReq['partReqInfo']['send_yn'] = $row['send_yn'];
+		$partReq['partReqInfo']['sndmail_seq'] = $row['sndmail_seq'];
 		
 		//	$partReq['partReqInfo']['pi_sndmail_seq'] = $row['pi_sndmail_seq'];
 	}

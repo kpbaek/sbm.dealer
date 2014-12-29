@@ -335,11 +335,11 @@ body { left-margin: 0.15748031496063in; right-margin: 0.15748031496063in; top-ma
 				<table width=100%>
 				<tr class="row6">
 					<td class="column1 style101 s style101" width=100px height="40px">&nbsp;● PI No.</td>
-					<td class="column2 style110 n style110" colspan="2" >PI-@pi_no</td>
+					<td class="column2 style110 n style110" colspan="2" >@pi_no</td>
 				</tr>
 				<tr class="row6">
 					<td class="column1 style101 s style101" height="40px">&nbsp;● Ref No.</td>
-					<td class="column2 style109 f style109" colspan="2">SWP-@swp_no</td>
+					<td class="column2 style109 f style109" colspan="2">@swp_no-@sendmail_seq</td>
 				</tr>
 				@mdl_list_tr
 				<tr class="row6">

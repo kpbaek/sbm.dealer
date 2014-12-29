@@ -274,6 +274,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	}else if($wrk_tp_atcd == "00700320"){ // 부품출고의뢰서
 		$sql4 = "UPDATE om_part_ship_req";
 		$sql4 = $sql4 . " SET send_yn = 'Y'";
+		$sql4 = $sql4 . " , sndmail_seq = " .$sendmail_seq;
 		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
 		$sql4 = $sql4 . " AND swp_no = " .$swp_no;
 		
