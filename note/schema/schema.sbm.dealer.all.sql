@@ -246,6 +246,7 @@ CREATE TABLE `om_ord_eqp` (
   `qty` int(6) unsigned DEFAULT NULL COMMENT '주문수량',
   `amt` decimal(13,2) unsigned DEFAULT NULL COMMENT '주문금액',
   `sndmail_seq` int(11) DEFAULT NULL COMMENT '발송메일순번',
+  `buyer_po_no` varchar(15) DEFAULT NULL COMMENT '바이어주문번호',
   `crt_dt` datetime NOT NULL COMMENT '생성일시',
   `crt_uid` varchar(50) NOT NULL COMMENT '생성자ID',
   `udt_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
@@ -256,7 +257,8 @@ CREATE TABLE `om_ord_eqp` (
   KEY `om_ord_eqp_ibfk_2` (`mdl_cd`),
   CONSTRAINT `om_ord_eqp_ibfk_1` FOREIGN KEY (`pi_no`) REFERENCES `om_ord_inf` (`pi_no`),
   CONSTRAINT `om_ord_eqp_ibfk_2` FOREIGN KEY (`mdl_cd`) REFERENCES `om_mdl` (`mdl_cd`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='주문장비정보';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='주문장비정보';
+
 
 CREATE TABLE `om_ord_eqp_dtl` (
   `pi_no` varchar(8) NOT NULL COMMENT 'PI번호',
