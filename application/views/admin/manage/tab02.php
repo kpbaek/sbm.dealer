@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
@@ -69,7 +72,7 @@
 		   	//url:'/test/main/server',
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	colNames:['ID', 'name(kor/eng)', '부서(kor/eng)', '직무(kor/eng)', '담당자email',  'tel(내선)', 'hp', '승인일시', 'worker_seq', 'w_email', 'extns_num'],
+		   	colNames:['ID', 'name(kor/eng)', '부서(kor/eng)', '직무(kor/eng)', '담당자email', '메일링',  'tel(내선)', 'hp', '승인일시', 'worker_seq', 'w_email', 'extns_num'],
 		   	colModel:[
 //		   	    {name:'id', index:'id', width:50,hidden:true,search:true}, 
 		        {name:'worker_uid',index:'worker_uid', width:100, align:"left",search:true},
@@ -77,6 +80,7 @@
 		   		{name:'txt_team_atcd',index:'txt_team_atcd', align:"left", width:120,search:true},
 		   		{name:'txt_duty_atcd',index:'txt_duty_atcd', width:70, align:"left",search:true},
 		   		{name:'c_w_email',index:'email', width:100, align:"center",search:true},		
+		   		{name:'mailing_yn',index:'mailing_yn', width:40, align:"center",search:true},		
 		   		{name:'c_extns_num',index:'extns_num', width:40,align:"center",search:true},		
 		   		{name:'w_mob',index:'w_mob', width:70, sortable:false,search:true},		
 		   		{name:'aprv_dt',index:'aprv_dt', width:90, sortable:false,search:true},		
@@ -97,10 +101,9 @@
                 for(var i=0;i < ids.length;i++){
                     var rowId = ids[i];
                     var rowData = jQuery("#list").jqGrid('getRowData',rowId);
-                    c_w_email = "<input type=text size=20 height='20' style='ime-mode:disabled' name='c_email' value='" +rowData.w_email+ "' maxlength=50 onchange='setWEmail(" +rowId+ ", this.value);'>";
-                    c_extns_num = "<input type=text size=3 height='20' style='ime-mode:disabled' onKeyup='fncOnlyNumber(this);' name='c_extns_num' value='" +rowData.extns_num+ "' maxlength=3 onchange='setExtnsNum(" +rowId+ ", this.value);'>";
-                    jQuery("#list").jqGrid('setRowData',rowId,{c_w_email:c_w_email});
-                    jQuery("#list").jqGrid('setRowData',rowId,{c_extns_num:c_extns_num});
+                    var c_w_email = "<input type=text size=20 height='20' style='ime-mode:disabled' name='c_email' value='" +rowData.w_email+ "' maxlength=50 onchange='setWEmail(" +rowId+ ", this.value);'>";
+                    var c_extns_num = "<input type=text size=3 height='20' style='ime-mode:disabled' name='c_extns_num' value='" +rowData.extns_num+ "' maxlength=3 onchange='setExtnsNum(" +rowId+ ", this.value);' <?php if($_SESSION['ss_user']['auth_grp_cd']!="SA"){?>readOnly<?}?>>";
+                    jQuery("#list").jqGrid('setRowData',rowId,{c_w_email:c_w_email, c_extns_num:c_extns_num});
                 }
             },	            
             

@@ -64,6 +64,7 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	$responce['rows'][$i]['extns_num'] = $row['extns_num'];
 	$responce['rows'][$i]['w_mob'] = $row['w_mob'];
 	$responce['rows'][$i]['aprv_dt'] = $row['aprv_dt'];
+	$responce['rows'][$i]['mailing_yn'] = $row['mailing_yn'];
     $i++;
 }  
 echo json_encode($responce);
