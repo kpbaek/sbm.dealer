@@ -361,12 +361,15 @@ CREATE TABLE `om_part_ship_req` (
   `ctnt` varchar(1000) DEFAULT NULL COMMENT '추가내용',
   `ship_dt` varchar(8) DEFAULT NULL COMMENT '출하일자',
   `send_yn` char(1) NOT NULL DEFAULT 'N' COMMENT '발송여부',
+  `sndmail_seq` int(11) DEFAULT NULL COMMENT '발송메일순번',
   `crt_dt` datetime NOT NULL COMMENT '생성일시',
   `udt_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
   `crt_uid` varchar(50) NOT NULL COMMENT '생성자ID',
   `udt_uid` varchar(50) DEFAULT NULL COMMENT '수정자ID',
   PRIMARY KEY (`pi_no`,`swp_no`),
-  CONSTRAINT `om_part_ship_req_ibfk_1` FOREIGN KEY (`pi_no`, `swp_no`) REFERENCES `om_ord_part` (`pi_no`, `swp_no`)
+  KEY `sndmail_seq` (`sndmail_seq`),
+  CONSTRAINT `om_part_ship_req_ibfk_1` FOREIGN KEY (`pi_no`, `swp_no`) REFERENCES `om_ord_part` (`pi_no`, `swp_no`),
+  CONSTRAINT `om_part_ship_req_ibfk_2` FOREIGN KEY (`sndmail_seq`) REFERENCES `om_sndmail` (`sndmail_seq`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='부품출고의뢰서정보';
 
 CREATE TABLE `om_invoice` (
