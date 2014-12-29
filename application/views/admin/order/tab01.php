@@ -96,8 +96,8 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			<td colspan=3></td>
 		  </tr>
 		  <tr>
-		  	<td class="style01" colspan=2>No.</td>
-			<td><input type="text" id="swm_no" name="swm_no" value="" size=11 style="border: 1" disabled></td>
+		  	<td class="style01" colspan=2>Buyer P/O NO.</td>
+			<td><input type="text" id="buyer_po_no" name="buyer_po_no" value="" size=15 style="border: 1;" maxlength=15></td>
 		  	<td colspan=2></td>
 			<td class="style01">Q'TY</td>
 			<td><input type="text" id="qty" name="qty" value="" size=6 maxlength=6 style="border: 1;ime-mode:disabled" onKeyup="fncOnlyDecimal(this);"></td>
@@ -613,6 +613,7 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		$('#acct_no').val(eqpOrdInfo.acct_no);
 		$('#delivery_dt').val(eqpOrdInfo.delivery_dt);
 		$('#remark').val(eqpOrdInfo.remark);
+		$('#buyer_po_no').val(eqpOrdInfo.buyer_po_no);
 //		getCodeCombo("0022", f.cntry_atcd);
 
 		getOrderCntryCombo(eqpOrdInfo.pi_no, f.cntry_atcd, eqpOrdInfo.cntry_atcd);

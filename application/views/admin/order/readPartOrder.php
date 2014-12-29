@@ -86,4 +86,86 @@ function readPartOrder($pi_no, $swp_no){
 	}
 	return $partOrder;
 }
+
+function getPartOrderMailCtnt($ctnt, $pi_no, $swp_no){
+	
+	$sql_part = "SELECT a.*";
+	$sql_part = $sql_part . ", (select atcd_nm from cm_cd_attr where cd = '0022' and atcd = a.cntry_atcd) txt_cntry_atcd";
+	$sql_part = $sql_part . ", (select concat(cmpy_nm, '-', dealer_nm) as cmpy_nm from om_dealer where dealer_seq = a.dealer_seq) cmpy_nm";
+	$sql_part = $sql_part . " FROM";
+	$sql_part = $sql_part . " (";
+	$sql_part = $sql_part . " SELECT a.*, b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt, b.wrk_tp_atcd, b.udt_dt as order_dt";
+	$sql_part = $sql_part . " FROM om_ord_part a, om_ord_inf b";
+	$sql_part = $sql_part . " WHERE a.pi_no = b.pi_no";
+	$sql_part = $sql_part . " AND a.pi_no = '" .$pi_no. "'";
+	$sql_part = $sql_part . " AND a.swp_no = " .$swp_no;
+	$sql_part = $sql_part . " ) a";
+	log_message('debug', "getPartOrderMailCtnt:sql_part:" . $sql_part);
+	
+	$result = mysql_query( $sql_part ) or die("Couldn t execute query.".mysql_error());
+	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+	
+	$ctnt = str_replace("@pi_no", $row['pi_no'], $ctnt);
+	$ctnt = str_replace("@cmpy_nm", $row['cmpy_nm'], $ctnt);
+	#	$ctnt = str_replace("@order_dt", $row['order_dt'], $ctnt);
+	$ctnt = str_replace("@txt_cntry_atcd", $row['txt_cntry_atcd'], $ctnt);
+	
+	
+	$sql_dtl = "SELECT b.part_ver, b.part_cd, b.part_nm, b.unit_wgt, b.remark, b.ord_num, b.srl_no";
+	$sql_dtl = $sql_dtl . ", a.* ";
+	$sql_dtl = $sql_dtl . "FROM";
+	$sql_dtl = $sql_dtl . "(";
+	$sql_dtl = $sql_dtl . "  SELECT b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt";
+	$sql_dtl = $sql_dtl . "    , b.slip_sndmail_seq, b.wrk_tp_atcd";
+	$sql_dtl = $sql_dtl . "    , a.*";
+	$sql_dtl = $sql_dtl . "    ,(select mdl_nm from om_mdl where mdl_cd = a.mdl_cd) mdl_nm";
+	$sql_dtl = $sql_dtl . "  FROM";
+	$sql_dtl = $sql_dtl . "  (";
+	$sql_dtl = $sql_dtl . "    SELECT (b.qty * b.unit_prd_cost) as amt, a.wgt, a.sndmail_seq, b.*";
+	$sql_dtl = $sql_dtl . "    FROM om_ord_part a, om_ord_part_dtl b";
+	$sql_dtl = $sql_dtl . "    WHERE a.pi_no = b.pi_no";
+	$sql_dtl = $sql_dtl . "    AND a.swp_no = b.swp_no";
+	$sql_dtl = $sql_dtl . "    AND a.pi_no = '" .$pi_no. "'";
+	$sql_dtl = $sql_dtl . "    AND a.swp_no = " .$swp_no;
+	$sql_dtl = $sql_dtl . "  ) a, om_ord_inf b";
+	$sql_dtl = $sql_dtl . "  WHERE a.pi_no = b.pi_no";
+	$sql_dtl = $sql_dtl . ") a, om_part b";
+	$sql_dtl = $sql_dtl . " WHERE a.mdl_cd = b.mdl_cd and a.part_ver = b.part_ver and a.part_cd = b.part_cd";
+	$sql_dtl = $sql_dtl . " ORDER BY ord_num";
+	log_message('debug', "getPartOrderMailCtnt:sql_dtl:" . $sql_dtl);
+	
+	$result2 = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
+	
+	$ctnt_sub = "";
+	$tot_price = 0;
+	$tot_qty = 0;
+	$tot_amt = 0;
+	$tot_wgt = 0;
+	$i=0;
+	while($row2 = mysql_fetch_array($result2,MYSQL_ASSOC)) {
+		$tot_price += $row2['unit_prd_cost'];
+		$tot_qty += $row2['qty'];
+		$tot_amt += $row2['amt'];
+		$tot_wgt += $row2['unit_wgt'];
+	
+		$ctnt_sub = $ctnt_sub . file_get_contents($_SERVER["DOCUMENT_ROOT"]."/include/email/00700112_sub.php");
+		$ctnt_sub = str_replace("@txt_mdl_cd", $row2['mdl_nm'], $ctnt_sub);
+		$ctnt_sub = str_replace("@part_cd", $row2['part_cd'], $ctnt_sub);
+		$ctnt_sub = str_replace("@txt_part_cd", $row2['part_nm'], $ctnt_sub);
+		$ctnt_sub = str_replace("@unit_prd_cost", $row2['unit_prd_cost'], $ctnt_sub);
+		$ctnt_sub = str_replace("@qty", number_format($row2['qty'],0), $ctnt_sub);
+		$ctnt_sub = str_replace("@amt", number_format($row2['amt'],2), $ctnt_sub);
+		$ctnt_sub = str_replace("@unit_wgt", number_format($row2['unit_wgt'],2), $ctnt_sub);
+		$ctnt_sub = str_replace("@remark", $row2['remark'], $ctnt_sub);
+		$i++;
+	}
+	$ctnt = str_replace("@00700112_sub", $ctnt_sub, $ctnt);
+	//	$ctnt = str_replace("@tot_price", $tot_price, $ctnt);
+	$ctnt = str_replace("@tot_qty", number_format($tot_qty), $ctnt);
+	$ctnt = str_replace("@tot_amt", number_format($tot_amt, 2), $ctnt);
+	$ctnt = str_replace("@tot_wgt", number_format($tot_wgt, 2), $ctnt);
+	
+	return $ctnt;
+}
+	
 ?>

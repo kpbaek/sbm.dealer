@@ -78,6 +78,7 @@ function readEqpOrder($pi_no, $po_no){
 	$eqpOrder['eqpOrdInfo']['qty'] = $row['qty'];
 	$eqpOrder['eqpOrdInfo']['amt'] = $row['amt'];
 	$eqpOrder['eqpOrdInfo']['sndmail_seq'] = $row['sndmail_seq'];
+	$eqpOrder['eqpOrdInfo']['buyer_po_no'] = $row['buyer_po_no'];
 	$eqpOrder['eqpOrdInfo']['crt_dt'] = $row['crt_dt'];
 	$eqpOrder['eqpOrdInfo']['udt_dt'] = $row['udt_dt'];
 	#$eqpOrder['eqpOrdInfo']['currency_atch'] = $row['currency_atch'];
@@ -150,6 +151,7 @@ function getEqpOrderMailCtnt($ctnt, $eqpOrder){
 	$ctnt = str_replace("@txt_payment_atcd", $eqpOrder['eqpOrdInfo']['txt_payment_atcd'], $ctnt);
 	$ctnt = str_replace("@txt_incoterms_atcd", $eqpOrder['eqpOrdInfo']['txt_incoterms_atcd'], $ctnt);
 	$ctnt = str_replace("@remark", str_replace("\n","<br>",htmlspecialchars($eqpOrder['eqpOrdInfo']['remark'])), $ctnt);
+	$ctnt = str_replace("@buyer_po_no", htmlspecialchars($eqpOrder['eqpOrdInfo']['buyer_po_no']), $ctnt);
 #	$ctnt = str_replace("@order_dt", $row['order_dt'], $ctnt);
 	
 	if($eqpOrder['eqpOrdInfo']['mdl_cd'] == "2000" || $eqpOrder['eqpOrdInfo']['mdl_cd'] == "3000" || $eqpOrder['eqpOrdInfo']['mdl_cd'] == "5000"){

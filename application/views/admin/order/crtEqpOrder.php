@@ -9,6 +9,11 @@ if(isset($_POST["po_no"])){
 	$po_no = trim($_POST["po_no"]);
 }
 
+$buyer_po_no = "";
+if(isset($_POST["buyer_po_no"])){
+	$buyer_po_no = trim($_POST["buyer_po_no"]);
+}
+
 $cntry_atcd = trim($_POST["cntry_atcd"]);
 
 $mdl_cd = "";
@@ -171,10 +176,10 @@ if($po_no==""){
 		
 	$sql_eqp = "INSERT INTO om_ord_eqp";
 	$sql_eqp = $sql_eqp . "(pi_no, mdl_cd, srl_atcd, lcd_color_atcd, lcd_lang_atcd, rjt_pkt_tp_atcd, pwr_cab_atcd, shipped_by_atcd, courier_atcd, delivery_dt";
-	$sql_eqp = $sql_eqp . ", payment_atcd, incoterms_atcd, acct_no, remark, qty, amt, crt_dt, crt_uid)"; 
+	$sql_eqp = $sql_eqp . ", payment_atcd, incoterms_atcd, acct_no, remark, qty, amt, buyer_po_no, crt_dt, crt_uid)"; 
 	$sql_eqp = $sql_eqp . " VALUES ('" .$new_pi_no. "', '" .$mdl_cd. "', '" .$srl_atcd. "', '" .$lcd_color_atcd. "', '" .$lcd_lang_atcd. "', '" .$rjt_pkt_tp_atcd. "', '" .$pwr_cab_atcd. "', '" .$shipped_by_atcd. "', '" .$courier_atcd. "', '" .$delivery_dt. "'";
 	$sql_eqp = $sql_eqp . ", '" .$payment_atcd. "', '" .$incoterms_atcd. "', '" .$acct_no. "', '" .$remark. "'";
-	$sql_eqp = $sql_eqp . ", " .$qty. ", NULL, now(), '" .$_SESSION['ss_user']['uid']. "')";
+	$sql_eqp = $sql_eqp . ", " .$qty. ", NULL, '" .$buyer_po_no. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #		echo $sql_eqp;
 	$result3 = $this->db->query($sql_eqp);
 	$qryInfo['qryInfo']['sql3'] = $sql_eqp;
@@ -281,6 +286,7 @@ if($po_no==""){
 			$sql_eqp = $sql_eqp . ",remark = '" .$remark. "'";
 			$sql_eqp = $sql_eqp . ",qty = " .$qty;
 		#	$sql_eqp = $sql_eqp . ",amt = " .$amt;
+			$sql_eqp = $sql_eqp . ",buyer_po_no = '" .$buyer_po_no. "'";
 			$sql_eqp = $sql_eqp . ",udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
 			$sql_eqp = $sql_eqp . " WHERE pi_no = '" .$pi_no. "'";
 			$sql_eqp = $sql_eqp . " AND po_no =" .$po_no;
