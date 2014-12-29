@@ -97,7 +97,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 		  </tr>
 		  <tr>
 		  	<td class="style01" colspan=2>Buyer P/O NO.</td>
-			<td><input type="text" id="buyer_po_no" name="buyer_po_no" value="" size=15 style="border: 1;" maxlength=15></td>
+			<td><input type="text" id="buyer_po_no" name="buyer_po_no" value="" size=15 style="border: 1;ime-mode:disabled" maxlength=15></td>
 		  	<td colspan=2></td>
 			<td class="style01">Q'TY</td>
 			<td><input type="text" id="qty" name="qty" value="" size=6 maxlength=6 style="border: 1;ime-mode:disabled" onKeyup="fncOnlyDecimal(this);"></td>
