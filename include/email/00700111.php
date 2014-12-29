@@ -68,16 +68,16 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td colspan="3"></td>
 		  </tr>
 		  <tr>
-		  	<td class="style01" colspan=2>SWM No.</td>
-			<td></td>
+			<td class="style01" colspan=2>P/I NO. </td>
+			<td>@pi_no</td>
 			<td colspan=2></td>
 			<td class="style01">P/O NO.</td>
 			<td>@po_no</td>
 			<td colspan=3></td>
 		  </tr>
 		  <tr>
-			<td class="style01" colspan=2>P/I NO. </td>
-			<td>@pi_no</td>
+		  	<td class="style01" colspan=2>Buyer P/O NO.</td>
+			<td>@buyer_po_no</td>
 			<td colspan=2></td>
 			<td class="style01">Q'TY</td>
 			<td>@qty</td>
@@ -142,7 +142,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="style01">Payment</td>
 			<td>@txt_payment_atcd
 			</td>
-			<td class="style01">Incoterms</td>
+			<td class="style01" width="15%">Incoterms</td>
 			<td>@txt_incoterms_atcd
 			</td>
 		   	<td colspan=3></td>
