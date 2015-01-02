@@ -9,19 +9,22 @@ if(isset($_POST["auth"])){
 
 session_start();
 
-if(isSet($_REQUEST['uid']) && isSet($_REQUEST['pswd'])){
+if(isSet($_REQUEST['uid'])){
 	$uid = mysql_real_escape_string($uid);
 	$pswd = mysql_real_escape_string($pswd);
 	
 	$sql = "SELECT uid, auth_grp_cd, perms_cd, usr_nm, usr_email, gender_atcd, nation_atcd, active_yn" ;
 	$sql = $sql . ",(case when auth_grp_cd in ('SA','WD','WA','US') then (select team_atcd from om_worker where worker_uid = a.uid) end) team_atcd";
 	$sql = $sql . " FROM om_user a";
-	$sql = $sql . " WHERE uid='" .$uid. "' and pswd='" .$pswd. "'";
+	$sql = $sql . " WHERE 1=1";
 	if($auth=="UD"){
-		$sql_auth = " and auth_grp_cd='UD'";
-		$sql = $sql . $sql_auth;
+		$sql = $sql . " AND auth_grp_cd='UD'";
+		$sql = $sql . " AND uid='" .$uid. "'";
+	}else{
+		$sql = $sql . " AND uid='" .$uid. "' AND pswd='" .$pswd. "'";
 	}
-#		echo $sql;
+	log_message("debug", $sql);
+	
 	$query = $this->db->query($sql);
 	$row = $query->row();
 	
