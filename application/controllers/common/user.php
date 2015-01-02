@@ -67,4 +67,9 @@ class User extends CI_Controller {
 		$this->load->view('/common/user/listRcpntDocs');
 	}
 	
+	public function listDealerByWorker()
+	{
+		$this->load->view('/common/user/listDealerByWorker');
+	}
+	
 }
