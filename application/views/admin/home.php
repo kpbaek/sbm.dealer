@@ -33,8 +33,8 @@ if(empty($_SESSION['ss_user']['uid']))
 	<td><?php echo $_SESSION['ss_user']['usr_nm']?></td>
 </tr>
 <tr>
-	<td>권한그룹코드</td>
-	<td><?php echo $_SESSION['ss_user']['auth_grp_cd']?></td>
+	<td>권한그룹</td>
+	<td><?php echo $_SESSION['ss_user']['auth_grp_dscrt']?></td>
 </tr>
 <tr>
 	<td>승인코드</td>

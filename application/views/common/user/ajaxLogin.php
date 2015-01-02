@@ -15,6 +15,7 @@ if(isSet($_REQUEST['uid'])){
 	
 	$sql = "SELECT uid, auth_grp_cd, perms_cd, usr_nm, usr_email, gender_atcd, nation_atcd, active_yn" ;
 	$sql = $sql . ",(case when auth_grp_cd in ('SA','WD','WA','US') then (select team_atcd from om_worker where worker_uid = a.uid) end) team_atcd";
+	$sql = $sql . ",(select auth_grp_dscrt from cm_auth_grp where auth_grp_cd=a.auth_grp_cd) auth_grp_dscrt";
 	$sql = $sql . " FROM om_user a";
 	$sql = $sql . " WHERE 1=1";
 	if($auth=="UD"){
@@ -40,6 +41,7 @@ if(isSet($_REQUEST['uid'])){
 			$_SESSION['ss_user']['nation_atcd'] = $row->nation_atcd;
 			$_SESSION['ss_user']['active_yn'] = $row->active_yn;
 			$_SESSION['ss_user']['team_atcd'] = $row->team_atcd;
+			$_SESSION['ss_user']['auth_grp_dscrt'] = $row->auth_grp_dscrt;
 				
 			$sql = "UPDATE om_user
 				    SET last_logindt =now()
