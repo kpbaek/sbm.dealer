@@ -112,6 +112,21 @@
 	    });
 	}
 	
+	function getDealerCombo(selObj, sVal) {
+		var targetUrl = '/index.php/common/user/listDealerByWorker';
+		$.getJSON(targetUrl, function(result){
+			deleteOptionElements(selObj);
+			addOptionElement(selObj, "", "select");
+			for(var i=0; i<result['cdAttr'].length; i++){
+				var value = result['cdAttr'][i]['value'];
+				addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+				if(value == sVal){
+					selObj.selectedIndex = (i+1);
+				}
+			}
+		});
+	}
+	
 	function getCntryCombo(selObj, sVal) {
 		deleteOptionElements(selObj);
 		var targetUrl = '/index.php/common/user/listCntry';
