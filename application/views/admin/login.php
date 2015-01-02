@@ -10,7 +10,6 @@
         <td style='width:20px'></td>
         <td rowspan='3'>
         <input id="login" type='button' tabindex='3' value='로그인' style='width:70px;height:50px'/>
-        <input id="login2" type='button' tabindex='4' value='권한대행' style='width:70px;height:50px'/>
         </td>
 </tr>
 <tr>
@@ -33,7 +32,7 @@
 
 <table style="margin-top:30px;margin-left:150px;vertical-align:top" border="0" cellspacing="0" cellpadding="0">
 <tr>
-	<td>권한대행 아이디: 딜러 email</td>
+	<td>딜러 아이디: 딜러 email</td>
 </tr>
 <tr>
 	<td>메일Test(<a href="http://webmail.sbmkorea.biz" target="_new">webmail</a> : sbm@sbmkorea.biz)</td>
@@ -107,58 +106,6 @@ $(document).ready(function() {
 	
 	});
 
-	$('#login2').click(function()
-	{
-		var uid= $("#uid").val();
-//		var pswd=$("#pswd").val();
-		var pswd="dealer123";
-	
-		if($.trim(uid).length==0)
-		{
-        	$('#error').shake();
-			$("#error").html("<span style='color:#cc0000'>Error:</span> user ID is required. ");
-			return;
-		}
-		if($.trim(uid).length>0 && $.trim(pswd).length>0)
-		{
-			$.ajax({
-			        type: "POST",
-			        url: "/index.php/common/user/ajaxLogin",
-			        async: false,
-			        dataType: "json",
-			        data: {"auth":"UD","uid":uid, "pswd":pswd},
-			        cache: false,
-			        beforeSend: function(){ $("#login").val('Connecting...');},
-			        success: function(result, status, xhr){
-			        	var userInfo = result.ss_user; 
-						if(userInfo.active_yn=="Y")
-				        {
-			        		$.each(userInfo, function(key){ 
-			     		       var html = key + ":" + userInfo[key] + "<br>"; 
-//			     		       $("#error").append(html);
-			     		    }); 
-			     		    location.replace("/index.php/admin/main");
-						}
-				        else
-				        {
-				        	$('#error').shake();
-							$("#login").val('로그인');
-							$("#error").html("<span style='color:#cc0000'>Error:</span> Inactive dealer ID. ");
-				        }
-			        },
-			        /* ajax options omitted */
-			        error:function(){
-			        	$('#error').shake();
-						$("#login").val('로그인');
-						$("#error").html("<span style='color:#cc0000'>Error:</span> Invalid dealer ID and password. ");
-					}
-			        
-			});
-		
-		}
-	
-	});	
-	
 });
 
 </script>
