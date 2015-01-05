@@ -1,4 +1,3 @@
-USE test;
 
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100010','딜러',null,'Y','Y',null,'2014-08-07 15:44:34','2014-08-12 17:37:53',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100020','담당자',null,'Y','Y',null,'2014-08-07 00:00:00','2014-09-03 10:21:02',null);

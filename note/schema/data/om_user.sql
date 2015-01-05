@@ -1,4 +1,3 @@
-USE test;
 
 insert into `om_user`(`uid`,`pswd`,`auth_grp_cd`,`perms_cd`,`usr_nm`,`usr_email`,`gender_atcd`,`nation_atcd`,`join_dt`,`last_logindt`,`active_yn`,`crt_dt`,`crt_uid`,`udt_dt`,`udt_uid`) values ('aatrade@hawaii.rr.com','dealer123','UD',null,'Mahbub Siddiqui','aatrade@hawaii.rr.com','M','us','2014-08-18 17:11:58','2014-12-19 16:32:09','Y','2014-08-14 18:05:10','admin','2014-12-19 16:32:09','kpbaek@sbmkorea.com');
 insert into `om_user`(`uid`,`pswd`,`auth_grp_cd`,`perms_cd`,`usr_nm`,`usr_email`,`gender_atcd`,`nation_atcd`,`join_dt`,`last_logindt`,`active_yn`,`crt_dt`,`crt_uid`,`udt_dt`,`udt_uid`) values ('aca@apsmalaysia.com','dealer123','UD',null,'Lim','aca@apsmalaysia.com','M','my',null,null,'Y','2014-11-27 18:52:07','admin',null,null);

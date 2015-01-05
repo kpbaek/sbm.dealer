@@ -1,4 +1,3 @@
-USE test;
 
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('0010','수신자구분','rcpnt_tp_atcd','Y',null,'2014-08-07 15:44:03','2014-08-08 11:58:23');
 insert into `cm_cd`(`cd`,`cd_nm`,`cd_dscrt`,`use_yn`,`p_cd`,`crt_dt`,`udt_dt`) values ('0020','국가','COUNTRY GROUP','Y',null,'2014-08-01 18:06:59','2014-08-14 15:39:20');

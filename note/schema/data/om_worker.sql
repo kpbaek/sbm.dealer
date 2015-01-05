@@ -1,4 +1,3 @@
-USE test;
 
 insert into `om_worker`(`worker_seq`,`worker_uid`,`kr_nm`,`eng_nm`,`w_email`,`w_mob`,`team_atcd`,`duty_atcd`,`extns_num`,`mailing_yn`,`aprv_dt`,`crt_dt`,`crt_uid`,`udt_dt`,`udt_uid`) values (1,'kal0304@naver.com','이강아',null,'kal0304@naver.com','01090366146','00600MF0','00800250','356','Y',null,'2014-08-14 14:21:52','admin','2014-11-28 14:30:42',null);
 insert into `om_worker`(`worker_seq`,`worker_uid`,`kr_nm`,`eng_nm`,`w_email`,`w_mob`,`team_atcd`,`duty_atcd`,`extns_num`,`mailing_yn`,`aprv_dt`,`crt_dt`,`crt_uid`,`udt_dt`,`udt_uid`) values (2,'lksdream@sbmkorea.com','이광석',null,'lksdream@sbmkorea.com','01029349915','00600MF0','00800200','350','Y',null,'2014-08-14 14:21:52','admin','2014-11-28 14:30:42',null);
