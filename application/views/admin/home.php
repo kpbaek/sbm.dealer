@@ -58,11 +58,11 @@ if(empty($_SESSION['ss_user']['uid']))
 <tr>
 	<td>
 <?php
-	if($_SESSION['ss_user']['auth_grp_cd']!="SA")
-	{
+		if($_SESSION['ss_user']['auth_grp_cd']!="SA")
+		{
 ?> 
 담당<?php
-	}
+		}
 ?>딜러
 		<select id="dealer_uid" name="dealer_uid" style="width: 180px;">
 		</select>
@@ -75,24 +75,16 @@ if(empty($_SESSION['ss_user']['uid']))
 </form>
 <?php
 	}
-?> 
-<?php 
 }
 ?> 
 <script type="text/javascript">
 
 $(document).ready(function(e) {	
-<?php
-if($_SESSION['ss_user']['auth_grp_cd']!="UD"){
-?> 
 	initForm();
-<?php 
-}
-?>
 });
 
 <?php
-if($_SESSION['ss_user']['auth_grp_cd']!="UD"){
+if(!empty($_SESSION['ss_user']['uid']) && $_SESSION['ss_user']['auth_grp_cd']!="UD"){
 ?> 
 $('#login').click(function()
 		{
@@ -139,14 +131,20 @@ $('#login').click(function()
 			}
 		
 		});	
-
-function initForm() {
-	var f = document.addForm;
-	getDealerCombo(f.dealer_uid, '<?php echo $_SESSION['ss_user']['uid']?>');
-}
 <?php 
 }
 ?>
+
+function initForm() {
+	var f = document.addForm;
+<?php
+if(!empty($_SESSION['ss_user']['uid']) && $_SESSION['ss_user']['auth_grp_cd']!="UD"){
+?> 
+	getDealerCombo(f.dealer_uid, '<?php echo $_SESSION['ss_user']['uid']?>');
+<?php 
+}
+?>
+}
 
 </script>
     
