@@ -142,6 +142,7 @@ CREATE TABLE `om_dealer_cntry` (
 
 CREATE TABLE `om_sndmail` (
   `sndmail_seq` int(11) NOT NULL AUTO_INCREMENT COMMENT '발송메일순번',
+  `pi_no` varchar(8) DEFAULT NULL COMMENT 'PI번호',
   `wrk_tp_atcd` varchar(8) NOT NULL COMMENT '작업유형속성코드',
   `sndmail_atcd` varchar(8) DEFAULT NULL COMMENT '발송메일속성코드',
   `auth_grp_cd` varchar(2) NOT NULL COMMENT '권한그룹코드',
@@ -154,7 +155,7 @@ CREATE TABLE `om_sndmail` (
   PRIMARY KEY (`sndmail_seq`),
   KEY `om_sndmail_ibfk_1` (`auth_grp_cd`),
   CONSTRAINT `om_sndmail_ibfk_1` FOREIGN KEY (`auth_grp_cd`) REFERENCES `cm_auth_grp` (`auth_grp_cd`)
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8 COMMENT='발송메일정보';
+) ENGINE=InnoDB AUTO_INCREMENT=881 DEFAULT CHARSET=utf8 COMMENT='발송메일정보';
 
 CREATE TABLE `om_sndmail_dtl` (
   `snd_no` int(11) NOT NULL AUTO_INCREMENT COMMENT '발송번호',
