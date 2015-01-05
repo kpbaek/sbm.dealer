@@ -63,6 +63,11 @@ if (isset($_SESSION['ss_user']['uid'])){
 					</li>
 				</ul>
 			</li>
+			<li><span class="folder">가이드</span>
+				<ul>
+					<li><span class="file"><a href="/index.php/admin/guide?guidetabs=0">메뉴권한</a></span></li>
+				</ul>
+			</li>
 <?php 
 	}
 ?>
@@ -85,5 +90,4 @@ if (isset($_SESSION['ss_user']['uid'])){
 <?php 
 }
 ?>
-		
 		
