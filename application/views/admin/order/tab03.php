@@ -90,7 +90,7 @@
 		var mygrid = jQuery("#list").jqGrid({
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	colNames:['', '', '', 'slip_yn','pi_sndmail_seq', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'Confirm', '', 'P/I', 'P/I NO', 'C/I', '출고전표', 'Packing'],
+		   	colNames:['', '', '', 'slip_yn','pi_sndmail_seq', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'P/I NO', 'Confirm', '', 'P/I', 'C/I', '출고전표', 'Packing'],
 		   	colModel:[
 		   		{name:'chk', index:'chk', width:55,hidden:true,search:true,formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:true}}, 
 		   		{name:'cnfm_yn',index:'cnfm_yn', width:80, align:"right",search:true,hidden:true},		
@@ -100,14 +100,14 @@
 		   		{name:'order_date',index:'order_date', width:80, align:"center",search:true},
 		   		{name:'cntry',index:'cntry', width:100,search:true},
 		        {name:'dealer_nm',index:'dealer_nm', width:70, align:"left",search:true},
-		   		{name:'tot_amt',index:'tot_amt', width:70, sortable:false,search:true,align:"right",formatter:'currency', formatoptions:{prefix:"$"}},		
+		   		{name:'tot_amt',index:'tot_amt', width:100, sortable:false,search:true,align:"right",formatter:'currency', formatoptions:{prefix:"$"}},		
 		   		{name:'premium_rate',index:'id', width:80, align:"right",search:true,hidden:false},		
 		   		{name:'worker',index:'worker', width:50, align:"center", sortable:false,search:true},		
 		        {name:'txt_cnfm_dt',index:'txt_cnfm_dt', width:80, align:"center",search:true},
+		   		{name:'pi_no',index:'pi_no', width:70, sortable:true,search:true},		
 		   		{name:'cnfm',index:'pi_no', width:80, sortable:false,search:true,hidden:false},		
 		   		{name:'c_cnfm',index:'pi_no', width:70, sortable:false,search:true,hidden:true},		
-		   		{name:'pi',index:'pi_no', width:140, sortable:false,search:true},		
-		   		{name:'pi_no',index:'pi_no', width:70, sortable:true,search:true},		
+		   		{name:'pi',index:'pi_no', width:70, sortable:false,search:true},		
 		   		{name:'ci',index:'pi_no', width:70, sortable:false,search:true},		
 		   		{name:'rptout',index:'pi_no', width:70,align:"right",search:true},		
 		   		{name:'packing',index:'pi_no', width:70, sortable:false,search:true}		
@@ -171,7 +171,8 @@
 						}
 
                         c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
-                        c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
+//                        c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
+                        c_pi = "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
                         jQuery("#list").jqGrid('setRowData',ids[i],{pi:c_pi});
 
                         if(wrk_tp_atcd >= "00700210"){  // after P/I 발송(00700210)
