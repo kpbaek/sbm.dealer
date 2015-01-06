@@ -23,7 +23,7 @@ if(isSet($_POST['pi_no'])){
 		
 	$sql_inv = "INSERT INTO om_invoice";
 	$sql_inv = $sql_inv . " (pi_no, ship_port_atcd, payment_atcd, tot_qty, tot_amt, destnt, validity, bank_atcd, invoice_dt, csn_cmpy_nm, csn_addr, csn_tel, csn_fax, csn_attn, crt_dt, crt_uid)";
-	$sql_inv = $sql_inv . " SELECT pi_no, '', '00G00001'";
+	$sql_inv = $sql_inv . " SELECT pi_no, '', ''";
 	$sql_inv = $sql_inv . ", (";
 	$sql_inv = $sql_inv . "select ifnull(sum(qty),0) as tot_qty from";
 	$sql_inv = $sql_inv . "(";
