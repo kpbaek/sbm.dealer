@@ -6,13 +6,13 @@ if (isset($_SESSION['ss_user']['uid'])){
 			<li><span class="folder">수주관리</span>
 				<ul>
 <?php
-	if($_SESSION['ss_user']['auth_grp_cd']=="SA" || $_SESSION['ss_user']['team_atcd']=="00600SL0"){
+	if(strpos($_SESSION['ss_user']['auth_grp_cd'], 'A')==1 || $_SESSION['ss_user']['team_atcd']=="00600SL0"){
 ?> 
 					<li><span class="folder">신청서</span>
 						<ul>
 							<li><span class="file"><a href="/index.php/admin/manage?managetabs=0">딜러관리</a></span></li>
 <?php
-		if($_SESSION['ss_user']['auth_grp_cd']=="SA" || $_SESSION['ss_user']['auth_grp_cd']=="WA"){
+		if(strpos($_SESSION['ss_user']['auth_grp_cd'], 'A')==1){
 ?> 
 							<li><span class="file"><a href="/index.php/admin/manage?managetabs=1">담당자관리</a></span></li>
 <?php 
