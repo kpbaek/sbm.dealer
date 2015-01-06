@@ -4,6 +4,7 @@ $atcd = $_REQUEST["atcd"];
 $sql = "SELECT '" .$atcd. "' cd, worker_seq atcd, kr_nm atcd_nm, duty_atcd
 			, (select atcd_nm from cm_cd_attr where cd='0080' and atcd=a.duty_atcd) duty_atcd_nm  
 		FROM om_worker a WHERE a.team_atcd = '" .$atcd. "' order by kr_nm";
+log_message("debug", $sql);
 
 $query = $this->db->query($sql);
 

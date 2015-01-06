@@ -1,4 +1,6 @@
-<?php
+<?php 
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
+
 $sndmail_seq = $_REQUEST["sndmail_seq"];
 
 $sql = "SELECT a.* ";

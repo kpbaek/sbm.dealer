@@ -112,8 +112,8 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$sql = $sql . "   WHERE team_atcd='" .$_SESSION['ss_user']['team_atcd']. "' AND worker_uid='" .$_SESSION['ss_user']['uid']. "')";
 		$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0071' and atcd = '" .$sndmail_atcd. "'), '', now(), '".$_SESSION['ss_user']['uid']."')";
 	}		
-//		   echo $sql;
-
+	log_message("debug", $sql);
+	
 	$result = $this->db->query($sql);
 	$qryInfo['qryInfo']['sql'] = $sql;
 	$qryInfo['qryInfo']['result'] = $result;
