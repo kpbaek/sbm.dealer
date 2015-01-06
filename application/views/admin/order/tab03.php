@@ -169,10 +169,11 @@
                     	if(wrk_tp_atcd <= "00700210"){  // until P/I 발송(00700210)
                             c_cnfm = "<input style='height:22px;width:70px;' type=button id='c_qty' name='c_qty' value='확정취소' onclick=\"fn_cancelCnfm('"+rowData.pi_no+"');\" " + disableCancel + ">";
 						}
-
-                        c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
-//                        c_pi = c_pi + "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
-                        c_pi = "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
+                        if(wrk_tp_atcd >= "00700210"){  // after P/I 발송(00700210)
+                            c_pi = "<input style='height:22px;width:60px;' type=button name='c_pi' value='send' onclick=\"fn_sendPi('"+rowData.pi_no+"');\" " + disablePiSend + ">";
+						}else{
+	                        c_pi = "<input style='height:22px;width:60px;' type=button name='be_pi' value='edit' onclick=\"fn_editPi('"+rowData.pi_no+"');\" " + disablePiEdit + ">";
+						}
                         jQuery("#list").jqGrid('setRowData',ids[i],{pi:c_pi});
 
                         if(wrk_tp_atcd >= "00700210"){  // after P/I 발송(00700210)
