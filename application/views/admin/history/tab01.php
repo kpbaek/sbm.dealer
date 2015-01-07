@@ -158,7 +158,7 @@ function gridReload() {
 
 function fn_viewSndMail(sndmail_seq){
 	var url = "/index.php/common/main/viewSndMail?sndmail_seq=" + sndmail_seq;
-	document.frames["ifMail"].location.href = url;
+	frames["ifMail"].location.href = url;
 }
 
 function printPostData(){

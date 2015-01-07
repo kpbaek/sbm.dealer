@@ -100,8 +100,10 @@ table {
 			</tr>
 		</table>
 		<p>
-
-		<table border=1 cellpadding=0 cellspacing=0 width=827><tr>
+		
+		
+		<table border=1 cellpadding=0 cellspacing=0 width=827>
+			<tr>
 				<td align='center'>문서발송구분</td>
 				<td align='center'>문서</td>
 				<td align='center'>수신팀</td>
@@ -179,7 +181,28 @@ table {
 				<td>Packing List</td>
 			</tr>
 		</table>
-
+		<P>
+		<table border=1 cellpadding=0 cellspacing=0 width=827>
+			<tr>
+				<td align='center' width=150>메일계정</td>
+				<td align='center' width=80>용도</td>
+				<td align='center'>사용자</td>
+				<td align='center'>비고</td>
+			</tr>
+			<tr>
+				<td align='center'>sbm@sbmkorea.biz</td>
+				<td>공용</td>
+				<td>영업팀</td>
+				<td>문서전체</td>
+			</tr>
+			<tr>
+				<td align='center'>sales@sbmkorea.biz</td>
+				<td>백업용</td>
+				<td>관리자</td>
+				<td>주문서(장비,부품), Commercial Invoice, Packing List </td>
+			</tr>
+		</table>
+		<P>
 	</div>
 </body>
 
