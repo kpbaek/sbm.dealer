@@ -82,15 +82,15 @@ table {
 			</tr>
 			<tr>
 				<td>생산의뢰서</td>
-				<td>영업팀, 생산팀, 품질팀, SW1팀, SW2팀</td>
+				<td>영업팀, 생산팀, 품질관리팀, SW1팀, SW2팀</td>
 			</tr>
 			<tr>
 				<td>출고전표</td>
-				<td>영업팀, 생산팀, 품질팀</td>
+				<td>영업팀, 생산팀, 품질관리팀</td>
 			</tr>
 			<tr>
 				<td>부품출고의뢰서</td>
-				<td>영업팀, 품질팀, 구매자재팀</td>
+				<td>영업팀, 품질관리팀, 구매자재팀</td>
 			</tr>
 			<tr>
 				<td align='center'>Product</td>
@@ -109,60 +109,35 @@ table {
 
 			</tr>
 			<tr>
-				<td align='center' rowspan=23>사내발송</td>
-				<td rowspan=17>생산의뢰서</td>
-				<td rowspan=5>구매자재팀</td>
+				<td align='center' rowspan=14>사내발송</td>
+				<td rowspan=8>생산의뢰서</td>
+				<td>생산팀</td>
+				<td>팀메일</td>
+			</tr>
+			<tr>
+				<td>품질관리팀</td>
+				<td>팀메일</td>
+			</tr>
+			<tr>
+				<td rowspan=2>구매자재팀</td>
 				<td>김민욱</td>
 			</tr>
 			<tr>
 				<td>우충효</td>
 			</tr>
 			<tr>
-				<td>유혜미</td>
-			</tr>
-			<tr>
-				<td>이후섭</td>
-			</tr>
-			<tr>
-				<td>전준성</td>
-			</tr>
-			<tr>
-				<td rowspan=8>S/W 1팀</td>
+				<td rowspan=3>S/W 1팀</td>
 				<td>곽현수</td>
-			</tr>
-			<tr>
-				<td>나경진</td>
 			</tr>
 			<tr>
 				<td>송명남</td>
 			</tr>
 			<tr>
-				<td>안병곤</td>
-			</tr>
-			<tr>
-				<td>오유곤</td>
-			</tr>
-			<tr>
-				<td>이장원</td>
-			</tr>
-			<tr>
 				<td>이준호</td>
 			</tr>
 			<tr>
-				<td>최영재</td>
-			</tr>
-			<tr>
-				<td rowspan=4>S/W 2팀</td>
-				<td>박대일</td>
-			</tr>
-			<tr>
-				<td>박성식</td>
-			</tr>
-			<tr>
+				<td rowspan=1>S/W 2팀</td>
 				<td>신종옥</td>
-			</tr>
-			<tr>
-				<td>이주용</td>
 			</tr>
 			<tr>
 				<td rowspan=2>부품출고의뢰서</td>
