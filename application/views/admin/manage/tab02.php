@@ -83,7 +83,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 		   		{name:'mailing_yn',index:'mailing_yn', width:40, align:"center",search:true},		
 		   		{name:'c_extns_num',index:'extns_num', width:40,align:"center",search:true},		
 		   		{name:'w_mob',index:'w_mob', width:70, sortable:false,search:true},		
-		   		{name:'aprv_dt',index:'aprv_dt', width:90, sortable:false,search:true},		
+		   		{name:'aprv_dt',index:'aprv_dt', width:90, sortable:true,search:true},		
 		   	    {name:'worker_seq', index:'worker_seq', width:50,hidden:true,search:true}, 
 		   	    {name:'w_email', index:'w_email', width:50,hidden:true,search:true}, 
 		   	    {name:'extns_num', index:'extns_num', width:50,hidden:true,search:true} 
@@ -103,7 +103,11 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
                     var rowData = jQuery("#list").jqGrid('getRowData',rowId);
                     var c_w_email = "<input type=text size=20 height='20' style='ime-mode:disabled' name='c_email' value='" +rowData.w_email+ "' maxlength=50 onchange='setWEmail(" +rowId+ ", this.value);'>";
                     var c_extns_num = "<input type=text size=3 height='20' style='ime-mode:disabled' name='c_extns_num' value='" +rowData.extns_num+ "' maxlength=3 onchange='setExtnsNum(" +rowId+ ", this.value);' <?php if($_SESSION['ss_user']['auth_grp_cd']!="SA"){?>readOnly<?}?>>";
-                    jQuery("#list").jqGrid('setRowData',rowId,{c_w_email:c_w_email, c_extns_num:c_extns_num});
+					if(rowData.mailing_yn=="Y"){
+	                    jQuery("#list").jqGrid('setRowData',rowId,{c_w_email:c_w_email, c_extns_num:c_extns_num});
+					}else{
+	                    jQuery("#list").jqGrid('setRowData',rowId,{c_w_email:rowData.w_email, c_extns_num:c_extns_num});
+					}
                 }
             },	            
             
