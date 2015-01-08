@@ -1,11 +1,15 @@
 	function deleteOptionElements(slbObj){ 
-		 for(i=slbObj.length-1;i>-1;i--){ 
-		 	slbObj.remove(i); 
-		 } 
+		if(slbObj){
+			 for(i=slbObj.length-1;i>-1;i--){ 
+				 	slbObj.remove(i); 
+			 } 
+		}
 	} 
 	
 	function addOptionElement(slbObj,value,text){ 
-		 slbObj.add(new Option(text, value, false)); 
+		if(slbObj){
+			slbObj.add(new Option(text, value, false)); 
+		}
 	} 
 		 
 	//선택 옵션항목을 제거 
@@ -25,12 +29,14 @@
 //	    	$('#postdata').append(result['cd']['name'] + ":" + cd);
 	    	deleteOptionElements(selObj);
 	        addOptionElement(selObj, "", "select");
-	    	for(var i=0; i<result['cdAttr'].length; i++){
-	    		var value = result['cdAttr'][i]['value'];
-            	addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
-	    		if(value == sVal){
-	    			selObj.selectedIndex = (i+1);
-	    		}
+			if(result['cdAttr']!=null){
+		    	for(var i=0; i<result['cdAttr'].length; i++){
+		    		var value = result['cdAttr'][i]['value'];
+	            	addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+		    		if(value == sVal){
+		    			selObj.selectedIndex = (i+1);
+		    		}
+				}
 			}
 	    });
 	}
@@ -202,11 +208,13 @@
 //	    	$('#postdata').append(result['cd']['name'] + ":" + cd);
 			deleteOptionElements(selObj);
 			addOptionElement(selObj, "", "New");
-			for(var i=0; i<result['cdAttr'].length; i++){
-				var value = result['cdAttr'][i]['value'];
-				addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
-				if(value == sVal){
-					selObj.selectedIndex = (i+1);
+			if(result['cdAttr']!=null){
+				for(var i=0; i<result['cdAttr'].length; i++){
+					var value = result['cdAttr'][i]['value'];
+					addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+					if(value == sVal){
+						selObj.selectedIndex = (i+1);
+					}
 				}
 			}
 		});
