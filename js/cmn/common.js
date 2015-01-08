@@ -930,20 +930,3 @@
 		}
 		return n;
 	}
-	
-	$.fn.addPriceComma = function(value) {
-// var input = String(this);
-		var input = value;
-		var output = "";
-
-		for ( var i = input.length; i >= 0; i--) {
-
-			if ((input.length - i) % 3 == 1 && output.length != 0 && input.charAt(i) != "-") {
-				output = "," + output;
-			}
-			output = input.charAt(i) + output;
-		}
-		return output;
-	}
-
-		
