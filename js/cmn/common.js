@@ -108,12 +108,14 @@
 //	    	$('#postdata').append(result['cd']['name'] + ":" + cd);
 	    	deleteOptionElements(selObj);
 	        addOptionElement(selObj, "", "select");
-	    	for(var i=0; i<result['cdAttr'].length; i++){
-	    		var value = result['cdAttr'][i]['value'];
-            	addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
-	    		if(value == sVal){
-	    			selObj.selectedIndex = (i+1);
-	    		}
+			if(result['cdAttr']!=null){
+		    	for(var i=0; i<result['cdAttr'].length; i++){
+		    		var value = result['cdAttr'][i]['value'];
+	            	addOptionElement(selObj, value, result['cdAttr'][i]['text']); 
+		    		if(value == sVal){
+		    			selObj.selectedIndex = (i+1);
+		    		}
+				}
 			}
 	    });
 	}
