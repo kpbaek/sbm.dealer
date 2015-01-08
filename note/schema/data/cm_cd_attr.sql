@@ -495,6 +495,10 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 Address: Seoul, Guro-gu, Guro-dong, 222-12
 SWIFT CODE: HVBKKRSEXXX
 Account No.: 1081-100-633651','Y','Y',1,'2014-11-28 00:00:00','2014-12-04 15:17:49',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0050','00500004','SUHYUP BANK','Anyang Branch
+Address: 689-45, Anyang 2-dong, Manan-gu, Anyang-si, Gyeonggi-do, Korea
+SWIFT Code: NFFCKRSE
+Account No. : 1800-0014-5384','Y','Y',4,'2015-01-08 00:00:00','2015-01-08 16:00:35',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0060','00600FN0','재무회계팀',null,'Y','Y',3,'2014-08-12 00:00:00','2014-08-14 11:10:07',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0060','00600MF0','생산팀',null,'Y','Y',6,'2014-08-12 00:00:00','2014-08-14 11:10:23',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0060','00600MT0','생산기술팀',null,'Y','Y',7,'2014-08-12 00:00:00','2014-08-14 11:10:33',null);
