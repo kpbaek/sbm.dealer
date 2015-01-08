@@ -10,13 +10,10 @@
 	<link rel="stylesheet" type="text/css" href="/css/msdropdown/dd.css" />
 	
 	<script src="/lib/jquery.jqGrid-4.6.0/js/jquery-1.11.0.min.js" type="text/javascript"></script>
-	<script src="/lib/js/jquery.form.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/jquery.searchFilter.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.js" type="text/javascript"></script>
-	<script src="/js/cmn/common.js" type="text/javascript"></script>
 	<script src="/lib/js/jquery.multiple.select.js"></script>
-	<script src="/lib/js/msdropdown/jquery.dd.js"></script>
-		
+	<script src="/js/cmn/common.js" type="text/javascript"></script>
+	<script src="/lib/js/jquery.form.js" type="text/javascript"></script>
+	
 	<style type="text/css">
 	  html { font-family:Calibri, Arial, Helvetica, sans-serif; font-size:11pt; background-color:white }
 	  table { border-collapse:collapse; page-break-after:always; }

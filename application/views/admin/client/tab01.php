@@ -7,7 +7,6 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="/lib/jquery.jqGrid-4.6.0/css/ui.jqgrid.css"></link>	
 	<link rel="stylesheet" type="text/css" media="screen" href="/lib/jquery.jqGrid-4.6.0/plugins/searchFilter.css"></link>	
 		
-	<script src="/js/cmn/common.js" type="text/javascript"></script>
 	<script src="/lib/jquery.jqGrid-4.6.0/js/jquery-1.11.0.min.js" type="text/javascript"></script>
 	<script src="/js/cmn/common.js" type="text/javascript"></script>
 	

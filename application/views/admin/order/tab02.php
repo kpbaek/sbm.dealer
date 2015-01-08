@@ -17,7 +17,8 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 	<script src="/lib/jquery.jqGrid-4.6.0/plugins/grid.addons.js" type="text/javascript"></script>
 	<script src="/lib/js/jquery.form.js" type="text/javascript"></script>
 	<script src="/lib/jquery.jqGrid-4.6.0/plugins/jquery.searchFilter.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.js" type="text/javascript"></script>
+	<!-- <script src="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.js" type="text/javascript"></script> -->
+	<script src="/lib/js/jquery.multiple.select.js"></script>
 	<script src="/js/cmn/common.js" type="text/javascript"></script>
 	<script src="/lib/js/jquery.ui.shake.js"></script>
 	
@@ -213,7 +214,8 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 	                    jQuery("#list").jqGrid('setRowData',ids[i],{chk:'0'});
                     }
                     //be = "<img src='/images/ci_logo.jpg' height='20'>";
-                    c_qty = "<input type=text size=6 height='20' name='c_qty' value='" + rowData.qty + "' onChange='javascript:calcAmt(" + rowId + ", this.value);'>";
+//                  var c_qty = "<input type=text size='6' height='20' name='c_qty' value='" + rowData.qty + "' onChange='javascript:calcAmt(" + rowId + ", this.value);'>";
+                    var c_qty = "<input type=text size='6' height='20' name='c_qty' value='" + rowData.qty + "' onChange='javascript:calcAmt(" + i + ", this.value);'>";
                     be = "<img src='/images/part/image"  + rowData.srl_no +  ".png' height='20'>";
                     jQuery("#list").jqGrid('setRowData',rowId,{c_qty:c_qty, pt_img:be});
 //                    jQuery("#list").jqGrid('setSelection',(i+1));

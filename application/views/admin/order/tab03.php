@@ -10,7 +10,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 	<link rel="stylesheet" type="text/css" media="screen" href="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.css"></link>	
 	<link rel="stylesheet" type="text/css" media="screen" href="/lib/jquery.jqGrid-4.6.0/css/ui.jqgrid.css"></link>	
 	<link rel="stylesheet" type="text/css" media="screen" href="/lib/jquery.jqGrid-4.6.0/plugins/searchFilter.css"></link>	
- 
+
 	<script src="/lib/jquery.jqGrid-4.6.0/js/jquery-1.11.0.min.js" type="text/javascript"></script>
 	<script src="/lib/jquery.jqGrid-4.6.0/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 	<script src="/lib/jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js" type="text/javascript"></script>	
@@ -18,7 +18,8 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 	<script src="/lib/jquery.jqGrid-4.6.0/plugins/grid.addons.js" type="text/javascript"></script>
 	<script src="/lib/js/jquery.form.js" type="text/javascript"></script>
 	<script src="/lib/jquery.jqGrid-4.6.0/plugins/jquery.searchFilter.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.js" type="text/javascript"></script>
+	<script src="/lib/js/jquery.multiple.select.js"></script>
+	<script src="/lib/js/msdropdown/jquery.dd.js"></script>
 	<script src="/js/cmn/common.js" type="text/javascript"></script>
 	
 	<style type="text/css">

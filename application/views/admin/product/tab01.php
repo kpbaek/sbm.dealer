@@ -17,7 +17,8 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 	<script src="/lib/jquery.jqGrid-4.6.0/plugins/grid.addons.js" type="text/javascript"></script>
 	<script src="/lib/js/jquery.form.js" type="text/javascript"></script>
 	<script src="/lib/jquery.jqGrid-4.6.0/plugins/jquery.searchFilter.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.js" type="text/javascript"></script>
+	<script src="/lib/js/jquery.multiple.select.js"></script>
+	<script src="/lib/js/msdropdown/jquery.dd.js"></script>
 	<script src="/js/cmn/common.js" type="text/javascript"></script>
 	
 	<style type="text/css">
