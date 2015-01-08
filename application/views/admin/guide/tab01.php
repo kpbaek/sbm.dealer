@@ -40,7 +40,7 @@ table {
 				<td align='center' rowspan=3>신청서</td>
 				<td>To be a Dealer</td>
 				<td>딜러가입 신청</td>
-				<td></td>
+				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td>딜러관리</td>
@@ -111,8 +111,8 @@ table {
 
 			</tr>
 			<tr>
-				<td align='center' rowspan=14>사내발송</td>
-				<td rowspan=8>생산의뢰서</td>
+				<td align='center' rowspan=13>사내발송</td>
+				<td rowspan=7>생산의뢰서</td>
 				<td>생산팀</td>
 				<td>팀메일</td>
 			</tr>
@@ -121,25 +121,21 @@ table {
 				<td>팀메일</td>
 			</tr>
 			<tr>
-				<td rowspan=2>구매자재팀</td>
+				<td rowspan=3>구매자재팀</td>
 				<td>김민욱</td>
 			</tr>
 			<tr>
 				<td>우충효</td>
 			</tr>
 			<tr>
-				<td rowspan=3>S/W 1팀</td>
-				<td>곽현수</td>
+				<td>유혜미</td>
 			</tr>
 			<tr>
+				<td rowspan=2>S/W 1팀</td>
 				<td>송명남</td>
 			</tr>
 			<tr>
 				<td>이준호</td>
-			</tr>
-			<tr>
-				<td rowspan=1>S/W 2팀</td>
-				<td>신종옥</td>
 			</tr>
 			<tr>
 				<td rowspan=2>부품출고의뢰서</td>
