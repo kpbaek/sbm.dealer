@@ -39,15 +39,6 @@ guides.init();
 
 <hr />
 
-
-
-<script type="text/javascript">
-
-var mypets=new ddajaxtabs("pettabs", "petsdivcontainer")
-mypets.setpersist(false)
-mypets.setselectedClassTarget("link")
-mypets.init()
-
 </script>
 
 

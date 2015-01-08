@@ -9,22 +9,12 @@
 <script type="text/javascript" src="/lib/ajaxtabs/ajaxtabs.js">
 
 /***********************************************
-* Ajax Tabs Content script v2.2- � Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* Ajax Tabs Content script v2.2- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
 * This notice MUST stay intact for legal use
 * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
 ***********************************************/
 
 </script>
-
-	<script src="/lib/jquery.jqGrid-4.6.0/js/i18n/grid.locale-en.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js" type="text/javascript"></script>	
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/grid.postext.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/grid.addons.js" type="text/javascript"></script>
-	<script src="/lib/js/jquery.form.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/jquery.searchFilter.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.js" type="text/javascript"></script>
-	<script src="/js/cmn/common.js" type="text/javascript"></script>
-	
 
 </head>
 
@@ -49,37 +39,6 @@ client.init();
 </script>
 
 <hr />
-
-
-
-
-
-
-
-
-
-<br style="clear: left" />
-
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-
-var mypets=new ddajaxtabs("pettabs", "petsdivcontainer")
-mypets.setpersist(false)
-mypets.setselectedClassTarget("link")
-mypets.init()
-
-</script>
-
 
 
 

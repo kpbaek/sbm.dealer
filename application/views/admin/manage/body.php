@@ -16,16 +16,6 @@
 
 </script>
 
-	<script src="/lib/jquery.jqGrid-4.6.0/js/i18n/grid.locale-en.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js" type="text/javascript"></script>	
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/grid.postext.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/grid.addons.js" type="text/javascript"></script>
-	<script src="/lib/js/jquery.form.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/jquery.searchFilter.js" type="text/javascript"></script>
-	<script src="/lib/jquery.jqGrid-4.6.0/plugins/ui.multiselect.js" type="text/javascript"></script>
-	<script src="/js/cmn/common.js" type="text/javascript"></script>
-	
-
 </head>
 
 <body>
@@ -55,39 +45,6 @@ manage.init();
 </script>
 
 <hr />
-
-
-
-
-
-
-
-
-
-<br style="clear: left" />
-
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-
-var mypets=new ddajaxtabs("pettabs", "petsdivcontainer")
-mypets.setpersist(false)
-mypets.setselectedClassTarget("link")
-mypets.init()
-
-</script>
-
-
-
 
 </body>
 </html>
