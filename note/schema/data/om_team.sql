@@ -1,6 +1,6 @@
 
 insert into `om_team`(`team_atcd`,`team_email`,`team_mngr_email`,`team_mailing_yn`) values ('00600FN0','team_finance@sbmkorea.com','chonj@sbmkorea.com','Y');
-insert into `om_team`(`team_atcd`,`team_email`,`team_mngr_email`,`team_mailing_yn`) values ('00600MF0','team_manufacture@sbmkorea.com','lksdream@sbmkorea.com','Y');
+insert into `om_team`(`team_atcd`,`team_email`,`team_mngr_email`,`team_mailing_yn`) values ('00600MF0','team_production@sbmkorea.com','lksdream@sbmkorea.com','Y');
 insert into `om_team`(`team_atcd`,`team_email`,`team_mngr_email`,`team_mailing_yn`) values ('00600MT0','team_mtech@sbmkorea.com','lapis76k@sbmkorea.com','Y');
 insert into `om_team`(`team_atcd`,`team_email`,`team_mngr_email`,`team_mailing_yn`) values ('00600PC0','team_procurement@sbmkorea.com','wch7519@sbmkorea.com','Y');
 insert into `om_team`(`team_atcd`,`team_email`,`team_mngr_email`,`team_mailing_yn`) values ('00600QC0','team_qc@sbmkorea.com','bungzo@sbmkorea.com','Y');
