@@ -245,6 +245,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 			<td class="column8 style6 null" colspan=3></td>
 		  </tr>
 		  
+<!-- 		  
 		  <tr class="row11">
 			<td class="column0 style4 null" colspan=1></td>
 		  	<td colspan=4>
@@ -283,6 +284,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 			</td>
 			<td class="column8 style6 null" colspan=4></td>
 		  </tr>
+ -->		  
 		  <tr class="row12">
 			<td class="column0 style4 null"></td>
 			<td class="column1 style5 null"></td>
@@ -581,6 +583,11 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 <script type="text/javascript">
 	
 	$(document).ready(function(e) {	
+<?php
+if(isset($_REQUEST["edit_mode"])){
+	$edit_mode = $_REQUEST["edit_mode"];
+?> 
+		$("#edit_mode").val("<?php echo $edit_mode;?>");
 		var params = {
 		        "pi_no": "<?php echo $_REQUEST["pi_no"];?>"
 		};  
@@ -596,9 +603,20 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 	            //alert(xhr.status);
 		    	var slipInfo = result.slipInfo; 
 		    	var slipPrdList = result.slipPrdList; 
-		    	editForm(slipInfo, slipPrdList);
+				if($("#edit_mode").val()=="1"){
+			    	editForm(slipInfo, slipPrdList);
+				}else if($("#edit_mode").val()=="2"){
+					if(slipInfo.wrk_tp_atcd=="00700510"){
+						$('#btnEdit').attr('disabled',true);
+						$('#btnMail').attr('disabled',true);
+					}
+					fn_readMail();
+				}
 			}
 		});
+<?php 
+}
+?>
 	});
 
 	function fn_addMdlListRow(id, slipPrdInfo){
@@ -713,8 +731,9 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 		if(slipInfo.slip_sndmail_seq!=null){
 			$("#txt_slip_no").append("-" + (slipInfo.slip_sndmail_seq));
 		}
-		if(slipInfo.wrk_tp_atcd>="00700510"){
+		if(slipInfo.wrk_tp_atcd=="00700510"){
 			$('#btnSave').attr('disabled',true);
+			$('#btnEdit').attr('disabled',true);
 			$('#btnMail').attr('disabled',true);
 		}
 		$("#buyer_slip").html("Buyer: " + slipInfo.buyer);

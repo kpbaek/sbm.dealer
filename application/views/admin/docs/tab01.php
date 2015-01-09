@@ -631,9 +631,9 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 
 			
 		if(prdReqInfo.sndmail_seq!=null){
-//			$("#btnSave").attr("disabled",true);
-//			$("#btnEdit").attr("disabled",true);
-//			$("#btnMail").attr("disabled",true);
+			$("#btnSave").attr("disabled",true);
+			$("#btnEdit").attr("disabled",true);
+			$("#btnMail").attr("disabled",true);
 		}
 		$("#btnSend").attr("disabled",false);
 		
