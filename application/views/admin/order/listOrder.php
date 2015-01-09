@@ -59,10 +59,13 @@ $sql = $sql . " FROM";
 $sql = $sql . "(";
 $sql = $sql . "SELECT a.*";
 $sql = $sql . ",(select count(*) from om_ord_eqp where pi_no = a.pi_no) cnt_mdl";
-$sql = $sql . ",ifnull(i.pi_sndmail_seq,'') pi_sndmail_seq";
+$sql = $sql . ", ifnull(i.pi_sndmail_seq,'') pi_sndmail_seq";
+$sql = $sql . ", ifnull(p.sndmail_seq, '') packing_sndmail_seq";
 $sql = $sql . " FROM om_ord_inf a";
 $sql = $sql . " left outer join om_invoice i";
 $sql = $sql . " on a.pi_no = i.pi_no";
+$sql = $sql . " LEFT OUTER JOIN om_packing p";
+$sql = $sql . " on a.pi_no = p.pi_no";
 $sql = $sql . ") a";
 $sql = $sql . " WHERE 1=1";
 if($sch_cnfm_yn!=""){
@@ -77,8 +80,7 @@ $sql = $sql . "	ORDER BY "
 
 $result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 $count = mysql_num_rows( mysql_query( $sql ) );
-log_message('debug', "test1 .................");
-log_message('debug', "count:" . $count);
+log_message('debug', "listOrder:" . $sql);
 
 
 $responce['page'] = $page;
@@ -102,6 +104,7 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	$responce['rows'][$i]['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
 	$responce['rows'][$i]['slip_yn'] = $row['slip_yn'];
 	$responce['rows'][$i]['pi_sndmail_seq'] = $row['pi_sndmail_seq'];
+	$responce['rows'][$i]['packing_sndmail_seq'] = $row['packing_sndmail_seq'];
 	
     $i++;
 }  

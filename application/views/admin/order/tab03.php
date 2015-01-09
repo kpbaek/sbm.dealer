@@ -94,13 +94,14 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 		var mygrid = jQuery("#list").jqGrid({
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	colNames:['', '', '', 'slip_yn','pi_sndmail_seq', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'P/I NO', 'Confirm', '', 'P/I', 'C/I', '출고전표', 'Packing'],
+		   	colNames:['', '', '', 'slip_yn','pi_sndmail_seq', 'packing_sndmail_seq', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'P/I NO', 'Confirm', '', 'P/I', 'C/I', 'Packing', '출고전표'],
 		   	colModel:[
 		   		{name:'chk', index:'chk', width:55,hidden:true,search:true,formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:true}}, 
 		   		{name:'cnfm_yn',index:'cnfm_yn', width:80, align:"right",search:true,hidden:true},		
 		   		{name:'wrk_tp_atcd',index:'wrk_tp_atcd', width:80, align:"right",search:true,hidden:true},		
 		   		{name:'slip_yn',index:'slip_yn', width:80, align:"right",hidden:true},		
 		   		{name:'pi_sndmail_seq',index:'pi_sndmail_seq', width:80, align:"right",hidden:true},		
+		   		{name:'packing_sndmail_seq',index:'packing_sndmail_seq', width:80, align:"right",hidden:true},		
 		   		{name:'order_date',index:'order_date', width:80, align:"center",search:true},
 		   		{name:'cntry',index:'cntry', width:100,search:true},
 		        {name:'dealer_nm',index:'dealer_nm', width:70, align:"left",search:true},
@@ -113,8 +114,8 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 		   		{name:'c_cnfm',index:'pi_no', width:70, sortable:false,search:true,hidden:true},		
 		   		{name:'pi',index:'pi_no', width:70, sortable:false,search:true},		
 		   		{name:'ci',index:'pi_no', width:70, sortable:false,search:true},		
-		   		{name:'rptout',index:'pi_no', width:70,align:"right",search:true},		
-		   		{name:'packing',index:'pi_no', width:70, sortable:false,search:true}		
+		   		{name:'packing',index:'pi_no', width:70, sortable:false,search:true},		
+		   		{name:'rptout',index:'pi_no', width:70,align:"right",search:true}		
 			],
 			onSelectRow: function(rowid) {
 	        	var params = $("#list").jqGrid('getRowData',rowid);
@@ -162,8 +163,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
                         	disablePacking = "";
 						}
                         if(wrk_tp_atcd >= "00700610"){  // after Packing List 발송(00700610)
-                        	disableCiSend = "disabled";
-                        	disableSlip = "disabled";
+//                        	disableSlip = "disabled";
 						}
                     }
                     c_image = "<img src='/images/ci_logo.jpg' height='20'>";
@@ -187,11 +187,19 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 	                    
 	                    if(wrk_tp_atcd >= "00700410"){  // after INVOICE 발송(00700410)
 		                    if(rowData.slip_yn=="Y"){  // 장비포함 주문인 경우
-		                    	c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"fn_sendSlip('"+rowData.pi_no+"');\" " + disableSlip + ">";
+		                    	if(wrk_tp_atcd == "00700510"){
+		                    		c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='send' onclick=\"fn_editSlip('"+rowData.pi_no+"');\" " + disableSlip + ">";
+		                    	}else{
+		                    		c_rptout = "<input style='height:22px;width:60px;' type=button name='c_rptout' value='edit' onclick=\"fn_editSlip('"+rowData.pi_no+"');\" " + disableSlip + ">";
+		                    	}
 			                    jQuery("#list").jqGrid('setRowData',ids[i],{rptout:c_rptout});
 							}
-	                    	c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"fn_sendPacking('"+rowData.pi_no+"');\" " + disablePacking + ">";
-		                    jQuery("#list").jqGrid('setRowData',ids[i],{packing:c_packing});
+		                    if(rowData.packing_sndmail_seq==""){  
+								c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='edit' onclick=\"fn_editPacking('"+rowData.pi_no+"');\" " + disablePacking + ">";
+							}else{
+								c_packing = "<input style='height:22px;width:60px;' type=button name='c_packing' value='send' onclick=\"fn_editPacking('"+rowData.pi_no+"');\" " + disablePacking + ">";
+							}
+							jQuery("#list").jqGrid('setRowData',ids[i],{packing:c_packing});
 		                }
 					}else{
 						if(pi_sndmail_seq!=""){
@@ -626,12 +634,20 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
     	location.replace("/index.php/admin/outer/tab02?edit_mode=1&pi_no=" + pi_no);
 	}
 		
-	function fn_sendSlip(pi_no){
+	function fn_editSlip(pi_no){
     	location.replace("/index.php/admin/docs/tab02?edit_mode=1&pi_no=" + pi_no);
 	}
 		
-	function fn_sendPacking(pi_no){
+	function fn_sendSlip(pi_no){
+    	location.replace("/index.php/admin/docs/tab02?edit_mode=2&pi_no=" + pi_no);
+	}
+		
+	function fn_editPacking(pi_no){
     	location.replace("/index.php/admin/outer/tab03?edit_mode=1&pi_no=" + pi_no);
+	}
+
+	function fn_sendPacking(pi_no){
+    	location.replace("/index.php/admin/outer/tab03?edit_mode=2&pi_no=" + pi_no);
 	}
 
 	function fn_excelDown(pi_no, pi_sndmail_seq){
