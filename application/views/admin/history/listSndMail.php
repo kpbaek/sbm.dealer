@@ -38,7 +38,7 @@ if(!($_SESSION['ss_user']['auth_grp_cd']=="SA" || $_SESSION['ss_user']['auth_grp
 		$sql_sch = $sql_sch . ",'00700311','00700511'"; // 생산의뢰서, 출고전표 열람 가능
 	}else if($_SESSION['ss_user']['team_atcd']=="00600QC0"){ //품질팀( 00600QC0)
 		$sql_sch = $sql_sch . ",'00700311','00700511', '00700321'"; // 생산의뢰서, 출고전표, 부품출고의뢰서 열람 가능
-	}else if($_SESSION['ss_user']['team_atcd']=="0060RSW1" || $_SESSION['ss_user']['team_atcd']=="0060RSW2"){ // SW1팀, SW2팀
+	}else if($_SESSION['ss_user']['team_atcd']=="0060RSW1"){ // SW1팀
 		$sql_sch = $sql_sch . ",'00700311'"; // 생산의뢰서 열람 가능
 	}else if($_SESSION['ss_user']['team_atcd']=="00600PC0"){ // 구매자재팀
 		$sql_sch = $sql_sch . ",'00700321'"; // 부품출고의뢰서 열람 가능
