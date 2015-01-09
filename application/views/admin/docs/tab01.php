@@ -55,6 +55,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 </style>
 
 <div id="sndMailDiv" style="display:none" align=center></div>
+<div id="error"></div>
 
 <div id="resultDiv" style="display:none" align=center>
 	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;border-top: 3px;" class="sheet0" align=center>
@@ -67,7 +68,6 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 	</table>
 	<p>
 </div>
-<div id="error"></div>
 
 <div id="saveFormDiv">	
 <form id="saveForm" name="saveForm" method="post">
@@ -519,15 +519,17 @@ $(document).ready(function(e) {
 			        	
 						$('#pi_no').val(eqpOrdInfo.pi_no);
 						$('#po_no').val(eqpOrdInfo.po_no);
-			        	
-						if(eqpOrdInfo.wrk_tp_atcd < "00700510")  // 출고전표 발송(00700510)
+
+
+						if(prdReqInfo.sndmail_seq != null)
 				        {
-							editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList);
-						}else{
 							$('#btnSubmit').attr('disabled',true);
 							$('#error').shake();
-							$("#error").html("<span style='color:#cc0000'>Notice:</span> 출고전표가 이미발송되었습니다!. ");
+							$("#error").html("<span style='color:#cc0000'>Notice:</span> 생산의뢰서가 이미발송되었습니다!. ");
 				        }
+						
+						editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList);
+				        
 			        },
 			});
 	<?php 
