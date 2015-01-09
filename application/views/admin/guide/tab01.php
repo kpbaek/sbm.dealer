@@ -82,7 +82,7 @@ table {
 			</tr>
 			<tr>
 				<td>생산의뢰서</td>
-				<td>영업팀, 생산팀, 품질관리팀, SW1팀, SW2팀</td>
+				<td>영업팀, 생산팀, 품질관리팀, SW1팀</td>
 			</tr>
 			<tr>
 				<td>출고전표</td>
@@ -96,7 +96,7 @@ table {
 				<td align='center'>Product</td>
 				<td>부품관리</td>
 				<td>부품정보 관리(부품내역, 장비분해도)</td>
-				<td>SBM User</td>
+				<td>발송내역 사용자</td>
 			</tr>
 		</table>
 		<p>
