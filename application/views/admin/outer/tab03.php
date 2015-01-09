@@ -749,7 +749,13 @@ if(isset($_REQUEST["edit_mode"])){
 	        success: function(result, status, xhr){
 //	            alert(xhr.status);
 				$("#pi_no").val(params.pi_no);
-				if($("#edit_mode").val()=="1"){
+		    	var invoiceInfo = result.invoiceInfo; 
+				if(invoiceInfo.wrk_tp_atcd>="00700510"){
+					$('#btnEdit').attr('disabled',true);
+					$('#btnMail').attr('disabled',true);
+					$('#btnExcel').attr('disabled',false);
+				}
+		    	if($("#edit_mode").val()=="1"){
 					editForm(result);
 				}else if($("#edit_mode").val()=="2"){
 					fn_readMail();
@@ -946,7 +952,7 @@ if(isset($_REQUEST["edit_mode"])){
 				$('#btnMail').attr('disabled',true);
 				$('#btnExcel').attr('disabled',false);
 			}else{
-				$('#btnExcel').attr('disabled',true);
+//				$('#btnExcel').attr('disabled',true);
 			}
 		}else{
 			$("#tot_cartons").html(tot_cartons + " Cartons");
