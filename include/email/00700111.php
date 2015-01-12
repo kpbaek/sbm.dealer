@@ -71,7 +71,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="style01" colspan=2>P/I NO. </td>
 			<td>@pi_no</td>
 			<td colspan=2></td>
-			<td class="style01">P/O NO.</td>
+			<td class="style01">SBM P/O NO.</td>
 			<td>@po_no</td>
 			<td colspan=3></td>
 		  </tr>
