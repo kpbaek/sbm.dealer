@@ -1,4 +1,6 @@
 <?php
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
+
 $wrk_tp_atcd = $_REQUEST["wrk_tp_atcd"];
 $sndmail_atcd = $_REQUEST["sndmail_atcd"];
 
@@ -16,8 +18,6 @@ $swp_no = "";
 if(isset($_REQUEST["swp_no"])){
 	$swp_no = $_REQUEST["swp_no"];
 }
-
-session_start();
 
 //$this->db->trans_start();
 

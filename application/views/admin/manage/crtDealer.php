@@ -1,4 +1,6 @@
 <?php
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
+
 $dealer_nm = "";
 if(isset($_POST["dealer_nm"])){
 	$dealer_nm = trim($_POST["dealer_nm"]);
@@ -95,8 +97,6 @@ if(isset($_POST["mkt_inf"])){
 }
 
 	
-session_start();
-
 //$this->db->trans_off();
 $this->db->trans_begin();
 

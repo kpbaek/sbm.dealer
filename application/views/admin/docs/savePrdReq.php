@@ -1,5 +1,5 @@
 <?php
-session_start();
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 
 $swm_no = null;
 if(isset($_POST["swm_no"])){

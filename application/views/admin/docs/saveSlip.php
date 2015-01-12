@@ -1,5 +1,5 @@
 <?php
-session_start();
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 
 $pi_no = $_POST["pi_no"];
 

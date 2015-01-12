@@ -1,7 +1,7 @@
 <?php
-$pi_no = $_REQUEST["pi_no"];
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 
-session_start();
+$pi_no = $_REQUEST["pi_no"];
 
 
 if(isSet($_POST['pi_no'])){

@@ -1,4 +1,6 @@
 <?php
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
+
 $pi_no = $_POST["pi_no"];
 
 $ship_port_atcd =  "";
@@ -76,8 +78,6 @@ $opt_unit_prc = null;
 if(isset($_POST["opt_unit_prc"])){
 	$opt_unit_prc = $_POST["opt_unit_prc"];
 }
-
-session_start();
 
 if(isSet($_POST['pi_no'])){
 	

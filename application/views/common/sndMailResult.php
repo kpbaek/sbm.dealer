@@ -40,7 +40,8 @@ try {
 	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 	}
 	
-	$sql3 = "SELECT a.sndmail_seq, a.wrk_tp_atcd, a.sender_eng_nm, a.title, a.ctnt, email_from, email_to, snd_yn, b.snd_no, b.rcpnt_tp_atcd";
+	$sql3 = "SELECT a.sndmail_seq, a.wrk_tp_atcd, a.sender_email, a.title, a.ctnt, email_from, email_to, snd_yn, b.snd_no, b.rcpnt_tp_atcd";
+	$sql3 = $sql3 . ",(select usr_nm from om_user where uid = a.sender_email) sender_nm";
 	$sql3 = $sql3 . ",(select usr_nm from om_user where uid = b.email_to) rcpnt_nm";
 	$sql3 = $sql3 . ",(select if(a.wrk_tp_atcd='00700210',pi_no,'') from om_invoice where pi_sndmail_seq = a.sndmail_seq) pi_no";
 	$sql3 = $sql3 . " FROM om_sndmail a, om_sndmail_dtl b";
@@ -53,6 +54,8 @@ try {
 	while($row = mysql_fetch_array($result3,MYSQL_ASSOC)) {
 		$qryResult['sndMail'][$i]['sndmail_seq'] = $row['sndmail_seq'];
 		$qryResult['sndMail'][$i]['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
+		$qryResult['sndMail'][$i]['sender_email'] = $row['sender_email'];
+		$qryResult['sndMail'][$i]['sender_nm'] = $row['sender_nm'];
 		$qryResult['sndMail'][$i]['snd_no'] = $row['snd_no'];
 		$qryResult['sndMail'][$i]['email_from'] = $row['email_from'];
 		$qryResult['sndMail'][$i]['email_to'] = $row['email_to'];
@@ -62,19 +65,26 @@ try {
 		$qryResult['sndMail'][$i]['pi_no'] = $row['pi_no'];
 		$i++;
 	    
-#		$mail->SetFrom($row['email_from'], "SBM"); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-		$mail->SetFrom($row['email_from'], "SBM->" .$row['rcpnt_nm']); // test
-#	    $mail->AddAddress('kbaek@sbmkorea.com', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-#	    $mail->AddAddress('kpbaek@localhost', $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-#	    $mail->AddAddress($row['email_to'], $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    if($row['rcpnt_tp_atcd']=="00100010"){  // if dealer
+			$mail->SetFrom($row['email_from'], "SBM->" .$row['rcpnt_nm']); // test
+	    }else{
+	    	if($row['rcpnt_team_atcd']=="00600SL0"){
+	    		$mail->SetFrom($row['email_from'], "SBM");
+	    	}else{
+	    		$mail->SetFrom($row['email_from'], $sender_nm);
+	    	}
+	    }
 	    if($atcd=="local"){
 		    $mail->AddAddress(SBM_LOCAL_EMAIL, $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 #		    echo "mytest";
 	    }else{
-#		    $mail->AddAddress($row['email_to'], $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-		    $mail->AddAddress(SBM_PUB_EMAIL);
+	    	if($row['rcpnt_tp_atcd']=="00100010"){  // if the target is dealer -> do not send yet.
+	    		$mail->AddAddress(SBM_PUB_EMAIL);
+	    	}else{
+	    		$mail->AddAddress($row['email_to'], $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    	}
+//    		$mail->AddAddress(SBM_PUB_EMAIL);
 	    }
-#		$mail->addCC('tester1@localhost');
 	    $mail->Subject = $row['title']; // 메일 제목
 	    $mail->MsgHTML($row['ctnt']); // 메일 내용 (HTML 형식도 되고 그냥 일반 텍스트도 사용 가능함)
 	    
@@ -111,7 +121,6 @@ try {
 		echo json_encode($qryInfo);
     
 	}
-	
     
 }
 

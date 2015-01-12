@@ -282,6 +282,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 	<tr>
 		<td colspan=10 align=right>
 		<input type="button" id="btnEdit" name="btnEdit" value="edit" onclick="javascript:fn_edit();"/>
+		<input type="button" id="btnExcel" name="btnExcel" value="Excel" onclick="javascript:fn_excelDown();"/>
 		<input type="button" id="btnMail" name="btnMail" value="send mail" onclick="javascript:fn_sendMail();"/>
 		</td>
 	</tr>
@@ -787,6 +788,11 @@ if(isset($_REQUEST["edit_mode"])){
 		}else{
 			return;
 		}
+	}
+
+	function fn_excelDown(){
+		var params = {"sndmail_atcd":"00700411", "pi_no":$("#pi_no").val()};  
+		location.href="/index.php/common/main/htmlToExcel?pi_no=" + $("#pi_no").val() + "&sndmail_atcd=00700411";
 	}
 	
 	function fn_isValid(){

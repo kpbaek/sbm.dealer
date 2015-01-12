@@ -1,8 +1,7 @@
 <?php
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
+
 $pi_no = $_REQUEST["pi_no"];
-
-session_start();
-
 
 if(isSet($_POST['pi_no'])){
 	

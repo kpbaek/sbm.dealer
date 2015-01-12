@@ -1,4 +1,6 @@
 <?php
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
+
 $pi_no = $_POST["pi_no"];
 
 $csn_addr =  "";
@@ -21,8 +23,6 @@ if(isset($_POST["csn_attn"])){
 	$csn_attn = trim($_POST["csn_attn"]);
 }
 
-session_start();
-
 if(isSet($_POST['pi_no'])){
 	
 	$pi_no = mysql_real_escape_string($pi_no);
@@ -33,7 +33,7 @@ if(isSet($_POST['pi_no'])){
 	
 	$sql = "SELECT (select atcd_nm from cm_cd_attr where cd = '0070' and atcd = a.wrk_tp_atcd) txt_wrk_tp_atcd FROM om_ord_inf";
 	$sql = $sql . " WHERE pi_no ='" .$pi_no. "'";
-	$sql = $sql . " AND wrk_tp_atcd > '00700410'";  // 00700410(INVOICE 발송)
+	$sql = $sql . " AND wrk_tp_atcd >= '00700410'";  // 00700410(INVOICE 발송)
 #	echo $sql;
 	
 	$result=mysql_query($sql);

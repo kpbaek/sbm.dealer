@@ -32,10 +32,10 @@
 
 <table style="margin-top:30px;margin-left:150px;vertical-align:top" border="0" cellspacing="0" cellpadding="0">
 <tr>
-	<td>딜러 아이디: 딜러 email</td>
+	<td>공용메일: sbm@sbmkorea.biz</td>
 </tr>
 <tr>
-	<td>메일Test(<a href="http://webmail.sbmkorea.biz" target="_new">webmail</a> : sbm@sbmkorea.biz)</td>
+	<td>딜러발송Test(<a href="http://webmail.sbmkorea.biz" target="_new">webmail</a>)</td>
 </tr>
 </table>
 
@@ -47,8 +47,6 @@ $(document).ready(function() {
 	{
 		var uid=$("#uid").val();
 		var pswd=$("#pswd").val();
-//		var uid="admin";
-//		var pswd="admin123";
 		
 		if($.trim(uid).length==0)
 		{
@@ -66,7 +64,6 @@ $(document).ready(function() {
 		{
 			$.ajax({
 			        type: "POST",
-//			        url: "/user/ajaxLogin",
 			        url: "/index.php/common/user/ajaxLogin",
 			        async: false,
 			        dataType: "json",

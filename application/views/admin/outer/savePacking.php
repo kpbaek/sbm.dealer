@@ -1,4 +1,6 @@
 <?php
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
+
 $pi_no = $_POST["pi_no"];
 
 $eqp_carton_no =  "";
@@ -58,8 +60,6 @@ if(isset($_POST["tot_eqp_qty"])){
 	$tot_eqp_qty = trim($_POST["tot_eqp_qty"]);
 }
 
-
-session_start();
 
 if(isSet($_POST['pi_no'])){
 	

@@ -91,7 +91,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 				</select>
 			</td>
 			<td colspan=2></td>
-			<td class="style01">P/O NO.</td>
+			<td class="style01">SBM P/O NO.</td>
 			<td><input type="text" id="po_no" name="po_no" value="" size=12 maxlength=11 style="border: 1;ime-mode:disabled" onKeyup="fncOnlyDecimal(this);" disabled></td>
 			<td colspan=3></td>
 		  </tr>

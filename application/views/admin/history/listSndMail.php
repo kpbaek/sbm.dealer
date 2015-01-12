@@ -1,5 +1,5 @@
 <?php
-session_start();
+require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 
 $sidx = "pi_no"; // get index row - i.e. user click to sort
 if(isset($_REQUEST["sidx"])){
