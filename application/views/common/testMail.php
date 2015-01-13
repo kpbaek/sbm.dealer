@@ -1,5 +1,5 @@
 <?
-require_once APPPATH."config.php";
+require_once "/config.php";
 require_once APPPATH."/third_party/PHPMailer/class.phpmailer.php";
 //header("Content-Type: text/html; charset=utf-8"); 
 
@@ -29,7 +29,7 @@ try {
 
 
     if(SBM_DOMAIN=="http://127.0.0.1:9090"){
-		$mail->Host = "localhost"; // email 보낼때 사용할 서버를 지정
+		$mail->Host = LOCAL_SMTP_HOST; // email 보낼때 사용할 서버를 지정
 		$mail->Username   = "kpbaek"; // 
 		$mail->Password   = "1111"; // 
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
@@ -37,16 +37,16 @@ try {
 	    $mail->SetFrom(SBM_LOCAL_EMAIL); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    $mail->AddAddress(SBM_LOCAL_EMAIL); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
     }else if(SBM_DOMAIN=="http://www.sbmkorea.biz"){
-		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
+		$mail->Host = SBM_SMTP_HOST; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
 	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 //		$mail->SMTPSecure = "ssl"; // SSL을 사용함
-		$mail->Username   = "sbm@sbmkorea.biz"; 
-		$mail->Password   = "sbmmail123"; 
+		$mail->Username   = SBM_SMTP_USER; 
+		$mail->Password   = SBM_SMTP_PASS; 
 	    $mail->SetFrom(SBM_PUB_EMAIL); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    $mail->AddAddress(SBM_PUB_EMAIL); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
     }else if(SBM_DOMAIN=="http://www.sbmkorea.esy.es"){
-		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
+		$mail->Host = SBM_SMTP_HOST; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
 	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 //		$mail->SMTPSecure = "ssl"; // SSL을 사용함
@@ -55,12 +55,12 @@ try {
 	    $mail->SetFrom(SBM_PUB_EMAIL); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    $mail->AddAddress(SBM_PUB_EMAIL); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
     }else if(SBM_DOMAIN=="http://www.sbmkorea.url.ph"){
-		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
+		$mail->Host = SBM_SMTP_HOST; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
 	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 //		$mail->SMTPSecure = "ssl"; // SSL을 사용함
-		$mail->Username   = "sbmkorea@sbmkorea.url.ph"; 
-		$mail->Password   = "sbmkoreacom"; 
+		$mail->Username   = SBM_SMTP_USER; 
+		$mail->Password   = SBM_SMTP_PASS; 
 	    $mail->SetFrom(SBM_PUB_EMAIL); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    $mail->AddAddress(SBM_PUB_EMAIL); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	}
