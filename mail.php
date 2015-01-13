@@ -1,4 +1,5 @@
 <?php
+require_once "config.php";
 require "./application/third_party/PHPMailer/class.phpmailer.php";
 require './application/third_party/PHPMailer/class.smtp.php';
 
@@ -19,25 +20,14 @@ $mail->SetFrom ( 'kpbaek@localhost' );
 $mail->AddAddress ( "tester1@localhost", "SBM" );
 */
 
-//sbmkorea.url.ph
-$mail->Host = "mail.sbmkorea.url.ph"; 
-$mail->Port = "2525"; 
-$mail->Username = "sbmkorea@sbmkorea.url.ph";
-$mail->Password = "sbmkoreacom";
-$mail->SetFrom ( 'sbmkorea@sbmkorea.url.ph' ); 
+$mail->Host = SBM_SMTP_HOST; 
+$mail->Port = SBM_SMTP_PORT; 
+$mail->Username = SBM_SMTP_USER;
+$mail->Password = SBM_SMTP_PASS;
+$mail->SetFrom ( SBM_PUB_EMAIL ); 
 $mail->Priority = 1;
-$mail->AddAddress ( "sbm@sbmkorea.url.ph", "SBM" );
+$mail->AddAddress ( SBM_PUB_EMAIL, "SBM" );
 
-//sbmkorea.biz
-/**
-$mail->Host = "mail.sbmkorea.biz"; 
-$mail->Port = "587"; 
-$mail->Username = "sbm@sbmkorea.biz";
-$mail->Password = "sbmmail123";
-$mail->SetFrom ( 'sbm@sbmkorea.biz' ); 
-$mail->Priority = 1;
-$mail->AddAddress ( "kpbaek@sbmkorea.com", "SBM" );
-*/
 
 $mail->Subject = "Message from  Contact form";
 $mail->Body = "test";
