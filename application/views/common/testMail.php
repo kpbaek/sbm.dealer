@@ -21,7 +21,7 @@ try {
     $mail->CharSet = "utf-8";
     $mail->Encoding = "base64";
 
-    $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+    $mail->SMTPDebug  = 1;                     // enables SMTP debug information (for testing)
 //    $mail->AddReplyTo('name@yourdomain.com', 'First Last');
 //    $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
 //    $mail->AddAttachment('images/phpmailer.gif');      // attachment
