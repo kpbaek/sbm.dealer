@@ -1,13 +1,8 @@
 <?
+require_once APPPATH."config.php";
 require_once APPPATH."/third_party/PHPMailer/class.phpmailer.php";
 //header("Content-Type: text/html; charset=utf-8"); 
 
-$atcd = $_REQUEST["atcd"];
-
-$to_addr = "sbmkorea@sbmkorea.url.ph";
-if(isset($_REQUEST["to_addr"])){
-	$to_addr = trim($_REQUEST["to_addr"]);
-}
 $title = "";
 if(isset($_REQUEST["title"])){
 	$title = trim($_REQUEST["title"]);
@@ -33,46 +28,43 @@ try {
 //    $mail->AddAttachment('images/phpmailer_mini.gif'); // attachment
 
 
-    echo "atcd:" .$atcd. "<BR>";
-    if($atcd=="local"){
+    if(SBM_DOMAIN=="http://127.0.0.1:9090"){
 		$mail->Host = "localhost"; // email 보낼때 사용할 서버를 지정
 		$mail->Username   = "kpbaek"; // 
 		$mail->Password   = "1111"; // 
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
-	    $mail->Port = "25"; // email 보낼때 사용할 서버를 지정
-	    $mail->SetFrom('kpbaek@sbmkorea.com'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-	    $mail->AddAddress('kpbaek@localhost', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-	    $mail->addCC('kpbaek@sbmkorea.com', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-    }else if($atcd=="biz"){
+	    $mail->Port = LOCAL_SMTP_PORT; // email 보낼때 사용할 서버를 지정
+	    $mail->SetFrom(SBM_LOCAL_EMAIL); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress(SBM_LOCAL_EMAIL); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+    }else if(SBM_DOMAIN=="http://www.sbmkorea.biz"){
 		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
-	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
+	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 //		$mail->SMTPSecure = "ssl"; // SSL을 사용함
 		$mail->Username   = "sbm@sbmkorea.biz"; 
 		$mail->Password   = "sbmmail123"; 
-	    $mail->SetFrom('sbm@sbmkorea.biz'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-	    $mail->AddAddress('sbm@sbmkorea.biz'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-    }else if($atcd=="esy"){
+	    $mail->SetFrom(SBM_PUB_EMAIL); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress(SBM_PUB_EMAIL); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+    }else if(SBM_DOMAIN=="http://www.sbmkorea.esy.es"){
 		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
-	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
+	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 //		$mail->SMTPSecure = "ssl"; // SSL을 사용함
 		$mail->Username   = "admin@sbmkorea.esy.es"; 
 		$mail->Password   = "sbmadmin123"; 
-	    $mail->SetFrom('admin@sbmkorea.esy.es'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-	    $mail->AddAddress('admin@sbmkorea.esy.es'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-    }else if($atcd=="url"){
+	    $mail->SetFrom(SBM_PUB_EMAIL); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress(SBM_PUB_EMAIL); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+    }else if(SBM_DOMAIN=="http://www.sbmkorea.url.ph"){
 		$mail->Host = "mx1.hostinger.kr"; // email 보낼때 사용할 서버를 지정
 	    $mail->SMTPAuth = true; // SMTP 인증을 사용함
-	    $mail->Port = "2525"; // email 보낼때 사용할 서버를 지정
+	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 //		$mail->SMTPSecure = "ssl"; // SSL을 사용함
 		$mail->Username   = "sbmkorea@sbmkorea.url.ph"; 
 		$mail->Password   = "sbmkoreacom"; 
-	    $mail->SetFrom('sbmkorea@sbmkorea.url.ph'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-	    echo "to_addr:" .$to_addr. "<BR>";
-	    $mail->AddAddress($to_addr); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->SetFrom(SBM_PUB_EMAIL); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+	    $mail->AddAddress(SBM_PUB_EMAIL); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	}
-echo $mail->Host . "<BR>";
+	echo $mail->Host . "<BR>";
 #    $mail->AddAddress('kpbaek@localhost', '백경파'); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 #	$mail->addCC('tester1@localhost');
     $mail->Subject = $title . file_get_contents($_SERVER["DOCUMENT_ROOT"].'/mytest/title.html'); // 메일 제목
