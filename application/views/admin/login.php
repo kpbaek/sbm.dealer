@@ -32,7 +32,7 @@
 
 <table style="margin-top:30px;margin-left:150px;vertical-align:top" border="0" cellspacing="0" cellpadding="0">
 <tr>
-	<td>공용메일: sbm@sbmkorea.biz</td>
+	<td>공용메일: <?php echo SBM_PUB_EMAIL;?></td>
 </tr>
 <tr>
 	<td>딜러발송Test(<a href="http://webmail.sbmkorea.biz" target="_new">webmail</a>)</td>
