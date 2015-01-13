@@ -8,7 +8,7 @@
  */
 
 // include db config
-include_once("/config.php");
+include_once("/mytest/config.php");
 
 // set up DB
 mysql_connect(PHPGRID_DBHOST, PHPGRID_DBUSER, PHPGRID_DBPASS);
