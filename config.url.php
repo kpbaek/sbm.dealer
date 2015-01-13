@@ -1,5 +1,5 @@
 <?php
-// url.ph database connection settings
+// url database connection settings
 define("SBMBIZ_DBTYPE","mysql"); // or mysqli
 define("SBMBIZ_DBHOST","mysql.hostinger.kr");
 define("SBMBIZ_DBUSER","u900714269_sbm");
