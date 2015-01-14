@@ -70,7 +70,7 @@
 			<td colspan=4><input type="text" id="addr" name="addr" size=122 maxlength=150 style="border: 1"></td>
 		  </tr>
 		  <tr>
-			<td class="style01">Dest Country</td>
+			<td class="style01">Shipping country</td>
 			<td><sup>★</sup></td>
 			<td>
 				<div class="form-group">
@@ -85,7 +85,7 @@
 			<td class="style01">Email address</td>
 			<td><sup>★</sup></td>
 			<td><input type="text" id="usr_email" name="usr_email" size=30 maxlength=50 style="border: 1;ime-mode:disabled" onchange="$('#btnChkEail').attr('disabled',false);">
-			<input type="button" id="btnChkEail" value="중복검사" onclick="javascript:chkEmail();"/>
+			<input type="button" id="btnChkEail" value="Duplicate check" onclick="javascript:chkEmail();"/>
 			</td>
 			<td colspan=3>&nbsp;</td>
 		  </tr>
@@ -168,13 +168,16 @@ $("#uncheckAllBtn").click(function() {
 });
 
 function chkEmail(){
+
 	if($("#usr_email").val().length == 0){
+		alert("Email address is required!");
 		$("#usr_email").focus();
 		return;
 	}
 
 	if(!fncValidEmail($("#usr_email").val())){
-		alert("email 형식이 맞지  않습니다.");
+		alert("Email format error!");
+		$("#usr_email").select();
 		return;
 	}
 	
@@ -192,11 +195,11 @@ function chkEmail(){
         	var usr_email = result.usr_email; 
 			if(usr_email.dup_yn=="Y")
 	        {
-        		alert("기등록된 email입니다.");
+        		alert("your email is already registered.");
         		$('#btnChkEail').attr('disabled',false);
         		return;
 			}else{
-				alert("사용가능한 email입니다.");
+				alert("Available email!");
 				$('#btnChkEail').attr('disabled',true);
 			}
         }
@@ -223,7 +226,11 @@ function fn_isValid(){
 		$("#addr").focus();
 		return false;
 	}else if(!$("#cntry_atcd").val()){
-		alert("Dest Country is required!");
+		alert("Shipping country is required!");
+		$("#cntry_atcd").focus();
+		return false;
+	}else if(!$("#usr_email").val()){
+		alert("Email address is required!");
 		$("#cntry_atcd").focus();
 		return false;
 	}
@@ -238,7 +245,7 @@ function createData() {
 	}
 
 	if($('#btnChkEail').attr('disabled')!="disabled"){
-		alert("email 중복검사후 등록하세요");
+		alert("press Duplicate check button!");
 		return;
 	}
 
@@ -278,7 +285,7 @@ function createData() {
 //		    		        	alert(targetInfo.result3 + ":" + targetInfo.sql3);
 		    				}
 			     		}); 
-			        	alert("저장되었습니다");
+			        	alert("Success");
 			        	f.reset();
 		        		$('#btnChkEail').attr('disabled',false);
 			        	var selAr =  [];
