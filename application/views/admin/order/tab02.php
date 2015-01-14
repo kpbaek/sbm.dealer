@@ -53,7 +53,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 	<div id="searchDiv" style="display:;text-align:right">
 	<form name="searchForm">
 	<input type="text" name="page" style="display: none">
-	model<select name="sch_mdl_cd"></select>
+	model<select name="sch_mdl_cd" onchange="javascript:gridReload();"></select>
 	code<input type="text" name="sch_part_cd">
 	part name<input type="text" name="sch_part_nm">
 	<input type="button" id="btnSearch" value="Search" onclick="javascript:gridReload();"/>
@@ -104,7 +104,15 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 
 <script type="text/javascript">
 
-
+function qty_input(value, options) {
+	return $("<input type='text' size='6' maxlength='6' style='ime-mode:disabled' value='"+value+"' onKeyup='fncOnlyNumber(this);'/>");
+}
+function qty_value(value) {
+	var qty = 0;
+	qty = (isNaN(Number(value.val())) || value.val()==="") ? '' : Number(value.val());
+	return qty;
+}
+	
 $(document).ready(function(e) {	
 
 	$('#btnSubmit').attr('disabled',true);
@@ -188,7 +196,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		   		{name:'part_nm',index:'part_nm', width:120,search:true},
 		   		{name:'pt_img',index:'srl_no', width:50, align:"right",search:true},		
 		   		{name:'price',index:'price', width:50, align:"right", sortable:true,search:true,formatter:'currency', formatoptions:{prefix:"$"}},		
-		   		{name:'qty',index:'qty', width:50, align:"right", sortable:false,search:true,hidden:false,editable:true,editrules:{number:true,minValue:0}},		
+		   		{name:'qty',index:'qty', width:50, align:"right", sortable:false,search:true,hidden:false,editable:true, edittype:'custom', editoptions:{required:false,custom_element:qty_input,custom_value:qty_value},editrules:{number:true,minValue:0}},		
 		   		{name:'c_qty',index:'qty', width:50, sortable:false,search:true,hidden:true},		
 		   		{name:'amount',index:'amount', width:50, align:"right", sortable:false,search:true,formatter:'currency', formatoptions:{prefix:"$"}},		
 		   		{name:'unit_wgt',index:'id', width:50, align:"right", sortable:true,search:true, hidden:false},		
@@ -286,9 +294,9 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		   		{name:'id', index:'id', width:55,hidden:true,search:true}, 
 				{name:'mdl_cd',index:'mdl_cd', width:70, align:"right",hidden:true},
 				{name:'part_ver',index:'part_ver', width:70, align:"right",hidden:true},
-		        {name:'mdl_nm',index:'mdl_nm', width:50, align:"right",search:true},
-		   		{name:'part_cd',index:'part_cd', width:50, align:"right",search:true},
-		   		{name:'part_nm',index:'part_nm', width:140,search:true},
+		        {name:'mdl_nm',index:'mdl_nm', width:50, align:"right",search:true, sortable:false},
+		   		{name:'part_cd',index:'part_cd', width:50, align:"right",search:true, sortable:false},
+		   		{name:'part_nm',index:'part_nm', width:140,search:true, sortable:false},
 		   		{name:'pt_img',index:'', width:50, align:"right",search:true},		
 		   		{name:'price',index:'price', width:50, sortable:false,search:true,formatter:'currency', formatoptions:{prefix:"$"}},		
 		   		{name:'qty',index:'qty', width:50, align:"right", sortable:false,search:true,hidden:false,editable:true,editrules:{number:true,minValue:0}},		
@@ -323,8 +331,8 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		    autowidth: false,
 		    width:950,
 		    height:270,
-//		    sortname: 'id',
-//		    sortorder: "desc",
+		    sortname: 'mdl_cd',
+		    sortorder: "desc",
 			toolbar: [true,"top"],
 		    hiddengrid: false,
 		    footerrow : true,
