@@ -564,7 +564,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row46">
-		  	<td colspan=5>6F, Hyunwoo Bld, 206, Anyang-Dong<BR>Manan-Gu, Anyang-City, Gyeonggi-Do<BR>430-817, KOREA
+		  	<td colspan=5>6F, Hyunwoo Bld, 206, Anyang-Dong<BR>Manan-Gu, Anyang-City, Gyeonggi-Do<BR>430-817, KOREA<br>
 		  	Tel : +82-31-429-0789<BR>Fax : +82-31-429-3607
 		  	</td>
 			<td class="column42 style13 null"></td>
