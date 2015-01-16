@@ -75,7 +75,8 @@ $sql = $sql . " FROM";
 $sql = $sql . "(SELECT a.pi_no";
 $sql = $sql . "  , (select dealer_nm from om_dealer where dealer_seq = b.dealer_seq) dealer_nm";
 $sql = $sql . "  , (select atcd_nm from cm_cd_attr where cd='0022' and atcd=b.cntry_atcd) cntry_nm";
-$sql = $sql . "  , (select atcd_nm from cm_cd_attr where cd = '0071' and atcd = a.sndmail_atcd) txt_wrk_tp_atcd";
+$sql = $sql . "  , (select atcd_nm from cm_cd_attr where cd = '0070' and atcd = a.wrk_tp_atcd) txt_wrk_tp_atcd";
+$sql = $sql . "  , (select atcd_nm from cm_cd_attr where cd = '0071' and atcd = a.sndmail_atcd) txt_sndmail_atcd";
 $sql = $sql . "  , (select concat(kr_nm, ' ', (select atcd_nm from cm_cd_attr where cd='0080' and atcd=w.duty_atcd)) from om_worker w ";
 $sql = $sql . "    where worker_seq = (select worker_seq from om_dealer where dealer_seq = b.dealer_seq)) worker_nm";
 $sql = $sql . "  , a.sndmail_atcd, a.sender_eng_nm, a.crt_dt, a.sndmail_seq ";
@@ -84,6 +85,7 @@ $sql = $sql . "(";
 $sql = $sql . "  SELECT sndmail_seq, pi_no, wrk_tp_atcd, sndmail_atcd, auth_grp_cd, sender_email, sender_eng_nm, title, ctnt, crt_dt, crt_uid ";
 $sql = $sql . "  FROM om_sndmail a";
 $sql = $sql . "  WHERE pi_no is not null";
+//$sql = $sql . "  AND wrk_tp_atcd != '00700405'";
 $sql = $sql . $sql_sch;
 $sql = $sql . ") a left outer join om_ord_inf b";
 $sql = $sql . " on a.pi_no = b.pi_no";
@@ -103,7 +105,7 @@ $sql = $sql . "	ORDER BY "
 
 $result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 $count = mysql_num_rows( mysql_query( $sql ) );
-log_message('debug', "listSndMail .................");
+log_message('debug', "listSndMail:". $sql);
 log_message('debug', "count:" . $count);
 
 
@@ -117,6 +119,7 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	$responce['rows'][$i]['pi_no'] = $row['pi_no'];
 	$responce['rows'][$i]['dealer_nm'] = $row['dealer_nm'];
 	$responce['rows'][$i]['cntry_nm'] = $row['cntry_nm'];
+	$responce['rows'][$i]['txt_sndmail_atcd'] = $row['txt_sndmail_atcd'];
 	$responce['rows'][$i]['txt_wrk_tp_atcd'] = $row['txt_wrk_tp_atcd'];
 	$responce['rows'][$i]['worker_nm'] = $row['worker_nm'];
 	$responce['rows'][$i]['sender_eng_nm'] = $row['sender_eng_nm'];;

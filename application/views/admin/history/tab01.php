@@ -70,19 +70,20 @@ jQuery().ready(function () {
 	var mygrid = jQuery("#list").jqGrid({
 	   	url:"/admin/history/listSndMail",
 	   	datatype: "json",
-	   	colNames:['', '', 'P/I', '딜러명','배송국가', '문서구분', '영업당당자', '발송자', '발송일시', 'Email No'],
+	   	colNames:['', '', 'P/I', '딜러명','배송국가', '발송구분', '문서구분', '영업당당자', '발송자', '발송일시', 'Email No'],
 	   	colModel:[
 //	   		{name:'id', index:'id', width:55,hidden:true,search:true}, 
 	   		{name:'c_sndmail_seq',index:'sndmail_seq', width:70, search:true,hidden:true,sortable:true},		
 	   		{name:'sndmail_atcd',index:'sndmail_atcd', width:70, search:true,hidden:true,sortable:true},		
-	   		{name:'pi_no', index:'pi_no', width:70, align:"center",hidden:false,search:true,sortable:true}, 
+	   		{name:'pi_no', index:'pi_no', width:60, align:"center",hidden:false,search:true,sortable:true}, 
 	        {name:'dealer_nm',index:'dealer_nm', width:100, align:"left",search:true,sortable:true},
 	   		{name:'cntry_nm',index:'cntry_nm', width:100, align:"left",search:true,sortable:true},
 	   		{name:'txt_wrk_tp_atcd',index:'txt_wrk_tp_atcd', width:80, align:"left",search:true,sortable:true},
+	   		{name:'txt_sndmail_atcd',index:'txt_sndmail_atcd', width:80, align:"left",search:true,sortable:true},
 	   		{name:'worker_nm',index:'worker_nm', width:60, align:"left",search:true,sortable:true},
 	   		{name:'sender_eng_nm',index:'sender_eng_nm', width:90, align:"left",search:true,sortable:true},		
-	   		{name:'snd_dt',index:'snd_dt', width:90, align:"center", search:true,hidden:false,sortable:true},		
-	   		{name:'sndmail_seq',index:'sndmail_seq', width:50, align:"right", search:true,hidden:false,sortable:true}		
+	   		{name:'snd_dt',index:'snd_dt', width:100, align:"center", search:true,hidden:false,sortable:true},		
+	   		{name:'sndmail_seq',index:'sndmail_seq', width:40, align:"right", search:true,hidden:false,sortable:true}		
 		],
         onSelectRow: function(id) {
             var chk_data = jQuery(list).jqGrid('getRowData',id);
@@ -108,7 +109,7 @@ jQuery().ready(function () {
 	    autowidth: false,
 	    width:950,
 	    height:240,
-	    sortname: 'pi_no',
+	    sortname: 'sndmail_seq',
 	    sortorder: "desc",
 		toolbar: [true,"top"],
 	    hiddengrid: false,
