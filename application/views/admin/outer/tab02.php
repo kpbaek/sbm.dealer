@@ -276,6 +276,8 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 </style>
 
 <div id="sndMailDiv" style="display:none"></div>
+<div id="error"></div>
+<div id="error2"></div>
 
 <div id="resultDiv" style="display:none">
 	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
@@ -283,7 +285,46 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 		<td colspan=10 align=right>
 		<input type="button" id="btnEdit" name="btnEdit" value="edit" onclick="javascript:fn_edit();"/>
 		<input type="button" id="btnExcel" name="btnExcel" value="Excel" onclick="javascript:fn_excelDown();"/>
-		<input type="button" id="btnMail" name="btnMail" value="send mail" onclick="javascript:fn_sendMail();"/>
+		<input type="button" id="btnFwd" name="btnMail" value="forward" onclick="javascript:fn_fwd();"/>
+		<input type="button" id="btnMail" name="btnMail" value="send mail" onclick="javascript:fn_sendMail('Send');"/>
+		</td>
+	</tr>
+	<tr id="fwdDiv" style="display:none">
+		<td colspan=10 align=left><br>
+			<form id="fwdForm" name="fwdForm" method="post">
+			<TABLE border=0 width=100% cellpadding="0">
+			<tbody">
+			<TR>
+				<TD WIDTH=50px>email to</TD>
+				<TD>
+		<input type="text" id="email_fwd" name="email_fwd[]" size='60' style="ime-mode:disabled"/>
+		<input type="button" id="btnAdd" name="btnAdd" value="Add" onclick="javascript:fn_addFwdEmailRow();"/>
+		<input type="button" id="btnDel" name="btnDel" value="Del" onclick="javascript:fn_delFwdEmailRow();"/>
+		<input type="button" id="btnSendMail" name="btnSendMail" value="send" onclick="javascript:fn_sendMail('Fwd');"/>
+				</TD>
+			</TR>
+			<TR>
+				<TD></TD>
+				<TD>
+				<TABLE border=0 width=100% cellpadding="1">
+				<tbody">
+					<TR>
+						<TD></TD>
+					</TR>
+				</tbody>
+				</TABLE>
+				</TD>
+			</TR>
+			</tbody>
+			</TABLE>
+			<TABLE border=0 width=100% cellpadding="0" id="fwdEmailDiv">
+			<tbody">
+			<TR>
+				<TD></TD>
+			</TR>
+			</tbody>
+			</TABLE>
+			</form>
 		</td>
 	</tr>
 	</table>
@@ -617,6 +658,43 @@ if(isset($_REQUEST["edit_mode"])){
 
 	});
 
+	var startIndexFwd = 1;
+	function fn_addFwdEmailRow(){
+		var f = document.fwdForm;
+		
+		var oRow = fwdEmailDiv.insertRow(-1);
+		if(f.email_fwd.length){
+			oRow.id = f.email_fwd.length;
+		}else{
+			oRow.id = startIndexFwd;
+		}
+		//		oRow.style.backgroundColor="#CCCCFF";
+		var oCell_1 = oRow.insertCell();
+		var oCell_2 = oRow.insertCell();
+		oCell_1.innerHTML = "<input type='checkbox' id='chk_fwd' name='chk_fwd[]'/>";
+		oCell_2.innerHTML = "<input type='text' id='email_fwd' name='email_fwd[]' size='60' style='ime-mode:disabled'/>";
+	}
+	
+	function fn_delFwdEmailRow(){
+		var f = document.fwdForm;
+        var arChecked = [];
+        
+		if(f.chk_fwd.length){
+			for(var i=f.chk_fwd.length-1; i>=0;i--){
+				if(f.chk_fwd[i].checked){
+					arChecked[arChecked.length]=(i+startIndexFwd);
+//					$("#error").append(i);
+				} 
+			}
+			for(var i=0; i < arChecked.length; i++){
+//				$("#error2").append(arChecked[i]);
+				fwdEmailDiv.deleteRow(arChecked[i]);
+			} 
+		}else{
+			fwdEmailDiv.deleteRow(startIndexFwd);
+		}
+	}
+	
 	function editForm(result) {
     	var invoiceInfo = result.invoiceInfo; 
     	var orderEqpList = result.orderEqpList; 
@@ -781,12 +859,43 @@ if(isset($_REQUEST["edit_mode"])){
 		resultDiv.style.display = "";
 	}
 
-	function fn_sendMail(){
-		if(confirm("딜러에게 메일이 발송됩니다. 계속하시겠습니까?")){
-			var params = {"wrk_tp_atcd": "00700410","sndmail_atcd":"00700411", "pi_no":$("#pi_no").val()};  
-			fncCrtCiSndMail(params);
-		}else{
-			return;
+	function fn_fwd(){
+		fwdDiv.style.display = "";
+	}
+
+	function fn_sendMail(sndType){
+		var f = document.fwdForm;
+		if(sndType == "Fwd"){
+			if(f.email_fwd.length){
+		        var arEmailFwd = [];
+		        for(var i=0; i < f.email_fwd.length; i++){
+		        	if(!fncValidEmail(f.email_fwd[i].value)){
+		        		alert("Email 형식이 맞지않습니다!");
+		        		f.email_fwd[i].select();
+		        		return;
+		        	}
+		        	arEmailFwd[arEmailFwd.length]=f.email_fwd[i].value;
+				}
+			}else{
+	        	if(!fncValidEmail(f.email_fwd.value)){
+	        		alert("Email 형식이 맞지않습니다!");
+	        		f.email_fwd[i].select();
+	        		return;
+	        	}
+			}
+			if(confirm("입력한 메일주소로 발송됩니다. 계속하시겠습니까?")){
+				var params = {"wrk_tp_atcd": "00700405","sndmail_atcd":"00700411", "pi_no":$("#pi_no").val(), "email_fwd":arEmailFwd};  
+				fncCrtFwdSndMail(params);
+			}else{
+				return;
+			}
+		}else if(sndType == "Send"){
+			if(confirm("딜러에게 메일이 발송됩니다. 계속하시겠습니까?")){
+				var params = {"wrk_tp_atcd": "00700410","sndmail_atcd":"00700411", "pi_no":$("#pi_no").val()};  
+				fncCrtCiSndMail(params);
+			}else{
+				return;
+			}
 		}
 	}
 
