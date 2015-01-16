@@ -293,11 +293,10 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 		<td colspan=10 align=left><br>
 			<form id="fwdForm" name="fwdForm" method="post">
 			<TABLE border=0 width=100% cellpadding="0">
-			<tbody">
 			<TR>
 				<TD WIDTH=50px>email to</TD>
 				<TD>
-		<input type="text" id="email_fwd" name="email_fwd[]" size='60' style="ime-mode:disabled"/>
+		<input type="text" id="email_fwd" name="email_fwd[]" size='40' style="ime-mode:disabled"/>
 		<input type="button" id="btnAdd" name="btnAdd" value="Add" onclick="javascript:fn_addFwdEmailRow();"/>
 		<input type="button" id="btnDel" name="btnDel" value="Del" onclick="javascript:fn_delFwdEmailRow();"/>
 		<input type="button" id="btnSendMail" name="btnSendMail" value="send" onclick="javascript:fn_sendMail('Fwd');"/>
@@ -315,12 +314,11 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 				</TABLE>
 				</TD>
 			</TR>
-			</tbody>
 			</TABLE>
-			<TABLE border=0 width=100% cellpadding="0" id="fwdEmailDiv">
+			<TABLE border=0 width=100% cellpadding="1" id="fwdEmailDiv">
 			<tbody">
 			<TR>
-				<TD></TD>
+				<TD align=left></TD>
 			</TR>
 			</tbody>
 			</TABLE>
@@ -672,7 +670,7 @@ if(isset($_REQUEST["edit_mode"])){
 		var oCell_1 = oRow.insertCell();
 		var oCell_2 = oRow.insertCell();
 		oCell_1.innerHTML = "<input type='checkbox' id='chk_fwd' name='chk_fwd[]'/>";
-		oCell_2.innerHTML = "<input type='text' id='email_fwd' name='email_fwd[]' size='60' style='ime-mode:disabled'/>";
+		oCell_2.innerHTML = "<input type='text' id='email_fwd' name='email_fwd[]' size='40' style='ime-mode:disabled'/>";
 	}
 	
 	function fn_delFwdEmailRow(){
