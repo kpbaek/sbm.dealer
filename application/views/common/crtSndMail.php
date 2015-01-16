@@ -3,6 +3,10 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 
 $wrk_tp_atcd = $_REQUEST["wrk_tp_atcd"];
 $sndmail_atcd = $_REQUEST["sndmail_atcd"];
+$email_fwd = null;
+if(isset($_REQUEST["email_fwd"])){
+	$email_fwd = $_POST["email_fwd"];
+}
 
 $pi_no = "9999"; // test : if pi_no is not exists
 if(isset($_REQUEST["pi_no"])){
@@ -68,6 +72,13 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 			$sql = $sql . "   WHERE team_atcd='" .$_SESSION['ss_user']['team_atcd']. "' AND worker_uid='" .$_SESSION['ss_user']['uid']. "')";
 		}
 		$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0071' and atcd = '" .$sndmail_atcd. "'), '', now(), '".$_SESSION['ss_user']['uid']."')";
+	}else if($wrk_tp_atcd == "00700405"){	// 00700405
+		$sql = $sql . "VALUES ('" .$pi_no. "','" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "'";
+		$sql = $sql . ", (SELECT w_email FROM om_worker";
+		$sql = $sql . "   WHERE team_atcd='" .$_SESSION['ss_user']['team_atcd']. "' AND worker_uid='" .$_SESSION['ss_user']['uid']. "')";
+		$sql = $sql . ", (SELECT eng_nm FROM om_worker";
+		$sql = $sql . "   WHERE team_atcd='" .$_SESSION['ss_user']['team_atcd']. "' AND worker_uid='" .$_SESSION['ss_user']['uid']. "')";
+		$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0071' and atcd = '" .$sndmail_atcd. "'), '', now(), '".$_SESSION['ss_user']['uid']."')";
 	}else{	// worker
 		if($wrk_tp_atcd == "00700310" && $sndmail_atcd=="00700311"){ // 생산의뢰서
 			$po_no = "";
@@ -129,7 +140,7 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 	$order_dt = mysql_result($result_1,0,"order_dt");
 	$qryInfo['qryInfo']['sndmail_seq'] = $sendmail_seq;
 
-	if($wrk_tp_atcd == "00700210" or $wrk_tp_atcd=="00700410"){ // PI, CI
+	if($wrk_tp_atcd == "00700210" or $wrk_tp_atcd=="00700405" or $wrk_tp_atcd=="00700410"){ // PI, Forward발송, CI
 		include($_SERVER["DOCUMENT_ROOT"] . "/application/views/admin/outer/readInvoice.php");			
 		if($sndmail_atcd=="00700211"){ // PI
 			$invoice = readInvoice($pi_no);
@@ -179,6 +190,16 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$sql3 = $sql3 . "        and exists (select dealer_seq from om_ord_inf where dealer_seq = b.dealer_seq and pi_no = '" .$pi_no. "'))";
 		$sql3 = $sql3 . "  end";
 		$sql3 = $sql3 . ", '00100010' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+	}else if($wrk_tp_atcd=="00700405" && $email_fwd!=null){ // Forward
+		$sql3 = $sql3 . " (sndmail_seq, email_from, email_to, rcpnt_tp_atcd, snd_yn, crt_dt, crt_uid)";
+//		$email_bcc = explode(';', $email_fwd);
+		for($i_fwd=0; $i_fwd < sizeof($email_fwd); $i_fwd++)
+		{
+			if($i_fwd > 0){
+				$sql3 = $sql3 . " UNION";
+			}
+			$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", '" .$_SESSION['ss_user']['usr_email']. "', '" .$email_fwd[$i_fwd]. "', '00100060' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+		}
 	}else if($wrk_tp_atcd == "00700110"){ // order
 		$rcpnt_tp_atcd = "";
 		if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
@@ -215,8 +236,9 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$sql3 = $sql3 . " WHERE wrk_tp_atcd='" .$wrk_tp_atcd. "'";
 		$sql3 = $sql3 . " AND sndmail_atcd='" .$sndmail_atcd. "'";
 	}		
-		
-//		echo $sql3;
+	
+	log_message("debug", "sql3:" .$sql3);
+
 	$result3 = $this->db->query($sql3);
 	$qryInfo['qryInfo']['sql3'] = $sql3;
 	$qryInfo['qryInfo']['result3'] = $result3;
