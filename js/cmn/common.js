@@ -787,6 +787,48 @@
     	});
     }
     
+    function fncCrtFwdSndMail(params){
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/crtSndMail",
+    		async: false,
+    		dataType: "json",
+    		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no, "email_fwd":params.email_fwd},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			var qryInfo = result.qryInfo;
+    			if(qryInfo.result==false)
+    			{
+    				$("#resultDiv").html("sql error:" + qryInfo.sql);
+    				return false;
+    			}else{
+//		        	alert(qryInfo.result + ":" + qryInfo.sql);
+    			}
+    			if(qryInfo.result2==false)
+    			{
+    				$("#resultDiv").html("sql2 error:" + qryInfo.sql2);
+    				return false;
+    			}else{
+//		        	alert(qryInfo.result2 + ":" + qryInfo.sql2);
+    			}
+    			if(qryInfo.result3==false)
+    			{
+    				$("#resultDiv").html("sql3 error:" + qryInfo.sql3);
+    				return false;
+    			}else{
+//		        	alert(qryInfo.result3 + ":" + qryInfo.sql3);
+    				$("#resultDiv").html(qryInfo.ctnt);
+    				fncDisplayDiv(resultDiv, true);
+    				fncSndMail(qryInfo.sndmail_seq);
+    				alert("success!");
+    			}
+    		},
+    		error:function(){
+    			return false;
+    		}
+    	});
+    }
+    
     function fncSndMail(sndmail_seq){
     	$.ajax({
     		type: "POST",
