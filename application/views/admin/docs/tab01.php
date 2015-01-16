@@ -350,7 +350,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 				<TR>
 					<TD class="style01" width=35px>기타</TD>
 					<TD class="style01" width=160px>특이사항</TD>
-					<TD>&nbsp;<input type=text id="extra" name="extra" size=70></TD>
+					<TD>&nbsp;<textarea id="extra" name="extra" rows=3 cols=50 onkeyup="javascript:fnc_chk_byte(this,250);" onkeypress="javascript:if (event.keyCode == '13') blur();"></textarea></TD>
 				</TR>
 				</TABLE>
 			</td>
