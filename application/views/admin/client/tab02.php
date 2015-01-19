@@ -28,7 +28,8 @@
 	  table.sheet0 tr { height:15pt }
 	</style>	
 		
-<div id="error"></div>		
+<div id="error"></div>
+<br>		
 <form id="addForm" name="addForm" method="post">
 
 	<table border="0" cellpadding="1" cellspacing="1" id="sheet0" width=950>
@@ -113,14 +114,14 @@
 		  <tr>
 			<td class="style01">Comments</td>
 			<td><sup></sup></td>
-			<td colspan=3><textarea cols="50" rows="3" id="comments" name="comments" maxlength=1000 placeholder="Please comment interesting model name."></textarea></td>
+			<td colspan=4><textarea cols="80" rows="5" id="comments" name="comments" maxlength=1000 placeholder="Please comment interesting model name."></textarea></td>
 			<td></td>
 		  </tr>
 		  <tr>
 			<td class="style01">Market information</td>
 			<td><sup></sup></td>
-			<td colspan=3>
-			<textarea cols="50" rows="5" id="mkt_inf" name="mkt_inf" maxlength=2000 placeholder="Please describe your market information.<?php echo chr(13) . chr(10);?>The number of banks and their branch, CIT, etc.<?php echo chr(13) . chr(10);?>Bank policiesThe names of popular models &amp; Price"></textarea>
+			<td colspan=4>
+			<textarea cols="80" rows="5" id="mkt_inf" name="mkt_inf" maxlength=2000 placeholder="Please describe your market information.<?php echo chr(13) . chr(10);?>The number of banks and their branch, CIT, etc.<?php echo chr(13) . chr(10);?>Bank policiesThe names of popular models &amp; Price"></textarea>
 			</textarea></td>
 			<td></td>
 		  </tr>
@@ -231,7 +232,7 @@ function fn_isValid(){
 		return false;
 	}else if(!$("#usr_email").val()){
 		alert("Email address is required!");
-		$("#cntry_atcd").focus();
+		$("#usr_email").focus();
 		return false;
 	}
 	return true;
