@@ -241,7 +241,10 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column5 style36 null"></td>
 			<td class="column6 style37 f">USD @tot_amt</td>
 		  </tr>
-
+		  <tr class="row25">
+			<td class="column0 style36 style14 s">Remark</td>
+			<td class="column1 style37 f" colspan="6"><div style="padding-left: 10px;font-weight: normal;text-align: left">@pi_rmk</div></td>
+		  </tr>
 		  <tr class="row27">
 			<td class="column0 style11 null"></td>
 			<td class="column1 style11 null"></td>
@@ -301,7 +304,6 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column0 style44 s" colspan=2>Bank Information</td>
 			<td class="column2 style40 s">:</td>
 			<td class="column3 style60 s" colspan=4>@inv_bank.-@txt_bank_atcd_dscrt
-
 			</td>
 		  </tr>
 		  <tr class="row40">
