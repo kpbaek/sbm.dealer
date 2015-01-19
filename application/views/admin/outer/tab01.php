@@ -318,13 +318,10 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column6 style19 f"><input type=text id="addon_tot_amt" name="addon_tot_amt" value="" size=8 maxlength=8 style="ime-mode:disabled" onKeyup="fncOnlyDecimal(this);" disabled></td>
 		  </tr>
 		  <tr class="row25">
-			<td class="column0 style14 null"></td>
-			<td class="column1 style31 null"></td>
-			<td class="column2 style32 null"></td>
-			<td class="column3 style32 null"></td>
-			<td class="column4 style33 null"></td>
-			<td class="column5 style19 null"></td>
-			<td class="column6 style34 null"></td>
+			<td class="column0 style36 style14 s">Remark</td>
+			<td class="column1 style36 s" colspan="5"><textarea id="pi_rmk" name="pi_rmk" cols=60 rows=7></textarea></td>
+			<td class="column6 style37 f"></td>
+			
 		  </tr>
 		  <tr class="row27">
 			<td class="column0 style11 null"></td>
@@ -590,6 +587,7 @@ if(isset($_REQUEST["edit_mode"])){
 		$("#destnt").val(invoiceInfo.destnt);
 		$("#cntry").val(invoiceInfo.cntry);
 		$("#validity").val(invoiceInfo.validity_dt);
+		$("#pi_rmk").val(invoiceInfo.pi_rmk);
 
 		$("#txt_pi_no").html("Our Ref: PI-" + invoiceInfo.pi_no);
 		if(invoiceInfo.pi_sndmail_seq!=null){

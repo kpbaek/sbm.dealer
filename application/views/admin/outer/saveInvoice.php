@@ -79,6 +79,11 @@ if(isset($_POST["opt_unit_prc"])){
 	$opt_unit_prc = $_POST["opt_unit_prc"];
 }
 
+$pi_rmk = "";
+if(isset($_REQUEST["pi_rmk"])){
+	$pi_rmk = trim($_REQUEST["pi_rmk"]);
+}
+
 if(isSet($_POST['pi_no'])){
 	
 	$pi_no = mysql_real_escape_string($pi_no);
@@ -184,6 +189,7 @@ if(isSet($_POST['pi_no'])){
 				$sql_inv = $sql_inv . ", repr_tot_amt=" .$addon_tot_amt;
 			}
 		}
+		$sql_inv = $sql_inv . ", pi_rmk='" .$pi_rmk. "'";
 		$sql_inv = $sql_inv . " WHERE pi_no = '" .$pi_no. "'";
 		#echo $sql_inv;
 		$result4 = $this->db->query($sql_inv);

@@ -9,6 +9,7 @@ function getPiMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@txt_pi_no", $invoice['invoiceInfo']['pi_no'], $ctnt);
 	$ctnt = str_replace("@csn_cmpy_nm", $invoice['invoiceInfo']['csn_cmpy_nm'], $ctnt);
 	$ctnt = str_replace("@csn_attn", $invoice['invoiceInfo']['csn_attn'], $ctnt);
+	$ctnt = str_replace("@pi_rmk", str_replace("\n","<br>",htmlspecialchars($invoice['invoiceInfo']['pi_rmk'])), $ctnt);
 	$ctnt = str_replace("@repr_qty", $invoice['invoiceInfo']['repr_qty'], $ctnt);
 	$ctnt = str_replace("@destnt", $invoice['invoiceInfo']['destnt'], $ctnt);
 	$ctnt = str_replace("@cntry", $invoice['invoiceInfo']['cntry'], $ctnt);
@@ -309,7 +310,7 @@ function readInvoice($pi_no){
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00G0' and atcd = b.payment_atcd) inv_payment";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00F3' and atcd = b.ship_port_atcd) txt_ship_port_atcd";
 	$sql_invoice = $sql_invoice . ", b.destnt, b.validity, b.bank_atcd, b.invoice_dt, b.pi_sndmail_seq, b.ci_sndmail_seq";
-	$sql_invoice = $sql_invoice . ", b.csn_cmpy_nm, b.csn_addr, b.csn_tel, b.csn_fax, b.csn_attn";
+	$sql_invoice = $sql_invoice . ", b.csn_cmpy_nm, b.csn_addr, b.csn_tel, b.csn_fax, b.csn_attn, b.pi_rmk";
 	$sql_invoice = $sql_invoice . ", ifnull(ifnull(b.frtchrg_amt,0) + ifnull(b.repr_tot_amt,0) + ifnull((select sum(opt_qty * opt_unit_prc) from om_ord_eqp_dtl where pi_no = a.pi_no), 0) + ifnull(b.tot_amt,0)";
 	$sql_invoice = $sql_invoice . " + (select ifnull(sum(amt),0) from om_ord_part where pi_no = a.pi_no),0) as inv_tot_amt";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) inv_bank";
@@ -394,6 +395,7 @@ function readInvoice($pi_no){
 	$invoice['invoiceInfo']['csn_tel'] = $row['csn_tel'];
 	$invoice['invoiceInfo']['csn_fax'] = $row['csn_fax'];
 	$invoice['invoiceInfo']['csn_attn'] = $row['csn_attn'];
+	$invoice['invoiceInfo']['pi_rmk'] = $row['pi_rmk'];
 	
 	$invoice['invoiceInfo']['validity_dt'] = $row['validity_dt'];
 	$invoice['invoiceInfo']['txt_invoice_dt'] = $row['txt_invoice_dt'];
