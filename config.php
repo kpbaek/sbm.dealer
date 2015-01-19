@@ -14,6 +14,7 @@ define('LOCAL_SMTP_PORT', '25');
 define('SBM_LOCAL_EMAIL', 'kpbaek@localhost');
 
 define('SBM_PUB_EMAIL', 'sbm@sbmkorea.biz');
+define('SBM_PUB2_EMAIL', 'kpbaek@sbmkorea.com');
 define('SBM_SALES_EMAIL', 'tester1@localhost');
 define('SBM_DOMAIN', 'http://127.0.0.1:9090');
 
