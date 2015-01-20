@@ -22,10 +22,9 @@
         <td style='width:30px'></td>
 </tr>
 <tr>
-	<td colspan=4 align=center height="30px"><div id="error"></td>
+	<td colspan=4 align=center height="30px"><div id="error"></div></td>
 </tr>
 </table>
-</div>	
 </form>
 
 </div>
