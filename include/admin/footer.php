@@ -6,7 +6,7 @@
                 <p>TEL : +82-031-429-0789 / FAX : +82-031-429-3607</p>
 				<p>copyright ⓒ 2014 by SBM, LTD. All rights reserved.</p>
 				<label for="footer">Family site</label>
-				<select id="footer"onchange="if(this.value) window.open(this.value);">
+				<select id="footer" onchange="if(this.value) window.open(this.value);">
 					<option>Family site</option>
 					<option value="http://www.aegisep.com/aegisep/">AegisEnterprise</option>
 					<option value="http://www.allthegate.com/ags/index.jsp">alltheGate</option>

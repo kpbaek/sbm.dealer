@@ -60,7 +60,6 @@ if (isset($_SESSION['ss_user']['uid'])){
 			<li><span class="folder">Product</span>
 				<ul>
 					<li><span class="file"><a href="/index.php/admin/product?producttabs=0">부품관리</a></span></li>
-					</li>
 				</ul>
 			</li>
 			<li><span class="folder">가이드</span>
