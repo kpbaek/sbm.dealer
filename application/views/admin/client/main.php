@@ -2,8 +2,6 @@
 session_start();
 include($_SERVER["DOCUMENT_ROOT"] . "/include/admin/top.php");
 ?>
-<body>
-
 <div id="main">
 	
 	<table>
@@ -36,8 +34,5 @@ include($_SERVER["DOCUMENT_ROOT"] . "/include/admin/footer.php");
 	</table>
 
 </div>
-
-
-</body>
 
 </html>

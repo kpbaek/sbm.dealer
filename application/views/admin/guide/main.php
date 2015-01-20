@@ -2,8 +2,6 @@
 require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 include($_SERVER["DOCUMENT_ROOT"] . "/include/admin/top.php");
 ?>
-<body>
-
 <div id="main">
 	
 	<table>
@@ -37,7 +35,5 @@ include($_SERVER["DOCUMENT_ROOT"] . "/include/admin/footer.php");
 
 </div>
 
-
-</body>
 
 </html>
