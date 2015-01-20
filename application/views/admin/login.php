@@ -34,7 +34,7 @@
 	<td>공용메일: <?php echo SBM_PUB_EMAIL;?></td>
 </tr>
 <tr>
-	<td>딜러발송Test(<a href="http://webmail.sbmkorea.biz" target="_new">webmail</a>)</td>
+	<td>딜러발송Test(<a href="<?php if(SBM_DOMAIN=="http://www.sbmkorea.biz"){ echo "http://webmail.sbmkorea.biz";}else{ echo "http://webmail.hostinger.kr/auth/?r=";}?>" target="_new">webmail</a>)</td>
 </tr>
 </table>
 
