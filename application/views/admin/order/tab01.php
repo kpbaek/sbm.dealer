@@ -362,7 +362,7 @@ $("#serial_currency_atch").multipleSelect({
 
 $(function() {
     $('#currency_atch').change(function() {
-    	console.log($(this).val());
+//    	console.log($(this).val());
     	fn_setFitness();
 		fn_setSerialCurrency();
 	}).multipleSelect({
@@ -374,7 +374,7 @@ $(function() {
 
 $(function() {
     $('#serial_currency_atch').change(function() {
-        console.log($(this).val());
+//        console.log($(this).val());
     	fn_setSrlFitness();		
 	}).multipleSelect({
         width: 280,
@@ -393,7 +393,7 @@ $("#fitness").multipleSelect({
 
 $(function() {
     $('#fitness').change(function() {
-    	console.log($(this).val());
+//    	console.log($(this).val());
 }).multipleSelect({
         width: 280,
         multiple: true,
@@ -537,7 +537,7 @@ function fn_setSrlFitness(){
 
 $(function() {
     $('#opt_hw_atcd').change(function() {
-        console.log($(this).val());
+//        console.log($(this).val());
     }).multipleSelect({
         selectAll: false,
         multiple: true,
