@@ -94,7 +94,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 		var mygrid = jQuery("#list").jqGrid({
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	colNames:['', '', '', 'slip_yn','pi_sndmail_seq', 'packing_sndmail_seq', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'P/I NO', 'Confirm', '', 'P/I', 'C/I', 'Packing', '출고전표'],
+		   	colNames:['', '', '', 'slip_yn','pi_sndmail_seq', 'packing_sndmail_seq', 'slip_sndmail_seq', '주문일자', '대상국가', '바이어', 'Amount', '할증요율(%)', '담당자', '확정일자', 'P/I NO', 'Confirm', '', 'P/I', 'C/I', 'Packing', '출고전표'],
 		   	colModel:[
 		   		{name:'chk', index:'chk', width:55,hidden:true,search:true,formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:true}}, 
 		   		{name:'cnfm_yn',index:'cnfm_yn', width:80, align:"right",search:true,hidden:true},		
@@ -102,6 +102,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 		   		{name:'slip_yn',index:'slip_yn', width:80, align:"right",hidden:true},		
 		   		{name:'pi_sndmail_seq',index:'pi_sndmail_seq', width:80, align:"right",hidden:true},		
 		   		{name:'packing_sndmail_seq',index:'packing_sndmail_seq', width:80, align:"right",hidden:true},		
+		   		{name:'slip_sndmail_seq',index:'slip_sndmail_seq', width:80, align:"right",hidden:true},		
 		   		{name:'order_date',index:'order_date', width:80, align:"center",search:true},
 		   		{name:'cntry',index:'cntry', width:100,search:true},
 		        {name:'dealer_nm',index:'dealer_nm', width:70, align:"left",search:true},
@@ -110,12 +111,12 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 		   		{name:'worker',index:'worker', width:50, align:"center", sortable:false,search:true},		
 		        {name:'txt_cnfm_dt',index:'txt_cnfm_dt', width:80, align:"center",search:true},
 		   		{name:'pi_no',index:'pi_no', width:70, sortable:true,search:true},		
-		   		{name:'cnfm',index:'pi_no', width:80, sortable:false,search:true,hidden:false},		
+		   		{name:'cnfm',index:'cnfm_yn', width:80, sortable:true,search:true,hidden:false},		
 		   		{name:'c_cnfm',index:'pi_no', width:70, sortable:false,search:true,hidden:true},		
-		   		{name:'pi',index:'pi_no', width:70, sortable:false,search:true},		
-		   		{name:'ci',index:'pi_no', width:70, sortable:false,search:true},		
-		   		{name:'packing',index:'pi_no', width:70, sortable:false,search:true},		
-		   		{name:'rptout',index:'pi_no', width:70,align:"right",search:true}		
+		   		{name:'pi',index:'pi_sndmail_seq', width:70, sortable:true,search:true},		
+		   		{name:'ci',index:'wrk_tp_atcd', width:70, sortable:true,search:true},		
+		   		{name:'packing',index:'packing_sndmail_seq', width:70,sortable:true,search:true},		
+		   		{name:'rptout',index:'slip_sndmail_seq', width:70,align:"right",sortable:true,search:true}		
 			],
 			onSelectRow: function(rowid) {
 	        	var params = $("#list").jqGrid('getRowData',rowid);
