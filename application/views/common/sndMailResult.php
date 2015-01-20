@@ -78,12 +78,15 @@ try {
 		    $mail->AddAddress(SBM_LOCAL_EMAIL, $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 #		    echo "mytest";
 	    }else{
-	    	if($row['rcpnt_tp_atcd']=="00100010"){  // if the target is dealer -> do not send yet.
+	    	if(SBM_DOMAIN=="http://www.sbmkorea.biz"){
+		    	if($row['rcpnt_tp_atcd']=="00100010"){  // if the target is dealer -> do not send yet.
+		    		$mail->AddAddress(SBM_PUB_EMAIL);
+		    	}else{
+		    		$mail->AddAddress($row['email_to'], $row['rcpnt_nm']); 
+		    	}
+	    	}else if(SBM_DOMAIN=="http://www.sbmkorea.url.ph"){
 	    		$mail->AddAddress(SBM_PUB_EMAIL);
-	    	}else{
-	    		$mail->AddAddress($row['email_to'], $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 	    	}
-//    		$mail->AddAddress(SBM_PUB_EMAIL);
 	    }
 	    $mail->Subject = $row['title']; // 메일 제목
 	    $mail->MsgHTML($row['ctnt']); // 메일 내용 (HTML 형식도 되고 그냥 일반 텍스트도 사용 가능함)
