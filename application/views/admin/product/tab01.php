@@ -231,7 +231,7 @@ part name<input type="text" name="sch_part_nm">
 		getCodeCombo("02", f.cdDtl);
 		getCodeCombo("01", f.recommend);
 		getCodeCombo("01", f.wear);
-		newForm();
+//		newForm();
     }
 	
     function gridReload() {

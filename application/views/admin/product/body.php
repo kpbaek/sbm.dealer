@@ -1,8 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml2/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <link rel="stylesheet" type="text/css" href="/lib/ajaxtabs/ajaxtabs.css" />
 
@@ -16,9 +11,6 @@
 
 </script>
 
-</head>
-
-<body>
 
 <h3><a href="/index.php/admin/product?producttabs=0">Product</a></h3>
 
@@ -39,5 +31,3 @@ products.init();
 
 <hr />
 
-</body>
-</html>
