@@ -40,7 +40,7 @@ try {
 	    $mail->Port = SBM_SMTP_PORT; // email 보낼때 사용할 서버를 지정
 	}
 	
-	$sql3 = "SELECT a.pi_no, a.sndmail_seq, a.wrk_tp_atcd, a.sender_email, a.title, a.ctnt, email_from, email_to, snd_yn, b.snd_no, b.rcpnt_tp_atcd";
+	$sql3 = "SELECT a.pi_no, a.sndmail_seq, a.wrk_tp_atcd, a.sender_email, a.title, a.ctnt, email_from, email_to, snd_yn, b.snd_no, b.rcpnt_tp_atcd, b.rcpnt_team_atcd";
 	$sql3 = $sql3 . ",(select usr_nm from om_user where uid = a.sender_email) sender_nm";
 	$sql3 = $sql3 . ",(select usr_nm from om_user where uid = b.email_to) rcpnt_nm";
 //	$sql3 = $sql3 . ",(select if(a.wrk_tp_atcd='00700210',pi_no,'') from om_invoice where pi_sndmail_seq = a.sndmail_seq) pi_no";
