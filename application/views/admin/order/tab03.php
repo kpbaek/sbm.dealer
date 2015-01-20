@@ -1,7 +1,7 @@
 <?php 
 require $_SERVER["DOCUMENT_ROOT"] . '/include/user/authAdm.php';
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html> 
 <html>
 <head>
 	<title>주문내역</title>

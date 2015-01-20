@@ -20,7 +20,7 @@ function readPartReq($partReq, $pi_no, $swp_no){
 		
 		$partReq['partReqInfo']['pi_no'] = $row['pi_no'];
 		$partReq['partReqInfo']['swp_no'] = $row['swp_no'];
-		$partReq['partReqInfo']['ctnt'] = $row['ctnt'];
+		$partReq['partReqInfo']['ctnt'] = htmlspecialchars($row['ctnt']);
 		$partReq['partReqInfo']['ship_dt'] = $row['ship_dt'];
 		$partReq['partReqInfo']['txt_ship_dt'] = $row['txt_ship_dt'];
 		$partReq['partReqInfo']['txt_udt_dt'] = $row['txt_udt_dt'];
