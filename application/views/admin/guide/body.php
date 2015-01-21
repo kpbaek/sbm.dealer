@@ -15,6 +15,7 @@
 
 <ul id="guideTabs" class="shadetabs">
 <li><a href="/index.php/admin/guide/tab01" rel="#iframe" class="selected">메뉴권한</a></li>
+<li><a href="/index.php/admin/guide/tab02" rel="#iframe" class="selected">주문관리</a></li>
 </ul>
 
 <div id="guideDiv" style="border:1px solid gray; width:970px; height: 550px; padding: 5px; margin-bottom:1em; padding: 5px; overflow: auto">

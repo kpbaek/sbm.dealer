@@ -37,7 +37,12 @@ table {
 
 			</tr>
 			<tr>
-				<td align='center' rowspan=3>신청서</td>
+				<td align='center' rowspan=4>신청서</td>
+				<td>Find a Dealer</td>
+				<td>딜러컨택 문의</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
 				<td>To be a Dealer</td>
 				<td>딜러가입 신청</td>
 				<td>&nbsp;</td>
