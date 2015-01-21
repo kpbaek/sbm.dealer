@@ -375,7 +375,7 @@ CREATE TABLE `om_part_ship_req` (
 
 CREATE TABLE `om_invoice` (
   `pi_no` varchar(8) NOT NULL COMMENT 'PI번호',
-  `frtchrg_amt` decimal(8,2) DEFAULT NULL COMMENT '운송료',
+  `frtchrg_amt` decimal(8,2) unsigned DEFAULT NULL COMMENT '운송료',
   `repr_qty` int(6) unsigned DEFAULT NULL COMMENT '수리품수량',
   `repr_tot_amt` decimal(8,2) unsigned DEFAULT NULL COMMENT '수리품총금액',
   `ship_port_atcd` varchar(8) NOT NULL COMMENT '선적항속성코드',
@@ -393,6 +393,7 @@ CREATE TABLE `om_invoice` (
   `csn_tel` varchar(50) DEFAULT NULL COMMENT '인수자전화번호',
   `csn_fax` varchar(50) DEFAULT NULL COMMENT '인수자팩스',
   `csn_attn` varchar(100) DEFAULT NULL COMMENT '인수담당자',
+  `pi_rmk` varchar(1000) DEFAULT NULL COMMENT 'PI메모',
   `crt_dt` datetime NOT NULL COMMENT '생성일시',
   `crt_uid` varchar(50) NOT NULL COMMENT '생성자ID',
   `udt_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
