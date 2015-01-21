@@ -319,9 +319,8 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 		  </tr>
 		  <tr class="row25">
 			<td class="column0 style36 style14 s">Remark</td>
-			<td class="column1 style36 s" colspan="5"><textarea id="pi_rmk" name="pi_rmk" cols=60 rows=7></textarea></td>
+			<td class="column1 style36 s" colspan="5"><textarea id="pi_rmk" name="pi_rmk" cols=60 rows=7 maxlength=1000></textarea></td>
 			<td class="column6 style37 f"></td>
-			
 		  </tr>
 		  <tr class="row27">
 			<td class="column0 style11 null"></td>
