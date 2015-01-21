@@ -33,11 +33,6 @@
 <form id="addForm" name="addForm" method="post">
 
 	<table border="0" cellpadding="1" cellspacing="1" id="sheet0" width=950>
-		<col class="col0">
-		<col class="col1">
-		<col class="col2">
-		<col class="col3">
-		<col class="col4">
 		<tbody>
 		  <tr>
 			<td colspan=6 class="style01">Please fill in your details below if you want to be a distributor of SB machines. We will contact you soon.</td>
@@ -46,12 +41,12 @@
 			<td colspan=6></td>
 		  </tr>
 		  <tr>
-			<td width="18%" class="style01">Name</td>
+			<td width="15%" class="style01">Name</td>
 			<td width="5%"><sup>★</sup></td>
-			<td width="27%"><input type="text" id="dealer_nm" name="dealer_nm" size=35 maxlength=50 style="border: 1;ime-mode:disabled"></td>
-			<td width="18%" class="style01">Job Title</td>
+			<td width="30%"><input type="text" id="dealer_nm" name="dealer_nm" size=35 maxlength=50 style="border: 1;ime-mode:disabled"></td>
+			<td width="15%" class="style01">Job Title</td>
 			<td width="5%"><sup></sup></td>
-			<td width="27%"><input type="text" id="job_tit" name="job_tit" size=35 maxlength=50 style="border: 1;ime-mode:disabled"></td>
+			<td width="30%"><input type="text" id="job_tit" name="job_tit" size=35 maxlength=50 style="border: 1;ime-mode:disabled"></td>
 		  </tr>
 		  <tr>
 			<td class="style01">Company</td>
@@ -68,33 +63,33 @@
 		  <tr>
 			<td class="style01">Address</td>
 			<td><sup>★</sup></td>
-			<td colspan=4><input type="text" id="addr" name="addr" size=122 maxlength=150 style="border: 1"></td>
+			<td colspan=4><input type="text" id="addr" name="addr" size=100 maxlength=150 style="border: 1"></td>
 		  </tr>
 		  <tr>
 			<td class="style01">Shipping country</td>
 			<td><sup>★</sup></td>
-			<td>
+			<td colspan=2>
 				<div class="form-group">
-			        <select id="cntry_atcd" name="cntry_atcd[]" multiple="multiple" class="form-control" style="width: 300px;">
+			        <select id="cntry_atcd" name="cntry_atcd[]" multiple="multiple" class="form-control" style="width: 270px;">
 			        </select>
 					<input type="button" id="uncheckAllBtn" value="UncheckAll">
 			    </div>
 			</td>
-			<td colspan=3></td>
+			<td colspan=2></td>
 		  </tr>
 		  <tr>
 			<td class="style01">Email address</td>
 			<td><sup>★</sup></td>
-			<td><input type="text" id="usr_email" name="usr_email" size=30 maxlength=50 style="border: 1;ime-mode:disabled" onchange="$('#btnChkEail').attr('disabled',false);">
+			<td colspan=2><input type="text" id="usr_email" name="usr_email" size=30 maxlength=50 style="border: 1;ime-mode:disabled" onchange="$('#btnChkEail').attr('disabled',false);">
 			<input type="button" id="btnChkEail" value="Duplicate check" onclick="javascript:chkEmail();"/>
 			</td>
-			<td colspan=3>&nbsp;</td>
+			<td colspan=2>&nbsp;</td>
 		  </tr>
 		  <tr>
 			<td class="style01">Homepage</td>
 			<td><sup></sup></td>
-			<td><input type="text" id="homepage" name="homepage" size=40 maxlength=150 style="border: 1"></td>
-			<td colspan=3>&nbsp;</td>
+			<td colspan=2><input type="text" id="homepage" name="homepage" size=40 maxlength=150 style="border: 1"></td>
+			<td colspan=2>&nbsp;</td>
 		  </tr>
 		  <tr>
 			<td class="style01">Expierence in cash handling machine</td>
@@ -115,7 +110,6 @@
 			<td class="style01">Comments</td>
 			<td><sup></sup></td>
 			<td colspan=4><textarea cols="80" rows="5" id="comments" name="comments" maxlength=1000 placeholder="Please comment interesting model name."></textarea></td>
-			<td></td>
 		  </tr>
 		  <tr>
 			<td class="style01">Market information</td>
@@ -123,7 +117,6 @@
 			<td colspan=4>
 			<textarea cols="80" rows="5" id="mkt_inf" name="mkt_inf" maxlength=2000 placeholder="Please describe your market information.<?php echo chr(13) . chr(10);?>The number of banks and their branch, CIT, etc.<?php echo chr(13) . chr(10);?>Bank policiesThe names of popular models &amp; Price"></textarea>
 			</textarea></td>
-			<td></td>
 		  </tr>
 		  <tr>
 			<td colspan=6>&nbsp;</td>
