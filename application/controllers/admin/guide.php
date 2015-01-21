@@ -44,6 +44,11 @@ class Guide extends CI_Controller {
 		$this->load->view('/admin/guide/tab01');
 	}
 	
+	public function tab02()
+	{
+		$this->load->view('/admin/guide/tab02');
+	}
+	
 }
 
 /* End of file welcome.php */
