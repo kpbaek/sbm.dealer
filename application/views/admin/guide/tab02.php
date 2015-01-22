@@ -26,7 +26,7 @@ table {
 
 		<table border=1 cellpadding=0 cellspacing=0 width=827>
 			<tr>
-				<td align='center'><img src="/images/admin/guide/om_v1.png"></td>
+				<td align='center'><img src="/images/admin/guide/om_order_v1.png"></td>
 
 			</tr>
 		</table>
