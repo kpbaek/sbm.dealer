@@ -829,10 +829,57 @@
     	});
     }
     
+    function fncCrtReSndMail(params){
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/crtReSndMail",
+    		async: false,
+    		dataType: "json",
+    		data: {"sndmail_seq":params.sndmail_seq, "email_fwd":params.email_fwd},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			var qryInfo = result.qryInfo;
+    			if(qryInfo.result==false)
+    			{
+    				$("#sndMailDiv").html("sql error:" + qryInfo.sql);
+    				return false;
+    			}else{
+    				$("#sndMailDiv").append(qryInfo.ctnt);
+    				fncReSndMail(qryInfo.sndmail_seq);
+    				alert("success!");
+    			}
+    		},
+    		error:function(){
+    			return false;
+    		}
+    	});
+    }
+    
     function fncSndMail(sndmail_seq){
     	$.ajax({
     		type: "POST",
     		url: "/index.php/common/main/sndMailResult",
+    		async: false,
+    		dataType: "text",
+//    		data: {"sndmail_seq":sndmail_seq, "atcd":"local"}, // test
+    		data: {"sndmail_seq":sndmail_seq},
+    		cache: false,
+    		success: function(result, status, xhr){
+    			if(xhr.status=="200"){
+//    				alert(result);
+    				return true;
+    			}
+    		},
+    		error:function(){
+    			return false;
+    		}
+    	});
+    }
+    
+    function fncReSndMail(sndmail_seq){
+    	$.ajax({
+    		type: "POST",
+    		url: "/index.php/common/main/reSndMailResult",
     		async: false,
     		dataType: "text",
 //    		data: {"sndmail_seq":sndmail_seq, "atcd":"local"}, // test
@@ -904,23 +951,6 @@
     	});
     }
     
-    function fncViewSndMail(sndmail_seq){
-    	$.ajax({
-    		type: "POST",
-    		url: "/index.php/common/main/viewSndMail",
-    		async: false,
-    		dataType: "json",
-    		data: {"sndmail_seq":sndmail_seq},
-    		cache: false,
-    		success: function(result, status, xhr){
-    			var qryInfo = result.qryInfo;
-    			$("#sndMailDiv").append(qryInfo.ctnt); 
-    		},
-    		error:function(){
-    			return false;
-    		}
-    	});
-    }
     
     
     /*
