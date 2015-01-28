@@ -47,6 +47,11 @@ class Main extends CI_Controller {
 		$this->load->view('/common/readMail.php');
 	}
 	
+	public function readSndMail()
+	{
+		$this->load->view('/common/readSndMail.php');
+	}
+	
 	public function testMail()
 	{
 		$this->load->view('/common/testMail.php');
@@ -55,6 +60,11 @@ class Main extends CI_Controller {
 	public function crtSndMail()
 	{
 		$this->load->view('/common/crtSndMail.php');
+	}
+	
+	public function crtReSndMail()
+	{
+		$this->load->view('/common/crtReSndMail.php');
 	}
 	
 	public function crtSndMailDtl()
@@ -70,6 +80,11 @@ class Main extends CI_Controller {
 	public function viewSndMail()
 	{
 		$this->load->view('/common/viewSndMail');
+	}
+	
+	public function reSndMailResult()
+	{
+		$this->load->view('/common/reSndMailResult.php');
 	}
 	
 	public function sndMailResult()

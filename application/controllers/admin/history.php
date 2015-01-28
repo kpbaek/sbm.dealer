@@ -49,6 +49,11 @@ class History extends CI_Controller {
 		$this->load->view('/admin/history/listSndMail');
 	}
 	
+	public function viewSndMail()
+	{
+		$this->load->view('/admin/history/viewSndMail');
+	}
+	
 }
 
 /* End of file welcome.php */
