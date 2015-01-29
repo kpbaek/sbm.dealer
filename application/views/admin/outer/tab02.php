@@ -864,8 +864,8 @@ if(isset($_REQUEST["edit_mode"])){
 	function fn_sendMail(sndType){
 		var f = document.fwdForm;
 		if(sndType == "Fwd"){
+	        var arEmailFwd = [];
 			if(f.email_fwd.length){
-		        var arEmailFwd = [];
 		        for(var i=0; i < f.email_fwd.length; i++){
 		        	if(!fncValidEmail(f.email_fwd[i].value)){
 		        		alert("Email 형식이 맞지않습니다!");
@@ -879,7 +879,9 @@ if(isset($_REQUEST["edit_mode"])){
 	        		alert("Email 형식이 맞지않습니다!");
 	        		f.email_fwd[i].select();
 	        		return;
-	        	}
+	        	}else{
+	        		arEmailFwd[arEmailFwd.length]=f.email_fwd.value;
+				}
 			}
 			if(confirm("입력한 메일주소로 발송됩니다. 계속하시겠습니까?")){
 				var params = {"wrk_tp_atcd": "00700405","sndmail_atcd":"00700411", "pi_no":$("#pi_no").val(), "email_fwd":arEmailFwd};  
