@@ -57,9 +57,13 @@ if($sch_pi_no!=""){
 }
 
 #echo $sql_cnt;
-$result = mysql_query($sql_cnt);
-$row = mysql_fetch_array($result,MYSQL_ASSOC);
-$count = $row['count'];
+$count = $this->db->query($sql_cnt)->row(0)->count;
+
+
+//$result = mysql_query($sql_cnt);
+//$row = mysql_fetch_array($result,MYSQL_ASSOC);
+//$count = $row['count'];
+
 
 if( $count >0 ) {
 	$total_pages = ceil($count/$limit);
@@ -103,8 +107,10 @@ $sql = $sql . "	ORDER BY "
 		. $sidx . " " . $sord . " LIMIT " . $start . "," . $limit;
 
 
-$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
-$count = mysql_num_rows( mysql_query( $sql ) );
+#$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
+#$count = mysql_num_rows( mysql_query( $sql ) );
+$result = $this->db->query($sql);
+
 log_message('debug', "listSndMail:". $sql);
 log_message('debug', "count:" . $count);
 
@@ -114,7 +120,7 @@ $responce['total'] = $total_pages;
 $responce['records'] = $count;
 
 $i=0;
-while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+foreach($result->result_array() as $row) {
 	$responce['rows'][$i]['sndmail_atcd'] = $row['sndmail_atcd'];
 	$responce['rows'][$i]['pi_no'] = $row['pi_no'];
 	$responce['rows'][$i]['dealer_nm'] = $row['dealer_nm'];

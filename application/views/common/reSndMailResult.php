@@ -65,7 +65,7 @@ try {
 		$qryResult['sndMail'][$i]['pi_no'] = $row['pi_no'];
 		$i++;
 	    
-	    $mail->SetFrom($row['email_from'], $sender_nm);
+	    $mail->SetFrom($row['email_from'], $row['sender_nm']);
 		if($atcd=="local"){
 		    $mail->AddAddress(SBM_LOCAL_EMAIL, $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
 #		    echo "mytest";

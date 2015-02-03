@@ -47,11 +47,13 @@ try {
 	$sql3 = $sql3 . " FROM om_sndmail a, om_sndmail_dtl b";
 	$sql3 = $sql3 . " WHERE a.sndmail_seq = b.sndmail_seq and a.sndmail_seq=" .$sndmail_seq. " and snd_yn='N'";
 
-	$result3 = mysql_query( $sql3);
 	$qryInfo['qryInfo']['sql3'] = $sql3;
-    $qryResult = "";
+#	$result3 = mysql_query( $sql3);
+    $result3 = $this->db->query($sql3);
+
 	$i=0;
-	while($row = mysql_fetch_array($result3,MYSQL_ASSOC)) {
+    $qryResult = "";
+	foreach($result3->result_array() as $row) {
 		$qryResult['sndMail'][$i]['sndmail_seq'] = $row['sndmail_seq'];
 		$qryResult['sndMail'][$i]['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
 		$qryResult['sndMail'][$i]['sender_email'] = $row['sender_email'];
@@ -71,7 +73,7 @@ try {
 	    	if($row['rcpnt_team_atcd']=="00600SL0"){
 	    		$mail->SetFrom($row['email_from'], "SBM");
 	    	}else{
-	    		$mail->SetFrom($row['email_from'], $sender_nm);
+	    		$mail->SetFrom($row['email_from'], $row['sender_nm']);
 	    	}
 	    }
 	    if($atcd=="local"){
@@ -117,7 +119,8 @@ try {
 		$sql = $sql . " WHERE sndmail_seq = " .$sndmail_seq;
 		$sql = $sql . " and snd_no = " .$row['snd_no'];
 #		echo $sql;
-		$result = mysql_query($sql);
+#		$result = mysql_query($sql);
+ 	    $result = $this->db->query($sql);
 		$qryInfo['qryInfo'][$i]['sql'] = $sql;
 		$qryInfo['qryInfo'][$i]['result'] = $result;
 	    

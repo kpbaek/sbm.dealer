@@ -32,9 +32,13 @@ $sql_cnt = $sql_cnt . " and disp_yn = 'Y'";
 $sql_cnt = $sql_cnt . " and PART_CD LIKE '%%" .$sch_part_cd. "%%'";
 $sql_cnt = $sql_cnt . " and PART_NM LIKE '%%" .$sch_part_nm. "%%'";
 
-$result = mysql_query($sql_cnt);
-$row = mysql_fetch_array($result,MYSQL_ASSOC);
-$count = $row['count'];
+#echo $sql_cnt;
+$count = $this->db->query($sql_cnt)->row(0)->count;
+
+
+//$result = mysql_query($sql_cnt);
+//$row = mysql_fetch_array($result,MYSQL_ASSOC);
+//$count = $row['count'];
 
 if( $count >0 ) {
 	$total_pages = ceil($count/$limit);
@@ -55,26 +59,16 @@ $sql = $sql . " and PART_CD LIKE '%%" .$sch_part_cd. "%%'";
 $sql = $sql . " and PART_NM LIKE '%%" .$sch_part_nm. "%%'";
 $sql = $sql . " ORDER BY ord_num, " .$sidx . " " . $sord . " LIMIT " . $start . "," . $limit;
 
-$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
-/**
-$responce = array('page'=>$page
-				 ,'total'=>$total_pages
-				 ,'records'=>$count
-				 ,'rows' => array(array('id'=>'1','name'=>'1','invdate'=>'1','name'=>'2')
-				 		         ,array('id'=>'2','name'=>'2','invdate'=>'2','name'=>'2')
-				 	)
-);
-#$responce['page'] = 2;
-#$responce['rows'][1]['id'] = 3;
-#echo $responce['rows'][1]['id'];
-*/
+#$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 
 $responce['page'] = $page;
 $responce['total'] = $total_pages;
 $responce['records'] = $count;
 
+$query = $this->db->query($sql);
+
 $i=0;
-while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+foreach($query->result_array() as $row) {
 	$responce['rows'][$i]['mdl_cd'] = $row['mdl_cd'];
 	$responce['rows'][$i]['mdl_nm'] = $row['mdl_nm'];
 	$responce['rows'][$i]['part_cd'] = $row['part_cd'];

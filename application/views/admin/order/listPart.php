@@ -38,9 +38,13 @@ $sql_where = $sql_where . " and PART_CD LIKE '%%" .$sch_part_cd. "%%'";
 $sql_where = $sql_where . " and PART_NM LIKE '%%" .$sch_part_nm. "%%'";
 $sql_cnt = $sql_cnt . $sql_where;
 
-$result = mysql_query($sql_cnt);
-$row = mysql_fetch_array($result,MYSQL_ASSOC);
-$count = $row['count'];
+#echo $sql_cnt;
+$count = $this->db->query($sql_cnt)->row(0)->count;
+
+
+//$result = mysql_query($sql_cnt);
+//$row = mysql_fetch_array($result,MYSQL_ASSOC);
+//$count = $row['count'];
 
 if( $count >0 ) {
 	$total_pages = ceil($count/$limit);
@@ -59,7 +63,7 @@ $sql = $sql . $sql_where;
 $sql = $sql . " ORDER BY ord_num, " .$sidx . " " . $sord . " LIMIT " . $start . "," . $limit;
 #echo $sql;
 
-$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
+#$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 
 
 /**
@@ -79,11 +83,14 @@ $responce['page'] = $page;
 $responce['total'] = $total_pages;
 $responce['records'] = $count;
 
-$i=0;
 $qtytot = 0;
 $amttot = 0;
 $wgttot = 0;
-while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+
+$query = $this->db->query($sql);
+
+$i=0;
+foreach($query->result_array() as $row) {
 	$responce['rows'][$i]['id'] = $row['id'];
 	$responce['rows'][$i]['mdl_cd'] = $row['mdl_cd'];
 	$responce['rows'][$i]['mdl_nm'] = $row['mdl_nm'];

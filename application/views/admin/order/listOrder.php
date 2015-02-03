@@ -36,9 +36,13 @@ if($sch_worker_seq!=""){
 }
 
 #echo $sql_cnt;
-$result = mysql_query($sql_cnt);
-$row = mysql_fetch_array($result,MYSQL_ASSOC);
-$count = $row['count'];
+$count = $this->db->query($sql_cnt)->row(0)->count;
+
+
+//$result = mysql_query($sql_cnt);
+//$row = mysql_fetch_array($result,MYSQL_ASSOC);
+//$count = $row['count'];
+
 
 if( $count >0 ) {
 	$total_pages = ceil($count/$limit);
@@ -78,8 +82,8 @@ $sql = $sql . "	ORDER BY "
 		. $sidx . " " . $sord . " LIMIT " . $start . "," . $limit;
 
 
-$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
-$count = mysql_num_rows( mysql_query( $sql ) );
+#$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
+#$count = mysql_num_rows( mysql_query( $sql ) );
 log_message('debug', "listOrder:" . $sql);
 
 
@@ -87,8 +91,10 @@ $responce['page'] = $page;
 $responce['total'] = $total_pages;
 $responce['records'] = $count;
 
+$query = $this->db->query($sql);
+
 $i=0;
-while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+foreach($query->result_array() as $row) {
 	$responce['rows'][$i]['order_date'] = $row['order_date'];
 	$responce['rows'][$i]['txt_cnfm_dt'] = $row['txt_cnfm_dt'];
 	$responce['rows'][$i]['cntry'] = $row['cntry'];

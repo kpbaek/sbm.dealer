@@ -33,9 +33,12 @@ if($schDealerNm!=""){
 	$sql_cnt = $sql_cnt . " and dealer_nm LIKE '%%" .$schDealerNm. "%%'";
 }
 #echo $sql_cnt;
-$result = mysql_query($sql_cnt);
-$row = mysql_fetch_array($result,MYSQL_ASSOC);
-$count = $row['count'];
+$count = $this->db->query($sql_cnt)->row(0)->count;
+
+
+//$result = mysql_query($sql_cnt);
+//$row = mysql_fetch_array($result,MYSQL_ASSOC);
+//$count = $row['count'];
 
 if( $count >0 ) {
 	$total_pages = ceil($count/$limit);
@@ -69,26 +72,16 @@ $sql = $sql . "	ORDER BY "
 		 . $sidx . " " . $sord . " LIMIT " . $start . "," . $limit;
 #echo $sql;		 
 
-$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
-/**
-$responce = array('page'=>$page
-				 ,'total'=>$total_pages
-				 ,'records'=>$count
-				 ,'rows' => array(array('id'=>'1','name'=>'1','invdate'=>'1','name'=>'2')
-				 		         ,array('id'=>'2','name'=>'2','invdate'=>'2','name'=>'2')
-				 	)
-);
-#$responce['page'] = 2;
-#$responce['rows'][1]['id'] = 3;
-#echo $responce['rows'][1]['id'];
-*/
+#$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
+$result = $this->db->query($sql);
 
 $responce['page'] = $page;
 $responce['total'] = $total_pages;
 $responce['records'] = $count;
 
+
 $i=0;
-while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+foreach($result->result_array() as $row) {
 	$responce['rows'][$i]['dealer_seq'] = $row['dealer_seq'];
 	$responce['rows'][$i]['txt_team_atcd'] = $row['txt_team_atcd'];
 	$responce['rows'][$i]['dealer_nm'] = $row['dealer_nm'];
@@ -100,8 +93,8 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	$responce['rows'][$i]['kr_nm'] = $row['kr_nm'];
 	$responce['rows'][$i]['premium_rate'] = $row['premium_rate'];
 	$responce['rows'][$i]['aprv_yn'] = $row['aprv_yn'];
-#    echo $row['id'];
-    $i++;
+	$i++;
+	#    echo $row['id'];
 }  
 echo json_encode($responce);
 ?>

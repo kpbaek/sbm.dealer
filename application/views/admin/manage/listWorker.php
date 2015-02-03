@@ -21,9 +21,13 @@ if(isset($_REQUEST["searchId"])){
 	$searchId = $_REQUEST["searchId"];
 }
 
-$result = mysql_query("SELECT COUNT(*) AS count FROM om_worker");
-$row = mysql_fetch_array($result,MYSQL_ASSOC);
-$count = $row['count'];
+$sql_cnt = "SELECT COUNT(*) AS count FROM om_worker";
+$count = $this->db->query($sql_cnt)->row(0)->count;
+
+
+//$result = mysql_query($sql_cnt);
+//$row = mysql_fetch_array($result,MYSQL_ASSOC);
+//$count = $row['count'];
 
 if( $count >0 ) {
 	$total_pages = ceil($count/$limit);
@@ -32,7 +36,7 @@ if( $count >0 ) {
 }
 if ($page > $total_pages) $page=$total_pages;
 $start = $limit*$page - $limit; // do not put $limit*($page - 1)
-$SQL = "SELECT a.*
+$sql = "SELECT a.*
 			  , CONCAT_WS('/', kr_nm, eng_nm) name
 		      ,CONCAT_WS('/', 00_team_atcd, us_team_atcd) txt_team_atcd 
 		      ,CONCAT_WS('/', 00_duty_atcd, us_duty_atcd) txt_duty_atcd
@@ -47,14 +51,16 @@ $SQL = "SELECT a.*
 		) a  
 		ORDER BY "
 		 . $sidx . " " . $sord . " LIMIT " . $start . "," . $limit;
-$result = mysql_query( $SQL ) or die("Couldn t execute query.".mysql_error());
+#$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 
 $responce['page'] = $page;
 $responce['total'] = $total_pages;
 $responce['records'] = $count;
 
+$result = $this->db->query($sql);
+
 $i=0;
-while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+foreach($result->result_array() as $row) {
 	$responce['rows'][$i]['worker_seq'] = $row['worker_seq'];
 	$responce['rows'][$i]['worker_uid'] = $row['worker_uid'];
 	$responce['rows'][$i]['name'] = $row['name'];

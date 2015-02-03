@@ -74,8 +74,7 @@ function getPackingMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@sndmail_seq", $invoice['packingInfo']['sndmail_seq'], $ctnt);
 	$ctnt = str_replace("@udt_dt", $invoice['packingInfo']['udt_dt'], $ctnt);
 
-	
-	if($invoice['invoiceInfo']['frtchrg_amt']!=null || $invoice['invoiceInfo']['repr_qty']!=null || $invoice['eqpHwOptList']!=null){
+	if($invoice['invoiceInfo']['repr_qty']!=null || $invoice['eqpHwOptList']!=null){
 		$ctnt = str_replace("@addonDiv", "", $ctnt);
 		$addon = "";
 		if($invoice['eqpHwOptList']!=null){

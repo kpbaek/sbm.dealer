@@ -36,17 +36,19 @@ $sql = $sql . " FROM om_ord_part a";
 $sql = $sql . " WHERE pi_no = '" .$sch_pi_no. "'";
 $sql = $sql . "	ORDER BY order_tp, udt_dt desc, "
 		. $sidx . " " . $sord;
-$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 
+#$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
+$result = $this->db->query($sql);
 
-$i=0;
 $qtytot = 0;
 $amttot = 0;
 $link = "";
 $linkDoc = "";
 $linkDoc = "";
 $type = "";
-while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+
+$i=0;
+foreach($result->result_array() as $row) {
 	$isEditible = "";
 	$disableReq = "disabled";
 	if($cnfm_yn=="Y"){

@@ -35,32 +35,34 @@ if($sndmail_atcd=="00700111"){
 	$sql_eqp = $sql_eqp . " AND a.po_no = " .$po_no;
 	$sql_eqp = $sql_eqp . " ) a";
 	
-	$result = mysql_query( $sql_eqp ) or die("Couldn t execute query.".mysql_error());
-	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+	$result = $this->db->query ( $sql_eqp );
 	
-	$ctnt = str_replace("@pi_no", $row['pi_no'], $ctnt);
-	$ctnt = str_replace("@txt_cntry_atcd", $row['txt_cntry_atcd'], $ctnt);
-	$ctnt = str_replace("@order_dt", $row['order_dt'], $ctnt);
-	$ctnt = str_replace("@cmpy_nm", $row['cmpy_nm'], $ctnt);
-	$ctnt = str_replace("@txt_mdl_cd", $row['mdl_nm'], $ctnt);
-	$ctnt = str_replace("@po_no", $row['po_no'], $ctnt);
-	$ctnt = str_replace("@qty", $row['qty'], $ctnt);
-	$ctnt = str_replace("@txt_srl_atcd", $row['txt_srl_atcd'], $ctnt);
-	$ctnt = str_replace("@txt_lcd_color_atcd", $row['txt_lcd_color_atcd'], $ctnt);
-	$ctnt = str_replace("@txt_lcd_lang_atcd", $row['txt_lcd_lang_atcd'], $ctnt);
-	$ctnt = str_replace("@txt_rjt_pkt_tp_atcd", $row['txt_rjt_pkt_tp_atcd'], $ctnt);
-	$ctnt = str_replace("@txt_pwr_cab_atcd", $row['txt_pwr_cab_atcd'], $ctnt);
-	$ctnt = str_replace("@srl_prn_cab_ox", $row['srl_prn_cab_ox'], $ctnt);
-	$ctnt = str_replace("@calibr_sheet_ox", $row['calibr_sheet_ox'], $ctnt);
-	$ctnt = str_replace("@pc_cab_ox", $row['pc_cab_ox'], $ctnt);
-	$ctnt = str_replace("@txt_shipped_by_atcd", $row['txt_shipped_by_atcd'], $ctnt);
-	$ctnt = str_replace("@txt_courier_atcd", $row['txt_courier_atcd'], $ctnt);
-	$ctnt = str_replace("@acct_no", $row['acct_no'], $ctnt);
-	$ctnt = str_replace("@delivery_dt", $row['delivery_dt'], $ctnt);
-	$ctnt = str_replace("@txt_payment_atcd", $row['txt_payment_atcd'], $ctnt);
-	$ctnt = str_replace("@txt_incoterms_atcd", $row['txt_incoterms_atcd'], $ctnt);
-	$ctnt = str_replace("@remark", str_replace("\n","<br>",$row['remark']), $ctnt);
+	if ($result->num_rows() > 0) {
+		$row = $result->row_array();
 	
+		$ctnt = str_replace("@pi_no", $row['pi_no'], $ctnt);
+		$ctnt = str_replace("@txt_cntry_atcd", $row['txt_cntry_atcd'], $ctnt);
+		$ctnt = str_replace("@order_dt", $row['order_dt'], $ctnt);
+		$ctnt = str_replace("@cmpy_nm", $row['cmpy_nm'], $ctnt);
+		$ctnt = str_replace("@txt_mdl_cd", $row['mdl_nm'], $ctnt);
+		$ctnt = str_replace("@po_no", $row['po_no'], $ctnt);
+		$ctnt = str_replace("@qty", $row['qty'], $ctnt);
+		$ctnt = str_replace("@txt_srl_atcd", $row['txt_srl_atcd'], $ctnt);
+		$ctnt = str_replace("@txt_lcd_color_atcd", $row['txt_lcd_color_atcd'], $ctnt);
+		$ctnt = str_replace("@txt_lcd_lang_atcd", $row['txt_lcd_lang_atcd'], $ctnt);
+		$ctnt = str_replace("@txt_rjt_pkt_tp_atcd", $row['txt_rjt_pkt_tp_atcd'], $ctnt);
+		$ctnt = str_replace("@txt_pwr_cab_atcd", $row['txt_pwr_cab_atcd'], $ctnt);
+		$ctnt = str_replace("@srl_prn_cab_ox", $row['srl_prn_cab_ox'], $ctnt);
+		$ctnt = str_replace("@calibr_sheet_ox", $row['calibr_sheet_ox'], $ctnt);
+		$ctnt = str_replace("@pc_cab_ox", $row['pc_cab_ox'], $ctnt);
+		$ctnt = str_replace("@txt_shipped_by_atcd", $row['txt_shipped_by_atcd'], $ctnt);
+		$ctnt = str_replace("@txt_courier_atcd", $row['txt_courier_atcd'], $ctnt);
+		$ctnt = str_replace("@acct_no", $row['acct_no'], $ctnt);
+		$ctnt = str_replace("@delivery_dt", $row['delivery_dt'], $ctnt);
+		$ctnt = str_replace("@txt_payment_atcd", $row['txt_payment_atcd'], $ctnt);
+		$ctnt = str_replace("@txt_incoterms_atcd", $row['txt_incoterms_atcd'], $ctnt);
+		$ctnt = str_replace("@remark", str_replace("\n","<br>",$row['remark']), $ctnt);
+	}
 	
 	$sql_dtl = "SELECT b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt, b.wrk_tp_atcd";
 	$sql_dtl = $sql_dtl . ", a.*";
@@ -84,13 +86,16 @@ if($sndmail_atcd=="00700111"){
 	$sql_dtl = $sql_dtl . " WHERE a.pi_no = b.pi_no";
 	#$sql_dtl = $sql_dtl . " and cd = '0091'";
 	
-	$result2 = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
+#	$result2 = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
+	$result2 = $this->db->query ( $sql_dtl );
 	
 	$txt_currency_atcd = "";
 	$txt_serial_currency_atch = "";
 	$txt_opt_hw_atcd = "";
+	
 	$i=0;
-	while($row2 = mysql_fetch_array($result2,MYSQL_ASSOC)) {
+	foreach($result2->result_array() as $row2) {
+		
 		if(sizeof($row2['txt_currency_atcd'])>0){
 			$txt_currency_atcd = $txt_currency_atcd . $row2['txt_currency_atcd']. " | " ;
 		}
@@ -125,8 +130,11 @@ if($sndmail_atcd=="00700111"){
 	$sql_part = $sql_part . " AND a.swp_no = " .$swp_no;
 	$sql_part = $sql_part . " ) a";
 
-	$result = mysql_query( $sql_part ) or die("Couldn t execute query.".mysql_error());
-	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+#	$result = mysql_query( $sql_part ) or die("Couldn t execute query.".mysql_error());
+#	$row = mysql_fetch_array($result,MYSQL_ASSOC);
+
+	$result = $this->db->query ( $sql_part );
+	$row = $result->row_array();
 	
 	$ctnt = str_replace("@pi_no", $row['pi_no'], $ctnt);
 	$ctnt = str_replace("@order_dt", $row['order_dt'], $ctnt);
@@ -155,15 +163,17 @@ if($sndmail_atcd=="00700111"){
 	$sql_dtl = $sql_dtl . " WHERE a.mdl_cd = b.mdl_cd and a.part_ver = b.part_ver and a.part_cd = b.part_cd";
 	$sql_dtl = $sql_dtl . " ORDER BY ord_num";
 	
-	$result2 = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
+#	$result2 = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
+	$result2 = $this->db->query ( $sql_dtl );
 	
 	$ctnt_sub = "";
 	$tot_price = 0;
 	$tot_qty = 0;
 	$tot_amt = 0;
 	$tot_wgt = 0;
+	
 	$i=0;
-	while($row2 = mysql_fetch_array($result2,MYSQL_ASSOC)) {
+	foreach($result2->result_array() as $row2) {
 		$tot_price += $row2['unit_prd_cost'];
 		$tot_qty += $row2['qty'];
 		$tot_amt += $row2['amt'];

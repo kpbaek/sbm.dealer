@@ -29,10 +29,12 @@ $sql_dtl = $sql_dtl . " WHERE a.mdl_cd = b.mdl_cd and a.part_ver = b.part_ver an
 $sql_dtl = $sql_dtl . " ORDER BY ord_num";
 #echo $sql_dtl;
 
-$result = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
+#$result = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
+$result = $this->db->query($sql);
 
 $i=0;
-while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+foreach($result->result_array() as $row) {
+
 	$responce['rows'][$i]['id'] = $row['id'];
 	$responce['rows'][$i]['mdl_cd'] = $row['mdl_cd'];
 	$responce['rows'][$i]['mdl_nm'] = $row['mdl_nm'];
