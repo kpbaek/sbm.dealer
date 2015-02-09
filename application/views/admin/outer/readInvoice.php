@@ -73,6 +73,7 @@ function getPiMailCtnt($ctnt, $invoice){
 
 		$mdl_nm = "";
 		$eqp_qty = "";
+		$eqp_unit_price = "";
 		$txt_amt = "";
 		$dscrt = "";
 		$courier = "";
@@ -83,6 +84,8 @@ function getPiMailCtnt($ctnt, $invoice){
 			$eqp_qty .= $orderEqpList['eqp_qty'] . "<br>";
 			$txt_amt .= "USD " . $orderEqpList['txt_amt'] . "<br>";
 			$dscrt .= "P/O NO:" . $orderEqpList['po_no'];
+			$eqp_unit_price .= "USD " . number_format(($orderEqpList['amt'] / $orderEqpList['eqp_qty']),2) . "<br>";
+			
 			if($orderEqpList['txt_incoterms_atcd']!=null){
 				$dscrt .= " , " . "Incoterms:" . $orderEqpList['txt_incoterms_atcd'];
 			}
@@ -105,6 +108,7 @@ function getPiMailCtnt($ctnt, $invoice){
 		}
 		$ctnt = str_replace("@mdl_nm", $mdl_nm, $ctnt);
 		$ctnt = str_replace("@eqp_qty", $eqp_qty, $ctnt);
+		$ctnt = str_replace("@eqp_unit_price", $eqp_unit_price, $ctnt);
 		$ctnt = str_replace("@eqp_amt", $txt_amt, $ctnt);
 		$ctnt = str_replace("@dscrt", $dscrt, $ctnt);
 

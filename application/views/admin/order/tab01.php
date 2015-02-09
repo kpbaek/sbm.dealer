@@ -100,7 +100,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			<td><input type="text" id="buyer_po_no" name="buyer_po_no" value="" size=15 style="border: 1;ime-mode:disabled" maxlength=15></td>
 		  	<td colspan=2></td>
 			<td class="style01">Q'TY</td>
-			<td><input type="text" id="qty" name="qty" value="" size=6 maxlength=6 style="border: 1;ime-mode:disabled" onKeyup="fncOnlyDecimal(this);"></td>
+			<td><input type="text" id="qty" name="qty" value="" size=6 maxlength=6 style="border: 1;ime-mode:disabled" onKeyup="fncOnlyNumber(this);"></td>
 			<td colspan=3></td>
 		  </tr>
 		  <tr>
@@ -787,6 +787,10 @@ function fn_isValid(){
 		return false;
 	}else if(!$("#qty").val().trim()){
 		alert("Q'TY is required!");
+		$("#qty").focus();
+		return false;
+	}else if($("#qty").val()=="0"){
+		alert("Q'TY cannot be zero!");
 		$("#qty").focus();
 		return false;
 	}else if(!$("#shipped_by_atcd").val().trim()){

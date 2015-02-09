@@ -313,7 +313,7 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			</select>
 			</td>
 			<td class="column1 style24 s" colspan="3"><!-- <input type=text name="description" value="SP-58S" size=8 disabled> --></td>
-			<td class="column4 style17 n"><input type=text id="addon_qty" name="addon_qty" value="" size=8 maxlength=6 style="ime-mode:disabled" onKeyup="fncOnlyDecimal(this);" disabled></td>
+			<td class="column4 style17 n"><input type=text id="addon_qty" name="addon_qty" value="" size=8 maxlength=6 style="ime-mode:disabled" onKeyup="fncOnlyNumber(this);" disabled></td>
 			<td class="column5 style19 n"></td>
 			<td class="column6 style19 f"><input type=text id="addon_tot_amt" name="addon_tot_amt" value="" size=8 maxlength=8 style="ime-mode:disabled" onKeyup="fncOnlyDecimal(this);" disabled></td>
 		  </tr>
@@ -598,6 +598,7 @@ if(isset($_REQUEST["edit_mode"])){
 		var mdl_nm = "";
 		var eqp_qty = "";
 		var eqp_unit_price = "";
+		var eqp_unit_price_val = "";
 		var eqp_amt = "";
 		var detector = "";
 		var incoterms = "";
@@ -614,8 +615,12 @@ if(isset($_REQUEST["edit_mode"])){
 				eqp_qty += targetInfo.eqp_qty + "<br>";
 				if(targetInfo.amt!=null){
 					amt = targetInfo.amt;
+					eqp_unit_price_val = (targetInfo.amt / targetInfo.eqp_qty).toFixed(2);
+				}else{
+					amt = "";
+					eqp_unit_price_val = "";
 				}
-				eqp_unit_price += "<input type=text id='eqp_unit_price' name='eqp_unit_price[]' value='' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyDecimal(this);fn_calcAmt(this.value, " + targetInfo.eqp_qty + ", " + key + ");'>";
+				eqp_unit_price += "<input type=text id='eqp_unit_price' name='eqp_unit_price[]' value='" + eqp_unit_price_val + "' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyDecimal(this);fn_calcAmt(this.value, " + targetInfo.eqp_qty + ", " + key + ");'>";
 				eqp_amt += "<input type=text id='amt' name='amt[]' value='" + amt + "' size=8 maxlength=8 style='ime-mode:disabled' readOnly>";
 				eqp_amt += "<input type=hidden id='po_no' name='po_no[]' value='" + targetInfo.po_no + "'>";
 				detector = "";
@@ -692,7 +697,7 @@ if(isset($_REQUEST["edit_mode"])){
 			$.each(eqpHwOptList, function(key) {
 				var targetInfo = eqpHwOptList[key];
 				txt_opt_hw_atcd += targetInfo.txt_opt_hw_atcd + " ( " + targetInfo.opt_mdl_nm + " )<br>";
-				opt_qty += "<input type=text id='opt_qty' name='opt_qty[]' value='" + targetInfo.opt_qty + "' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyDecimal(this);fn_calcOptAmt(" + key + ");'>" + "<br>";
+				opt_qty += "<input type=text id='opt_qty' name='opt_qty[]' value='" + targetInfo.opt_qty + "' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyNumber(this);fn_calcOptAmt(" + key + ");'>" + "<br>";
 				opt_unit_prc += "<input type=text id='opt_unit_prc' name='opt_unit_prc[]' value='" + targetInfo.opt_unit_prc + "' size=8 maxlength=8 style='ime-mode:disabled' onKeyup='fncOnlyDecimal(this);fn_calcOptAmt(" + key + ");'>" + "<br>";
 				opt_amt += "<input type=text id='opt_amt' name='opt_amt[]' value='" + targetInfo.opt_amt + "' size=8 maxlength=8 style='ime-mode:disabled' disabled>" + "<br>";
 				opt_amt += "<input type=hidden id='opt_atcd' name='opt_atcd[]' value='" + targetInfo.atcd + "'>";

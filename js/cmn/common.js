@@ -314,7 +314,7 @@
 	function fncOnlyDecimal(selObj) { 
 		if(event.keyCode!="190"){
 		    if((event.keyCode<48) || (event.keyCode>57)){
-				selObj.value=selObj.value.replace(/[^0-9]/gi,"");
+				selObj.value=selObj.value.replace(/[^0-9.]/gi,"");
 		    }
 		}
 		if(isNaN(selObj.value)){

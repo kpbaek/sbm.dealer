@@ -166,8 +166,8 @@ body { left-margin: 0.98425196850394in; right-margin: 0.98425196850394in; top-ma
 			<td class="column1 style15 s" colspan="3"><div id="dscrt" style="padding-left: 10px;line-height:20px;">@dscrt</div>
 			</td>
 			<td class="column4 style17 n"><div id="eqp_qty" style="line-height:50px;">@eqp_qty</div></td>
-			<td class="column5 style18 n"></td>
-			<td class="column6 style19 f"><div id="eqp_qty" style="line-height:50px;">@eqp_amt</div></td>
+			<td class="column5 style18 n"><div id="eqp_unit_price" style="line-height:50px;">@eqp_unit_price</div></td>
+			<td class="column6 style19 f"><div id="eqp_amt" style="line-height:50px;">@eqp_amt</div></td>
 		  </tr>
 		  <tr class="row18">
 			<td class="column0 style25 null"></td>
