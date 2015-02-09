@@ -30,7 +30,7 @@ $sql_dtl = $sql_dtl . " ORDER BY ord_num";
 #echo $sql_dtl;
 
 #$result = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
-$result = $this->db->query($sql);
+$result = $this->db->query($sql_dtl);
 
 $i=0;
 foreach($result->result_array() as $row) {
