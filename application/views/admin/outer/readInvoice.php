@@ -595,6 +595,7 @@ function readInvoice($pi_no){
 	$sql_part = $sql_part . ") a, om_part b";
 	$sql_part = $sql_part . " WHERE a.mdl_cd = b.mdl_cd and a.part_ver = b.part_ver and a.part_cd = b.part_cd";
 	$sql_part = $sql_part . " ORDER BY ord_num";
+	log_message('debug', "orderPartList:" . $sql_part);
 	
 	$result2 = mysql_query( $sql_part ) or die("Couldn t execute query.".mysql_error());
 	
@@ -606,7 +607,7 @@ function readInvoice($pi_no){
 		$invoice['orderPartList'][$i]['unit_price'] = $row['unit_prd_cost'];
 		$invoice['orderPartList'][$i]['amount'] = $row['amount'];
 		$invoice['orderPartList'][$i]['wgt'] = $row['wgt'];
-		$invoice['orderPartList'][$i]['net_wgt'] = $row['wgt'] * $row['qty'];
+		$invoice['orderPartList'][$i]['net_wgt'] = $row['wgt'];
 		#    echo $row['id'];
 		$i++;
 	}
@@ -620,6 +621,7 @@ function readInvoice($pi_no){
 	$sql_packing = $sql_packing . " WHERE pi_no = '" .$pi_no. "') a";
 	$sql_packing = $sql_packing . " LEFT OUTER JOIN om_invoice i ON a.pi_no = i.pi_no";
 #	echo $sql_packing;
+	log_message("debug", $sql_packing);
 	
 	$result2 = mysql_query( $sql_packing ) or die("Couldn t execute query.".mysql_error());
 	$row = mysql_fetch_array($result2,MYSQL_ASSOC);

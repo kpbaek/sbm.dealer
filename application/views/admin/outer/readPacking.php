@@ -55,7 +55,7 @@ function getPackingMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@spareDiv", "", $ctnt);
 		$part_net_wgt = "";
 		foreach($invoice['orderPartList'] as $orderPartList) {
-			$part_net_wgt += $orderPartList['net_wgt'];
+			$part_net_wgt = $orderPartList['net_wgt'];
 		}
 		$ctnt = str_replace("@part_net_wgt", $part_net_wgt, $ctnt);
 	}

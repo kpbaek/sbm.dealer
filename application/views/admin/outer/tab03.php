@@ -482,7 +482,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 <input type=hidden id="ci_sndmail_seq" name="ci_sndmail_seq">
 <input type=hidden id="edit_mode" name="edit_mode">
 <input type=hidden id="tot_eqp_qty" name="tot_eqp_qty">
-<input type=hidden id="part_gross_wgt" name="part_gross_wgt">
+
 	<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
 	<tr>
 		<td colspan=10 align=right>
@@ -671,7 +671,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column4 style54 s style00">Currency Discrimination Counter Spare Parts</td>
 			<td class="column25 style54 s style207"><input type=text id="part_cartons" name="part_cartons" value="" size="3" maxlength=4 style="text-align: right" onKeyup="fncOnlyNumber(this);"></td>
 			<td class="column30 style54 s style207"><div id="part_net_wgt_div"></div></td>
-			<td class="column36 style54 s style207"><div id="part_gross_wgt_div"></div></td>
+			<td class="column36 style54 s style207"><div id="part_gross_wgt_div"><input type=text id="part_gross_wgt" name="part_gross_wgt" size="3" maxlength=4 style="text-align: right" onKeyup="fncOnlyDecimal(this);"> Kg</div></td>
 			<td class="column36 style205 s"></td>
 			<td class="column47 style13 null"></td>
 		  </tr>
@@ -901,7 +901,7 @@ if(isset($_REQUEST["edit_mode"])){
 			spareDiv.style.display = "";
 			$.each(orderPartList, function(key) {
 				var targetInfo = orderPartList[key];
-				part_net_wgt += eval(targetInfo.wgt) * eval(targetInfo.qty);
+				part_net_wgt = eval(targetInfo.net_wgt);
 			})
 	        $("#spare_parts").html(spare_parts);
 	        $("#part_net_wgt_div").html(part_net_wgt + " Kg");
@@ -909,7 +909,6 @@ if(isset($_REQUEST["edit_mode"])){
 	 		if(packingInfo!=null){
 				part_gross_wgt = part_net_wgt + eval(packingInfo.part_cartons);
 		        $("#part_gross_wgt").val(part_gross_wgt);
-		        $("#part_gross_wgt_div").html(part_gross_wgt + " Kg");
 			}
 		}
 		 		

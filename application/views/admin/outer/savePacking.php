@@ -122,7 +122,8 @@ if(isSet($_POST['pi_no'])){
 		$sql_packing = $sql_packing . " , tot_gross_wgt = " .$tot_gross_wgt;
 		$sql_packing = $sql_packing . " , udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
 						
-		#echo $sql_packing;
+		log_message('debug', $sql_packing);
+		
 		$result2 = mysql_query($sql_packing);
 		$qryInfo['qryInfo']['sql2'] = $sql_packing;
 		$qryInfo['qryInfo']['result2'] = $result2;
