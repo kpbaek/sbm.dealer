@@ -8,6 +8,7 @@ $swp_no = $_REQUEST["swp_no"];
 $sql_dtl = "SELECT concat(b.mdl_cd, b.part_ver, b.part_cd) id, b.part_nm, b.ord_num, b.srl_no, b.remark";
 $sql_dtl = $sql_dtl . ", a.* ";
 $sql_dtl = $sql_dtl . ", (a.unit_prd_cost * a.qty) amount ";
+$sql_dtl = $sql_dtl . ", (a.qty * b.unit_wgt) weight ";
 $sql_dtl = $sql_dtl . " FROM ";
 $sql_dtl = $sql_dtl . "(";
 $sql_dtl = $sql_dtl . "  SELECT b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt";
@@ -28,6 +29,7 @@ $sql_dtl = $sql_dtl . ") a, om_part b";
 $sql_dtl = $sql_dtl . " WHERE a.mdl_cd = b.mdl_cd and a.part_ver = b.part_ver and a.part_cd = b.part_cd";
 $sql_dtl = $sql_dtl . " ORDER BY ord_num";
 #echo $sql_dtl;
+log_message("debug", $sql_dtl);
 
 #$result = mysql_query( $sql_dtl ) or die("Couldn t execute query.".mysql_error());
 $result = $this->db->query($sql_dtl);
@@ -44,7 +46,7 @@ foreach($result->result_array() as $row) {
 	$responce['rows'][$i]['qty'] = $row['qty'];
 	$responce['rows'][$i]['price'] = $row['unit_prd_cost'];
 	$responce['rows'][$i]['amount'] = $row['amount'];
-	$responce['rows'][$i]['weight'] = $row['wgt'];
+	$responce['rows'][$i]['weight'] = $row['weight'];
 	$responce['rows'][$i]['srl_no'] = $row['srl_no'];
 	$responce['rows'][$i]['remark'] = $row['remark'];
 	$i++;

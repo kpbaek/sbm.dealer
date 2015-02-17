@@ -112,6 +112,7 @@ function getPartOrderMailCtnt($ctnt, $pi_no, $swp_no){
 	
 	
 	$sql_dtl = "SELECT b.part_ver, b.part_cd, b.part_nm, b.unit_wgt, b.remark, b.ord_num, b.srl_no";
+	$sql_dtl = $sql_dtl . ", (a.qty * b.unit_wgt) weight";
 	$sql_dtl = $sql_dtl . ", a.* ";
 	$sql_dtl = $sql_dtl . "FROM";
 	$sql_dtl = $sql_dtl . "(";
@@ -146,7 +147,7 @@ function getPartOrderMailCtnt($ctnt, $pi_no, $swp_no){
 		$tot_price += $row2['unit_prd_cost'];
 		$tot_qty += $row2['qty'];
 		$tot_amt += $row2['amt'];
-		$tot_wgt += $row2['unit_wgt'];
+		$tot_wgt += $row2['weight'];
 	
 		$ctnt_sub = $ctnt_sub . file_get_contents($_SERVER["DOCUMENT_ROOT"]."/include/email/00700112_sub.php");
 		$ctnt_sub = str_replace("@txt_mdl_cd", $row2['mdl_nm'], $ctnt_sub);
@@ -155,7 +156,7 @@ function getPartOrderMailCtnt($ctnt, $pi_no, $swp_no){
 		$ctnt_sub = str_replace("@unit_prd_cost", $row2['unit_prd_cost'], $ctnt_sub);
 		$ctnt_sub = str_replace("@qty", number_format($row2['qty'],0), $ctnt_sub);
 		$ctnt_sub = str_replace("@amt", number_format($row2['amt'],2), $ctnt_sub);
-		$ctnt_sub = str_replace("@unit_wgt", number_format($row2['unit_wgt'],2), $ctnt_sub);
+		$ctnt_sub = str_replace("@weight", number_format($row2['weight'],3), $ctnt_sub);
 		$ctnt_sub = str_replace("@remark", $row2['remark'], $ctnt_sub);
 		$i++;
 	}
@@ -163,7 +164,7 @@ function getPartOrderMailCtnt($ctnt, $pi_no, $swp_no){
 	//	$ctnt = str_replace("@tot_price", $tot_price, $ctnt);
 	$ctnt = str_replace("@tot_qty", number_format($tot_qty), $ctnt);
 	$ctnt = str_replace("@tot_amt", number_format($tot_amt, 2), $ctnt);
-	$ctnt = str_replace("@tot_wgt", number_format($tot_wgt, 2), $ctnt);
+	$ctnt = str_replace("@tot_wgt", number_format($tot_wgt, 3), $ctnt);
 	
 	return $ctnt;
 }

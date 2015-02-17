@@ -513,7 +513,7 @@ if(isset($_REQUEST["edit_mode"])){
         var rowData = jQuery("#list").jqGrid('getRowData',ids[rowid]);
         var amt = qty * rowData.price;
         var weight = parseInt(qty) * parseFloat(rowData.unit_wgt);
-        weight = weight.toFixed(1);
+        weight = weight.toFixed(3);
         jQuery("#list").jqGrid('setRowData',ids[rowid],{id:rowData.id, mdl_cd:rowData.mdl_cd, part_ver:rowData.part_ver, part_cd:rowData.part_cd, qty:qty, price:rowData.price, amount:amt, weight:weight, remark:rowData.remark});
 
     	var qty_ft = 0;
@@ -531,7 +531,7 @@ if(isset($_REQUEST["edit_mode"])){
     	var udata = $("#list").jqGrid('getUserData');
 		udata.qty= qty_ft;
 		udata.amount= amount_ft.toFixed(2);
-		udata.weight= weight_ft.toFixed(2);
+		udata.weight= weight_ft.toFixed(3);
 		$("#list").jqGrid("footerData","set",udata,true);
 
         var listData = jQuery("#list").jqGrid('getRowData',ids[rowid]);
@@ -611,7 +611,7 @@ if(isset($_REQUEST["edit_mode"])){
     	var udata = $("#list_d").jqGrid('getUserData');
 		udata.qty= parseInt(qty_ft);
 		udata.amount= amount_ft.toFixed(2);
-		udata.weight= weight_ft.toFixed(2);
+		udata.weight= weight_ft.toFixed(3);
 		$("#list_d").jqGrid("footerData","set",udata,true);
 	}
 	
