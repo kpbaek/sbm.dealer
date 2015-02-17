@@ -372,7 +372,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="column4 style10 s">@Price(EXW)</td>
 			<td class="column5 style12 s">Q'ty</td>
 			<td class="column6 style13 s">Amount</td>
-			<td class="column7 style10 s">Unit Weight</td>
+			<td class="column7 style10 s">Weight</td>
 			<td class="column8 style10 s">Remark</td>
 			
 		  </tr>
