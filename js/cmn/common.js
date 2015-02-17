@@ -456,11 +456,10 @@
     				$("#resultDiv").html("sql error:" + qryInfo.sql5);
     				return false;
     			}else{
-		        	$("#resultDiv").append(qryInfo.result5 + ":" + qryInfo.sql5);
     				fncSndMail(qryInfo.sndmail_seq);
     				fncDisplayDiv(saveFormDiv, false);
 //    				$("#resultDiv").html("<b>The Packing is completed! We sent you packing information mail.</b><p>"); 
-    				$("#resultDiv").append(qryInfo.ctnt);
+//    				$("#resultDiv").append(qryInfo.ctnt);
     				$('#btnExcel').attr('disabled',false);
     				alert("success!\n운송사에는 Excel을 다운로드하여 별도로 송부하시기 바랍니다.");
     			}
