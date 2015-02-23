@@ -67,11 +67,13 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 			$sql = $sql . ", (SELECT dealer_nm FROM om_dealer";
 			$sql = $sql . "   WHERE dealer_uid='" .$_SESSION['ss_user']['uid']. "')";
+			$sql = $sql . ", (select concat(atcd_nm,' - ',(select cmpy_nm from om_dealer where dealer_uid='" .$_SESSION['ss_user']['uid']. "')) from cm_cd_attr where cd = '0071' and atcd = '" .$sndmail_atcd. "')";
 		}else{
 			$sql = $sql . ", (SELECT eng_nm FROM om_worker";
 			$sql = $sql . "   WHERE team_atcd='" .$_SESSION['ss_user']['team_atcd']. "' AND worker_uid='" .$_SESSION['ss_user']['uid']. "')";
+			$sql = $sql . ", (select concat(atcd_nm,' - ',(select cmpy_nm from om_dealer where dealer_seq=(select dealer_seq from om_ord_inf where pi_no = '" .$pi_no. "'))) from cm_cd_attr where cd = '0071' and atcd = '" .$sndmail_atcd. "')";
 		}
-		$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0071' and atcd = '" .$sndmail_atcd. "'), '', now(), '".$_SESSION['ss_user']['uid']."')";
+		$sql = $sql . ", '', now(), '".$_SESSION['ss_user']['uid']."')";
 	}else if($wrk_tp_atcd == "00700405"){	// 00700405
 		$sql = $sql . "VALUES ('" .$pi_no. "','" .$wrk_tp_atcd. "', '" .$sndmail_atcd. "', '" .$_SESSION['ss_user']['auth_grp_cd']. "'";
 		$sql = $sql . ", (SELECT w_email FROM om_worker";

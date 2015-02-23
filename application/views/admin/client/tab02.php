@@ -42,32 +42,32 @@
 		  </tr>
 		  <tr>
 			<td width="15%" class="style01">Name</td>
-			<td width="5%"><sup>★</sup></td>
+			<td width="5%" align=center>*</td>
 			<td width="30%"><input type="text" id="dealer_nm" name="dealer_nm" size=35 maxlength=50 style="border: 1;ime-mode:disabled"></td>
 			<td width="15%" class="style01">Job Title</td>
-			<td width="5%"><sup></sup></td>
+			<td width="5%"></td>
 			<td width="30%"><input type="text" id="job_tit" name="job_tit" size=35 maxlength=50 style="border: 1;ime-mode:disabled"></td>
 		  </tr>
 		  <tr>
 			<td class="style01">Company</td>
-			<td><sup>★</sup></td>
+			<td align=center>*</td>
 			<td><input type="text" id="cmpy_nm" name="cmpy_nm" size=35 maxlength=50 style="border: 1;ime-mode:disabled"></td>
 			<td colspan=3>&nbsp;</td>
 		  </tr>
 		  <tr>
 			<td class="style01">Telephone number</td>
-			<td><sup>★</sup></td>
+			<td align=center>*</td>
 			<td><input type="text" id="tel" name="tel" size=35 maxlength=50 style="border: 1;ime-mode:disabled"></td>
 			<td colspan=3>&nbsp;</td>
 		  </tr>
 		  <tr>
 			<td class="style01">Address</td>
-			<td><sup>★</sup></td>
+			<td align=center>*</td>
 			<td colspan=4><input type="text" id="addr" name="addr" size=100 maxlength=150 style="border: 1"></td>
 		  </tr>
 		  <tr>
 			<td class="style01">Shipping country</td>
-			<td><sup>★</sup></td>
+			<td align=center>*</td>
 			<td colspan=2>
 				<div class="form-group">
 			        <select id="cntry_atcd" name="cntry_atcd[]" multiple="multiple" class="form-control" style="width: 270px;">
@@ -79,7 +79,7 @@
 		  </tr>
 		  <tr>
 			<td class="style01">Email address</td>
-			<td><sup>★</sup></td>
+			<td align=center>*</td>
 			<td colspan=2><input type="text" id="usr_email" name="usr_email" size=30 maxlength=50 style="border: 1;ime-mode:disabled" onchange="$('#btnChkEail').attr('disabled',false);">
 			<input type="button" id="btnChkEail" value="Duplicate check" onclick="javascript:chkEmail();"/>
 			</td>
@@ -87,19 +87,19 @@
 		  </tr>
 		  <tr>
 			<td class="style01">Homepage</td>
-			<td><sup></sup></td>
+			<td></td>
 			<td colspan=2><input type="text" id="homepage" name="homepage" size=40 maxlength=150 style="border: 1"></td>
 			<td colspan=2>&nbsp;</td>
 		  </tr>
 		  <tr>
 			<td class="style01">Expierence in cash handling machine</td>
-			<td><sup></sup></td>
+			<td></td>
 			<td><input type="text" id="exper_years" name="exper_years" size=4 maxlength=4 style="border: 1;ime-mode:disabled" onKeyup="fncOnlyNumber(this);">years</td>
 			<td colspan=3>&nbsp;</td>
 		  </tr>
 		  <tr>
 			<td class="style01">Main customer</td>
-			<td><sup></sup></td>
+			<td></td>
 			<td class="column2 style14 s">
 				<select id="maincust_atcd" name="maincust_atcd" style="width: 120px;">
 				</select>
@@ -108,12 +108,12 @@
 		  </tr>
 		  <tr>
 			<td class="style01">Comments</td>
-			<td><sup></sup></td>
+			<td></td>
 			<td colspan=4><textarea cols="80" rows="5" id="comments" name="comments" maxlength=1000 placeholder="Please comment interesting model name."></textarea></td>
 		  </tr>
 		  <tr>
 			<td class="style01">Market information</td>
-			<td><sup></sup></td>
+			<td></td>
 			<td colspan=4>
 			<textarea cols="80" rows="5" id="mkt_inf" name="mkt_inf" maxlength=2000 placeholder="Please describe your market information.<?php echo chr(13) . chr(10);?>The number of banks and their branch, CIT, etc.<?php echo chr(13) . chr(10);?>Bank policiesThe names of popular models &amp; Price"></textarea>
 			</textarea></td>

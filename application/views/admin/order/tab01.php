@@ -667,6 +667,8 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		    $("#srl_fitness").multipleSelect("uncheckAll");
 			$('#srl_fitness').multipleSelect("disable");
 */			
+		}else{
+			$('#lcd_color_atcd').attr('disabled',true);
 		}
 		
     	var selOptHw =  [];
@@ -709,9 +711,11 @@ function setMdlCtrl(value){
 		$('#fitness').multipleSelect("disable");
 	    $("#srl_fitness").multipleSelect("uncheckAll");
 		$('#srl_fitness').multipleSelect("disable");
+		$('#lcd_color_atcd').attr('disabled',false);
 	}else{
 		$('#fitness').multipleSelect("enable");
 		$('#srl_fitness').multipleSelect("enable");
+		$('#lcd_color_atcd').attr('disabled',true);
 	}
 	
 	if(value == "3000"){

@@ -393,6 +393,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 			<td class="column10">&nbsp;</td>
 			<td class="column11">&nbsp;</td>
 		  </tr>
+		  <!-- 
 		  <tr class="row20">
 			<td class="column0 style26 null"></td>
 			<td class="column1 style27 null"></td>
@@ -571,7 +572,7 @@ body { left-margin: 0.35433070866142in; right-margin: 0.31496062992126in; top-ma
 			<td class="column9">&nbsp;</td>
 			<td class="column10">&nbsp;</td>
 			<td class="column11">&nbsp;</td>
-		  </tr>
+		  </tr>-->
 	</table>
 	
 </form>	
@@ -743,13 +744,13 @@ if(isset($_REQUEST["edit_mode"])){
 		for(var i=0; i < slipPrdList.length; i++){
 			var targetInfo = slipPrdList[i];
 			fn_addMdlListRow('mdl_list_div', targetInfo);
-			fn_addCertMdlListRow('cert_mdl_list', targetInfo);
+//			fn_addCertMdlListRow('cert_mdl_list', targetInfo);
 			tot_qty += eval(targetInfo.qty);
 			tot_dlv += eval(targetInfo.cnt_dlv);
 		}
 		
 		$("#tot_qty").html(tot_dlv);
-		$("#cartons").val(tot_dlv);
+//		$("#cartons").val(tot_dlv);
 
 	}
 
