@@ -370,7 +370,11 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan="6" class="style01">품질 출하일</td>
 		    <td colspan=12 align=center>@qual_ship_dt</td>
 		  </tr>
-
+		  <tr>
+			<td rowspan=8 colspan="3" class="style01">비고</td>
+			<td colspan=18 align=left>&nbsp;@note</td>
+		  </tr>
+		  
 		  </table>
 		  
 		<table border="0" cellpadding="0" cellspacing="0" id="sheet0" style="width: 210mm;" align=center>
