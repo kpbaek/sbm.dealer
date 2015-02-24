@@ -41,7 +41,7 @@ if($swp_no==""){
 	$qryInfo['qryInfo']['todo'] = "C";
 	$new_pi_no = $pi_no;
 	
-	if($swp_no=="" || $count==0)
+	if($pi_no=="" || $count==0)
 	{
 
 		$sql_pi = "SELECT CONCAT(substr(date_format(now(),'%Y'),3), MAX(max_pi_no), cntry_atcd) as new_pi_no";

@@ -76,15 +76,11 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 		<div id="formDiv" style="display:">
 	<form id="addForm" name="addForm" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 	<input type=hidden id="dealer_seq" name="dealer_seq">
-	<?php 
-	 if(isset($_REQUEST["edit_mode"])){
-	?> 
-	pi_no<input type=text id="pi_no" name="pi_no" size=8 maxlength=8 disabled>
+	pi_no<select id="pi_no" name="pi_no" style="width: 100px;" onchange="javascript:setOrderInfo(this.value);">
+	</select>
+	<!-- pi_no<input type=text id="pi_no" name="pi_no" size=8 maxlength=8>  -->
 	swp_no<input type=text id="swp_no" name="swp_no" size=8 disabled>
-	<?php 
-	}
-	?> 
-	Destination Country
+	Dest Country
 					<select id="cntry_atcd" name="cntry_atcd" style="width: 240px;">
 					</select>
 					
@@ -112,7 +108,12 @@ function qty_value(value) {
 	qty = (isNaN(Number(value.val())) || value.val()==="") ? '' : Number(value.val());
 	return qty;
 }
-	
+
+var partListParam = {
+	"pi_no": "",
+	"swp_no": ""
+};  
+
 $(document).ready(function(e) {	
 
 	$('#btnSubmit').attr('disabled',true);
@@ -146,6 +147,8 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 				"pi_no": "<?php echo $_REQUEST["pi_no"];?>",
 				"swp_no": "<?php echo $_REQUEST["po_no"];?>"
 		};  
+		partListParam = params;
+		
 		$.ajax({
 			type: "POST",
 			url: "/index.php/admin/order/viewPartOrder",
@@ -158,7 +161,10 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 				var partOrdInfo = result.partOrdInfo; 
 				var f_add = document.addForm;
 				$('#dealer_seq').val(partOrdInfo.dealer_seq);
-				$('#pi_no').val(partOrdInfo.pi_no);
+				getOrderPiCombo(partOrdInfo.dealer_seq, f_add.pi_no, partOrdInfo.pi_no);
+				$('#pi_no').attr('disabled',true);
+				
+//				$('#pi_no').val(partOrdInfo.pi_no);
 				$('#swp_no').val(partOrdInfo.swp_no);
 				getOrderCntryCombo(partOrdInfo.pi_no, f_add.cntry_atcd, partOrdInfo.cntry_atcd);
 //				getDealerCntryCombo(partOrdInfo.dealer_seq, f_add.cntry_atcd, partOrdInfo.cntry_atcd);
@@ -174,8 +180,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 <?php 
 }
 ?>
-	
-	
+	initForm();
 });
 
 
@@ -307,7 +312,8 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 			],
 			
 			mtype: "POST",
-			postData:{pi_no:$('#pi_no').val(),swp_no:$('#swp_no').val()},
+//			postData:{pi_no:$('#pi_no').val(),swp_no:$('#swp_no').val()},
+			postData:{pi_no:partListParam.pi_no,swp_no:partListParam.swp_no},
 	        gridComplete: function(){
 //	        	$("#postdata").append(".....sub");
 	        	setFooterList_d();
@@ -344,7 +350,6 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 			caption:"Parts Order Confirmation"
 		})//.navGrid('#pager_d',{add:false,edit:false,del:false,search:false});    		
 		
-		initForm();
 	})
 	
     function printPostData(){
@@ -359,11 +364,12 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 	function initForm() {
 		var f = document.searchForm;
 		getModelCombo("", f.sch_mdl_cd);
-
+		
+		var f_add = document.addForm;
 		<?php
 		if(isset($_REQUEST["edit_mode"])==false){
 		?> 
-		var f_add = document.addForm;
+		getUserPiCombo(f_add.pi_no, "");
 		getCntryCombo(f_add.cntry_atcd);
 		<?php 
 		}
@@ -371,7 +377,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
     }
 	
 	function initPartList() {
-
+	
 		var params = {
 			"pi_no": $("#pi_no").val(),
 			"swp_no": $("#swp_no").val()
@@ -398,12 +404,19 @@ if(isset($_REQUEST["edit_mode"])){
 //		printPostData();
 	}
 
-    function test_detail(list, id) {
-        var chk_data = jQuery(list).jqGrid('getRowData',id);
-        var targetUrl = '/index.php/admin/product/viewPart?id=' + chk_data.id;
-        $.post(targetUrl, function(data, status){
-            alert("data:" + data + "\nStatus: " + status);
-	    });
+    function setDealerCntryCombo(value){
+    	var f = document.addForm;
+    	if(value == ""){
+    		getCntryCombo(f.cntry_atcd);
+    		$('#cntry_atcd').attr('disabled',false);
+    	}else{
+    		getOrderCntryCombo(value, f.cntry_atcd, value.substr(6));
+    		$('#cntry_atcd').attr('disabled',true);
+    	}
+    }
+
+    function setOrderInfo(pi_no){
+    	setDealerCntryCombo(pi_no);
     }
     
     function view_detail(list, params) {
@@ -715,8 +728,8 @@ if(isset($_REQUEST["edit_mode"])){
 //        	alert(params.mdl_cd[i] + "::" + params.part_ver[i] + "::" + params.part_cd[i] + "::" + params.qty[i] + "::" + params.unit_prd_cost[i]);
 		}
 //        $.ajaxSettings.traditional = true;
-        
-        fn_crtPartOrder(params);
+
+		fn_crtPartOrder(params);
     }
 
     function fn_crtPartOrder(params){

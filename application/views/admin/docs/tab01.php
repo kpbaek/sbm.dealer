@@ -419,6 +419,10 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 			<td colspan="5" class="style01">품질 출하일</td>
 		    <td colspan=13>&nbsp;<input type="text" id="qual_ship_dt" name="qual_ship_dt" value="<?php echo date("Y-m-d")?>" size="10" maxlength="10"/></td>
 		  </tr>
+		  <tr>
+			<td rowspan=8 colspan="3" class="style01">비고</td>
+			<td colspan=18 align=center>&nbsp;<textarea id="note" name="note" rows=3 cols=70 onkeyup="javascript:fnc_chk_byte(this,200);"></textarea></td>
+		  </tr>
 		  <!-- 
 		  <tr>
 			<td align=center colspan="10" rowspan="8" width="55%" class="style04"></td>
@@ -628,6 +632,7 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 		$("#swm_no").val(prdReqInfo.swm_no);
 		$("#udt_dt_div").html(prdReqInfo.txt_udt_dt);
 		$('#extra').val(prdReqInfo.extra);
+		$('#note').val(prdReqInfo.note);
 		$('#qual_ship_dt').val(prdReqInfo.txt_qual_ship_dt);
 
 			

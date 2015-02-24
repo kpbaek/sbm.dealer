@@ -37,6 +37,7 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 		$prdReq['prdReqInfo']['swm_no'] = $row['swm_no'];
 		$prdReq['prdReqInfo']['txt_swm_no'] = $row['txt_swm_no'];
 		$prdReq['prdReqInfo']['extra'] = $row['extra'];
+		$prdReq['prdReqInfo']['note'] = $row['note'];
 		$prdReq['prdReqInfo']['manual_lang_atcd'] = $row['manual_lang_atcd'];
 		$prdReq['prdReqInfo']['txt_manual_lang_atcd'] = $row['txt_manual_lang_atcd'];
 		$prdReq['prdReqInfo']['detector_uv'] = $row['detector_uv'];
@@ -210,6 +211,7 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 		$ctnt = str_replace("@srl_prn_cab", $prdReq['prdReqInfo']["srl_prn_cab"], $ctnt);
 		$ctnt = str_replace("@calibr_sheet", $prdReq['prdReqInfo']["calibr_sheet"], $ctnt);
 		$ctnt = str_replace("@pc_cab", $prdReq['prdReqInfo']["pc_cab"], $ctnt);
+		$ctnt = str_replace("@note", str_replace("\n","<br>",htmlspecialchars($prdReq['prdReqInfo']["note"])), $ctnt);
 
 		$currency_atch = "";
 		$fitness = "";

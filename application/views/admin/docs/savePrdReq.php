@@ -18,6 +18,11 @@ if(isset($_POST["extra"])){
 	$extra = trim($_POST["extra"]);
 }
 
+$note = "";
+if(isset($_POST["note"])){
+	$note = trim($_POST["note"]);
+}
+
 $manual_lang_atcd = "";
 if(isset($_POST["manual_lang_atcd"])){
 	$manual_lang_atcd = trim($_POST["manual_lang_atcd"]);
@@ -138,6 +143,7 @@ if($swm_no!=""){
 		$sql_req = $sql_req . " SET qual_ship_dt = '" .$qual_ship_dt. "'";
 		$sql_req = $sql_req . ", manual_lang_atcd = '" .$manual_lang_atcd. "'";
 		$sql_req = $sql_req . ", extra = '" .$extra. "'";
+		$sql_req = $sql_req . ", note = '" .$note. "'";
 		$sql_req = $sql_req . ", udt_uid = '" .$_SESSION['ss_user']['uid']. "'";
 		$sql_req = $sql_req . " WHERE swm_no =" .$swm_no;
 		
@@ -254,8 +260,8 @@ if($swm_no!=""){
 	$qryInfo['qryInfo']['todo'] = "C";
 	
 	$sql_req = "INSERT INTO om_prd_req";
-	$sql_req = $sql_req . " (pi_no, po_no, qual_ship_dt, manual_lang_atcd, extra, crt_dt, crt_uid) ";
-	$sql_req = $sql_req . " VALUES ('" .$pi_no. "', " .$po_no. ", '" .$qual_ship_dt. "', '" .$manual_lang_atcd. "', '" .$extra. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+	$sql_req = $sql_req . " (pi_no, po_no, qual_ship_dt, manual_lang_atcd, extra, note, crt_dt, crt_uid) ";
+	$sql_req = $sql_req . " VALUES ('" .$pi_no. "', " .$po_no. ", '" .$qual_ship_dt. "', '" .$manual_lang_atcd. "', '" .$extra. "', '" .$note. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #	echo $sql_req;
 	
 	$result=$this->db->query($sql_req);
