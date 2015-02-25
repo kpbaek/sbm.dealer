@@ -548,10 +548,13 @@ function readInvoice($pi_no){
 	$sql_eqp_opt = $sql_eqp_opt . "       WHERE a.pi_no = b.pi_no";
 	$sql_eqp_opt = $sql_eqp_opt . "       AND a.po_no = b.po_no";
 	$sql_eqp_opt = $sql_eqp_opt . "       AND a.pi_no = '" .$pi_no. "'";
-	$sql_eqp_opt = $sql_eqp_opt . "       AND b.atcd in ('00A00002','00A00003','00A00004')) a, om_ord_inf b";
+	$sql_eqp_opt = $sql_eqp_opt . "       AND b.atcd in ('00A00002','00A00003','00A00004','00A00007')) a, om_ord_inf b";
 	$sql_eqp_opt = $sql_eqp_opt . " WHERE a.pi_no = b.pi_no";
 	$sql_eqp_opt = $sql_eqp_opt . " ORDER BY po_no, atcd	";
+	
+	log_message('debug', "eqpHwOptList:" . ":" .$sql_eqp_opt);
 	$result2 = mysql_query( $sql_eqp_opt ) or die("Couldn t execute query.".mysql_error());
+	
 	$i=0;
 	while($row = mysql_fetch_array($result2,MYSQL_ASSOC)) {
 		$invoice['eqpHwOptList'][$i]['opt_mdl_nm'] = $row['opt_mdl_nm'];

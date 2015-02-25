@@ -91,7 +91,7 @@ if(isSet($_POST['pi_no'])){
 	$sql = "SELECT (select atcd_nm from cm_cd_attr where cd = '0070' and atcd = a.wrk_tp_atcd) txt_wrk_tp_atcd FROM om_ord_inf";
 	$sql = $sql . " WHERE pi_no ='" .$pi_no. "'";
 	$sql = $sql . " AND wrk_tp_atcd > '00700210'";
-	#echo $sql;
+	log_message('debug', "sql:" . ":" .$sql);
 	
 	$result=mysql_query($sql);
 	
@@ -109,11 +109,13 @@ if(isSet($_POST['pi_no'])){
 		for($i_amt=0; $i_amt < sizeof($amt); $i_amt++)
 		{
 			$sql_eqp = "UPDATE om_ord_eqp";
-			$sql_eqp = $sql_eqp . " SET amt=" .$amt[$i_amt];
-			$sql_eqp = $sql_eqp . " , udt_uid='" .$_SESSION['ss_user']['uid']. "'";
+			$sql_eqp = $sql_eqp . " SET udt_uid='" .$_SESSION['ss_user']['uid']. "'";
+			if(trim($amt[$i_amt])!=""){
+				$sql_eqp = $sql_eqp . ", amt=" .$amt[$i_amt];
+			}
 			$sql_eqp = $sql_eqp . " WHERE pi_no = '" .$pi_no. "'";
 			$sql_eqp = $sql_eqp . " AND po_no = " .$po_no[$i_amt];
-			#echo $sql_eqp;
+			log_message('debug', "sql_eqp:" . ":" .$sql_eqp);
 			
 			$result2 = $this->db->query($sql_eqp);
 			$qryInfo['qryInfo']['udtEqp'][$i_amt]['sql2'] = $sql_eqp;
@@ -131,7 +133,7 @@ if(isSet($_POST['pi_no'])){
 			$sql_eqp_dtl = $sql_eqp_dtl . " AND po_no = " .$opt_po_no[$i_opt_qty];
 			$sql_eqp_dtl = $sql_eqp_dtl . " AND cd = '00A0'";
 			$sql_eqp_dtl = $sql_eqp_dtl . " AND atcd = '" .$opt_atcd[$i_opt_qty]. "'";
-			#echo $sql_eqp;
+			log_message('debug', "sql_eqp_dtl:" . ":" .$sql_eqp_dtl);
 				
 			$result2 = $this->db->query($sql_eqp_dtl);
 			$qryInfo['qryInfo']['udtEqpDtl'][$i_opt_qty]['sql2'] = $sql_eqp_dtl;
@@ -152,7 +154,8 @@ if(isSet($_POST['pi_no'])){
 		$sql_ord = $sql_ord . " SET tot_amt=(select sum(amt) from om_ord_eqp where pi_no = a.pi_no)";
 		$sql_ord = $sql_ord . " , udt_uid='" .$_SESSION['ss_user']['uid']. "'";
 		$sql_ord = $sql_ord . " WHERE pi_no = '" .$pi_no. "'";
-		#echo $sql_ord;
+		log_message('debug', "sql_ord:" . ":" .$sql_ord);
+
 		$result3 = $this->db->query($sql_ord);
 		$qryInfo['qryInfo']['sql3'] = $sql_ord;
 		$qryInfo['qryInfo']['result3'] = $result3;
@@ -191,7 +194,7 @@ if(isSet($_POST['pi_no'])){
 		}
 		$sql_inv = $sql_inv . ", pi_rmk='" .$pi_rmk. "'";
 		$sql_inv = $sql_inv . " WHERE pi_no = '" .$pi_no. "'";
-		#echo $sql_inv;
+		log_message('debug', "sql_inv:" . ":" .$sql_inv);
 		$result4 = $this->db->query($sql_inv);
 		$qryInfo['qryInfo']['sql4'] = $sql_inv;
 		$qryInfo['qryInfo']['result4'] = $result4;
