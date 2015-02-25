@@ -1,10 +1,11 @@
+USE test;
 
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100010','딜러',null,'Y','Y',null,'2014-08-07 15:44:34','2014-08-12 17:37:53',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100020','담당자',null,'Y','Y',null,'2014-08-07 00:00:00','2014-09-03 10:21:02',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100030','팀관리자',null,'Y','Y',null,'2014-08-07 15:46:39','2014-08-12 17:38:01',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100040','팀메일',null,'Y','Y',null,'2014-08-07 15:48:28','2014-08-12 17:38:04',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100050','총괄관리자',null,'Y','Y',null,'2014-08-07 15:50:25','2014-08-12 17:38:08',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100060','Forward',null,'Y','Y',null,'2014-08-07 15:54:32','2015-01-16 11:37:25',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0010','00100060','Forwarder',null,'Y','Y',null,'2014-08-07 15:54:32','2015-01-16 17:35:19',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0020','00200209','Tibet',null,'N','N',209,'2014-08-14 17:00:27','2014-08-14 17:00:27',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0021','00200209','Tibet',null,'N','N',209,'2014-08-14 15:53:59','2014-08-14 15:53:59',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0021','ad','Andorra',null,'Y','Y',5,'2014-08-14 15:53:59','2014-08-14 15:53:59',null);
@@ -869,10 +870,11 @@ insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('0092','ZWL','ZWL',null,'Y','Y',163,'2014-08-06 10:40:39','2014-08-12 09:51:43',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00A0','00A00001','LAN',null,'N','Y',1,'2014-08-04 10:29:24','2014-12-11 16:54:40',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00A0','00A00002','SV-200',null,'Y','Y',2,'2014-08-04 00:00:00','2014-08-05 11:14:06',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00A0','00A00003','Printer','SP-58S','Y','Y',3,'2014-08-04 10:30:32','2014-08-05 09:19:48',null);
-insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00A0','00A00004','SDP-7',null,'Y','Y',4,'2014-08-04 10:31:21','2014-08-04 17:55:20',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00A0','00A00003','SP-58S','Printer','Y','Y',4,'2014-08-04 10:30:32','2015-02-24 17:43:46',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00A0','00A00004','SDP-7',null,'Y','Y',3,'2014-08-04 10:31:21','2015-02-24 17:43:42',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00A0','00A00005','MDD',null,'N','Y',null,'2014-08-05 11:18:59','2014-08-05 11:21:54',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00A0','00A00006','Parallel Board',null,'N','Y',null,'2014-08-05 11:20:02','2014-08-05 11:22:02',null);
+insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00A0','00A00007','SP-58P','Printer','Y','Y',4,'2015-02-24 00:00:00','2015-02-24 17:43:50',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00B0','00B00001','P-OCR',null,'Y','Y',1,'2014-08-06 09:31:48','2014-08-06 11:11:44',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00B0','00B00002','S-OCR',null,'Y','Y',2,'2014-08-06 09:32:07','2014-08-06 11:11:46',null);
 insert into `cm_cd_attr`(`cd`,`atcd`,`atcd_nm`,`atcd_dscrt`,`disp_yn`,`use_yn`,`ord_num`,`crt_dt`,`udt_dt`,`upt_uid`) values ('00B0','00B00003','SRL',null,'Y','Y',3,'2014-08-06 09:32:20','2014-08-06 11:11:48',null);
