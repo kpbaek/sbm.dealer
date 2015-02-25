@@ -19,6 +19,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 	<tr>
 		<td colspan=10 align=right>
 		<input type="button" id="btnReSend" name="btnMail" value="resend" onclick="javascript:fn_fwd();"/>
+		<input type="button" id="btnPrint name="btnPrint" value="Print" onclick="javascript:fn_print();"/>
 		</td>
 	</tr>
 	<tr id="fwdDiv" style="display:none">
@@ -169,7 +170,19 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			}
 		}
 	}
-	
+
+	function fn_print() {
+		var initBody = document.body.innerHTML;
+		reSndDiv.style.display = "none";
+		window.onbeforeprint = function() {
+			document.body.innerHTML = document.getElementById('sndMailDiv').innerHTML;
+		}
+		window.onafterprint = function() {
+			document.body.innerHTML = initBody;
+		}
+		window.print();
+	}
+		
 </script>
 		
 	

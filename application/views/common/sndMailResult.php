@@ -78,15 +78,10 @@ try {
 	    }
 	    if($atcd=="local"){
 		    $mail->AddAddress(SBM_LOCAL_EMAIL, $row['rcpnt_nm']); // 받을 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-#		    echo "mytest";
 	    }else{
 	    	if(SBM_DOMAIN=="http://www.sbmkorea.biz"){
-		    	if($row['rcpnt_tp_atcd']=="00100010"){  // if the target is dealer -> do not send yet.
-		    		$mail->AddAddress(SBM_PUB_EMAIL);
-		    	}else{
-		    		$mail->AddAddress($row['email_to'], $row['rcpnt_nm']); 
-		    	}
-	    	}else if(SBM_DOMAIN=="http://www.sbmkorea.url.ph"){
+		    	$mail->AddAddress($row['email_to'], $row['rcpnt_nm']); 
+	    	}else if(SBM_DOMAIN=="http://www.sbmkorea.info"){
 	    		$mail->AddAddress(SBM_PUB_EMAIL);
 	    	}
 	    }
@@ -95,7 +90,7 @@ try {
 	    
 		if($row['rcpnt_tp_atcd']=="00100010"){  // if dealer
 	    	if($row['wrk_tp_atcd']=="00700110" || $row['wrk_tp_atcd']=="00700410" || $row['wrk_tp_atcd']=="00700610"){  // if 주문서, CI, Packing
-	    		$mail->AddAddress(SBM_SALES_EMAIL);
+	    		$mail->addBCC(SBM_SALES_EMAIL);
 	    	}
 	    	if($row['wrk_tp_atcd']=="00700210"){  // if PI
 	    		$filename = "PI-" .$row['pi_no']. "-" .$row['sndmail_seq']. ".xls";
@@ -110,7 +105,7 @@ try {
 		    $mail->AddAttachment($_SERVER["DOCUMENT_ROOT"]."/images/common/sbm_footer.jpg"); // attachment
 	    }
 	    
-#	    if($row['rcpnt_tp_atcd']=="00100010"){  // test - not dealer
+#	    if($row['rcpnt_tp_atcd']=="00100010"){  // test - if the target is dealer -> do not send yet.
 		    $mail->Send();
 #	    }
 	
@@ -118,9 +113,8 @@ try {
 		$sql = $sql . " SET snd_yn = 'Y'";
 		$sql = $sql . " WHERE sndmail_seq = " .$sndmail_seq;
 		$sql = $sql . " and snd_no = " .$row['snd_no'];
-#		echo $sql;
-#		$result = mysql_query($sql);
- 	    $result = $this->db->query($sql);
+
+		$result = $this->db->query($sql);
 		$qryInfo['qryInfo'][$i]['sql'] = $sql;
 		$qryInfo['qryInfo'][$i]['result'] = $result;
 	    
