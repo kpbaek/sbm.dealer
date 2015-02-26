@@ -135,7 +135,11 @@ if(isSet($_POST['usr_email'])){
 	{
 		$sql_user = "INSERT INTO om_user";
 		$sql_user = $sql_user . "(uid, pswd, auth_grp_cd, usr_nm, usr_email, gender_atcd, nation_atcd, join_dt, active_yn, crt_dt, crt_uid)";
-		$sql_user = $sql_user . "VALUES ('" .$usr_email. "', 'dealer123', 'UD', '" .$dealer_nm. "', '" .$usr_email. "', '" .$gender_atcd. "', '" .$nation_atcd. "', now(), 'Y', now(), '" .$usr_email. "')";
+		$pswd = "'dealer!'";
+		if(SBM_DOMAIN=="http://www.sbmkorea.biz"){
+			$pswd = "concat(substring(MD5(RAND()), -6),'d1')";
+		}
+		$sql_user = $sql_user . "VALUES ('" .$usr_email. "', " .$pswd. ", 'UD', '" .$dealer_nm. "', '" .$usr_email. "', '" .$gender_atcd. "', '" .$nation_atcd. "', now(), 'Y', now(), '" .$usr_email. "')";
 #		echo $sql_user;
 		$result = $this->db->query($sql_user);
 		$qryInfo['qryInfo']['sql'] = $sql_user;
