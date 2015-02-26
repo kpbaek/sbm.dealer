@@ -51,45 +51,53 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 
 <div id="orderDiv">
 	<div id="searchDiv" style="display:;text-align:right">
-	<form name="searchForm">
-	<input type="text" name="page" style="display: none">
-	model<select name="sch_mdl_cd" onchange="javascript:gridReload();"></select>
-	code<input type="text" name="sch_part_cd">
-	part name<input type="text" name="sch_part_nm">
-	<input type="button" id="btnSearch" value="Search" onclick="javascript:gridReload();"/>
-	</form>
+		<form name="searchForm">
+		<input type="text" name="page" style="display: none">
+		model<select name="sch_mdl_cd" onchange="javascript:gridReload();"></select>
+		code<input type="text" name="sch_part_cd">
+		part name<input type="text" name="sch_part_nm">
+		<input type="button" id="btnSearch" value="Search" onclick="javascript:gridReload();"/>
+		</form>
 	</div>
 	<div id="gridDiv">
-	<table id="list"></table>
-	<div id="pager"></div>
+		<table id="list"></table>
+		<div id="pager"></div>
 	</div>
-	
-	<table id="list_d">
-	<br>
-	</table>
+<br>
+	<div id="searchDtlDiv" style="display:;text-align:right">
+		<form name="searchDtlForm">
+		<input type="button" id="btnDelete" value="Delete"/>
+		</form>
+	</div>
+	<table id="list_d"></table>
 	<div id="pager_d"></div>
 	
-	<table border="0" cellpadding="0" cellspacing="0" style="width:950px;align:center; vertical-align:middle">
-	<tr>
-	    <td align=right>
-	    
-		<div id="formDiv" style="display:">
+	<div id="formDiv" style="display:">
 	<form id="addForm" name="addForm" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 	<input type=hidden id="dealer_seq" name="dealer_seq">
-	pi_no<select id="pi_no" name="pi_no" style="width: 100px;" onchange="javascript:setOrderInfo(this.value);">
-	</select>
-	<!-- pi_no<input type=text id="pi_no" name="pi_no" size=8 maxlength=8>  -->
-	swp_no<input type=text id="swp_no" name="swp_no" size=8 disabled>
-	Dest Country
-					<select id="cntry_atcd" name="cntry_atcd" style="width: 240px;">
-					</select>
-					
-	<input type="button" id="btnSubmit" value="submit" onclick="javascript:fn_order();"/>
-	</form>
+	<table border="0" cellpadding="0" cellspacing="0" style="width:950px;align:center; vertical-align:middle">
+	<tr>
+	    <td width=30%>
+	    </td>
+	    <td align=right width=150px>
+		<div id="swp_no_div" style="display:none">
+		swp_no<input type=text id="swp_no" name="swp_no" size=8 disabled>
 		</div>
+	    </td>
+	    <td align=right>
+		pi_no<select id="pi_no" name="pi_no" style="width: 100px;" onchange="javascript:setOrderInfo(this.value);">
+		</select>
+	    </td>
+	    <td align=right width=350px>
+		Dest Country
+		<select id="cntry_atcd" name="cntry_atcd" style="width: 180px;">
+		</select>
+		<input type="button" id="btnSubmit" value="submit" onclick="javascript:fn_order();"/>
 	    </td>
 	</tr>
 	</table>
+	</form>
+	</div>
 </div>
 <p>
 <div id="resultDiv" style="display:;text-align:center">&nbsp;</div>
@@ -304,7 +312,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		   		{name:'part_nm',index:'part_nm', width:140,search:true, sortable:false},
 		   		{name:'pt_img',index:'', width:50, align:"right",search:true},		
 		   		{name:'price',index:'price', width:50, sortable:false,search:true,formatter:'currency', formatoptions:{prefix:"$"}},		
-		   		{name:'qty',index:'qty', width:50, align:"right", sortable:false,search:true,hidden:false,editable:true,editrules:{number:true,minValue:0}},		
+		   		{name:'qty',index:'qty', width:50, align:"right", sortable:false,search:true,hidden:false,editable:true, edittype:'text', editoptions:{size:6}, editrules:{required:true,number:true,minValue:1}},		
 		   		{name:'c_qty',index:'qty', width:50, sortable:false,search:true,hidden:true},		
 		   		{name:'amount',index:'amount', width:50, align:"right", sortable:false,search:true,formatter:'currency', formatoptions:{prefix:"$"}},		
 		   		{name:'weight',index:'weight', width:50, align:"right", sortable:false,search:true},		
@@ -318,16 +326,14 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 //	        	$("#postdata").append(".....sub");
 	        	setFooterList_d();
 	            var ids = jQuery("#list_d").jqGrid('getDataIDs');
-//		        alert(ids.length);
 	            for(var i=0;i < ids.length;i++){
                     var rowId = ids[i];
-                    var rowData = jQuery("#list").jqGrid('getRowData',rowId);
-                    //be = "<img src='/images/ci_logo.jpg' height='20'>";
+                    var rowData = jQuery("#list_d").jqGrid('getRowData',rowId);
                     c_qty = "<input type=text size=6 height='20' name='c_qty' value='" + rowData.qty + "' onChange='javascript:calcAmt(" + rowId + ", this.value);'>";
                     be = "<img src='/images/part/image"  + rowData.srl_no +  ".png' height='20'>";
                     jQuery("#list_d").jqGrid('setRowData',rowId,{c_qty:c_qty, pt_img:be});
                 }
-	            jQuery("#list_d").jqGrid('editRow','qty',true);
+//	            jQuery("#list_d").jqGrid('editRow','qty',true);
 			},	            
 	        
 			rowNum:1000,
@@ -347,8 +353,16 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		   	pgtext: false,
 		   	pginput:false,	
 			multiselect: true,
+			cellEdit: true,
+			cellsubmit: 'clientArray',
+			afterSaveCell : function (id,name,val,iRow,iCol){
+				if(name=='qty') {
+					setFooterList_d();
+				}
+			},
 			caption:"Parts Order Confirmation"
 		})//.navGrid('#pager_d',{add:false,edit:false,del:false,search:false});    		
+		$("#t_list_d").append(searchDtlDiv);
 		
 	})
 	
@@ -371,6 +385,10 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		?> 
 		getUserPiCombo(f_add.pi_no, "");
 		getCntryCombo(f_add.cntry_atcd);
+		<?php 
+		}else{
+		?>
+		swp_no_div.style.display = "";
 		<?php 
 		}
 		?>
@@ -435,6 +453,17 @@ if(isset($_REQUEST["edit_mode"])){
             });
 	    });
     }
+
+    $("#btnDelete").click(function(){
+        var ids = $("#list_d").jqGrid('getGridParam', 'selarrrow');
+    	if( !ids.length ){
+        	alert("Please Select Row to delete!");
+    	}else{
+            for(var i=ids.length-1; i >= 0; i--){
+            	jQuery("#list_d").jqGrid('delRowData',ids[0]);
+    		}
+		}
+	});
     
     function ajax_detail(list, id) {
         var chk_data = jQuery(list).jqGrid('getRowData',id);
