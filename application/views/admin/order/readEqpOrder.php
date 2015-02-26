@@ -155,7 +155,8 @@ function getEqpOrderMailCtnt($ctnt, $eqpOrder){
 #	$ctnt = str_replace("@order_dt", $row['order_dt'], $ctnt);
 	
 	if($eqpOrder['eqpOrdInfo']['mdl_cd'] == "2000" || $eqpOrder['eqpOrdInfo']['mdl_cd'] == "3000" || $eqpOrder['eqpOrdInfo']['mdl_cd'] == "5000"){
-		$ctnt = str_replace("@fitnessDiv", "", $ctnt);
+//		$ctnt = str_replace("@fitnessDiv", "", $ctnt);
+		$ctnt = str_replace("@fitnessDiv", "none", $ctnt); // do not show to dealer
 	}else{
 		$ctnt = str_replace("@fitnessDiv", "none", $ctnt);
 	}
