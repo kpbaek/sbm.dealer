@@ -17,7 +17,9 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 //	$sql = $sql . ",(select pi_sndmail_seq from om_invoice where a.pi_no = '" .$pi_no. "') pi_sndmail_seq";
 	$sql = $sql . ", DATE_FORMAT(a.qual_ship_dt, '%Y-%m-%d') txt_qual_ship_dt";
 	$sql = $sql . ", DATE_FORMAT(a.udt_dt, '%Y-%m-%d') txt_udt_dt";
-	$sql = $sql . ", if(a.sndmail_seq is null, a.swm_no, concat(a.swm_no, concat('-',a.sndmail_seq))) txt_swm_no";
+//	$sql = $sql . ", if(a.sndmail_seq is null, a.swm_no, concat(a.swm_no, concat('-',a.sndmail_seq))) txt_swm_no";
+//	$sql = $sql . ", if(a.sndmail_seq is null, DATE_FORMAT(a.cnfm_dt, '%y%m-%d'), concat(DATE_FORMAT(a.cnfm_dt, '%y%m-%d'), concat('-',a.sndmail_seq))) txt_swm_no";
+	$sql = $sql . ", DATE_FORMAT(a.cnfm_dt, '%y%m-%d') txt_swm_no";
 #	$sql = $sql . ", a.swm_no txt_swm_no";
 	$sql = $sql . " FROM";
 	$sql = $sql . " (";
@@ -196,8 +198,8 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 	$ctnt = str_replace("@opt_hw_tr", $opt_hw_tr, $ctnt);
 	
 	if($prdReq!=null){
-//		$ctnt = str_replace("@txt_swm_no", $prdReq['prdReqInfo']["txt_swm_no"], $ctnt);
-		$ctnt = str_replace("@swm_no", $prdReq['prdReqInfo']["swm_no"], $ctnt);
+		$ctnt = str_replace("@txt_swm_no", $prdReq['prdReqInfo']["txt_swm_no"], $ctnt);
+//		$ctnt = str_replace("@swm_no", $prdReq['prdReqInfo']["swm_no"], $ctnt);
 		
 		$ctnt = str_replace("@txt_udt_dt", $prdReq['prdReqInfo']["txt_udt_dt"], $ctnt);
 		$ctnt = str_replace("@extra", str_replace("\n","<br>",$prdReq['prdReqInfo']["extra"]), $ctnt);
