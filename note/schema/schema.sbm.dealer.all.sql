@@ -429,6 +429,18 @@ CREATE TABLE `om_packing` (
   CONSTRAINT `om_packing_ibfk_2` FOREIGN KEY (`sndmail_seq`) REFERENCES `om_sndmail` (`sndmail_seq`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Packing List';
 
+CREATE TABLE `om_prd_slip` (
+  `swm_no` int(11) NOT NULL COMMENT 'SWM번호',
+  `sndmail_seq` int(11) NOT NULL COMMENT '발송메일순번',
+  `cnt` int(11) NOT NULL COMMENT '수량',
+  `rmk` varchar(200) DEFAULT NULL COMMENT '비고',
+  `crt_dt` datetime NOT NULL COMMENT '생성일시',
+  `crt_uid` varchar(50) NOT NULL COMMENT '생성자ID',
+  PRIMARY KEY (`swm_no`,`sndmail_seq`),
+  KEY `om_prd_slip_ibfk_2` (`sndmail_seq`),
+  CONSTRAINT `om_prd_slip_ibfk_1` FOREIGN KEY (`swm_no`) REFERENCES `om_prd_req` (`swm_no`),
+  CONSTRAINT `om_prd_slip_ibfk_2` FOREIGN KEY (`sndmail_seq`) REFERENCES `om_sndmail` (`sndmail_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='출고전표';
 
 
 CREATE OR REPLACE VIEW v_cm_cd_attr
