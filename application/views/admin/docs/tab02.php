@@ -650,7 +650,8 @@ if(isset($_REQUEST["edit_mode"])){
 		var cnt_rest = document.createElement("input");
 		cnt_rest.id = "cnt_rest";
 		cnt_rest.name = "cnt_rest[]";
-		cnt_rest.value = slipPrdInfo.cnt_rest;
+//		cnt_rest.value = slipPrdInfo.cnt_rest;
+		cnt_rest.value = (slipPrdInfo.cnt_rest - slipPrdInfo.cnt_dlv);
 		cnt_rest.size=4;
 		cnt_rest.maxLength = 4;
 		cnt_rest.readOnly = true;
@@ -662,7 +663,15 @@ if(isset($_REQUEST["edit_mode"])){
 		cnt_dlv.size=4;
 //		cnt_dlv.style.imeMode = "disabled";
 		cnt_dlv.maxLength = 4;
-		cnt_dlv.onkeyup = function(){fncOnlyNumber(cnt_dlv);cnt_rest.value = (slipPrdInfo.qty - cnt_dlv.value);};
+//		cnt_dlv.onkeyup = function(){fncOnlyNumber(cnt_dlv);cnt_rest.value = (slipPrdInfo.qty - cnt_dlv.value);};
+		cnt_dlv.onkeyup = function(){
+			fncOnlyNumber(cnt_dlv);
+			if((slipPrdInfo.cnt_rest - cnt_dlv.value) < 0){
+				alert("출고수량이 잔량을 초과합니다");
+				this.value="";
+			}
+			cnt_rest.value = (slipPrdInfo.cnt_rest - cnt_dlv.value);
+		};
 		
 	    td_4.appendChild(cnt_dlv);
 //	    td_4.appendChild(document.createTextNode("/" + slipPrdInfo.qty));
@@ -679,6 +688,8 @@ if(isset($_REQUEST["edit_mode"])){
 		td_6.setAttribute('class','style10 null');
 
 		td_7.appendChild(cnt_rest);
+	    td_7.appendChild(document.createTextNode("/" + slipPrdInfo.cnt_rest));
+		
 		td_7.setAttribute('class','style10 null');
 			
 		var note = document.createElement("textarea");
@@ -767,14 +778,32 @@ if(isset($_REQUEST["edit_mode"])){
 	}
 
 	function fn_sendMail(){
+/**
 		if($("#rest_yn").val()=="Y"){
 			alert("ci의 생산의뢰서 전량이 출고되어야 합니다.");
 			$('#btnMail').attr('disabled',true);
 			return;
 		}
-		
+*/		
+		var f = document.saveForm;
+
+        var arSwmNo = [];
+        var arCntDlv = [];
+        var arNote = [];
+		if(f.swm_no.length){
+	        for(var i=0; i < f.swm_no.length; i++){
+	        	arSwmNo[arSwmNo.length]=f.swm_no[i].value;
+	        	arCntDlv[arCntDlv.length]=f.cnt_dlv[i].value;
+	        	arNote[arNote.length]=f.note[i].value;
+			}
+		}else{
+    		arSwmNo[arSwmNo.length]=f.swm_no.value;
+    		arCntDlv[arCntDlv.length]=f.cnt_dlv.value;
+    		arNote[arNote.length]=f.note.value;
+		}
+
 		if(confirm("담장자에게 메일이 발송됩니다. 계속하시겠습니까?")){
-			var params = {"wrk_tp_atcd": "00700510","sndmail_atcd":"00700511", "pi_no":$("#pi_no").val()};  
+			var params = {"wrk_tp_atcd": "00700510","sndmail_atcd":"00700511", "pi_no":$("#pi_no").val(), "swm_no":arSwmNo, "rmk":arNote};  
 			fncCrtSlipSndMail(params);
 		}else{
 			return;

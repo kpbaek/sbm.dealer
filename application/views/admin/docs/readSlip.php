@@ -11,9 +11,11 @@ function readSlip($pi_no){
 	$sql = $sql . ", e.mdl_cd, e.qty";
 	$sql = $sql . ", i.pi_sndmail_seq";
 	$sql = $sql . ", a.sndmail_seq as prd_sndmail_seq";
-	$sql = $sql . ", concat('SWM', '-', a.swm_no,'-',a.sndmail_seq) txt_swm_no";
+//	$sql = $sql . ", concat('SWM', '-', a.swm_no,'-',a.sndmail_seq) txt_swm_no";
+	$sql = $sql . ", concat('SWM', '-', DATE_FORMAT(a.cnfm_dt, '%y%m-%d')) txt_swm_no";
 	$sql = $sql . ", a.pi_no txt_pi_no";
-	$sql = $sql . ", (ifnull(e.qty,0) - ifnull(a.cnt_dlv, 0)) cnt_rest";
+//	$sql = $sql . ", (ifnull(e.qty,0) - ifnull(a.cnt_dlv, 0)) cnt_rest";
+	$sql = $sql . ", (ifnull(e.qty,0) - (select ifnull(sum(cnt), 0) from om_prd_slip where swm_no = a.swm_no)) cnt_rest";
 	$sql = $sql . " FROM (SELECT a.*,";
 	$sql = $sql . "b.cntry_atcd,";
 	$sql = $sql . "b.dealer_seq,";
@@ -33,8 +35,7 @@ function readSlip($pi_no){
 	$sql = $sql . " left outer join om_invoice i";
 	$sql = $sql . " on a.pi_no = i.pi_no";
 	$sql = $sql . " ) a";
-#	echo $sql . "<br>";
-	log_message('debug', $sql);
+	log_message('debug', "slipPrdList:" .$sql);
 	
 	$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 	
@@ -67,7 +68,8 @@ function readSlip($pi_no){
 		
 	$sql_ord = "select a.*";
 	$sql_ord = $sql_ord . ",a.pi_no txt_slip_no";
-	$sql_ord = $sql_ord . ",if((sum_eqp_qty = sum_cnt_dlv),'N','Y') rest_yn";
+//	$sql_ord = $sql_ord . ",if((sum_eqp_qty = sum_cnt_dlv),'N','Y') rest_yn";
+	$sql_ord = $sql_ord . ",if((sum_eqp_qty <= sum_cnt_slip),'N','Y') rest_yn";
 	$sql_ord = $sql_ord . " from";
 	$sql_ord = $sql_ord . " (";
 	$sql_ord = $sql_ord . " SELECT a.pi_no, a.cntry_atcd, a.dealer_seq, a.worker_seq, a.tot_amt, a.slip_sndmail_seq, a.wrk_tp_atcd";
@@ -75,7 +77,8 @@ function readSlip($pi_no){
 	$sql_ord = $sql_ord . ",(SELECT ci_sndmail_seq FROM om_invoice WHERE pi_no = a.pi_no) ci_sndmail_seq";
 	$sql_ord = $sql_ord . ",d.dealer_nm as buyer";
 	$sql_ord = $sql_ord . ",(select sum(qty) from om_ord_eqp where pi_no = a.pi_no) sum_eqp_qty";
-	$sql_ord = $sql_ord . ",(select sum(cnt_dlv) from om_prd_req where pi_no = a.pi_no) sum_cnt_dlv";
+//	$sql_ord = $sql_ord . ",(select sum(cnt_dlv) from om_prd_req where pi_no = a.pi_no) sum_cnt_dlv";
+	$sql_ord = $sql_ord . ",(select sum(cnt) from om_prd_slip where swm_no in (select swm_no from om_prd_req where pi_no = a.pi_no)) sum_cnt_slip";
 	$sql_ord = $sql_ord . " FROM (";
 	$sql_ord = $sql_ord . " SELECT a.*";
 	$sql_ord = $sql_ord . " FROM om_ord_inf a";
@@ -85,7 +88,7 @@ function readSlip($pi_no){
 	$sql_ord = $sql_ord . "		on a.dealer_seq = d.dealer_seq";
 	$sql_ord = $sql_ord . " ) a";
 #	echo $sql_ord . "<br>";
-	log_message('debug', $sql_ord);
+	log_message('debug', "slipInfo:" .$sql_ord);
 	
 	$result2 = mysql_query( $sql_ord ) or die("Couldn t execute query.".mysql_error());
 	
@@ -121,7 +124,7 @@ function getSlipMailCtnt($ctnt, $slip){
 			$mdl_list_tr .= "<td class='column3 style9 n'>" .$row["cnt_dlv"]. "</td>";
 			$mdl_list_tr .= "<td class='column4 style11 n'>" .$row["txt_pi_no"]. "</td>";
 			$mdl_list_tr .= "<td class='column5 style12 n'>" .$row["txt_swm_no"]. "</td>";
-			$mdl_list_tr .= "<td class='column6 style13 n'>" .$row["cnt_rest"]. "</td>";
+			$mdl_list_tr .= "<td class='column6 style13 n'>" .($row["cnt_rest"] - $row["cnt_dlv"]). "</td>";
 			$mdl_list_tr .= "<td class='column7 style14 null'>" .str_replace("\n","<br>",htmlspecialchars($row['note'])). "</td>";
 			$mdl_list_tr .= "<td class='column8 style6 null'></td>";
 			$mdl_list_tr .= "<td class='column9'></td>";

@@ -743,7 +743,8 @@
     		url: "/index.php/common/main/crtSndMail",
     		async: false,
     		dataType: "json",
-    		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no},
+//    		data: {"wrk_tp_atcd":params.wrk_tp_atcd, "sndmail_atcd":params.sndmail_atcd, "pi_no":params.pi_no},
+    		data: params,
     		cache: false,
     		success: function(result, status, xhr){
     			var qryInfo = result.qryInfo;

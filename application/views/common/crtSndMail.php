@@ -8,6 +8,16 @@ if(isset($_REQUEST["email_fwd"])){
 	$email_fwd = $_POST["email_fwd"];
 }
 
+$swm_no = null;
+if(isset($_REQUEST["swm_no"])){
+	$swm_no = $_POST["swm_no"];
+}
+
+$rmk = null;
+if(isset($_REQUEST["rmk"])){
+	$rmk = $_POST["rmk"];
+}
+
 $pi_no = "9999"; // test : if pi_no is not exists
 if(isset($_REQUEST["pi_no"])){
 	$pi_no = $_REQUEST["pi_no"];
@@ -304,14 +314,34 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		$qryInfo['qryInfo']['sql4'] = $sql4;
 		$qryInfo['qryInfo']['result4'] = $result4;
 
-	}else if($wrk_tp_atcd == "00700510"){ // 출고전표
+	}else if($wrk_tp_atcd == "00700510" && $swm_no!=null){ // 출고전표
+		$sql_sub = "";
+		for($i_swm=0; $i_swm < sizeof($swm_no); $i_swm++)
+		{
+			if($i_swm > 0){
+				$sql_sub = $sql_sub . " UNION";
+			}
+//			$sql_sub = $sql_sub . " SELECT " .$swm_no[$i_swm]. ", " .$sendmail_seq. ", " .$cnt_dlv[$i_swm]. ", '" .$rmk[$i_swm]. "', now(), '" .$_SESSION['ss_user']['uid']. "'";
+			$sql_sub = $sql_sub . " SELECT " .$swm_no[$i_swm]. ", " .$sendmail_seq. ", (select cnt_dlv from om_prd_req where swm_no = " .$swm_no[$i_swm]. "), '" .$rmk[$i_swm]. "', now(), '" .$_SESSION['ss_user']['uid']. "'";
+		}
+		$sql3 = "INSERT INTO om_prd_slip (swm_no, sndmail_seq, cnt, rmk, crt_dt, crt_uid) ";
+		$sql3 = $sql3 . $sql_sub;
+		log_message("debug", $sql3);
+		$result3 = $this->db->query($sql3);
+		
+		$qryInfo['qryInfo']['sql3'] = $sql3;
+		$qryInfo['qryInfo']['result3'] = $result3;
+		
+		$slip = readSlip($pi_no);
+		
 		$sql4 = "UPDATE om_ord_inf";
 		$sql4 = $sql4 . " SET slip_sndmail_seq = " .$sendmail_seq;
-		$sql4 = $sql4 . " , wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
+		if($slip['slipInfo']['rest_yn']=="N"){
+			$sql4 = $sql4 . " , wrk_tp_atcd = '" .$wrk_tp_atcd. "'";
+		}
 		$sql4 = $sql4 . " WHERE pi_no = '" .$pi_no. "'";
-				
-//		$result4 = mysql_query($sql4);
 		$result4 = $this->db->query($sql4);
+		
 		$qryInfo['qryInfo']['sql4'] = $sql4;
 		$qryInfo['qryInfo']['result4'] = $result4;
 
