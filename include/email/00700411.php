@@ -266,7 +266,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style9 null" colspan=2 rowspan=4></td>
 			<td class="column5 style1 s" valign=top rowspan=4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAME AS ABOVE</td>
 			<td class="column23 style11 null"></td>
-			<td class="column24 style1 s" colspan=2 rowspan=5></td>
+			<td class="column24 style1 s" colspan=2 rowspan=5>@refs</td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
