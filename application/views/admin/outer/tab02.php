@@ -442,7 +442,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column5 style28 s"><div id="csn_cmpy_nm"></div>
 			</td>
 			<td class="column23 style11 null"></td>
-			<td class="column24 style1 s" colspan=2 rowspan=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id="buyer"></div></td>
+			<td class="column24 style1 s" colspan=2 rowspan=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="buyer" name="buyer" size=50 maxlength=50></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2" style="height:140px;">
@@ -470,7 +470,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style9 null" colspan=2 rowspan=4></td>
 			<td class="column5 style1 s" valign=top rowspan=4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAME AS ABOVE</td>
 			<td class="column23 style11 null"></td>
-			<td class="column24 style1 s" colspan=2 rowspan=5></td>
+			<td class="column24 style1 s" colspan=2 rowspan=5><input id="refs" name="refs" size=50 maxlength=50></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">
@@ -704,11 +704,15 @@ if(isset($_REQUEST["edit_mode"])){
 		$("#pi_sndmail_seq").val(invoiceInfo.pi_sndmail_seq);
 		$("#txt_pi_no").html("PI-" + invoiceInfo.pi_no + "-" + invoiceInfo.pi_sndmail_seq);
 
+/**		
 		var buyer = "SAME AS CONSIGNEE";
 		if(invoiceInfo.buyer!=invoiceInfo.csn_attn){
 			buyer = invoiceInfo.buyer;
 		}
 		$("#buyer").html(buyer);
+*/		
+		$("#buyer").val(invoiceInfo.buyer);
+		$("#refs").val(invoiceInfo.refs);
 		
 		$("#csn_cmpy_nm").html(invoiceInfo.csn_cmpy_nm);
 		$("#csn_addr").val(invoiceInfo.csn_addr);

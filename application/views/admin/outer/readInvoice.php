@@ -159,14 +159,17 @@ function getCiMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@cntry", $invoice['invoiceInfo']['cntry'], $ctnt);
 	$ctnt = str_replace("@txt_ship_port_atcd", $invoice['invoiceInfo']['txt_ship_port_atcd'], $ctnt);
 	$ctnt = str_replace("@inv_payment", $invoice['invoiceInfo']['inv_payment'], $ctnt);
+	$ctnt = str_replace("@buyer", $invoice['invoiceInfo']['buyer'], $ctnt);
+	$ctnt = str_replace("@refs", $invoice['invoiceInfo']['refs'], $ctnt);
 	
 	$ctnt = str_replace("@txt_invoice_no", $invoice['invoiceInfo']['pi_no'], $ctnt);
+/**	
 	if($invoice['invoiceInfo']['buyer']!=$invoice['invoiceInfo']['csn_attn']){
 		$ctnt = str_replace("@buyer", $invoice['invoiceInfo']['buyer'], $ctnt);
 	}else{
 		$ctnt = str_replace("@buyer", "SAME AS CONSIGNEE", $ctnt);
 	}
-	
+*/	
 	
 	if($invoice['invoiceInfo']["frtchrg_amt"]==null){
 		$ctnt = str_replace("@frtChrgDiv", "none", $ctnt);
@@ -314,7 +317,7 @@ function readInvoice($pi_no){
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00G0' and atcd = b.payment_atcd) inv_payment";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '00F3' and atcd = b.ship_port_atcd) txt_ship_port_atcd";
 	$sql_invoice = $sql_invoice . ", b.destnt, b.validity, b.bank_atcd, b.invoice_dt, b.pi_sndmail_seq, b.ci_sndmail_seq";
-	$sql_invoice = $sql_invoice . ", b.csn_cmpy_nm, b.csn_addr, b.csn_tel, b.csn_fax, b.csn_attn, b.pi_rmk";
+	$sql_invoice = $sql_invoice . ", b.csn_cmpy_nm, b.csn_addr, b.csn_tel, b.csn_fax, b.csn_attn, b.pi_rmk, if(b.buyer is null, dealer_nm, b.buyer) buyer, b.refs";
 	$sql_invoice = $sql_invoice . ", ifnull(ifnull(b.frtchrg_amt,0) + ifnull(b.repr_tot_amt,0) + ifnull((select sum(opt_qty * opt_unit_prc) from om_ord_eqp_dtl where pi_no = a.pi_no), 0) + ifnull(b.tot_amt,0)";
 	$sql_invoice = $sql_invoice . " + (select ifnull(sum(amt),0) from om_ord_part where pi_no = a.pi_no),0) as inv_tot_amt";
 	$sql_invoice = $sql_invoice . ", (select atcd_nm from cm_cd_attr where cd = '0050' and atcd = b.bank_atcd) inv_bank";
@@ -358,7 +361,7 @@ function readInvoice($pi_no){
 	#$sql_invoice = $sql_invoice . "  WHERE a.pi_no = b.pi_no";
 	#$sql_invoice = $sql_invoice . "  AND a.pi_no = '" .$pi_no. "'";
 #	echo $sql_invoice;
-	log_message('debug', $sql_invoice);
+	log_message('debug', "readInvoice:" .$sql_invoice);
 	
 	$result = mysql_query( $sql_invoice ) or die("Couldn t execute query.".mysql_error());
 	$row = mysql_fetch_array($result,MYSQL_ASSOC);
@@ -407,9 +410,11 @@ function readInvoice($pi_no){
 	$invoice['invoiceInfo']['premium_rate'] = $row['premium_rate'];
 	$invoice['invoiceInfo']['discount'] = $row['discount'];
 	$invoice['invoiceInfo']['txt_discount'] = $row['txt_discount'];
-	$invoice['invoiceInfo']['buyer'] = $row['dealer_nm'];
+//	$invoice['invoiceInfo']['buyer'] = $row['dealer_nm'];
+	$invoice['invoiceInfo']['buyer'] = $row['buyer'];
+	$invoice['invoiceInfo']['refs'] = $row['refs'];
 	if($row['gender_nm']!=null){
-		$invoice['invoiceInfo']['buyer'] = $row['gender_nm'] . " " . $row['dealer_nm'];
+//		$invoice['invoiceInfo']['buyer'] = $row['gender_nm'] . " " . $row['dealer_nm'];
 	}
 	
 	

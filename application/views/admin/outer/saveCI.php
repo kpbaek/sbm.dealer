@@ -23,6 +23,16 @@ if(isset($_POST["csn_attn"])){
 	$csn_attn = trim($_POST["csn_attn"]);
 }
 
+$buyer =  "";
+if(isset($_POST["buyer"])){
+	$buyer = trim($_POST["buyer"]);
+}
+
+$refs =  "";
+if(isset($_POST["refs"])){
+	$refs = trim($_POST["refs"]);
+}
+
 if(isSet($_POST['pi_no'])){
 	
 	$pi_no = mysql_real_escape_string($pi_no);
@@ -30,6 +40,8 @@ if(isSet($_POST['pi_no'])){
 	$csn_tel = mysql_real_escape_string($csn_tel);
 	$csn_fax = mysql_real_escape_string($csn_fax);
 	$csn_attn = mysql_real_escape_string($csn_attn);
+	$buyer = mysql_real_escape_string($buyer);
+	$refs = mysql_real_escape_string($refs);
 	
 	$sql = "SELECT (select atcd_nm from cm_cd_attr where cd = '0070' and atcd = a.wrk_tp_atcd) txt_wrk_tp_atcd FROM om_ord_inf";
 	$sql = $sql . " WHERE pi_no ='" .$pi_no. "'";
@@ -52,9 +64,11 @@ if(isSet($_POST['pi_no'])){
 		$sql_inv = $sql_inv . ", csn_tel='" .$csn_tel. "'";
 		$sql_inv = $sql_inv . ", csn_fax='" .$csn_fax. "'";
 		$sql_inv = $sql_inv . ", csn_attn='" .$csn_attn. "'";
+		$sql_inv = $sql_inv . ", buyer='" .$buyer. "'";
+		$sql_inv = $sql_inv . ", refs='" .$refs. "'";
 		$sql_inv = $sql_inv . " WHERE pi_no = '" .$pi_no. "'";
 		#echo $sql_inv;
-		$result2 = mysql_query($sql_inv);
+		$result2 = $this->db->query($sql_inv);
 		$qryInfo['qryInfo']['sql2'] = $sql_inv;
 		$qryInfo['qryInfo']['result2'] = $result2;
 		
