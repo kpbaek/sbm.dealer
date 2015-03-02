@@ -242,6 +242,7 @@ CREATE TABLE `om_ord_eqp` (
   `delivery_dt` varchar(8) DEFAULT NULL COMMENT '납기일자',
   `payment_atcd` varchar(8) DEFAULT NULL COMMENT '지불속성코드',
   `incoterms_atcd` varchar(8) DEFAULT NULL COMMENT '무역조건 속성코드',
+  `etc_terms` varchar(20) DEFAULT NULL COMMENT '기타협상조건',
   `acct_no` varchar(20) DEFAULT NULL COMMENT 'account번호',
   `remark` varchar(2000) DEFAULT NULL COMMENT '견해',
   `qty` int(6) unsigned DEFAULT NULL COMMENT '주문수량',
