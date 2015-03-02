@@ -143,7 +143,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td>@txt_payment_atcd
 			</td>
 			<td class="style01" width="15%">Incoterms</td>
-			<td>@txt_incoterms_atcd
+			<td>@txt_incoterms_atcd@etc_terms
 			</td>
 		   	<td colspan=3></td>
 		  </tr>

@@ -92,6 +92,7 @@ function readEqpOrder($pi_no, $po_no){
 	$eqpOrder['eqpOrdInfo']['courier_atcd'] = $row['courier_atcd'];
 	$eqpOrder['eqpOrdInfo']['payment_atcd'] = $row['payment_atcd'];
 	$eqpOrder['eqpOrdInfo']['incoterms_atcd'] = $row['incoterms_atcd'];
+	$eqpOrder['eqpOrdInfo']['etc_terms'] = $row['etc_terms'];
 	$eqpOrder['eqpOrdInfo']['lcd_color_atcd'] = $row['lcd_color_atcd'];
 	$eqpOrder['eqpOrdInfo']['lcd_lang_atcd'] = $row['lcd_lang_atcd'];
 	$eqpOrder['eqpOrdInfo']['txt_lcd_color_atcd'] = $row['txt_lcd_color_atcd'];
@@ -150,6 +151,11 @@ function getEqpOrderMailCtnt($ctnt, $eqpOrder){
 	$ctnt = str_replace("@delivery_dt", $eqpOrder['eqpOrdInfo']['delivery_dt'], $ctnt);
 	$ctnt = str_replace("@txt_payment_atcd", $eqpOrder['eqpOrdInfo']['txt_payment_atcd'], $ctnt);
 	$ctnt = str_replace("@txt_incoterms_atcd", $eqpOrder['eqpOrdInfo']['txt_incoterms_atcd'], $ctnt);
+	if($eqpOrder['eqpOrdInfo']['incoterms_atcd']=="00H00080"){
+		$ctnt = str_replace("@etc_terms", "<br>" .htmlspecialchars($eqpOrder['eqpOrdInfo']['etc_terms']), $ctnt);
+	}else{
+		$ctnt = str_replace("@etc_terms", "", $ctnt);
+	}
 	$ctnt = str_replace("@remark", str_replace("\n","<br>",htmlspecialchars($eqpOrder['eqpOrdInfo']['remark'])), $ctnt);
 	$ctnt = str_replace("@buyer_po_no", htmlspecialchars($eqpOrder['eqpOrdInfo']['buyer_po_no']), $ctnt);
 #	$ctnt = str_replace("@order_dt", $row['order_dt'], $ctnt);

@@ -106,6 +106,11 @@ if(isset($_POST["incoterms_atcd"])){
 	$incoterms_atcd = $_POST["incoterms_atcd"];
 }
 
+$etc_terms = "";
+if(isset($_POST["etc_terms"])){
+	$etc_terms = $_POST["etc_terms"];
+}
+
 $remark = "";
 if(isset($_POST["remark"])){
 	$remark = $_POST["remark"];
@@ -128,7 +133,8 @@ $this->db->trans_begin();
 $qty = mysql_real_escape_string($qty);
 $remark = mysql_real_escape_string($remark);
 $delivery_dt = str_replace("-", "", $delivery_dt);
-#	$premium_rate = mysql_real_escape_string($premium_rate);
+$etc_terms = mysql_real_escape_string($etc_terms);
+
 
 $wrk_tp_atcd = "00700110";
 $sndmail_atcd = "00700111";
@@ -176,9 +182,9 @@ if($po_no==""){
 		
 	$sql_eqp = "INSERT INTO om_ord_eqp";
 	$sql_eqp = $sql_eqp . "(pi_no, mdl_cd, srl_atcd, lcd_color_atcd, lcd_lang_atcd, rjt_pkt_tp_atcd, pwr_cab_atcd, shipped_by_atcd, courier_atcd, delivery_dt";
-	$sql_eqp = $sql_eqp . ", payment_atcd, incoterms_atcd, acct_no, remark, qty, amt, buyer_po_no, crt_dt, crt_uid)"; 
+	$sql_eqp = $sql_eqp . ", payment_atcd, incoterms_atcd, etc_terms, acct_no, remark, qty, amt, buyer_po_no, crt_dt, crt_uid)"; 
 	$sql_eqp = $sql_eqp . " VALUES ('" .$new_pi_no. "', '" .$mdl_cd. "', '" .$srl_atcd. "', '" .$lcd_color_atcd. "', '" .$lcd_lang_atcd. "', '" .$rjt_pkt_tp_atcd. "', '" .$pwr_cab_atcd. "', '" .$shipped_by_atcd. "', '" .$courier_atcd. "', '" .$delivery_dt. "'";
-	$sql_eqp = $sql_eqp . ", '" .$payment_atcd. "', '" .$incoterms_atcd. "', '" .$acct_no. "', '" .$remark. "'";
+	$sql_eqp = $sql_eqp . ", '" .$payment_atcd. "', '" .$incoterms_atcd. "', '" .$etc_terms. "', '" .$acct_no. "', '" .$remark. "'";
 	$sql_eqp = $sql_eqp . ", " .$qty. ", NULL, '" .$buyer_po_no. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
 #		echo $sql_eqp;
 	$result3 = $this->db->query($sql_eqp);
@@ -282,6 +288,7 @@ if($po_no==""){
 			$sql_eqp = $sql_eqp . ",delivery_dt = '" .$delivery_dt. "'";
 			$sql_eqp = $sql_eqp . ",payment_atcd = '" .$payment_atcd. "'";
 			$sql_eqp = $sql_eqp . ",incoterms_atcd = '" .$incoterms_atcd. "'";
+			$sql_eqp = $sql_eqp . ",etc_terms = '" .$etc_terms. "'";
 			$sql_eqp = $sql_eqp . ",acct_no = '" .$acct_no. "'";
 			$sql_eqp = $sql_eqp . ",remark = '" .$remark. "'";
 			$sql_eqp = $sql_eqp . ",qty = " .$qty;

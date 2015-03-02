@@ -228,17 +228,17 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 				<select id="payment_atcd" name="payment_atcd">
 				</select>
 			</td>
-			<td class="style01">Incoterms</td>
-			<td>
-				<select id="incoterms_atcd" name="incoterms_atcd">
-				</select>
+			<td class="style01" rowspan=1>Incoterms</td>
+			<td rowspan=2 valign=top>
+				<div><select id="incoterms_atcd" name="incoterms_atcd"></select></div>
+				<div id="etc_terms_div" style="padding-top:5px;"><input id="etc_terms" name="etc_terms" size=15 maxlength=15 style="border: 1;ime-mode:disabled" disabled></div>
 			</td>
 		   	<td colspan=3></td>
 		  </tr>
 		  <tr>
-			<td colspan=9>Requested delivery date will be adjusted by production schedule.
-
+			<td colspan=6>Requested delivery date will be adjusted by production schedule.<br>
 General leadtime is 3 weeks from 10 to 100 units</td>
+		   	<td colspan=3></td>
 		  </tr>
 		  <tr>
 			<td class="style01" colspan=2>Remark</td>
@@ -615,6 +615,9 @@ function editForm(eqpOrdInfo, eqpOrdDtlList) {
 		$('#remark').val(eqpOrdInfo.remark);
 		$('#buyer_po_no').val(eqpOrdInfo.buyer_po_no);
 //		getCodeCombo("0022", f.cntry_atcd);
+		setEtcTerms(eqpOrdInfo.incoterms_atcd);
+		$('#etc_terms').val(eqpOrdInfo.etc_terms);
+		
 
 		getOrderCntryCombo(eqpOrdInfo.pi_no, f.cntry_atcd, eqpOrdInfo.cntry_atcd);
 //		getDealerCntryCombo(eqpOrdInfo.dealer_seq, f.cntry_atcd, eqpOrdInfo.cntry_atcd);
@@ -763,6 +766,20 @@ function setDealerCntryCombo(value){
 function setOrderInfo(pi_no){
 	setDealerCntryCombo(pi_no);
 }
+
+function setEtcTerms(incoterms_atcd){
+	if(incoterms_atcd == "00H00080"){ // others
+		etc_terms_div.style.display = "";
+		$('#etc_terms').attr('disabled',false);
+	}else{
+		etc_terms_div.style.display = "none";
+		$('#etc_terms').attr('disabled',true);
+	}
+}
+
+$('#incoterms_atcd').bind('change',function() {
+	setEtcTerms($(this).val());
+});
 
 function setSerialCurrencyCombo(srl_atcd){
 	var f = document.addForm;
