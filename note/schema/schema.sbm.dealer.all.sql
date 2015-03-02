@@ -394,6 +394,8 @@ CREATE TABLE `om_invoice` (
   `csn_fax` varchar(50) DEFAULT NULL COMMENT '인수자팩스',
   `csn_attn` varchar(100) DEFAULT NULL COMMENT '인수담당자',
   `pi_rmk` varchar(1000) DEFAULT NULL COMMENT 'PI메모',
+  `buyer` varchar(100) DEFAULT NULL COMMENT '바이어',
+  `refs` varchar(100) DEFAULT NULL COMMENT '참고',
   `crt_dt` datetime NOT NULL COMMENT '생성일시',
   `crt_uid` varchar(50) NOT NULL COMMENT '생성자ID',
   `udt_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
