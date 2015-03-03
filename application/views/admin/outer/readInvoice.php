@@ -159,8 +159,8 @@ function getCiMailCtnt($ctnt, $invoice){
 	$ctnt = str_replace("@cntry", $invoice['invoiceInfo']['cntry'], $ctnt);
 	$ctnt = str_replace("@txt_ship_port_atcd", $invoice['invoiceInfo']['txt_ship_port_atcd'], $ctnt);
 	$ctnt = str_replace("@inv_payment", $invoice['invoiceInfo']['inv_payment'], $ctnt);
-	$ctnt = str_replace("@buyer", $invoice['invoiceInfo']['buyer'], $ctnt);
-	$ctnt = str_replace("@refs", $invoice['invoiceInfo']['refs'], $ctnt);
+	$ctnt = str_replace("@buyer", str_replace("\n","<br>", $invoice['invoiceInfo']['buyer']), $ctnt);
+	$ctnt = str_replace("@refs", str_replace("\n","<br>", $invoice['invoiceInfo']['refs']), $ctnt);
 	
 	$ctnt = str_replace("@txt_invoice_no", $invoice['invoiceInfo']['pi_no'], $ctnt);
 /**	

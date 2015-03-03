@@ -16,12 +16,14 @@ function getPackingMailCtnt($ctnt, $invoice){
 		$ctnt = str_replace("@txt_invoice_no", $invoice['invoiceInfo']['pi_no'], $ctnt);
 	}
 	
+	$ctnt = str_replace("@buyer", $invoice['invoiceInfo']['buyer'], $ctnt);
+/**	
 	if($invoice['invoiceInfo']['buyer']!=$invoice['invoiceInfo']['csn_attn']){
 		$ctnt = str_replace("@buyer", $invoice['invoiceInfo']['buyer'], $ctnt);
 	}else{
 		$ctnt = str_replace("@buyer", "SAME AS CONSIGNEE", $ctnt);
 	}
-	
+*/	
 	
 	$ctnt = str_replace("@csn_addr", $invoice['invoiceInfo']['csn_addr'], $ctnt);
 	$ctnt = str_replace("@csn_tel", $invoice['invoiceInfo']['csn_tel'], $ctnt);

@@ -442,7 +442,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column5 style28 s"><div id="csn_cmpy_nm"></div>
 			</td>
 			<td class="column23 style11 null"></td>
-			<td class="column24 style1 s" colspan=2 rowspan=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="buyer" name="buyer" size=50 maxlength=50></td>
+			<td class="column24 style1 s" colspan=2 rowspan=2><textarea id="buyer" name="buyer" rows=4 cols=30 style="ime-mode:disabled;overflow:hidden" onkeyup="javascript:fnc_chk_byte(this,50);"></textarea></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2" style="height:140px;">
@@ -470,7 +470,7 @@ body { left-margin: 0.19685039370079in; right-margin: 0.19685039370079in; top-ma
 			<td class="column0 style9 null" colspan=2 rowspan=4></td>
 			<td class="column5 style1 s" valign=top rowspan=4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAME AS ABOVE</td>
 			<td class="column23 style11 null"></td>
-			<td class="column24 style1 s" colspan=2 rowspan=5><input id="refs" name="refs" size=50 maxlength=50></td>
+			<td class="column24 style1 s" colspan=2 rowspan=5><textarea id="refs" name="refs" rows=4 cols=30 style="ime-mode:disabled;overflow:hidden" onkeyup="javascript:fnc_chk_byte(this,50);"></textarea></td>
 			<td class="column42 style13 null"></td>
 		  </tr>
 		  <tr class="row2">

@@ -231,7 +231,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			<td class="style01" rowspan=1>Incoterms</td>
 			<td rowspan=2 valign=top>
 				<div><select id="incoterms_atcd" name="incoterms_atcd"></select></div>
-				<div id="etc_terms_div" style="padding-top:5px;"><input id="etc_terms" name="etc_terms" size=15 maxlength=15 style="border: 1;ime-mode:disabled" disabled></div>
+				<div id="etc_terms_div" style="padding-top:5px;display:none"><input id="etc_terms" name="etc_terms" size=15 maxlength=15 style="border: 1;ime-mode:disabled" disabled></div>
 			</td>
 		   	<td colspan=3></td>
 		  </tr>
