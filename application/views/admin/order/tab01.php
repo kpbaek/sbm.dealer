@@ -61,24 +61,23 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 		  <tr height="5px">
 			<td width="15%" class="style01" colspan=2>Date</td>
 			<td width="10%"><input type="text" id="order_dt" name="order_dt" value="<?php echo date("Y-m-d")?>" size=18 style="border: 1" disabled></td>
-			<td width="10%"></td>
-			<td width="5%"></td>
+			<td width="2%"></td>
+			<td width="2%"></td>
 			<td width="15%" class="style01">Destination Country</td>
-			<td width="10%" colspan=3>
+			<td colspan=4>
 				<select id="cntry_atcd" name="cntry_atcd" style="width: 240px;">
 				</select>
 			</td>
-			<td width="5%"></td>
 		  </tr>
 		  <tr>
 			<td class="style01" colspan=2>Company Name</td>
 			<td colspan=3><input type="text" id="cmpy_nm" name="cmpy_nm" value="" size=35 style="border: 1" disabled></td>
 			<td class="style01">Model</td>
-			<td width="10%">
+			<td>
 				<select id="mdl_cd" name="mdl_cd" onchange="javascript:setMdlCtrl(this.value);">
 				</select>
 			</td>
-			<td colspan="3"></td>
+			<td colspan="3" width=200px></td>
 		  </tr>
 		  <tr>
 			<td class="style01" colspan=2>P/I NO. </td>
@@ -104,38 +103,38 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 			<td colspan=3></td>
 		  </tr>
 		  <tr>
-			<td rowspan="2" class="style01" colspan=2>Currency</td>
-		  	<td colspan=8></td>
-		  </tr>
-		  <tr>
-			<td colspan=3>
+			<td class="style01" colspan=2>Currency</td>
+		    <td colspan=3>
 			    <div class="form-group">
-			        <select id="currency_atch" name="currency_atch[]" multiple="multiple" class="form-control" style="width: 250px">
+			        <select id="currency_atch" name="currency_atch[]" multiple="multiple" class="form-control" style="width: 280px">
 			        </select>
 			    </div>
 			</td>
-			<td class="style01">Serial Number</td>
-			<td class="style01">
-				<select id="srl_atcd" name="srl_atcd" style="width: 80px;" onchange="javascript:setSerialCurrencyCombo(this.value);">
+			<td class="style01" rowspan=2>Serial Number</td>
+			<td>
+				<select id="srl_atcd" name="srl_atcd" style="width: 100px;" onchange="javascript:setSerialCurrencyCombo(this.value);">
 				</select>
 			</td>
 			<td colspan=3>
+			</td>
+		  </tr>
+		  <tr>
+			<td class="style01" colspan=2>Currency Fitness</td>
+		  	<td colspan=3>
 			    <div class="form-group">
-			        <select id="serial_currency_atch" name="serial_currency_atch[]" multiple="multiple" class="form-control" style="width: 180px">
+			        <select id="fitness" name="fitness[]" multiple="multiple" class="form-control" style="width: 280px">
+			        </select>
+			    </div>
+			</td>
+			<td colspan=4>
+			    <div class="form-group">
+			        <select id="serial_currency_atch" name="serial_currency_atch[]" multiple="multiple" class="form-control" style="width: 280px">
 			        </select>
 			    </div>
 			</td>
 		  </tr>
-		  <tr>
-			<td rowspan="2" class="style01" colspan=2>Currency Fitness</td>
-		  	<td colspan=8></td>
-		  </tr>
-		  <tr>
-			<td colspan=3>
-			    <div class="form-group">
-			        <select id="fitness" name="fitness[]" multiple="multiple" class="form-control" style="width: 250px">
-			        </select>
-			    </div>
+		  <tr style="display:none">
+			<td colspan=5>
 			</td>
 			<td class="style01">Serial Fitness</td>
 			<td>
@@ -228,17 +227,15 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 				<select id="payment_atcd" name="payment_atcd">
 				</select>
 			</td>
-			<td class="style01" rowspan=1>Incoterms</td>
-			<td rowspan=2 valign=top>
+			<td class="style01" rowspan=1 colspan=2>Incoterms</td>
+			<td valign=top>
 				<div><select id="incoterms_atcd" name="incoterms_atcd"></select></div>
 				<div id="etc_terms_div" style="padding-top:5px;display:none"><input id="etc_terms" name="etc_terms" size=15 maxlength=15 style="border: 1;ime-mode:disabled" disabled></div>
 			</td>
-		   	<td colspan=3></td>
 		  </tr>
 		  <tr>
-			<td colspan=6>Requested delivery date will be adjusted by production schedule.<br>
+			<td colspan=10>Requested delivery date will be adjusted by production schedule.<br>
 General leadtime is 3 weeks from 10 to 100 units</td>
-		   	<td colspan=3></td>
 		  </tr>
 		  <tr>
 			<td class="style01" colspan=2>Remark</td>

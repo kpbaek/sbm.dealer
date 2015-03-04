@@ -28,7 +28,7 @@
 ?>
 </ul>
 
-<div id="orderDiv" style="border:1px solid gray; width:970px; height:550px; margin-bottom: 1em; padding: 10px;overflow: auto;">
+<div id="orderDiv" style="border:1px solid gray; width:970px; height:940px; margin-bottom: 1em; padding: 10px; overflow-y: hidden"">
 </div>
 
 <script type="text/javascript">

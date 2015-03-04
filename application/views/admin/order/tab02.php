@@ -256,7 +256,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		   	viewrecords: true,
 		    autowidth: false,
 		    width:950,
-		    height:340,
+		    height:235,
 		    sortname: 'mdl_cd',
 		    sortorder: "desc",
 			toolbar: [true,"top"],
@@ -332,7 +332,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
                     c_qty = "<input type=text size=6 height='20' name='c_qty' value='" + rowData.qty + "' onChange='javascript:calcAmt(" + rowId + ", this.value);'>";
                     be = "<img src='/images/part/image"  + rowData.srl_no +  ".png' height='20'>";
                     jQuery("#list_d").jqGrid('setRowData',rowId,{c_qty:c_qty, pt_img:be});
-                }
+ 				}
 //	            jQuery("#list_d").jqGrid('editRow','qty',true);
 			},	            
 	        
@@ -342,7 +342,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		    viewrecords: true,
 		    autowidth: false,
 		    width:950,
-		    height:270,
+		    height:235,
 		    sortname: 'mdl_cd',
 		    sortorder: "desc",
 			toolbar: [true,"top"],
@@ -809,6 +809,7 @@ if(isset($_REQUEST["edit_mode"])){
 //    		        	alert(qryInfo.result4 + ":" + qryInfo.sql4);
     				}
 					fn_gridReload();
+					initForm();
 				}else if(todo == "U"){
 		            var cnfm_yn = result.qryInfo.cnfm_yn;
 		            if(cnfm_yn == "Y"){
