@@ -14,7 +14,7 @@ require $_SERVER["DOCUMENT_ROOT"] . '/include/user/auth.php';
 	<script src="/lib/js/jquery.form.js" type="text/javascript"></script>
 	<script src="/js/cmn/common.js" type="text/javascript"></script>
 	  	
-	<div id="reSndDiv" name="reSndDiv" style="display:none">
+	<div id="reSndDiv" name="reSndDiv" style="display:none;margin-top: 5px;margin-bottom: 5px">
 	<table border="0" cellpadding="0" cellspacing="0" style="width: 210mm;" align=center>
 	<tr>
 		<td colspan=10 align=right>

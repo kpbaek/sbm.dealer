@@ -56,7 +56,7 @@ pi_no
 <div id="pager"></div>
 </div>
 <div id="resultDiv">
-<iframe id="ifMail" name="ifMail" src="about:blank" scrolling="yes" marginheight="0" marginwidth="20px" frameborder="1" width="99%" height=600></iframe>
+<iframe id="ifMail" name="ifMail" src="about:blank" scrolling="auto" marginheight="0" marginwidth="0" frameborder="1" width="99%" height=300></iframe>
 </div>
 
 <div id="postdata"></div>
@@ -78,12 +78,12 @@ jQuery().ready(function () {
 	   		{name:'pi_no', index:'pi_no', width:60, align:"center",hidden:false,search:true,sortable:true}, 
 	        {name:'dealer_nm',index:'dealer_nm', width:100, align:"left",search:true,sortable:true},
 	   		{name:'cntry_nm',index:'cntry_nm', width:100, align:"left",search:true,sortable:true},
-	   		{name:'txt_wrk_tp_atcd',index:'txt_wrk_tp_atcd', width:80, align:"left",search:true,sortable:true},
+	   		{name:'txt_wrk_tp_atcd',index:'txt_wrk_tp_atcd', width:100, align:"left",search:true,sortable:true},
 	   		{name:'txt_sndmail_atcd',index:'txt_sndmail_atcd', width:80, align:"left",search:true,sortable:true},
 	   		{name:'worker_nm',index:'worker_nm', width:60, align:"left",search:true,sortable:true},
 	   		{name:'sender_eng_nm',index:'sender_eng_nm', width:90, align:"left",search:true,sortable:true},		
 	   		{name:'snd_dt',index:'snd_dt', width:100, align:"center", search:true,hidden:false,sortable:true},		
-	   		{name:'sndmail_seq',index:'sndmail_seq', width:40, align:"right", search:true,hidden:false,sortable:true}		
+	   		{name:'sndmail_seq',index:'sndmail_seq', width:50, align:"right", search:true,hidden:false,sortable:true}		
 		],
         onSelectRow: function(id) {
             var chk_data = jQuery(list).jqGrid('getRowData',id);
@@ -107,8 +107,8 @@ jQuery().ready(function () {
 	   	pager: '#pager',
 	    viewrecords: true,
 	    autowidth: false,
-	    width:950,
-	    height:240,
+	    width:970,
+	    height:230,
 	    sortname: 'sndmail_seq',
 	    sortorder: "desc",
 		toolbar: [true,"top"],

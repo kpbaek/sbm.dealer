@@ -18,7 +18,7 @@
 <li><a href="/index.php/admin/history/tab01" rel="#iframe" class="selected">발송문서조회</a></li>
 </ul>
 
-<div id="historyDiv" style="border:1px solid gray; width:970px; height: 550px; padding: 5px; margin-bottom:1em; padding: 5px; overflow: auto">
+<div id="historyDiv" style="border:1px solid gray; width:980px; height: 640px; padding: 5px; margin-bottom:1em; padding: 5px; overflow-y: hidden">
 </div>
 
 <script type="text/javascript">
