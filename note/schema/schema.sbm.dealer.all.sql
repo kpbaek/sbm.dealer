@@ -322,6 +322,7 @@ CREATE TABLE `om_prd_req` (
   `swm_no` int(11) NOT NULL AUTO_INCREMENT COMMENT 'SWM번호',
   `pi_no` varchar(8) NOT NULL COMMENT 'PI번호',
   `po_no` int(11) NOT NULL COMMENT '주문번호',
+  `doc_no` varchar(7) DEFAULT NULL COMMENT '문서번호',
   `qual_ship_dt` varchar(8) DEFAULT NULL COMMENT '품질출하일',
   `qual_trans_dt` varchar(8) DEFAULT NULL COMMENT '품질이관일',
   `manual_lang_atcd` varchar(8) DEFAULT NULL COMMENT '메뉴얼언어속성코드',
