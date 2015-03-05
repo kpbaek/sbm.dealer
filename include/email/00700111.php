@@ -151,8 +151,8 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="style01" colspan=2>Remark</td>
 			<td colspan=9>@remark</td>
 		  </tr>
-		  <tr height=5px>
-			<td colspan=10></td>
+		  <tr height=50px>
+			<td colspan=10>This is an auto-generated email, please DO NOT REPLY. Any replies to this email will be disregarded.</td>
 		  </tr>
 		</tbody>
 	</table>

@@ -526,9 +526,12 @@ $(document).ready(function(e) {
 
 						if(prdReqInfo.sndmail_seq != null)
 				        {
-							$('#btnSubmit').attr('disabled',true);
+							fn_readMail();
+							$('#btnEdit').attr('disabled',true);
+							$('#btnMail').attr('disabled',true);
 							$('#error').shake();
 							$("#error").html("<span style='color:#cc0000'>Notice:</span> 생산의뢰서가 이미발송되었습니다!. ");
+							return;
 				        }
 						
 						editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList);
@@ -1015,6 +1018,7 @@ function fn_save() {
 		    				}
 					    	$('#btnSave').attr('disabled',false);
 					    	$('#btnSend').attr('disabled',false);
+		    				fn_readMail();
 					    	alert("success!");
 						}else if(todo == "U"){
 

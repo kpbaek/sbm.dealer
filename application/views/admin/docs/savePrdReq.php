@@ -259,10 +259,24 @@ if($swm_no!=""){
 }else{
 	$qryInfo['qryInfo']['todo'] = "C";
 	
+	$sql = "SELECT * FROM om_ord_inf";
+	$sql = $sql . " WHERE pi_no ='" .$pi_no. "'";
+	$result=mysql_query($sql);
+	$count=mysql_num_rows($result);
+	
+	$sql = "SELECT concat(DATE_FORMAT(now(), '%y%m'),";
+	$sql = $sql . " '-',";
+	$sql = $sql . " LPAD((count(*) + 1), 2, '0')) as doc_no";
+	$sql = $sql . " FROM om_prd_req";
+	$sql = $sql . " WHERE DATE_FORMAT(crt_dt, '%y%m') = DATE_FORMAT(now(), '%y%m')";
+	$query = $this->db->query($sql);
+	$row = $query->row();
+	$doc_no = $row->doc_no;
+	
 	$sql_req = "INSERT INTO om_prd_req";
-	$sql_req = $sql_req . " (pi_no, po_no, qual_ship_dt, manual_lang_atcd, extra, note, crt_dt, crt_uid) ";
-	$sql_req = $sql_req . " VALUES ('" .$pi_no. "', " .$po_no. ", '" .$qual_ship_dt. "', '" .$manual_lang_atcd. "', '" .$extra. "', '" .$note. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
-#	echo $sql_req;
+	$sql_req = $sql_req . " (pi_no, po_no, doc_no, qual_ship_dt, manual_lang_atcd, extra, note, crt_dt, crt_uid) ";
+	$sql_req = $sql_req . " VALUES ('" .$pi_no. "', " .$po_no. ", '" .$doc_no. "', '" .$qual_ship_dt. "', '" .$manual_lang_atcd. "', '" .$extra. "', '" .$note. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+	log_message("debug", $sql_req);
 	
 	$result=$this->db->query($sql_req);
 	$qryInfo['qryInfo']['sql'] = $sql_req;

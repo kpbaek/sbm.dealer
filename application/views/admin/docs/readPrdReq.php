@@ -19,8 +19,7 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 	$sql = $sql . ", DATE_FORMAT(a.udt_dt, '%Y-%m-%d') txt_udt_dt";
 //	$sql = $sql . ", if(a.sndmail_seq is null, a.swm_no, concat(a.swm_no, concat('-',a.sndmail_seq))) txt_swm_no";
 //	$sql = $sql . ", if(a.sndmail_seq is null, DATE_FORMAT(a.cnfm_dt, '%y%m-%d'), concat(DATE_FORMAT(a.cnfm_dt, '%y%m-%d'), concat('-',a.sndmail_seq))) txt_swm_no";
-	$sql = $sql . ", DATE_FORMAT(a.cnfm_dt, '%y%m-%d') txt_swm_no";
-#	$sql = $sql . ", a.swm_no txt_swm_no";
+	$sql = $sql . ", a.doc_no txt_swm_no";
 	$sql = $sql . " FROM";
 	$sql = $sql . " (";
 	$sql = $sql . " SELECT a.*, b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt, b.wrk_tp_atcd, b.udt_dt as order_dt";
@@ -29,7 +28,8 @@ function readPrdReq($prdReq, $pi_no, $po_no){
 	$sql = $sql . " AND a.pi_no = '" .$pi_no. "'";
 	$sql = $sql . " AND a.po_no = " .$po_no;
 	$sql = $sql . " ) a";
-#	echo $sql . "<br>";
+	log_message("debug", "readPrdReq:" .$sql);
+	
 	$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 	
 	if($result!=null){

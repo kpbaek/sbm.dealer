@@ -12,7 +12,8 @@ function readSlip($pi_no){
 	$sql = $sql . ", i.pi_sndmail_seq";
 	$sql = $sql . ", a.sndmail_seq as prd_sndmail_seq";
 //	$sql = $sql . ", concat('SWM', '-', a.swm_no,'-',a.sndmail_seq) txt_swm_no";
-	$sql = $sql . ", concat('SWM', '-', DATE_FORMAT(a.cnfm_dt, '%y%m-%d')) txt_swm_no";
+//	$sql = $sql . ", concat('SWM', '-', DATE_FORMAT(a.cnfm_dt, '%y%m-%d')) txt_swm_no";
+	$sql = $sql . ", a.doc_no txt_swm_no";
 	$sql = $sql . ", a.pi_no txt_pi_no";
 //	$sql = $sql . ", (ifnull(e.qty,0) - ifnull(a.cnt_dlv, 0)) cnt_rest";
 	$sql = $sql . ", (ifnull(e.qty,0) - (select ifnull(sum(cnt), 0) from om_prd_slip where swm_no = a.swm_no)) cnt_rest";

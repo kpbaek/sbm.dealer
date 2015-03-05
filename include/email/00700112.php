@@ -409,6 +409,10 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="column8">&nbsp;</td>
 		  </tr>
 		  <tr class="row271">
+			<td class="column2 style54 s" colspan=8>This is an auto-generated email, please DO NOT REPLY. Any replies to this email will be disregarded.</td>
+		  </tr>
+<!--		  
+		  <tr class="row271">
 			<td class="column2 style54 s" colspan=8>To order other unlisted parts, please fill in the blank and send us. Codes will be filled by us when confirming the order.</td>
 		  </tr>
 		  <tr class="row272">
@@ -427,15 +431,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="column5 style13 null" colspan=3>&nbsp;</td>
 			<td class="column8 style10 s">&nbsp;</td>
 		  </tr>
-		  <tr class="row274">
-			<td class="column0 style10 s">&nbsp;</td>
-			<td class="column2 style9 null">&nbsp;</td>
-			<td class="column3 style9 null">&nbsp;</td>
-			<td class="column4 style17 null">&nbsp;</td>
-			<td class="column5 style13 null" colspan=3>&nbsp;</td>
-			<td class="column8 style10 s">&nbsp;</td>
-		  </tr>
-		  <tr class="row276">
+ 		  <tr class="row276">
 			<td class="column0">&nbsp;</td>
 			<td class="column2 style64 null"></td>
 			<td class="column3 style65 null"></td>
@@ -464,7 +460,7 @@ body { left-margin: 0.43307086614173in; right-margin: 0.39370078740157in; top-ma
 			<td class="column6">&nbsp;</td>
 			<td class="column7 style58 null"></td>
 			<td class="column8">&nbsp;</td>
-		  </tr>
+		  </tr> -->
 		  
 		</tbody>
 	</table>
