@@ -225,17 +225,24 @@ if(isSet($_REQUEST['wrk_tp_atcd'])){
 		}
 		$sql3 = $sql3 . " (sndmail_seq, email_from, email_to, rcpnt_tp_atcd, snd_yn, crt_dt, crt_uid)";
 		// to dealer
-		$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", (select w_email from om_worker where worker_seq = a.worker_seq), a.dealer_uid, '00100010' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+//		$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", (select w_email from om_worker where worker_seq = a.worker_seq), a.dealer_uid, '00100010' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+		if($_SESSION['ss_user']['auth_grp_cd']!="UD"){
+			$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", (select w_email from om_worker where worker_seq = a.worker_seq), a.dealer_uid, '00100010' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+		}else{
+			$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", '" .$email_sbm. "', a.dealer_uid, '00100010' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
+		}
 		$sql3 = $sql3 . " FROM om_dealer a, om_ord_inf b";
 		$sql3 = $sql3 . " WHERE a.dealer_seq = b.dealer_seq";
 		$sql3 = $sql3 . " AND b.pi_no = '" .$pi_no. "'";
 		$sql3 = $sql3 . " UNION";
 		// to worker
+/**	
 		$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", '" .$email_sbm. "', (select w_email from om_worker where worker_seq = a.worker_seq) email_to, '00100020' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
 		$sql3 = $sql3 . " FROM om_dealer a, om_ord_inf b";
 		$sql3 = $sql3 . " WHERE a.dealer_seq = b.dealer_seq";
 		$sql3 = $sql3 . " AND b.pi_no = '" .$pi_no. "'";
 		$sql3 = $sql3 . " UNION";
+*/		
 		// to team_sales
 		$sql3 = $sql3 . " SELECT " .$sendmail_seq. ", '" .$_SESSION['ss_user']['usr_email']. "', (select team_email from om_team where team_atcd = '00600SL0') email_to, '00100040' rcpnt_tp_atcd, 'N', now(), '" .$_SESSION['ss_user']['uid']. "'";
 	}else{	// 사내문서
