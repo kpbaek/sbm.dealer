@@ -197,7 +197,7 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		var mygrid = jQuery("#list").jqGrid({
 		   	url:targetUrl,
 		   	datatype: "json",
-		   	colNames:['','','','','', 'model', 'CODE', 'Part Name', 'IMAGE', '공급단가', 'qty', 'Qty', 'Amount','unit weight', 'Weight(kg)', 'Remark'],
+		   	colNames:['','','','','', 'model', 'CODE', 'Part Name', 'IMAGE', '공급단가', 'qty', 'Amount','unit weight', 'Weight(kg)', 'Remark'],
 		   	colModel:[
 				{name:'id',index:'id', width:70, align:"right",hidden:true},
 				{name:'mdl_cd',index:'mdl_cd', width:70, align:"right",hidden:true},
@@ -209,19 +209,13 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 		   		{name:'part_nm',index:'part_nm', width:120,search:true},
 		   		{name:'pt_img',index:'srl_no', width:50, align:"right",search:true},		
 		   		{name:'price',index:'price', width:50, align:"right", sortable:true,search:true,formatter:'currency', formatoptions:{prefix:"$"}},		
-		   		{name:'qty',index:'qty', width:50, align:"right", sortable:false,search:true,hidden:false,editable:true, edittype:'custom', editoptions:{required:false,custom_element:qty_input,custom_value:qty_value},editrules:{number:true,minValue:0}},		
-		   		{name:'c_qty',index:'qty', width:50, sortable:false,search:true,hidden:true},		
+//		   		{name:'qty',index:'qty', width:50, align:"right", sortable:false,search:true,hidden:false,editable:true, edittype:'custom', editoptions:{required:false,custom_element:qty_input,custom_value:qty_value},editrules:{number:true,minValue:0}},		
+		   		{name:'qty',index:'qty', width:50, align:"right", sortable:false,search:true,hidden:false,editable:true, edittype:'text', editrules:{required:false,number:true,minValue:0}},		
 		   		{name:'amount',index:'amount', width:50, align:"right", sortable:false,search:true,formatter:'currency', formatoptions:{prefix:"$"}},		
 		   		{name:'unit_wgt',index:'id', width:50, align:"right", sortable:true,search:true, hidden:false},		
 		   		{name:'weight',index:'weight', width:50, sortable:false,search:true, hidden:true},		
 		   		{name:'remark',index:'remark', width:80, sortable:false,search:true}		
 			],
-	        onSelectRow: function(rowid) {
-	            var params = $("#list").jqGrid('getRowData',rowid);
-//		        var params = {id:rowid};
-//	            view_detail("#list",params);
-//	            printData(params);
-	        },
 			mtype: "POST",
 //			postData:{sch_mdl_cd:''},
             gridComplete: function(){
@@ -234,16 +228,9 @@ if($_SESSION['ss_user']['auth_grp_cd']=="UD"){
 					}else{
 	                    jQuery("#list").jqGrid('setRowData',ids[i],{chk:'0'});
                     }
-                    //be = "<img src='/images/ci_logo.jpg' height='20'>";
-//                  var c_qty = "<input type=text size='6' height='20' name='c_qty' value='" + rowData.qty + "' onChange='javascript:calcAmt(" + rowId + ", this.value);'>";
-                    var c_qty = "<input type=text size='6' height='20' name='c_qty' value='" + rowData.qty + "' onChange='javascript:calcAmt(" + i + ", this.value);'>";
                     be = "<img src='/images/part/image"  + rowData.srl_no +  ".png' height='20'>";
-                    jQuery("#list").jqGrid('setRowData',rowId,{c_qty:c_qty, pt_img:be});
-//                    jQuery("#list").jqGrid('setSelection',(i+1));
-//                    jQuery('#list').editRow('qty');
-                }
-//                jQuery("#list").jqGrid('editRow','qty',true);
-                
+                    jQuery("#list").jqGrid('setRowData',rowId,{pt_img:be});
+				}
                 initPartList();
 			},	            
             
@@ -529,18 +516,6 @@ if(isset($_REQUEST["edit_mode"])){
 			        }
 			    };
 		$("#addForm").ajaxSubmit(options);
-    }
-
-
-    function checkValue(){
-		if($("#id").val().length == 0){
-    		$("#id").focus();
-    		return false;
-		}else if($("#invdate").val().length == 0){
-    		$("#invdate").focus();
-    		return false;
-		}
-		return true;
     }
 
     function calcAmt(iRow, qty){
