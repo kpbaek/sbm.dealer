@@ -146,7 +146,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 			<td colspan="3" width=10% class="style01">MODEL</td>
-			<td colspan="10" width="30%"><div id="mdl_nm"></div></td>
+			<td colspan="10" width="30%"><div id="txt_mdl_nm"></div></td>
 			<td colspan="2" class="style01">Q'TY</td>
 			<td colspan="4" align=center><div id="qty"></div></td>
 		  </tr>
@@ -687,7 +687,7 @@ function editForm(eqpOrdInfo, eqpOrdDtlList, prdReqInfo, prdReqDtlList) {
 	}
 	$("#buyer").html(eqpOrdInfo.txt_cntry_atcd + "-" + eqpOrdInfo.cmpy_nm);
 	$("#po_no").html(eqpOrdInfo.po_no);
-	$("#mdl_nm").html(eqpOrdInfo.mdl_nm);
+	$("#txt_mdl_nm").html(eqpOrdInfo.txt_mdl_nm);
 	$("#lcd_mdl_nm").html("SBM " + eqpOrdInfo.mdl_nm);
 	$("#box_mdl_nm").html("SBM " + eqpOrdInfo.mdl_nm);
 	$("#label_mdl_nm").html("SBM " + eqpOrdInfo.mdl_nm);

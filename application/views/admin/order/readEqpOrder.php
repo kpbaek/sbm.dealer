@@ -13,16 +13,21 @@ function readEqpOrder($pi_no, $po_no){
 	$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '00M0' and atcd = a.lcd_lang_atcd) txt_lcd_lang_atcd";
 	$sql = $sql . ", (select cmpy_nm from om_dealer where dealer_seq = a.dealer_seq) cmpy_nm";
 	$sql = $sql . ", (select atcd_nm from cm_cd_attr where cd = '0022' and atcd = a.cntry_atcd) txt_cntry_atcd";
-	$sql = $sql . ", (select mdl_nm from om_mdl where mdl_cd = a.mdl_cd) mdl_nm";
-	$sql = $sql . ", DATE_FORMAT(a.delivery_dt, '%Y-%m-%d') delivery_dt";
+	$sql = $sql . ", if(mdl_cd in ('0007','0009'), concat(mdl_nm, concat('R',lan_L),if(a.lcd_color_atcd='00L00002','C','')), if(mdl_cd in ('3000'), concat(mdl_nm, concat('F',rjt_pkt_tp),''),mdl_nm)) txt_mdl_nm";
+	$sql = $sql . ", DATE_FORMAT(a.delivery_dt, '%Y-%m-%d') txt_delivery_dt";
 	$sql = $sql . " FROM";
 	$sql = $sql . " (";
-	$sql = $sql . " SELECT a.*, b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt, b.wrk_tp_atcd, b.udt_dt as order_dt";
+	$sql = $sql . " SELECT a.*, b.cntry_atcd, b.dealer_seq, b.worker_seq, b.premium_rate, b.tot_amt, b.cnfm_yn, b.cnfm_dt, b.wrk_tp_atcd, b.udt_dt as order_dt,";
+	$sql = $sql . " (CASE WHEN a.rjt_pkt_tp_atcd = ('00D00001') THEN 'A'";
+	$sql = $sql . "  WHEN a.rjt_pkt_tp_atcd = ('00D00002') THEN 'I' END) rjt_pkt_tp,";
+	$sql = $sql . " (SELECT mdl_nm FROM om_mdl WHERE mdl_cd = a.mdl_cd) mdl_nm,";
+	$sql = $sql . " (SELECT if(count(*)>0,'L','') FROM om_ord_eqp_dtl where pi_no = a.pi_no and po_no = a.po_no and om_ord_eqp_dtl.atcd = '00A00001') lan_L";
 	$sql = $sql . " FROM om_ord_eqp a, om_ord_inf b";
 	$sql = $sql . " WHERE a.pi_no = b.pi_no";
 	$sql = $sql . " AND a.pi_no = '" .$pi_no. "'";
 	$sql = $sql . " AND a.po_no = " .$po_no;
 	$sql = $sql . " ) a";
+	log_message("debug", "readEqpOrder:" .$sql);
 	
 	$result = mysql_query( $sql ) or die("Couldn t execute query.".mysql_error());
 	$row = mysql_fetch_array($result,MYSQL_ASSOC);
@@ -102,10 +107,12 @@ function readEqpOrder($pi_no, $po_no){
 	$eqpOrder['eqpOrdInfo']['txt_courier_atcd'] = $row['txt_courier_atcd'];
 	$eqpOrder['eqpOrdInfo']['txt_payment_atcd'] = $row['txt_payment_atcd'];
 	$eqpOrder['eqpOrdInfo']['txt_incoterms_atcd'] = $row['txt_incoterms_atcd'];
+	$eqpOrder['eqpOrdInfo']['txt_delivery_dt'] = $row['txt_delivery_dt'];
 	
 	$eqpOrder['eqpOrdInfo']['wrk_tp_atcd'] = $row['wrk_tp_atcd'];
 	$eqpOrder['eqpOrdInfo']['txt_cntry_atcd'] = $row['txt_cntry_atcd'];
 	$eqpOrder['eqpOrdInfo']['mdl_nm'] = $row['mdl_nm'];
+	$eqpOrder['eqpOrdInfo']['txt_mdl_nm'] = $row['txt_mdl_nm'];
 	$eqpOrder['eqpOrdInfo']['txt_pwr_cab_atcd'] = $row['txt_pwr_cab_atcd'];
 	
 	$i=0;

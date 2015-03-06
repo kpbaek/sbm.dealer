@@ -116,7 +116,7 @@ function getPrdReqMailCtnt($ctnt, $prdReq){
 	$ctnt = str_replace("@po_no", $prdReq['eqpOrdInfo']["po_no"], $ctnt);
 	$ctnt = str_replace("@qty", $prdReq['eqpOrdInfo']["qty"], $ctnt);
 	$ctnt = str_replace("@buyer", $prdReq['eqpOrdInfo']["txt_cntry_atcd"] . "-" . $prdReq['eqpOrdInfo']["cmpy_nm"], $ctnt);
-	$ctnt = str_replace("@mdl_nm", $prdReq['eqpOrdInfo']["mdl_nm"], $ctnt);
+	$ctnt = str_replace("@txt_mdl_nm", $prdReq['eqpOrdInfo']["txt_mdl_nm"], $ctnt);
 	$ctnt = str_replace("@txt_lcd_lang_atcd", $prdReq['eqpOrdInfo']["txt_lcd_lang_atcd"], $ctnt);
 	$ctnt = str_replace("@txt_lcd_color_atcd", $prdReq['eqpOrdInfo']["txt_lcd_color_atcd"], $ctnt);
 	$ctnt = str_replace("@lcd_mdl_nm", $prdReq['eqpOrdInfo']["mdl_nm"], $ctnt);

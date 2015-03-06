@@ -83,7 +83,7 @@ body { left-margin: 0.7in; right-margin: 0.7in; top-margin: 0.75in; bottom-margi
 		  </tr>
 		  <tr>
 			<td colspan="3" width=10% class="style01">MODEL</td>
-			<td colspan="10" width="30%" align=center>@mdl_nm</td>
+			<td colspan="10" width="30%" align=center>@txt_mdl_nm</td>
 			<td></td>
 			<td colspan="1" class="style01">Q'TY</td>
 			<td colspan="4" align=center>@qty</td>

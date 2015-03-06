@@ -274,8 +274,8 @@ if($swm_no!=""){
 	$doc_no = $row->doc_no;
 	
 	$sql_req = "INSERT INTO om_prd_req";
-	$sql_req = $sql_req . " (pi_no, po_no, doc_no, qual_ship_dt, manual_lang_atcd, extra, note, crt_dt, crt_uid) ";
-	$sql_req = $sql_req . " VALUES ('" .$pi_no. "', " .$po_no. ", '" .$doc_no. "', '" .$qual_ship_dt. "', '" .$manual_lang_atcd. "', '" .$extra. "', '" .$note. "', now(), '" .$_SESSION['ss_user']['uid']. "')";
+	$sql_req = $sql_req . " (pi_no, po_no, doc_no, qual_ship_dt, manual_lang_atcd, extra, note, crt_dt, crt_uid, udt_dt) ";
+	$sql_req = $sql_req . " VALUES ('" .$pi_no. "', " .$po_no. ", '" .$doc_no. "', '" .$qual_ship_dt. "', '" .$manual_lang_atcd. "', '" .$extra. "', '" .$note. "', now(), '" .$_SESSION['ss_user']['uid']. "', now())";
 	log_message("debug", $sql_req);
 	
 	$result=$this->db->query($sql_req);
